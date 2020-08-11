@@ -135,6 +135,10 @@
   "lbl_ConfirmDeposit":"Please confirm the deposit information.",
   "lbl_SelectedBank":"Selected Bank",
   "lbl_SelectedChannel":"Selected Channel",
-  "lbl_Information":"Information"
+  "lbl_Information":"Information",
+  "lbl_DepositAmountReq":"Please Enter The Deposit Amount",
+  "lbl_No":"No",
+  "lbl_Yes":"Yes"
+
 
 }
