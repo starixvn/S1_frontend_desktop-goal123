@@ -429,6 +429,7 @@ const Content = () => {
 							onChange={EditField.bind(null, "username")}
 							onBlur={checkValue.bind(null, "username")}
 							warning={warning.username}
+							warningIcon="icon-warning"
 						/>
 
 						<InputboxPSW
@@ -454,6 +455,7 @@ const Content = () => {
 							onChange={EditField.bind(null, "email")}
 							onBlur={checkValue.bind(null, "email")}
 							warning={warning.email}
+							warningIcon="icon-warning"
 						/>
 
 						<div className="inputBox">

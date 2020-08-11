@@ -157,6 +157,7 @@ const Content = () => {
 							onBlur={checkValue.bind(null, "username")}
 							warning={warning.username}
 							tip={tip.username}
+							warningIcon="icon-warning"
 						/>
 
 						<InputboxPSW

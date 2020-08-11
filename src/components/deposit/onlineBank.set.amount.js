@@ -4,6 +4,7 @@ import config from "../../config";
 import LimitTip from "./limitTip";
 import { defActionType } from "./onlineBank.reducer";
 import { checkAmount } from "../common/common";
+import Inputbox, { defValueType } from "../common/inputbox";
 
 export default ({ bankInfo, _isConvert, amount, dispatch }) => {
 	const { t } = useTranslation();
@@ -66,27 +67,21 @@ export default ({ bankInfo, _isConvert, amount, dispatch }) => {
 							_isConvert={_isConvert}
 						/>
 					</div>
-					<div className="inputBox">
-						<input
-							placeholder="Please Enter The Deposit Amount"
-							defaultValue={amount}
-							onBlur={EditAmount}
-						/>
-						<div className="iconModule">
-							{!warning.status && warning.status !== null ? (
-								<i className="icon icon-checkmark"></i>
-							) : warning.status ? (
-								<i className="icon icon-cross"></i>
-							) : null}
-						</div>
-					</div>
-					<div className={`tip${warning.status ? " active" : ""}`}>
-						{warning.msg}
-					</div>
+					<Inputbox
+						placeholder={t("lbl_DepositAmountReq")}
+						value={amount}
+						onChange={EditAmount}
+						warning={warning.status}
+						warningIcon="icon-cross"
+						checkIcon={`${
+							warning.status === false ? "icon-checkmark" : null
+						}`}
+						tip={warning.status ? warning.msg : null}
+					/>
 					<div className="btnGroup">
 						<button
 							className={`${
-								!warning.status && warning.status !== null
+								warning.status === false
 									? "btn-check"
 									: "btn-cancel"
 							}`}

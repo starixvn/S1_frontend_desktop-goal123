@@ -20,7 +20,11 @@ export default props => {
 				/>
 				{props.warning ? (
 					<div className="iconModule">
-						<i className="icon icon-warning"></i>
+						<i className={`icon ${props.warningIcon}`}></i>
+					</div>
+				) : props.checkIcon ? (
+					<div className="iconModule">
+						<i className={`icon ${props.checkIcon}`}></i>
 					</div>
 				) : null}
 			</div>
