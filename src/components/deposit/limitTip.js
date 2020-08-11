@@ -9,11 +9,11 @@ export default ({
 	_isConvert
 }) => {
 	return !minAmount && !maxAmount ? (
-		<span className="txt-orange">
+		<span className="txt-lightgray">
 			{displayTextLimit} {displayTextUnLimit}
 		</span>
 	) : (
-		<span className="txt-orange">
+		<span className="txt-lightgray">
 			{displayTextLimit}{" "}
 			{`${number_format(minAmount, _isConvert)} ~ ${number_format(
 				maxAmount,

@@ -19,11 +19,11 @@ export const TransactionHistory = props => {
 		btnGroup = (
 			<div className="btnGroup">
 				<button
-					className="orange icon icon-pencil"
+					className="btn-check icon icon-pencil"
 					onClick={props.SubmitProof}>
 					{t("lbl_SubmitProof")}
 				</button>
-				<button className="gray" onClick={props.ClickCancel}>
+				<button className="btn-cancel" onClick={props.ClickCancel}>
 					{t("lbl_Cancel")}
 				</button>
 			</div>
@@ -35,7 +35,7 @@ export const TransactionHistory = props => {
 			<div>{props.idx}</div>
 			<div>
 				{moment(props.createTime).format("MM/DD/YYYY")}
-				<span className="txt-blue">
+				<span className="txt-blue2">
 					{moment(props.createTime).format("hh:mm:ss A")}
 				</span>
 			</div>

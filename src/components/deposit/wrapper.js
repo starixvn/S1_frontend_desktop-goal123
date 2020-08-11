@@ -7,7 +7,7 @@ export default ({ step, children }) => {
 
 	return (
 		<div className="infoModule">
-			<div className="deposit-title icon icon-library">
+			<div className="inside-title icon icon-library">
 				<span>{t("lbl_Deposit")}</span>
 				<div>{t("lbl_DepositOptionHint")}</div>
 			</div>

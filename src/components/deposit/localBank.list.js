@@ -39,7 +39,7 @@ export default () => {
 
 	return localBankList !== null && localBankList.length > 0 ? (
 		<div className="subModule">
-			<div className="subModuleTitle icon icon-plus">
+			<div className="subModuleTitle">
 				<div>
 					<span>{t("lbl_WireTransfers")}</span>
 					<span>

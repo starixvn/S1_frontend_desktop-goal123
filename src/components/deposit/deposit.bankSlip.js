@@ -230,8 +230,8 @@ export class Module extends Component {
 					</ul>
 				</div>
 				<form onSubmit={this.clickSubmit}>
-					<div className="inputBox-white">
-						<i className="txt-blue">
+					<div className="inputBox">
+						<i className="txt-blue12">
 							{this.props.i18n("lbl_DepositTime")}
 						</i>
 						<DateTime
@@ -245,8 +245,8 @@ export class Module extends Component {
 							<i className="icon icon-information-solid"></i>
 						</div>
 					</div>
-					<div className="inputBox-white">
-						<i className="txt-blue">
+					<div className="inputBox">
+						<i className="txt-blue12">
 							{this.props.i18n("lbl_Refno")}
 						</i>
 						<input
@@ -260,11 +260,11 @@ export class Module extends Component {
 					<div className="btnGroup">
 						<button
 							type="button"
-							className="gray"
+							className="btn-cancel"
 							onClick={this.props.ClosePopBox}>
 							{this.props.i18n("lbl_Cancel")}
 						</button>
-						<button className="orange" type="submit">
+						<button className="btn-check" type="submit">
 							{this.props.i18n("lbl_Submit")}
 						</button>
 					</div>

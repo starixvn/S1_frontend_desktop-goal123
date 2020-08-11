@@ -109,8 +109,8 @@ export default () => {
 			<div className="platformName">
 				<div className={`icon icon-${gName}`}></div>
 				<div>
-					<div>{t("lbl_MobileDeposit")}</div>
-					<div className="txt-orange">
+					<div className="txt-yellow">{t("lbl_MobileDeposit")}</div>
+					<div className="txt-red">
 						{t("lbl_CreditTime")}:{t("lbl_Instant")}
 					</div>
 				</div>

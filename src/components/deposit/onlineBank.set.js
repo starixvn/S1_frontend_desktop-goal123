@@ -120,8 +120,8 @@ export default () => {
 			<div className="platformName">
 				<div className={`icon icon-${pName}`}></div>
 				<div>
-					<div>{t("lbl_OnlineBanking")}</div>
-					<div className="txt-orange">
+					<div className="txt-yellow">{t("lbl_OnlineBanking")}</div>
+					<div className="txt-red">
 						{t("lbl_CreditTime")}:{t("lbl_Instant")}
 					</div>
 				</div>

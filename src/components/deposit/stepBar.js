@@ -33,10 +33,5 @@ export default ({ step }) => {
 
 	let percent = (step / defStep.length) * 100;
 
-	return (
-		<div className="stepBar">
-			<div className="stepLine" style={{ width: percent + "%" }}></div>
-			{rows}
-		</div>
-	);
+	return <div className="stepBar">{rows}</div>;
 };
