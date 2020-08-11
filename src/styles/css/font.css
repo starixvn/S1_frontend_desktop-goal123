@@ -5,7 +5,6 @@
 
 .icon:before {
   font-family: 'icomoon';
-  margin-right: 5px;
 }
 
 .casinoList .icon-GPI::before {
@@ -216,6 +215,10 @@
 
 .icon-cancel-circle:before {
   content: "\ea0d";
+}
+
+.icon-cross:before {
+  content: "\ea0f";
 }
 
 .icon-checkmark:before {
@@ -572,6 +575,14 @@
 
 .icon-message-typing:before {
   content: "\e933";
+}
+
+.icon-error_outline:before {
+  content: "\e952";
+}
+
+.icon-error:before {
+  content: "\e954";
 }
 
 .icon-keyboard_arrow_right:before {
