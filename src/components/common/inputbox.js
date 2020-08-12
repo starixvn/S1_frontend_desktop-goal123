@@ -4,7 +4,10 @@ export default props => {
 	return (
 		<>
 			<div className="inputBox">
-				<i className={`icon ${props.icon}`}></i>
+				{props.icon ? <i className={`icon ${props.icon}`}></i> : null}
+				{props.title ? (
+					<i className="txt-blue12">{props.title}</i>
+				) : null}
 				<input
 					type={props.inputType ?? "text"}
 					placeholder={props.placeholder}

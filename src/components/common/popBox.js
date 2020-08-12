@@ -3,11 +3,13 @@ import { popBoxContext } from "./context";
 import Cancel from "./popBox.cancel";
 import UploadBankSlip from "./popBox.uploadBankSlip";
 import Success from "./popBox.success";
+import ErrorMsg from "./popBox.errorMsg";
 
 export const defPopBoxType = {
 	Cancel: "Cancel",
 	UploadBankSlip: "UploadBankSlip",
-	Success: "Success"
+	Success: "Success",
+	ErrorMsg: "ErrorMsg"
 };
 
 export default () => {
@@ -28,7 +30,13 @@ export default () => {
 			content = <Success btnBar={popBox.btnBar} />;
 			break;
 
-		default:
+		case defPopBoxType.ErrorMsg:
+			content = (
+				<ErrorMsg btnBar={popBox.btnBar} message={popBox.message} />
+			);
+			break;
+
+		case defPopBoxType.default:
 			break;
 	}
 

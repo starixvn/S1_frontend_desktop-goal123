@@ -1,0 +1,37 @@
+import React from "react";
+import Inputbox from "../common/inputbox";
+
+export default props => {
+	return (
+		<div className="subModuleList">
+			<div className="walletTransfer">
+				<div className="walletModule">
+					<div className="walletBalanceModule from">
+						<span className="active">
+							{props.i18n(props.transferFrom)}
+						</span>
+					</div>
+					<button
+						className="icon icon-arrow-right2 active"
+						onClick={props.changeDirection}></button>
+					<div className="walletBalanceModule to">
+						<span className="active">
+							{props.i18n(props.transferTo)}
+						</span>
+					</div>
+				</div>
+				<Inputbox
+					title={props.i18n("lbl_Amount")}
+					checkIcon="icon-information-solid"
+					value={props.amount}
+					onChange={props.onChange}
+				/>
+				<div className="btnGroup">
+					<button className="btn-check" onClick={props.clickSubmit}>
+						{props.i18n("lbl_Submit")}
+					</button>
+				</div>
+			</div>
+		</div>
+	);
+};
