@@ -4,12 +4,16 @@ import Cancel from "./popBox.cancel";
 import UploadBankSlip from "./popBox.uploadBankSlip";
 import Success from "./popBox.success";
 import ErrorMsg from "./popBox.errorMsg";
+import Login from "./popBox.login";
+import Join from "./popBox.join";
 
 export const defPopBoxType = {
 	Cancel: "Cancel",
 	UploadBankSlip: "UploadBankSlip",
 	Success: "Success",
-	ErrorMsg: "ErrorMsg"
+	ErrorMsg: "ErrorMsg",
+	Login: "Login",
+	Join: "Join"
 };
 
 export default () => {
@@ -34,6 +38,14 @@ export default () => {
 			content = (
 				<ErrorMsg btnBar={popBox.btnBar} message={popBox.message} />
 			);
+			break;
+
+		case defPopBoxType.Login:
+			content = <Login />;
+			break;
+
+		case defPopBoxType.Join:
+			content = <Join />;
 			break;
 
 		case defPopBoxType.default:

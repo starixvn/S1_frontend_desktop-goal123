@@ -407,115 +407,136 @@ const Content = () => {
 	};
 
 	return (
-		<main className="joinlogin">
-			<div className="joinloginModule">
-				<img src={joinBanner} />
-				<form className="joinloginFunction" onSubmit={clickSubmit}>
-					<div className="loginSwitch">
-						<span className="txt-orange">{t("lbl_JoinNow")}</span>
-						<div className="switch">
-							<button className="switchBtn"></button>
-						</div>
-						<span>{t("lbl_Login")}</span>
-					</div>
-
-					<div className="inputModule">
-						<Inputbox
-							icon="icon-member"
-							placeholder={t("lbl_Username")}
-							value={userValue.username}
-							tip={tip.username}
-							onFocus={onFocusCol.bind(null, "username")}
-							onChange={EditField.bind(null, "username")}
-							onBlur={checkValue.bind(null, "username")}
-							warning={warning.username}
-							warningIcon="icon-warning"
-						/>
-
-						<InputboxPSW
-							icon="icon-key"
-							inputType={`${!showPsw ? "password" : "text"}`}
-							placeholder={t("lbl_Password")}
-							value={userValue.password}
-							tip={tip.password}
-							onFocus={onFocusCol.bind(null, "password")}
-							onChange={EditField.bind(null, "password")}
-							onBlur={checkValue.bind(null, "password")}
-							showPsw={showPsw}
-							showPswHandler={showPswHandler}
-							warning={warning.password}
-						/>
-
-						<Inputbox
-							icon="icon-email"
-							placeholder={t("lbl_Email")}
-							value={userValue.email}
-							tip={tip.email}
-							onFocus={onFocusCol.bind(null, "email")}
-							onChange={EditField.bind(null, "email")}
-							onBlur={checkValue.bind(null, "email")}
-							warning={warning.email}
-							warningIcon="icon-warning"
-						/>
-
-						<div className="inputBox">
-							<Dropdown
-								mainKey="join_currency"
-								icon="icon-coin-dollar"
-								options={siteCurrency}
-								selectedIdx={userValue.currency}
-								i18n={t}
-								onSelectItem={onSelectItem}
-								clickDropdown={clickDropdown}
-							/>
-						</div>
-
-						{tip.currency !== "" ? (
-							<div className="tip active">{tip.currency}</div>
-						) : null}
-					</div>
-
-					<div className="Terms">
-						<Checkbox
-							id="c1"
-							checked={userValue.termsCheck}
-							onChange={checkboxHandler.bind(null, "termsCheck")}>
-							{t("lbl_Check18TC1")}&nbsp;
-							<a
-								target="_blank"
-								href={TandC(defaultLangId).terms}>
-								{t("lbl_TermsConditions")}
+		<div id="popup" className="active">
+			<div className="pop">
+				<div className="joinpop active">
+					<div className="joinloginModule">
+						<img src={joinBanner} />
+						<form
+							className="joinloginFunction"
+							onSubmit={clickSubmit}>
+							<span className="title txt-yellow">
+								{t("lbl_JoinNow")}
+							</span>
+							<div>{t("lbl_LoginMsg")}</div>
+							<a href="" className="txt-blue2">
+								{t("lbl_LoginHere")}
 							</a>
-							&nbsp;
-							{t("lbl_Check18TC2")}&nbsp;
-							<a target="_blank" href={TandC(defaultLangId).rule}>
-								{t("lbl_RuleRegulations")}
-							</a>
-							&nbsp;
-							{t("lbl_Check18TC3")}&nbsp;{config.siteName}.
-						</Checkbox>
 
-						<Checkbox
-							id="c2"
-							checked={userValue.ageCheck}
-							onChange={checkboxHandler.bind(null, "ageCheck")}>
-							{t("lbl_Check18TC4")}
-						</Checkbox>
-					</div>
-					{tip.checkbox !== "" ? (
-						<div className="tip active">{tip.checkbox}</div>
-					) : null}
+							<div className="inputModule">
+								<Inputbox
+									icon="icon-member txt-blue12"
+									placeholder={t("lbl_Username")}
+									value={userValue.username}
+									tip={tip.username}
+									onFocus={onFocusCol.bind(null, "username")}
+									onChange={EditField.bind(null, "username")}
+									onBlur={checkValue.bind(null, "username")}
+									warning={warning.username}
+									warningIcon="icon-warning"
+								/>
 
-					<div className="btnGroup">
-						<button type="submit" className="gray">
-							{t("lbl_Cancel")}
-						</button>
-						<button className="orange" onClick={clickSubmit}>
-							{t("lbl_Submit")}
-						</button>
+								<InputboxPSW
+									icon="icon-key txt-blue12"
+									inputType={`${
+										!showPsw ? "password" : "text"
+									}`}
+									placeholder={t("lbl_Password")}
+									value={userValue.password}
+									tip={tip.password}
+									onFocus={onFocusCol.bind(null, "password")}
+									onChange={EditField.bind(null, "password")}
+									onBlur={checkValue.bind(null, "password")}
+									showPsw={showPsw}
+									showPswHandler={showPswHandler}
+									warning={warning.password}
+								/>
+
+								<Inputbox
+									icon="icon-email txt-blue12"
+									placeholder={t("lbl_Email")}
+									value={userValue.email}
+									tip={tip.email}
+									onFocus={onFocusCol.bind(null, "email")}
+									onChange={EditField.bind(null, "email")}
+									onBlur={checkValue.bind(null, "email")}
+									warning={warning.email}
+									warningIcon="icon-warning"
+								/>
+
+								<div className="inputBox">
+									<Dropdown
+										mainKey="join_currency"
+										icon="icon-coin-dollar txt-blue12"
+										options={siteCurrency}
+										selectedIdx={userValue.currency}
+										i18n={t}
+										onSelectItem={onSelectItem}
+										clickDropdown={clickDropdown}
+									/>
+								</div>
+
+								{tip.currency !== "" ? (
+									<div className="tip active">
+										{tip.currency}
+									</div>
+								) : null}
+							</div>
+
+							<div className="Terms">
+								<Checkbox
+									id="c1"
+									checked={userValue.termsCheck}
+									onChange={checkboxHandler.bind(
+										null,
+										"termsCheck"
+									)}>
+									{t("lbl_Check18TC1")}&nbsp;
+									<a
+										target="_blank"
+										href={TandC(defaultLangId).terms}>
+										{t("lbl_TermsConditions")}
+									</a>
+									&nbsp;
+									{t("lbl_Check18TC2")}&nbsp;
+									<a
+										target="_blank"
+										href={TandC(defaultLangId).rule}>
+										{t("lbl_RuleRegulations")}
+									</a>
+									&nbsp;
+									{t("lbl_Check18TC3")}&nbsp;{config.siteName}
+									.
+								</Checkbox>
+
+								<Checkbox
+									id="c2"
+									checked={userValue.ageCheck}
+									onChange={checkboxHandler.bind(
+										null,
+										"ageCheck"
+									)}>
+									{t("lbl_Check18TC4")}
+								</Checkbox>
+							</div>
+							{tip.checkbox !== "" ? (
+								<div className="tip active">{tip.checkbox}</div>
+							) : null}
+
+							<div className="btnGroup">
+								<button type="submit" className="btn-cancel">
+									{t("lbl_Cancel")}
+								</button>
+								<button
+									className="btn-check"
+									onClick={clickSubmit}>
+									{t("lbl_Submit")}
+								</button>
+							</div>
+						</form>
 					</div>
-				</form>
+				</div>
 			</div>
-		</main>
+		</div>
 	);
 };

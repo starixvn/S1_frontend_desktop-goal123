@@ -131,60 +131,66 @@ const Content = () => {
 	};
 
 	return (
-		<main className="joinlogin">
-			<div className="joinloginModule">
-				<img src={loginBanner} alt="" />
-				<form className="joinloginFunction" onSubmit={handleLogin}>
-					<div className="loginSwitch">
-						<span>{t("lbl_JoinNow")}</span>
-						<div className="switch active">
-							<button className="switchBtn"></button>
-						</div>
-						<span className="txt-orange">{t("lbl_Login")}</span>
-					</div>
-					<div className="noAccount">
-						{t("lbl_DontHaveAccount")}&nbsp;
-						<a href="" className="txt-orange">
-							{t("lbl_JoinNow")}
-						</a>
-					</div>
-					<div className="inputModule">
-						<Inputbox
-							icon="icon-member"
-							placeholder={t("lbl_Username")}
-							value={userValue.username}
-							onChange={EditField.bind(null, "username")}
-							onBlur={checkValue.bind(null, "username")}
-							warning={warning.username}
-							tip={tip.username}
-							warningIcon="icon-warning"
-						/>
+		<div id="popup" className="active">
+			<div className="pop">
+				<div className="loginpop active">
+					<div className="joinloginModule">
+						<img src={loginBanner} alt="" />
+						<form
+							className="joinloginFunction"
+							onSubmit={handleLogin}>
+							<span className="title txt-yellow">
+								{t("lbl_Login")}
+							</span>
+							<div className="noAccount">
+								{t("lbl_DontHaveAccount")}&nbsp;
+								<a href="" className="txt-blue2">
+									{t("lbl_JoinNow")}
+								</a>
+							</div>
+							<div className="inputModule">
+								<Inputbox
+									icon="icon-member txt-blue12"
+									placeholder={t("lbl_Username")}
+									value={userValue.username}
+									onChange={EditField.bind(null, "username")}
+									onBlur={checkValue.bind(null, "username")}
+									warning={warning.username}
+									tip={tip.username}
+									warningIcon="icon-warning"
+								/>
 
-						<InputboxPSW
-							icon="icon-key"
-							inputType={`${!showPsw ? "password" : "text"}`}
-							placeholder={t("lbl_Password")}
-							value={userValue.password}
-							onChange={EditField.bind(null, "password")}
-							onBlur={checkValue.bind(null, "password")}
-							showPsw={showPsw}
-							showPswHandler={showPswHandler}
-							warning={warning.password}
-							tip={tip.password}
-						/>
+								<InputboxPSW
+									icon="icon-key txt-blue12"
+									inputType={`${
+										!showPsw ? "password" : "text"
+									}`}
+									placeholder={t("lbl_Password")}
+									value={userValue.password}
+									onChange={EditField.bind(null, "password")}
+									onBlur={checkValue.bind(null, "password")}
+									showPsw={showPsw}
+									showPswHandler={showPswHandler}
+									warning={warning.password}
+									tip={tip.password}
+								/>
 
-						<a href="" className="txt-orange">
-							{t("lbl_ForgetPassword")}
-						</a>
+								<a href="" className="txt-blue2">
+									{t("lbl_ForgetPassword")}
+								</a>
+							</div>
+							<div className="btnGroup">
+								<button className="btn-cancel">
+									{t("lbl_Cancel")}
+								</button>
+								<button className="btn-check" type="submit">
+									{t("lbl_Login")}
+								</button>
+							</div>
+						</form>
 					</div>
-					<div className="btnGroup">
-						<button className="gray">{t("lbl_Cancel")}</button>
-						<button className="orange" type="submit">
-							{t("lbl_Login")}
-						</button>
-					</div>
-				</form>
+				</div>
 			</div>
-		</main>
+		</div>
 	);
 };

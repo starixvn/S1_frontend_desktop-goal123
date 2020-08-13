@@ -22,32 +22,43 @@ export const LOGIN = async ({ userName, password }) => {
 			if (res.data.errorCode === 0) {
 				let userlangId = res.data.message.replace("/", "");
 
-				api_accountStrict_GetCustProfile().then(res_custInfo => {
-					let _loginUser = {
-						userName: userName,
-						langId: userlangId,
-						isLogin: true
-					};
+				const getCustInfo = async () => {
+					const r = await api_accountStrict_GetCustProfile().then(
+						res_custInfo => {
+							let _loginUser = {
+								userName: userName,
+								langId: userlangId,
+								isLogin: true
+							};
 
-					if (res_custInfo.data.errorCode === 0) {
-						let data = res_custInfo.data.data;
-						_loginUser = {
-							..._loginUser,
-							...data
-						};
-					}
-					errMsg = "";
-					isLogin = true;
-					userData = _loginUser;
-				});
+							if (res_custInfo.data.errorCode === 0) {
+								let data = res_custInfo.data.data;
+								_loginUser = {
+									..._loginUser,
+									...data
+								};
+							}
+							return {
+								errorCode: 0,
+								message: "",
+								isLogin: true,
+								userData: _loginUser
+							};
+						}
+					);
+
+					return r;
+				};
+
+				return getCustInfo();
+			} else {
+				return {
+					errorCode: res.data.errorCode,
+					message: errMsg,
+					isLogin: isLogin,
+					userData: userData
+				};
 			}
-
-			return {
-				errorCode: res.data.errorCode,
-				message: errMsg,
-				isLogin: isLogin,
-				userData: userData
-			};
 		},
 		err => {
 			return {

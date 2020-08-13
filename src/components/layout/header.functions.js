@@ -1,14 +1,17 @@
 import React, { useContext } from "react";
 import { Link } from "@reach/router";
-import { userInfoContext } from "../common/context";
+import { userInfoContext, popBoxContext } from "../common/context";
 import { useTranslation } from "react-i18next";
 import path from "../../path";
 import DropdownHeader, { defElemType } from "../common/dropdown.headerLink";
 import Wallet from "./header.wallet";
 import { LOGOUT } from "../../service/auth";
+import { defPopBoxType } from "../common/popBox";
 
 export default () => {
 	const { userInfo } = useContext(userInfoContext);
+	const { setPopBox } = useContext(popBoxContext);
+
 	return userInfo.isLogin === true ? (
 		<AfterLogin />
 	) : (
@@ -18,14 +21,36 @@ export default () => {
 
 const BeforeLogin = ({ langId }) => {
 	const { t } = useTranslation();
+	const { setPopBox } = useContext(popBoxContext);
+
+	const clickJoin = () => {
+		setPopBox({
+			isOpen: true,
+			popBoxType: defPopBoxType.Join
+		});
+	};
+
+	const clickLogin = () => {
+		setPopBox({
+			isOpen: true,
+			popBoxType: defPopBoxType.Login
+		});
+	};
+
 	return (
 		<>
-			<Link to={`${langId}/${path.join.root}`} className="join">
+			<button className="join" onClick={clickJoin}>
+				{t("lbl_JoinNow")}
+			</button>
+			<button className="login" onClick={clickLogin}>
+				{t("lbl_Login")}
+			</button>
+			{/* <Link to={`${langId}/${path.join.root}`} className="join">
 				{t("lbl_JoinNow")}
 			</Link>
 			<Link to={`${langId}/${path.login.root}`} className="login">
 				{t("lbl_Login")}
-			</Link>
+			</Link> */}
 		</>
 	);
 };
