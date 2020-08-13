@@ -45,12 +45,6 @@ const BeforeLogin = ({ langId }) => {
 			<button className="login" onClick={clickLogin}>
 				{t("lbl_Login")}
 			</button>
-			{/* <Link to={`${langId}/${path.join.root}`} className="join">
-				{t("lbl_JoinNow")}
-			</Link>
-			<Link to={`${langId}/${path.login.root}`} className="login">
-				{t("lbl_Login")}
-			</Link> */}
 		</>
 	);
 };

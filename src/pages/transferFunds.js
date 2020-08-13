@@ -4,11 +4,7 @@ import Layout from "../components/common/layout";
 import { useTranslation } from "react-i18next";
 import { userInfoContext, popBoxContext } from "../components/common/context";
 import { api_account_GetWalletInfo } from "../service/api/account";
-import {
-	isConvert,
-	number_format,
-	checkAmount
-} from "../components/common/common.js";
+import { isConvert, checkAmount } from "../components/common/common.js";
 import { api_tp_Transfer, api_tp_GetTransferRecent } from "../service/api/tp";
 import { defPopBoxType } from "../components/common/popBox";
 import RecentHistory from "../components/transferFunds/recentHistory";
@@ -280,7 +276,6 @@ const Content = () => {
 			let _wallet = getWalletInfo.find(item => {
 				return item.displayKey === direction.transferFrom;
 			});
-			let tpId = _direction;
 			Transfer(_wallet.id, real_amount, _direction);
 		}
 	};
