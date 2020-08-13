@@ -5,15 +5,16 @@ import Inputbox from "./inputbox";
 import InputboxPSW from "./inputbox.password";
 import { LOGIN } from "../../service/auth";
 import { userInfoContext, popBoxContext } from "./context";
+import { defPopBoxType } from "../common/popBox";
 
 const initValue = {
 	username: "",
 	password: ""
 };
 
-const initWarning = {
-	username: false,
-	password: false
+const initTip = {
+	username: { warnigIcon: false, msg: "" },
+	password: { warnigIcon: false, msg: "" }
 };
 
 const LoginPanel = () => {
@@ -21,8 +22,7 @@ const LoginPanel = () => {
 	const { userInfo, setUserInfo } = useContext(userInfoContext);
 	const [userValue, setUserValue] = useState(initValue);
 	const { setPopBox } = useContext(popBoxContext);
-	const [warning, setWarning] = useState(initWarning);
-	const [tip, setTip] = useState(initValue);
+	const [tip, setTip] = useState(initTip);
 	const [showPsw, setShowPsw] = useState(false);
 	const isMountedRef = useRef(null);
 
@@ -48,17 +48,23 @@ const LoginPanel = () => {
 
 		if (val === "") {
 			setTip(prev => {
-				return { ...prev, [col]: t(msg) };
-			});
-			setWarning(prev => {
-				return { ...prev, [col]: true };
+				return {
+					...prev,
+					[col]: {
+						warningIcon: true,
+						msg: t(msg)
+					}
+				};
 			});
 		} else {
 			setTip(prev => {
-				return { ...prev, [col]: "" };
-			});
-			setWarning(prev => {
-				return { ...prev, [col]: false };
+				return {
+					...prev,
+					[col]: {
+						warningIcon: false,
+						msg: ""
+					}
+				};
 			});
 		}
 	};
@@ -86,19 +92,25 @@ const LoginPanel = () => {
 				) {
 					if (isMountedRef.current) {
 						setTip(prev => {
-							return { ...prev, username: res.message };
-						});
-						setWarning(prev => {
-							return { ...prev, username: true };
+							return {
+								...prev,
+								username: {
+									warnigIcon: true,
+									msg: res.message
+								}
+							};
 						});
 					}
 				} else if (res.errorCode === 1001) {
 					if (isMountedRef.current) {
 						setTip(prev => {
-							return { ...prev, password: res.message };
-						});
-						setWarning(prev => {
-							return { ...prev, password: true };
+							return {
+								...prev,
+								password: {
+									warnigIcon: true,
+									msg: res.message
+								}
+							};
 						});
 					}
 				}
@@ -110,18 +122,27 @@ const LoginPanel = () => {
 				userValue.password === "" ? "msg_PasswordReq" : "";
 
 			setTip({
-				username: t(usernameMsg),
-				password: t(passwordMsg)
-			});
-			setWarning({
-				username: userValue.username === "",
-				password: userValue.password === ""
+				username: {
+					warnigIcon: userValue.username === "",
+					msg: t(usernameMsg)
+				},
+				password: {
+					warnigIcon: userValue.password === "",
+					msg: t(passwordMsg)
+				}
 			});
 		}
 	};
 
 	const clickCancel = () => {
 		setPopBox({ isOpen: false });
+	};
+
+	const openJoin = () => {
+		setPopBox({
+			isOpen: true,
+			popBoxType: defPopBoxType.Join
+		});
 	};
 
 	return (
@@ -132,9 +153,9 @@ const LoginPanel = () => {
 					<span className="title txt-yellow">{t("lbl_Login")}</span>
 					<div className="noAccount">
 						{t("lbl_DontHaveAccount")}&nbsp;
-						<a href="" className="txt-blue2">
+						<button className="txt-blue2" onClick={openJoin}>
 							{t("lbl_JoinNow")}
-						</a>
+						</button>
 					</div>
 					<div className="inputModule">
 						<Inputbox
@@ -143,8 +164,8 @@ const LoginPanel = () => {
 							value={userValue.username}
 							onChange={EditField.bind(null, "username")}
 							onBlur={checkValue.bind(null, "username")}
-							warning={warning.username}
-							tip={tip.username}
+							warning={tip.username.warnigIcon}
+							tip={tip.username.msg}
 							warningIcon="icon-warning"
 						/>
 
@@ -157,8 +178,8 @@ const LoginPanel = () => {
 							onBlur={checkValue.bind(null, "password")}
 							showPsw={showPsw}
 							showPswHandler={showPswHandler}
-							warning={warning.password}
-							tip={tip.password}
+							warning={tip.password.warnigIcon}
+							tip={tip.password.msg}
 						/>
 
 						<a href="" className="txt-blue2">

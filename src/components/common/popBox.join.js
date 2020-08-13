@@ -8,6 +8,7 @@ import {
 } from "../../service/api/site";
 import { api_accountStrict_GetCustProfile } from "../../service/api/accountStrict";
 import { getUrlParameter, readCookie } from "./common";
+import { defPopBoxType } from "../common/popBox";
 import { userInfoContext, popBoxContext } from "./context";
 import { GET_LANG_ID } from "../../service/language";
 import config from "../../config";
@@ -27,18 +28,12 @@ const initValue = {
 	ageCheck: false
 };
 
-const initWarning = {
-	username: false,
-	password: false,
-	email: false
-};
-
 const initTip = {
-	username: "",
-	password: "",
-	email: "",
-	currency: "",
-	checkbox: ""
+	username: { warningIcon: false, msg: "" },
+	password: { warningIcon: false, msg: "" },
+	email: { warningIcon: false, msg: "" },
+	currency: { warningIcon: false, msg: "" },
+	checkbox: { warningIcon: false, msg: "" }
 };
 
 const defaultLangId = GET_LANG_ID();
@@ -70,7 +65,6 @@ const JoinPanel = () => {
 	const { userInfo, setUserInfo } = useContext(userInfoContext);
 	const { setPopBox } = useContext(popBoxContext);
 	const [userValue, setUserValue] = useState(initValue);
-	const [warning, setWarning] = useState(initWarning);
 	const [tip, setTip] = useState(initTip);
 	const [showPsw, setShowPsw] = useState(false);
 	const [siteCurrency, setSiteCurrency] = useState([]);
@@ -120,7 +114,13 @@ const JoinPanel = () => {
 		}
 
 		setTip(prev => {
-			return { ...prev, [col]: t(msg) };
+			return {
+				...prev,
+				[col]: {
+					warningIcon: false,
+					msg: t(msg)
+				}
+			};
 		});
 	};
 
@@ -152,10 +152,13 @@ const JoinPanel = () => {
 		}
 
 		setTip(prev => {
-			return { ...prev, [col]: t(msg) };
-		});
-		setWarning(prev => {
-			return { ...prev, [col]: t(msg) };
+			return {
+				...prev,
+				[col]: {
+					warningIcon: true,
+					msg: t(msg)
+				}
+			};
 		});
 	};
 
@@ -184,18 +187,21 @@ const JoinPanel = () => {
 								setTip(prev => {
 									return {
 										...prev,
-										username: t("msg_UsernameNotAvailable")
+										username: {
+											warningIcon: true,
+											msg: t("msg_UsernameNotAvailable")
+										}
 									};
-								});
-								setWarning(prev => {
-									return { ...prev, username: true };
 								});
 							} else {
 								setTip(prev => {
-									return { ...prev, username: "" };
-								});
-								setWarning(prev => {
-									return { ...prev, username: false };
+									return {
+										...prev,
+										username: {
+											warningIcon: false,
+											msg: ""
+										}
+									};
 								});
 							}
 						}
@@ -238,18 +244,21 @@ const JoinPanel = () => {
 								setTip(prev => {
 									return {
 										...prev,
-										email: t("msg_MailExisted")
+										email: {
+											warningIcon: true,
+											msg: t("msg_MailExisted")
+										}
 									};
-								});
-								setWarning(prev => {
-									return { ...prev, email: true };
 								});
 							} else {
 								setTip(prev => {
-									return { ...prev, email: "" };
-								});
-								setWarning(prev => {
-									return { ...prev, email: false };
+									return {
+										...prev,
+										email: {
+											warningIcon: false,
+											msg: ""
+										}
+									};
 								});
 							}
 						}
@@ -268,7 +277,13 @@ const JoinPanel = () => {
 
 	const clickDropdown = () => {
 		setTip(prev => {
-			return { ...prev, currency: t("lbl_PreferredCurrencyToolTip") };
+			return {
+				...prev,
+				currency: {
+					warningIcon: false,
+					msg: t("lbl_PreferredCurrencyToolTip")
+				}
+			};
 		});
 	};
 
@@ -288,8 +303,7 @@ const JoinPanel = () => {
 		setPopBox({ isOpen: false });
 	};
 
-	const clickSubmit = e => {
-		e.preventDefault();
+	const checkAll = () => {
 		let _usernameCheck = usernameCheck(userValue.username);
 		let _passwordCheck = passwordCheck(userValue.password);
 		let _emailCheck = emailCheck(userValue.email);
@@ -308,18 +322,36 @@ const JoinPanel = () => {
 			if (!_termsCheck || !_ageCheck) {
 				checkboxMsg = "lbl_Check18TCTooltip";
 			}
-			setTip({
-				username: t(_usernameCheck.msg),
-				password: t(_passwordCheck.msg),
-				email: t(_emailCheck.msg),
-				checkbox: t(checkboxMsg)
+			setTip(prev => {
+				return {
+					...prev,
+					username: {
+						warningIcon: !_usernameCheck.checked,
+						msg: t(_usernameCheck.msg)
+					},
+					password: {
+						warningIcon: !_passwordCheck.checked,
+						msg: t(_passwordCheck.msg)
+					},
+					email: {
+						warningIcon: !_emailCheck.checked,
+						msg: t(_emailCheck.msg)
+					},
+					checkbox: {
+						warningIcon: false,
+						msg: t(checkboxMsg)
+					}
+				};
 			});
-			setWarning({
-				username: !_usernameCheck.checked,
-				password: !_passwordCheck.checked,
-				email: !_emailCheck.checked
-			});
-		} else {
+		}
+		return checked;
+	};
+
+	const clickSubmit = e => {
+		e.preventDefault();
+		let checked = checkAll();
+
+		if (checked) {
 			let regData = {
 				UserName: userValue.username,
 				Userpwd: userValue.password,
@@ -369,18 +401,24 @@ const JoinPanel = () => {
 							errorCode === -5 ||
 							errorCode === -19
 						) {
-							setWarning(prev => {
-								return { ...prev, username: true };
-							});
 							setTip(prev => {
-								return { ...prev, username: message };
+								return {
+									...prev,
+									username: {
+										warningIcon: true,
+										msg: message
+									}
+								};
 							});
 						} else if (errorCode === -3) {
-							setWarning(prev => {
-								return { ...prev, password: true };
-							});
 							setTip(prev => {
-								return { ...prev, password: message };
+								return {
+									...prev,
+									password: {
+										warningIcon: true,
+										msg: message
+									}
+								};
 							});
 						} else {
 							alert(message);
@@ -396,6 +434,13 @@ const JoinPanel = () => {
 		}
 	};
 
+	const openLogin = () => {
+		setPopBox({
+			isOpen: true,
+			popBoxType: defPopBoxType.Login
+		});
+	};
+
 	return (
 		<div className="joinpop active">
 			<div className="joinloginModule">
@@ -403,20 +448,20 @@ const JoinPanel = () => {
 				<form className="joinloginFunction" onSubmit={clickSubmit}>
 					<span className="title txt-yellow">{t("lbl_JoinNow")}</span>
 					<div>{t("lbl_LoginMsg")}</div>
-					<a href="" className="txt-blue2">
+					<button className="txt-blue2" onClick={openLogin}>
 						{t("lbl_LoginHere")}
-					</a>
+					</button>
 
 					<div className="inputModule">
 						<Inputbox
 							icon="icon-member txt-blue12"
 							placeholder={t("lbl_Username")}
 							value={userValue.username}
-							tip={tip.username}
+							tip={tip.username.msg}
 							onFocus={onFocusCol.bind(null, "username")}
 							onChange={EditField.bind(null, "username")}
 							onBlur={checkValue.bind(null, "username")}
-							warning={warning.username}
+							warning={tip.username.warningIcon}
 							warningIcon="icon-warning"
 						/>
 
@@ -425,24 +470,24 @@ const JoinPanel = () => {
 							inputType={`${!showPsw ? "password" : "text"}`}
 							placeholder={t("lbl_Password")}
 							value={userValue.password}
-							tip={tip.password}
+							tip={tip.password.msg}
 							onFocus={onFocusCol.bind(null, "password")}
 							onChange={EditField.bind(null, "password")}
 							onBlur={checkValue.bind(null, "password")}
 							showPsw={showPsw}
 							showPswHandler={showPswHandler}
-							warning={warning.password}
+							warning={tip.password.warningIcon}
 						/>
 
 						<Inputbox
 							icon="icon-email txt-blue12"
 							placeholder={t("lbl_Email")}
 							value={userValue.email}
-							tip={tip.email}
+							tip={tip.email.msg}
 							onFocus={onFocusCol.bind(null, "email")}
 							onChange={EditField.bind(null, "email")}
 							onBlur={checkValue.bind(null, "email")}
-							warning={warning.email}
+							warning={tip.email.warningIcon}
 							warningIcon="icon-warning"
 						/>
 
@@ -458,8 +503,8 @@ const JoinPanel = () => {
 							/>
 						</div>
 
-						{tip.currency !== "" ? (
-							<div className="tip active">{tip.currency}</div>
+						{tip.currency.msg !== "" ? (
+							<div className="tip active">{tip.currency.msg}</div>
 						) : null}
 					</div>
 
@@ -490,8 +535,8 @@ const JoinPanel = () => {
 							{t("lbl_Check18TC4")}
 						</Checkbox>
 					</div>
-					{tip.checkbox !== "" ? (
-						<div className="tip active">{tip.checkbox}</div>
+					{tip.checkbox.msg !== "" ? (
+						<div className="tip active">{tip.checkbox.msg}</div>
 					) : null}
 
 					<div className="btnGroup">
