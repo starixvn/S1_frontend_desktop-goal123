@@ -2,100 +2,172 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import Wrapper from "../components/common/wrapper";
 import Layout from "../components/common/layout";
+import "../styles/css/swiper.css";
 
 import IndexBanner from "../styles/img/indexBanner.jpg";
-import NpcSoccer from "../styles/img/npc-soccer.png";
-import NpcSoccerBG from "../styles/img/soccerBG.jpg";
+import teamAImg from "../styles/img/teamLogo1.png";
+import teamBImg from "../styles/img/teamLogo2.png";
 
-import NpcBasketball from "../styles/img/npc-basketball.png";
-import NpcBasketballBG2 from "../styles/img/basketballBG2.jpg";
-import NpcBasketballBG1 from "../styles/img/basketballBG1.jpg";
+import newsImg1 from "../styles/img/NEWS1.jpg";
+import newsImg2 from "../styles/img/NEWS2.jpg";
+import newsImg3 from "../styles/img/NEWS3.jpg";
+import newsImg4 from "../styles/img/NEWS4.jpg";
 
-import NpcBaseball from "../styles/img/npc-baseball.png";
-import NpcBaseballBG from "../styles/img/baseballBG.jpg";
+import edgeImg1 from "../styles/img/EDGE1.jpg";
+import edgeImg2 from "../styles/img/EDGE2.jpg";
+import edgeImg3 from "../styles/img/EDGE3.jpg";
 
-import NpcBadminton from "../styles/img/npc-badminton.png";
-import NpcBadmintonBG from "../styles/img/badmintonBG.jpg";
-
-import NpcTennis from "../styles/img/npc-tennis.png";
-import NpcTennisBG from "../styles/img/tennisBG.jpg";
-
-import NpcESport from "../styles/img/npc-esport.png";
-import NpcESportBG from "../styles/img/esportBG.jpg";
-
-import IndexBannerLiveCasino from "../styles/img/indexBannerLiveCasion.png";
-import IndexBannerCasino from "../styles/img/indexBannerCasion.png";
-import IndexBannerKeno from "../styles/img/indexBannerKeno.png";
-import IndexCenterBanner from "../styles/img/indexCenterBanner.jpg";
+import specialImg1 from "../styles/img/verified.png";
+import specialImg2 from "../styles/img/file.png";
+import specialImg3 from "../styles/img/bank.png";
+import specialImg4 from "../styles/img/speed.png";
 
 import Marquee from "../components/home/marquee";
 
 const defGameListDatas = [
 	{
-		leftImg: [{ src: NpcSoccerBG, className: "soccer" }],
 		displayKey: "lbl_Soccer",
-		mainImg: NpcSoccer,
 		icon: "icon icon-soccer"
 	},
 	{
-		leftImg: [
-			{ src: NpcBasketballBG2, className: "basketball" },
-			{ src: NpcBasketballBG1, className: "basketball" }
-		],
 		displayKey: "lbl_Basketball",
-		mainImg: NpcBasketball,
 		icon: "icon icon-basketball"
 	},
 	{
-		leftImg: [{ src: NpcBaseballBG, className: "baseball" }],
 		displayKey: "lbl_Baseball",
-		mainImg: NpcBaseball,
 		icon: "icon icon-baseball"
 	},
 	{
-		leftImg: [{ src: NpcBadmintonBG, className: "badminton" }],
 		displayKey: "lbl_badminton",
-		mainImg: NpcBadminton,
 		icon: "icon icon-badminton"
 	},
 	{
-		leftImg: [{ src: NpcTennisBG, className: "tennis" }],
 		displayKey: "lbl_Tennis",
-		mainImg: NpcTennis,
 		icon: "icon icon-tennis"
 	},
 	{
-		leftImg: [{ src: NpcESportBG, className: "esport" }],
 		displayKey: "lbl_eSports",
-		mainImg: NpcESport,
 		icon: "icon icon-esport"
 	}
 ];
 
+const defBattlePanel = [
+	{
+		title: "Football . Belarus.Premier League",
+		teamA: { name: "Torpedo - Belaz", img: teamAImg, score: 2.35 },
+		teamB: { name: "dinamo minsk", img: teamBImg, score: 3.52 },
+		gameTime: { date: "04.03", time: "23:00" }
+	},
+	{
+		title: "Football . Belarus.Premier League",
+		teamA: { name: "Torpedo - Belaz", img: teamAImg, score: 2.35 },
+		teamB: { name: "dinamo minsk", img: teamBImg, score: 3.52 },
+		gameTime: { date: "04.03", time: "23:00" }
+	},
+	{
+		title: "Football . Belarus.Premier League",
+		teamA: { name: "Torpedo - Belaz", img: teamAImg, score: 2.35 },
+		teamB: { name: "dinamo minsk", img: teamBImg, score: 3.52 },
+		gameTime: { date: "04.03", time: "23:00" }
+	}
+];
+
+const defNewsPanel = [
+	{
+		title:
+			"bóng đá trận Juve Stabia vs Cremonese 28/07/2020 - Giải Hạng 2 Italia",
+		newsImg: newsImg1
+	},
+	{
+		title:
+			"bóng đá trận Juve Stabia vs Cremonese 28/07/2020 - Giải Hạng 2 Italia",
+		newsImg: newsImg2
+	},
+	{
+		title:
+			"bóng đá trận Juve Stabia vs Cremonese 28/07/2020 - Giải Hạng 2 Italia",
+		newsImg: newsImg3
+	},
+	{
+		title:
+			"bóng đá trận Juve Stabia vs Cremonese 28/07/2020 - Giải Hạng 2 Italia",
+		newsImg: newsImg4
+	}
+];
+
+const defPlatform = [
+	"saba",
+	"ab",
+	"yl",
+	"ag",
+	"jk",
+	"gp",
+	"dg",
+	"sa",
+	"yg",
+	"pp",
+	"sg",
+	"pg"
+];
+
 const IndexPage = () => {
 	const { t } = useTranslation();
+
 	const gameListRows = defGameListDatas.map(d => {
-		let leftImgs = d.leftImg.map((img, imgIdx) => {
-			return (
-				<img
-					key={`${d.displayKey}-leftImg-${imgIdx}`}
-					src={img.src}
-					className={img.className}
-				/>
-			);
-		});
 		return (
-			<a href="" key={`Home-game-${d.displayKey}`}>
-				<div className="container">
-					<div className="card_right">{leftImgs}</div>
-					<span className={d.icon}>{t(d.displayKey)}</span>
-					<div className="npc">
-						<img src={d.mainImg} />
-					</div>
-				</div>
+			<a href="" key={`Home-game-${d.displayKey}`} className={d.icon}>
+				{t(d.displayKey)}
 			</a>
 		);
 	});
+
+	const battleRows = defBattlePanel.map((item, i) => {
+		return (
+			<div className="swiper-slide" key={`battle-${i}`}>
+				<div>{item.title}</div>
+				<div className="team">
+					<div>
+						<img src={item.teamA.img} />
+						{item.teamA.name}
+					</div>
+					<div className="schedule icon icon-soccer">
+						{item.gameTime.date}
+						<br />
+						{item.gameTime.time}
+					</div>
+					<div>
+						<img src={item.teamB.img} />
+						{item.teamB.name}
+					</div>
+				</div>
+				<div className="odds">
+					<div>{item.teamA.score}</div>
+					<div>PLACE A BET</div>
+					<div>{item.teamA.score}</div>
+				</div>
+			</div>
+		);
+	});
+
+	const newsRows = defNewsPanel.map((item, i) => {
+		return (
+			<div key={`news-${i}`}>
+				<img src={item.newsImg} />
+				<div className="title">{item.title}</div>
+			</div>
+		);
+	});
+
+	const platformRows = defPlatform.map(item => {
+		return (
+			<a href="" key={`platform-${item}`}>
+				<img
+					src={`http://www.n88dev.com/common/images/logo/${item}.png`}
+				/>
+			</a>
+		);
+	});
+
 	return (
 		<Wrapper>
 			<Layout>
@@ -115,70 +187,82 @@ const IndexPage = () => {
 						<div className="swiper-pagination"></div>
 					</div>
 					<Marquee />
-					<section>
-						<div className="gamelistsport">{gameListRows}</div>
-						<div className="gamelistother">
-							<a href="">
-								<div>
-									<i className="icon icon-livecasino"></i>
-									<span>{t("lbl_LiveCasino")}</span>
-									<span>Real Casino Experience</span>
-								</div>
-								<img
-									src={IndexBannerLiveCasino}
-									alt="IndexBannerLiveCasino"
-								/>
-							</a>
-							<a href="">
-								<div>
-									<i className="icon icon-casino"></i>
-									<span>{t("lbl_Casino")}</span>
-									<span>
-										Multiple Themes For Asian Market
-									</span>
-								</div>
-								<img
-									src={IndexBannerCasino}
-									alt="IndexBannerCasino"
-								/>
-							</a>
-							<a href="">
-								<div>
-									<i className="icon icon-keno"></i>
-									<span>{t("lbl_Keno")}</span>
-									<span>
-										Many ways to play,more chances to win !
-									</span>
-								</div>
-								<img
-									src={IndexBannerKeno}
-									alt="IndexBannerKeno"
-								/>
-							</a>
-						</div>
-					</section>
-					<img src={IndexCenterBanner} alt="IndexCenterBanner" />
-					<div className="quickLink">
+					<div className="gameMenu">
 						<div>
-							<i className="icon icon-arrow-left2">Contact Us</i>
-						</div>
-						<div>
-							<ul>
-								<li className="icon icon-chat">
-									<a>Live Chat</a>
-								</li>
-								<li className="icon icon-instagram">
-									<a>Instagram</a>
-								</li>
-								<li className="icon icon-facebook2">
-									<a>Facebook</a>
-								</li>
-								<li className="icon icon-twitter">
-									<a>Twitter</a>
-								</li>
-							</ul>
+							{gameListRows}
+							<button className="icon icon-keyboard_arrow_right"></button>
 						</div>
 					</div>
+
+					<section>
+						<div className="offers">
+							<div className="swiper-container">
+								<div className="swiper-wrapper">
+									{battleRows}
+								</div>
+							</div>
+							<div className="swiper-button-next"></div>
+							<div className="swiper-button-prev"></div>
+						</div>
+						<div className="news">
+							<div>
+								<div className="title">Goal123 NEWS</div>
+								<span></span>
+							</div>
+							<div className="articleModule">{newsRows}</div>
+						</div>
+						<div className="btnGroup">
+							<a className="yellowborder">VIEW ALL</a>
+						</div>
+						<div className="edge">
+							<div>
+								<div className="title">The Edge Of Goal123</div>
+								<span></span>
+							</div>
+							<div className="articleModule">
+								<div>
+									<img src={edgeImg1} />
+								</div>
+								<div>
+									<img src={edgeImg2} />
+								</div>
+								<div>
+									<img src={edgeImg3} />
+								</div>
+							</div>
+						</div>
+						<div className="special">
+							<div>
+								<img src={specialImg1} />
+								<ul>
+									<li className="title">Reputable Brand</li>
+									<li>Official Partners of Spurs and NUFC</li>
+								</ul>
+							</div>
+							<div>
+								<img src={specialImg2} />
+								<ul>
+									<li className="title">More game type</li>
+									<li>Official Partners of Spurs and NUFC</li>
+								</ul>
+							</div>
+							<div>
+								<img src={specialImg3} />
+								<ul>
+									<li className="title">Payment Method</li>
+									<li>Official Partners of Spurs and NUFC</li>
+								</ul>
+							</div>
+							<div>
+								<img src={specialImg4} />
+								<ul>
+									<li className="title">Transaction Speed</li>
+									<li>Official Partners of Spurs and NUFC</li>
+								</ul>
+							</div>
+						</div>
+						<div className="platform">{platformRows}</div>
+					</section>
 				</main>
 			</Layout>
 		</Wrapper>

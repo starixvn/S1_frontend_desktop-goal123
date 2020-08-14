@@ -3,61 +3,37 @@ import React from "react";
 import Responsibility1 from "../../styles/img/responsibility1.png";
 import Responsibility2 from "../../styles/img/responsibility2.png";
 import Licenses from "../../styles/img/licenses.png";
-import Security from "../../styles/img/security.png";
+import SocialMedia1 from "../../styles/img/te.png";
+import SocialMedia2 from "../../styles/img/tw.png";
+import SocialMedia3 from "../../styles/img/fb.png";
+import SocialMedia4 from "../../styles/img/yb.png";
+import SocialMedia5 from "../../styles/img/ig.png";
 
 export default () => {
 	return (
 		<footer>
 			<div className="webmap">
 				<div>
+					<span className="title">About Goal123.com</span>
+					<div>
+						<a href="">Affiliate</a>
+						<a href="">Rules and Regulation</a>
+						<a href="">Disclaimer</a>
+						<a href="">Privacy Policy</a>
+						<a href="">Terms & Conditions</a>
+						<a href="">Responsible Gambling</a>
+					</div>
+				</div>
+				<div>
 					<span className="title">Sports Betting</span>
 					<div>
 						<a href="">Soccer Betting</a>
 						<a href="">Basketball Betting</a>
-						<a href="">Baseball Betting</a>
 						<a href="">Badminton</a>
-					</div>
-					<div>
 						<a href="">Football Betting</a>
 						<a href="">Tennis Betting</a>
 						<a href="">Hockey Betting</a>
 						<a href="">E-Sport Betting</a>
-					</div>
-				</div>
-				<div>
-					<span className="title">Our Policies</span>
-					<div>
-						<a href="">Responsible Gaming</a>
-						<a href="">Terms and Conditions</a>
-						<a href="">Privacy Policy</a>
-						<a href="">Cookie Policy</a>
-					</div>
-				</div>
-				<div>
-					<span className="title">Help & Support</span>
-					<div>
-						<a href="">Rules and Regulations</a>
-						<a href="">Account Terms</a>
-						<a href="">FAQ</a>
-					</div>
-				</div>
-				<div>
-					<span className="title">Nova88</span>
-					<div>
-						<a href="">About Us</a>
-						<a href="">Terms of Use</a>
-						<a href="">Contact Us</a>
-					</div>
-				</div>
-				<div>
-					<span className="title">Responsibility</span>
-					<div>
-						<a href="">
-							<img src={Responsibility1} />
-						</a>
-						<a href="">
-							<img src={Responsibility2} />
-						</a>
 					</div>
 				</div>
 				<div>
@@ -69,77 +45,40 @@ export default () => {
 					</div>
 				</div>
 				<div>
-					<span className="title">Security</span>
+					<span className="title">Payment Options</span>
 					<div>
 						<a href="">
-							<img src={Security} />
-						</a>
-					</div>
-				</div>
-				<div>
-					<span className="title">Payment</span>
-					<div>
-						<a href="">
-							<img src="http://www.n88dev.com/common/images/logo/h2p.png" />
+							<img src={Responsibility1} />
 						</a>
 						<a href="">
-							<img src="http://www.n88dev.com/common/images/logo/ep.png" />
+							<img src={Responsibility2} />
 						</a>
 					</div>
 				</div>
 				<div>
 					<span className="title">Social Media</span>
 					<div>
-						<a href="" className="icon icon-instagram">
-							Instagram
+						<a href="">
+							<img src={SocialMedia1} />
 						</a>
-						<a href="" className="icon icon-facebook">
-							Facebook
+						<a href="">
+							<img src={SocialMedia2} />
 						</a>
-						<a href="" className="icon icon-twitter">
-							Twitter
+						<a href="">
+							<img src={SocialMedia3} />
+						</a>
+					</div>
+					<div>
+						<a href="">
+							<img src={SocialMedia4} />
+						</a>
+						<a href="">
+							<img src={SocialMedia5} />
 						</a>
 					</div>
 				</div>
 			</div>
-			<div className="platform">
-				<a href="">
-					<img src="http://www.n88dev.com/common/images/logo/saba.png" />
-				</a>
-				<a href="">
-					<img src="http://www.n88dev.com/common/images/logo/ab.png" />
-				</a>
-				<a href="">
-					<img src="http://www.n88dev.com/common/images/logo/yl.png" />
-				</a>
-				<a href="">
-					<img src="http://www.n88dev.com/common/images/logo/ag.png" />
-				</a>
-				<a href="">
-					<img src="http://www.n88dev.com/common/images/logo/jk.png" />
-				</a>
-				<a href="">
-					<img src="http://www.n88dev.com/common/images/logo/gp.png" />
-				</a>
-				<a href="">
-					<img src="http://www.n88dev.com/common/images/logo/dg.png" />
-				</a>
-				<a href="">
-					<img src="http://www.n88dev.com/common/images/logo/sa.png" />
-				</a>
-				<a href="">
-					<img src="http://www.n88dev.com/common/images/logo/yg.png" />
-				</a>
-				<a href="">
-					<img src="http://www.n88dev.com/common/images/logo/pp.png" />
-				</a>
-				<a href="">
-					<img src="http://www.n88dev.com/common/images/logo/sg.png" />
-				</a>
-				<a href="">
-					<img src="http://www.n88dev.com/common/images/logo/pg.png" />
-				</a>
-			</div>
+
 			<div className="copyright">
 				© Copyright 2020. Nova88. All Rights Reserved.
 			</div>

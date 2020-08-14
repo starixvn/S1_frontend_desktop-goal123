@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
 import { Link } from "@reach/router";
 import { userInfoContext } from "../common/context";
-import Logo from "../../styles/img/logo.svg";
+import Logo from "../../styles/img/logo.png";
+import Banner from "../../styles/img/indexSmallBanner.jpg";
 import Menu from "./header.menu";
 import config from "../../config";
 import Functions from "./header.functions";
@@ -17,6 +18,7 @@ export default () => {
 					<Link className="logo" to={`/${userInfo.langId}`}>
 						<img src={Logo} alt={config.siteName} />
 					</Link>
+					<img src={Banner} />
 				</div>
 				<Menu />
 				<div className="function">
