@@ -80,7 +80,7 @@ export default () => {
 			</div>
 
 			<div className="copyright">
-				© Copyright 2020. Nova88. All Rights Reserved.
+				© Copyright 2020. Goal123. All Rights Reserved.
 			</div>
 		</footer>
 	);

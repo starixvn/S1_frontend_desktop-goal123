@@ -1,4 +1,4 @@
-const siteName = "Nova88";
+const siteName = "Goal123";
 
 export default process.env.NODE_ENV === "production"
 	? {

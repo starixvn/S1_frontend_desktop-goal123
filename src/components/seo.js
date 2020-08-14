@@ -30,10 +30,17 @@ function SEO({ description, lang, meta, title }) {
 	return (
 		<Helmet
 			htmlAttributes={{
-				lang
+				lang,
+				class: "index"
 			}}
 			title={site.siteMetadata.title}
-			link={[{ rel: "icon", type: "image/png", href: "favicon.ico" }]}
+			link={[
+				{
+					rel: "icon",
+					type: "image/png",
+					href: "favicon.ico"
+				}
+			]}
 			meta={[
 				{
 					name: `description`,

@@ -1,9 +1,9 @@
 module.exports = {
 	siteMetadata: {
 		defaultLanguage: "en",
-		title: `Nova88`,
+		title: `Goal123`,
 		description: ``,
-		author: `Nova88`,
+		author: `Goal123`,
 		supportedLanguages: ["en", "cs", "ch", "vn", "id", "th"]
 	},
 	plugins: [
