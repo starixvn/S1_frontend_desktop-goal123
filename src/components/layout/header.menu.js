@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import path from "../../path";
 import { Link } from "@reach/router";
@@ -9,6 +9,7 @@ import {
 } from "../../service/enterPage";
 import productList from "../../datas/productList";
 import { userInfoContext } from "../common/context";
+import SubMenu from "./header.subMenu";
 
 const defMenuLinks = [
 	{
@@ -59,6 +60,11 @@ const getUrl = (preUrl, info) => {
 export default () => {
 	const { t } = useTranslation();
 	const { userInfo } = useContext(userInfoContext);
+	const [subMenuKey, setSubMenukey] = useState("");
+
+	const showSubMenu = col => {
+		setSubMenukey(col);
+	};
 
 	let rows = defMenuLinks.map(m => {
 		let key = `${m.displayKey}`;
@@ -89,12 +95,20 @@ export default () => {
 			);
 		} else {
 			return (
-				<Link key={key} to={`${userInfo.langId}/${m.path}`}>
+				<Link
+					key={key}
+					to={`${userInfo.langId}/${m.path}`}
+					onMouseOver={showSubMenu.bind(this, key)}>
 					{t(m.displayKey)}
 				</Link>
 			);
 		}
 	});
 
-	return <div className="menu">{rows}</div>;
+	return (
+		<div className="menu">
+			{rows}
+			<SubMenu subMenuKey={subMenuKey} />
+		</div>
+	);
 };
