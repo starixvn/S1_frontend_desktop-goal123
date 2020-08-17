@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import StepBar from "./stepBar";
+import StepBar from "../common/stepBar";
 
 export default ({ step, children }) => {
 	const { t } = useTranslation();
@@ -11,7 +11,7 @@ export default ({ step, children }) => {
 				<span>{t("lbl_Deposit")}</span>
 				<div>{t("lbl_DepositOptionHint")}</div>
 			</div>
-			<StepBar step={step} />
+			<StepBar step={step} t={t} />
 			{children}
 		</div>
 	);
