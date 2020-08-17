@@ -46,7 +46,7 @@ export default () => {
 		);
 	});
 
-	return onlineBankingList !== null || onlineBankingList.length > 0 ? (
+	return onlineBankingList !== null && onlineBankingList.length > 0 ? (
 		<div className="subModule">
 			<div className="subModuleTitle">
 				<div>
