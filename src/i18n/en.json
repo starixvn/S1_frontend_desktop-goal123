@@ -147,7 +147,10 @@
   "lbl_Fail":"Failed",
   "lbl_Close":"Close",
   "lbl_LoginMsg":"Please note that we do not permit members to own more than (1) account.",
-  "lbl_LoginHere":"Login Here"
+  "lbl_LoginHere":"Login Here",
+  "lbl_SelectPaymentModes":"Select Payment Modes",
+  "lbl_SelectBank":"Select Bank",
+  "lbl_EnterAmount":"Enter Amount"
 
 
 }
