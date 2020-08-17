@@ -2,6 +2,7 @@ import React, { createRef, Component } from "react";
 import { _ACTION_TYPE } from "../../service/enterPage";
 import SubMenu from "./header.menu.sub";
 import { defMenuLinks, defSubListClassName } from "./header.menu.def";
+import MainMenu from "./header.menu.main";
 
 export default class Panel extends Component {
 	constructor(props) {
