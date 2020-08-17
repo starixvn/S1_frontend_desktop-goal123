@@ -30,6 +30,31 @@ export const defMenuLinks = {
 				className: "YGG",
 				icon: "icon icon-YGG",
 				displayText: "YGG"
+			},
+			{
+				className: "JOKER",
+				icon: "icon icon-JOKER",
+				displayText: "JOKER"
+			},
+			{
+				className: "SG",
+				icon: "icon icon-SG",
+				displayText: "SG"
+			},
+			{
+				className: "PP",
+				icon: "icon icon-PP",
+				displayText: "PP"
+			},
+			{
+				className: "PG",
+				icon: "icon icon-PG",
+				displayText: "PG"
+			},
+			{
+				className: "OW",
+				icon: "icon icon-OW",
+				displayText: "OW"
 			}
 		]
 	},
@@ -46,6 +71,21 @@ export const defMenuLinks = {
 				className: "liveALL",
 				icon: "icon icon-AB",
 				displayText: "ALL"
+			},
+			{
+				className: "liveAG",
+				icon: "icon icon-AG",
+				displayText: "AG"
+			},
+			{
+				className: "livePP",
+				icon: "icon icon-PP",
+				displayText: "PP"
+			},
+			{
+				className: "liveSA",
+				icon: "icon icon-SA",
+				displayText: "SA"
 			}
 		]
 	},
