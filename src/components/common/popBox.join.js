@@ -448,7 +448,10 @@ const JoinPanel = () => {
 				<form className="joinloginFunction" onSubmit={clickSubmit}>
 					<span className="title txt-yellow">{t("lbl_JoinNow")}</span>
 					<div>{t("lbl_LoginMsg")}</div>
-					<button className="txt-blue2" onClick={openLogin}>
+					<button
+						className="txt-blue2"
+						type="button"
+						onClick={openLogin}>
 						{t("lbl_LoginHere")}
 					</button>
 

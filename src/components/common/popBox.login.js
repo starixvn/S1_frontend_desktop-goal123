@@ -153,7 +153,10 @@ const LoginPanel = () => {
 					<span className="title txt-yellow">{t("lbl_Login")}</span>
 					<div className="noAccount">
 						{t("lbl_DontHaveAccount")}&nbsp;
-						<button className="txt-blue2" onClick={openJoin}>
+						<button
+							className="txt-blue2"
+							type="button"
+							onClick={openJoin}>
 							{t("lbl_JoinNow")}
 						</button>
 					</div>
