@@ -21,11 +21,13 @@ function SEO({ description, lang, meta, title }) {
 
 	const metaDescription = description || site.siteMetadata.description;
 
-	let splitPath = window.location.pathname.split("/");
+	let splitPath =
+		typeof window !== undefined && window.location.pathname.split("/");
 	let htmlClass =
-		window.location.pathname === "/" ||
-		(splitPath.length === 2 &&
-			site.siteMetadata.supportedLanguages.includes(splitPath[1]))
+		typeof window !== undefined &&
+		(window.location.pathname === "/" ||
+			(splitPath.length === 2 &&
+				site.siteMetadata.supportedLanguages.includes(splitPath[1])))
 			? "index"
 			: "";
 

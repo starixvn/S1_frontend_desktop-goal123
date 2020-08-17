@@ -1,114 +1,49 @@
-import React, { useContext, useState } from "react";
-import { useTranslation } from "react-i18next";
-import path from "../../path";
-import { Link } from "@reach/router";
-import {
-	GET_OPEN_RULE,
-	_ACTION_TYPE,
-	OPEN_IN_BLANK
-} from "../../service/enterPage";
-import productList from "../../datas/productList";
-import { userInfoContext } from "../common/context";
-import SubMenu from "./header.subMenu";
+import React, { createRef, Component } from "react";
+import { _ACTION_TYPE } from "../../service/enterPage";
+import SubMenu from "./header.menu.sub";
+import { defMenuLinks, defSubListClassName } from "./header.menu.def";
 
-const defMenuLinks = [
-	{
-		productInfo: productList.sports,
-		path: path.sports.root,
-		displayKey: "lbl_Sports"
-	},
-	{
-		productInfo: productList.numberGame,
-		path: path.sports.root,
-		displayKey: "lbl_NumberGame"
-	},
-	{
-		productInfo: productList.virtualSports,
-		path: path.sports.root,
-		displayKey: "lbl_VirtualSport"
-	},
-	{
-		path: path.casino.root,
-		displayKey: "lbl_Casino",
-		subMenu: [
-			{
-				icon: "icon icon-GPI",
-				displayText: "GPI"
-			}
-		]
-	},
-	{
-		path: path.liveCasino.root,
-		displayKey: "lbl_LiveCasino"
-	},
-	{
-		productInfo: productList.lottery,
-		path: path.sports.root,
-		displayKey: "lbl_KenoAndLottery"
-	},
-	{
-		productInfo: productList.fishing,
-		path: path.sports.root,
-		displayKey: "lbl_Fishing"
+export default class Panel extends Component {
+	constructor(props) {
+		super(props);
+		if (typeof document !== `undefined`) {
+			document.addEventListener("mouseover", this.handleClickOutside);
+		}
+		this.state = { menuKey: "" };
+		this.wrapper = createRef(null);
 	}
-];
 
-const getUrl = (preUrl, info) => {
-	return `${preUrl}?tpId=${info.tpId}&gameId=${info.gameId}`;
-};
-
-export default () => {
-	const { t } = useTranslation();
-	const { userInfo } = useContext(userInfoContext);
-	const [subMenuKey, setSubMenukey] = useState("");
-
-	const showSubMenu = col => {
-		setSubMenukey(col);
+	handleClickOutside = e => {
+		if (this.wrapper.current && !this.wrapper.current.contains(e.target)) {
+			this.setState({ menuKey: "" });
+		}
 	};
 
-	let rows = defMenuLinks.map(m => {
-		let key = `${m.displayKey}`;
-		if (m.productInfo) {
-			let rule = GET_OPEN_RULE(
-				userInfo.langId,
-				m.productInfo.tpId,
-				m.productInfo.gameId
-			);
+	showSubMenu = col => {
+		this.setState({ menuKey: col });
+	};
 
-			let isBlank = rule.actionType === _ACTION_TYPE.blank;
-			return isBlank ? (
-				<a
-					key={key}
-					onClick={OPEN_IN_BLANK.bind(
-						this,
-						rule.entPageUrl,
-						rule.windowKey
-					)}>
-					{t(m.displayKey)}
-				</a>
-			) : (
-				<Link
-					key={key}
-					to={getUrl(`${userInfo.langId}/${m.path}`, m.productInfo)}>
-					{t(m.displayKey)}
-				</Link>
-			);
-		} else {
-			return (
-				<Link
-					key={key}
-					to={`${userInfo.langId}/${m.path}`}
-					onMouseOver={showSubMenu.bind(this, key)}>
-					{t(m.displayKey)}
-				</Link>
-			);
+	render() {
+		let subItems = null;
+		if (typeof defMenuLinks[this.state.menuKey]?.subMenu !== undefined) {
+			subItems = defMenuLinks[this.state.menuKey]?.subMenu;
 		}
-	});
 
-	return (
-		<div className="menu">
-			{rows}
-			<SubMenu subMenuKey={subMenuKey} />
-		</div>
-	);
-};
+		return (
+			<div className="menu">
+				<MainMenu showSubMenu={this.showSubMenu} />
+				{subItems ? (
+					<div className="subMenu-Wrapper active" ref={this.wrapper}>
+						<SubMenu
+							MenuKey={this.state.menuKey}
+							listClassName={
+								defSubListClassName[this.state.menuKey]
+							}
+							subItems={subItems}
+						/>
+					</div>
+				) : null}
+			</div>
+		);
+	}
+}
