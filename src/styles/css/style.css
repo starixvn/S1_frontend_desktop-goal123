@@ -1047,6 +1047,14 @@ footer .copyright {
           flex-direction: column;
 }
 
+.inputModuleRow {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  height: 47px;
+}
+
 .inputBox, .inputBox-org, .inputBox-white, .inputBox-blue, .inputBox-gray, .inputBox-yellow {
   width: calc(100% - 22px);
   background: #030c1b;
@@ -1062,7 +1070,7 @@ footer .copyright {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  padding: 8px 10px;
+  padding: 4px 10px;
 }
 
 .inputBox::-webkit-input-placeholder, .inputBox-org::-webkit-input-placeholder, .inputBox-white::-webkit-input-placeholder, .inputBox-blue::-webkit-input-placeholder, .inputBox-gray::-webkit-input-placeholder, .inputBox-yellow::-webkit-input-placeholder {
@@ -1098,7 +1106,7 @@ footer .copyright {
   -webkit-box-flex: 1;
       -ms-flex: auto;
           flex: auto;
-  padding: 1px 0;
+  padding: 1px 0 1px 5px;
 }
 
 .inputBox input::-webkit-input-placeholder, .inputBox-org input::-webkit-input-placeholder, .inputBox-white input::-webkit-input-placeholder, .inputBox-blue input::-webkit-input-placeholder, .inputBox-gray input::-webkit-input-placeholder, .inputBox-yellow input::-webkit-input-placeholder {
@@ -1285,7 +1293,13 @@ input[type="file"] {
 }
 
 .checkbox {
-  padding-left: 15px;
+  width: -webkit-min-content;
+  width: -moz-min-content;
+  width: min-content;
+  float: left;
+  margin-right: 5px;
+  -webkit-transform: translateY(50%);
+          transform: translateY(50%);
 }
 
 .checkbox input[type="checkbox"] {
@@ -1297,16 +1311,26 @@ input[type="file"] {
   border-radius: 100%;
   width: 10px;
   height: 10px;
-  position: absolute;
-  left: 0;
-  -webkit-transform: translateY(50%);
-          transform: translateY(50%);
   background: transparent;
-  margin: auto;
+  display: block;
+  cursor: pointer;
 }
 
 .checkbox input[type="checkbox"]:checked + label {
   background: #1E85EC;
+}
+
+.checkbox label.icon:before {
+  display: none;
+  font-size: 16px;
+}
+
+.checkbox input[type="checkbox"]:checked + label.icon {
+  background: transparent;
+}
+
+.checkbox input[type="checkbox"]:checked + label.icon.icon:before {
+  display: block;
 }
 
 .btnGroup {
@@ -1415,7 +1439,10 @@ input[type="file"] {
 
 .Terms .agree {
   position: relative;
-  padding-left: 20px;
+}
+
+.Terms .agree .checkbox {
+  position: static;
 }
 
 .Terms a {
@@ -1993,31 +2020,31 @@ main > .swiper-container .swiper-slide {
   display: flex;
   border-radius: 30px;
   position: relative;
-  margin: 50px;
+  margin: 80px 50px 40px;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  width: 100%;
 }
 
 .cashBar:before {
   content: "Min";
-  -webkit-transform: translateX(-120%);
-          transform: translateX(-120%);
+  -webkit-transform: translateX(-160%);
+          transform: translateX(-160%);
 }
 
 .cashBar:after {
   content: "Max";
-  -webkit-transform: translateX(120%);
-          transform: translateX(120%);
+  -webkit-transform: translateX(160%);
+          transform: translateX(160%);
 }
 
 .cashBar .cashLine {
-  background: #f77900;
+  background: #1E85EC;
   position: absolute;
-  width: calc(100% / 3);
   height: 100%;
   border-radius: 30px;
   display: -webkit-box;
@@ -2032,14 +2059,23 @@ main > .swiper-container .swiper-slide {
 }
 
 .cashBar .cashLine .cashPoint {
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   border-radius: 20px;
   background: #1E85EC;
+  border: 2px solid #fab617;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .cashBar .cashLine .cashPoint span {
+  margin-top: -24px;
   font-size: 12px;
+  color: #1E85EC;
 }
 
 .infoModule {
@@ -2145,6 +2181,9 @@ main > .swiper-container .swiper-slide {
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .subModuleList .subModule .subModuleBody input + .iconModule .icon-cross:before {
@@ -2383,9 +2422,6 @@ main > .swiper-container .swiper-slide {
   top: 0;
   width: 100%;
   height: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
@@ -2402,14 +2438,14 @@ main > .swiper-container .swiper-slide {
 }
 
 #popup .pop {
-  min-width: 600px;
-  background: rgba(3, 12, 27, 0.95);
+  background: rgba(15, 35, 70, 0.95);
   padding: 40px;
   border-radius: 15px;
 }
 
 #popup .pop .title {
   color: #fab617;
+  margin-bottom: 20px;
 }
 
 #popup .pop > div {
@@ -2429,51 +2465,42 @@ main > .swiper-container .swiper-slide {
   display: flex;
 }
 
-.Submit, .Cancel, .uploadSuccess, .updateSuccess, .Success {
-  display: none;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  width: 320px;
-  margin: auto;
+#popup .pop > div > .txt-lightgray {
+  text-align: center;
 }
 
-.Submit.active, .Cancel.active, .uploadSuccess.active, .updateSuccess.active, .Success.active {
+.Submit.active, .Cancel.active, .uploadSuccess.active, .updateSuccess.active, .Success.active, .tokyc.active, .addBankpop.active {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
 
-.Submit .icon, .Cancel .icon, .uploadSuccess .icon, .updateSuccess .icon, .Success .icon {
+.Submit .icon, .Cancel .icon, .uploadSuccess .icon, .updateSuccess .icon, .Success .icon, .tokyc .icon, .addBankpop .icon {
   font-size: 36px;
   color: #fab617;
 }
 
-.Submit .icon.icon-bell, .Cancel .icon.icon-bell, .uploadSuccess .icon.icon-bell, .updateSuccess .icon.icon-bell, .Success .icon.icon-bell {
+.Submit .icon.icon-bell, .Cancel .icon.icon-bell, .uploadSuccess .icon.icon-bell, .updateSuccess .icon.icon-bell, .Success .icon.icon-bell, .tokyc .icon.icon-bell, .addBankpop .icon.icon-bell {
   -webkit-transform-origin: bottom;
           transform-origin: bottom;
   -webkit-transform: rotate(20deg);
           transform: rotate(20deg);
 }
 
-.Submit .title, .Cancel .title, .uploadSuccess .title, .updateSuccess .title, .Success .title {
+.Submit .title, .Cancel .title, .uploadSuccess .title, .updateSuccess .title, .Success .title, .tokyc .title, .addBankpop .title {
   margin: 10px 0 20px;
 }
 
-.Submit .txt-lightgray, .Cancel .txt-lightgray, .uploadSuccess .txt-lightgray, .updateSuccess .txt-lightgray, .Success .txt-lightgray {
+.Submit .txt-lightgray, .Cancel .txt-lightgray, .uploadSuccess .txt-lightgray, .updateSuccess .txt-lightgray, .Success .txt-lightgray, .tokyc .txt-lightgray, .addBankpop .txt-lightgray {
   text-align: center;
 }
 
-.Submit .popList, .Cancel .popList, .uploadSuccess .popList, .updateSuccess .popList, .Success .popList {
+.Submit .popList, .Cancel .popList, .uploadSuccess .popList, .updateSuccess .popList, .Success .popList, .tokyc .popList, .addBankpop .popList {
   width: 100%;
   margin-top: 30px;
 }
 
-.Submit .popList ul, .Cancel .popList ul, .uploadSuccess .popList ul, .updateSuccess .popList ul, .Success .popList ul {
+.Submit .popList ul, .Cancel .popList ul, .uploadSuccess .popList ul, .updateSuccess .popList ul, .Success .popList ul, .tokyc .popList ul, .addBankpop .popList ul {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -2486,13 +2513,13 @@ main > .swiper-container .swiper-slide {
           justify-content: space-between;
 }
 
-.Submit .popList ul li, .Cancel .popList ul li, .uploadSuccess .popList ul li, .updateSuccess .popList ul li, .Success .popList ul li {
+.Submit .popList ul li, .Cancel .popList ul li, .uploadSuccess .popList ul li, .updateSuccess .popList ul li, .Success .popList ul li, .tokyc .popList ul li, .addBankpop .popList ul li {
   line-height: 30px;
   letter-spacing: 1px;
   font-size: 12px;
 }
 
-.Submit .popList ul li:first-child, .Cancel .popList ul li:first-child, .uploadSuccess .popList ul li:first-child, .updateSuccess .popList ul li:first-child, .Success .popList ul li:first-child {
+.Submit .popList ul li:first-child, .Cancel .popList ul li:first-child, .uploadSuccess .popList ul li:first-child, .updateSuccess .popList ul li:first-child, .Success .popList ul li:first-child, .tokyc .popList ul li:first-child, .addBankpop .popList ul li:first-child {
   color: #1E85EC;
   font-weight: bold;
 }
@@ -2785,15 +2812,12 @@ main > .swiper-container .swiper-slide {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   width: calc(100% - 140px);
-  margin: 15px 0;
+  margin: 15px 0 0;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  padding: 0 70px;
+  padding: 0 70px 30px;
 }
 
 .walletModule .walletBalanceModule {
@@ -2812,7 +2836,7 @@ main > .swiper-container .swiper-slide {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  max-width: calc(50% - 50px);
+  max-width: calc(50% - 40px);
 }
 
 .walletModule .walletBalanceModule span.icon-balance {
@@ -2832,8 +2856,19 @@ main > .swiper-container .swiper-slide {
   margin-right: 5px;
 }
 
-.walletModule .walletBalanceModule .icon-spinner11 {
+.walletModule .walletBalanceModule + .icon-spinner11, .walletModule .walletBalanceModule .icon-error {
   margin-left: 10px;
+  margin-right: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.walletModule .walletBalanceModule .icon-error {
+  font-size: 16px;
 }
 
 .walletModule .walletBalanceModule .btnGroup {
@@ -2849,14 +2884,14 @@ main > .swiper-container .swiper-slide {
       -ms-flex: 0 0 auto;
           flex: 0 0 auto;
   color: #1E85EC;
-  margin-right: 15px;
+  margin-left: 15px;
 }
 
 .walletTransfer {
   background: #030c1b;
   border-radius: 5px;
   width: 100%;
-  padding: 30px;
+  padding: 30px 100px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -2865,6 +2900,12 @@ main > .swiper-container .swiper-slide {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+.walletTransfer .walletModule {
+  width: 100%;
+  padding: 0;
+  margin-bottom: 15px;
 }
 
 .walletTransfer .walletModule button {
@@ -2916,7 +2957,6 @@ main > .swiper-container .swiper-slide {
   float: left;
   width: calc(100% - 161px);
   margin-right: 10px;
-  margin: 0;
 }
 
 .walletTransfer .icon {
@@ -2968,24 +3008,18 @@ main > .swiper-container .swiper-slide {
 }
 
 .addBank {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  padding-bottom: 30px;
+  width: calc(100% / 3);
 }
 
-.addBank .platformName {
-  width: calc(100% / 3 - 70px);
+.addBank .addBankName {
+  width: calc(100% - 40px);
   background: #030c1b;
-  float: left;
-  margin-left: 70px;
-  margin-top: 30px;
   border-radius: 5px;
   padding: 20px;
+  margin-bottom: 15px;
+}
+
+.addBank .addBankName.noBank {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -2995,12 +3029,54 @@ main > .swiper-container .swiper-slide {
   -webkit-box-pack: space-evenly;
       -ms-flex-pack: space-evenly;
           justify-content: space-evenly;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  position: relative;
+  cursor: pointer;
 }
 
-.addBank .platformName button.icon {
+.addBank .addBankName .addBankInfo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.addBank .addBankName .addBankInfo:last-child {
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+
+.addBank .addBankName .addBankInfo:last-child span {
+  margin-right: 5px;
+}
+
+.addBank .addBankName .addBankInfo .bankName, .addBank .addBankName .addBankInfo .icon-bin {
+  margin: 0;
+}
+
+.addBank .addBankName .addBankInfo .checkbox {
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+}
+
+.addBank .addBankName .addBankInfo .checkbox label {
+  border-radius: 0;
+  width: 15px;
+  height: 15px;
+  margin-right: 0;
+}
+
+.addBank .addBankName .addBankInfo .icon-bin {
+  font-size: 24px;
+  color: #666;
+  margin-top: -4px;
+}
+
+.addBank .addBankName button.icon {
   font-size: 24px;
   position: absolute;
   right: 0;
@@ -3008,47 +3084,56 @@ main > .swiper-container .swiper-slide {
   color: #1E85EC;
 }
 
-.addBank .platformName .icon {
+.addBank .addBankName .icon-plus {
   font-size: 40px;
 }
 
-.addBank .platformName + div.subModuleList .subModuleBody > div {
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
+.addBank + div.subModuleList {
+  width: calc(100% / 3 * 2 - 30px);
+  margin: 0;
+  padding: 0 0 0 30px;
+}
+
+.addBank + div.subModuleList .subModuleBody {
+  height: calc(100% - 40px);
+}
+
+.addBank + div.subModuleList .subModuleBody > div {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: end;
-      -ms-flex-align: end;
-          align-items: flex-end;
 }
 
-.addBank .platformName + div.subModuleList .subModuleBody > div > .bankName {
+.addBank + div.subModuleList .subModuleBody > div > .bankName {
   margin-right: 10px;
   margin-top: 0;
 }
 
-.addBank .platformName + div.subModuleList .subModuleBody > div.inputBtn {
+.addBank + div.subModuleList .subModuleBody > div.calculation {
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+}
+
+.addBank + div.subModuleList .subModuleBody > div.inputBtn {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
   margin: 20px 0;
 }
 
-.addBank .platformName + div.subModuleList .subModuleBody > div.inputBtn .btnGroup {
+.addBank + div.subModuleList .subModuleBody > div.inputBtn .btnGroup {
   margin: 10px 0 5px;
 }
 
-.addBank .platformName + div.subModuleList .subModuleBody > div.smallList {
+.addBank + div.subModuleList .subModuleBody > div.smallList {
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
 }
 
-.addBank .platformName + div.subModuleList .subModuleBody > div.smallList li {
+.addBank + div.subModuleList .subModuleBody > div.smallList li {
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
@@ -3058,19 +3143,113 @@ main > .swiper-container .swiper-slide {
   margin: auto 10px auto;
 }
 
-.addBank .platformName + div.subModuleList .subModuleBody > div.smallList li:first-child {
+.addBank + div.subModuleList .subModuleBody > div.smallList li:first-child {
   -webkit-box-align: end;
       -ms-flex-align: end;
           align-items: flex-end;
 }
 
-.addBank .platformName + div.subModuleList .subModuleBody ul li {
+.addBank + div.subModuleList .subModuleBody > div.smallList li.accountNumber {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.addBank + div.subModuleList .subModuleBody > div.smallList li.accountNumber span {
+  margin-right: 5px;
+}
+
+.addBank + div.subModuleList .subModuleBody ul li {
   width: calc(25% - 20px);
 }
 
-.addBank .platformName + div.subModuleList .subModuleBody ul li a {
+.addBank + div.subModuleList .subModuleBody ul li a {
   background: #fff;
   padding: 5px 10px;
   width: calc(100% - 20px);
+}
+
+.remainder {
+  color: #c6c6c6;
+  text-align: center;
+}
+
+.calculation {
+  width: 100%;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.calculation > div {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  text-align: center;
+  border-radius: 10px;
+  word-break: break-all;
+  padding: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.calculation > div:nth-child(odd) {
+  background: #1D3662;
+}
+
+.calculation > div:nth-child(even) {
+  margin: 0 10px;
+  color: #666;
+  font-size: 48px;
+  -webkit-box-flex: 0.5;
+      -ms-flex: 0.5;
+          flex: 0.5;
+}
+
+.calculation > div div:first-child {
+  color: #1E85EC;
+}
+
+.calculation > div span {
+  color: #fab617;
+  margin-left: 5px;
+}
+
+.addBankpop > .txt-lightgray {
+  margin-bottom: 20px;
+}
+
+.txt {
+  width: calc(100% - 10px);
+  padding: 0 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 10px;
+}
+
+.txt > div:first-child {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-flex: 1;
+      -ms-flex: auto;
+          flex: auto;
+  margin-right: 10px;
 }
 /*# sourceMappingURL=style.css.map */
