@@ -6,6 +6,8 @@ import Success from "./popBox.success";
 import ErrorMsg from "./popBox.errorMsg";
 import Login from "./popBox.login";
 import Join from "./popBox.join";
+import AddBankAccount from "./popBox.addBankAccount";
+import AddBankSuccess from "./popBox.addBankSuccess";
 
 export const defPopBoxType = {
 	Cancel: "Cancel",
@@ -13,7 +15,9 @@ export const defPopBoxType = {
 	Success: "Success",
 	ErrorMsg: "ErrorMsg",
 	Login: "Login",
-	Join: "Join"
+	Join: "Join",
+	AddBankAccount: "AddBankAccount",
+	AddBankSuccess: "AddBankSuccess"
 };
 
 export default () => {
@@ -46,6 +50,14 @@ export default () => {
 
 		case defPopBoxType.Join:
 			content = <Join />;
+			break;
+
+		case defPopBoxType.AddBankAccount:
+			content = <AddBankAccount />;
+			break;
+
+		case defPopBoxType.AddBankSuccess:
+			content = <AddBankSuccess btnBar={popBox.btnBar} />;
 			break;
 
 		case defPopBoxType.default:

@@ -150,7 +150,10 @@
   "lbl_LoginHere":"Login Here",
   "lbl_SelectPaymentModes":"Select Payment Modes",
   "lbl_SelectBank":"Select Bank",
-  "lbl_EnterAmount":"Enter Amount"
+  "lbl_EnterAmount":"Enter Amount",
+  "lbl_EligibleWithdrawalAmount":"Your eligible withdrawal amount is",
+  "lbl_AddNewAccount":"Add New Account",
+  "lbl_NumberOfBankAccounts":"Number of bank accounts"
 
 
 }
