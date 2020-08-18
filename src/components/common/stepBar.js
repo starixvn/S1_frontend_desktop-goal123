@@ -1,7 +1,6 @@
 import React from "react";
-import defStep from "../deposit/defStep";
 
-export default ({ t, step }) => {
+export default ({ t, step, defStep }) => {
 	let rows = defStep.map((s, sIdx) => {
 		return (
 			<div
