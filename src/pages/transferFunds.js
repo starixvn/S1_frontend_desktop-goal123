@@ -10,13 +10,19 @@ import { defPopBoxType } from "../components/common/popBox";
 import RecentHistory from "../components/transferFunds/recentHistory";
 import ShowWallets from "../components/transferFunds/showWallets";
 import SetAmount from "../components/transferFunds/setAmount";
+import LeftMenu from "../components/common/leftMenu";
 
 export default () => {
 	return (
 		<Wrapper afterLogin={true}>
 			<Layout>
 				<main>
-					<Content />
+					<section className="inside">
+						<LeftMenu />
+						<div className="rightModule">
+							<Content />
+						</div>
+					</section>
 				</main>
 			</Layout>
 		</Wrapper>
@@ -291,36 +297,33 @@ const Content = () => {
 	};
 
 	return (
-		<section className="inside">
-			<div id="leftMenu"></div>
-			<div className="rightModule">
-				<div className="infoModule">
-					<div className="inside-title icon icon-transfer">
-						<span>{t("lbl_TransferFunds")}</span>
-					</div>
-					<ShowWallets
-						i18n={t}
-						getWalletInfo={getWalletInfo}
-						restoreAll={restoreAll}
-						GetWalletInfo={GetWalletInfo}
-						_isConvert={_isConvert}
-					/>
-					<SetAmount
-						i18n={t}
-						amount={amount}
-						onChange={EditAmount}
-						transferFrom={direction.transferFrom}
-						transferTo={direction.transferTo}
-						clickSubmit={clickSubmit}
-						changeDirection={changeDirection}
-					/>
+		<div className="rightModule">
+			<div className="infoModule">
+				<div className="inside-title icon icon-transfer">
+					<span>{t("lbl_TransferFunds")}</span>
 				</div>
-				<RecentHistory
-					getHistory={getHistory}
-					GetTransferRecent={GetTransferRecent}
+				<ShowWallets
+					i18n={t}
+					getWalletInfo={getWalletInfo}
+					restoreAll={restoreAll}
+					GetWalletInfo={GetWalletInfo}
+					_isConvert={_isConvert}
 				/>
-				<button className="icon icon-books"></button>
+				<SetAmount
+					i18n={t}
+					amount={amount}
+					onChange={EditAmount}
+					transferFrom={direction.transferFrom}
+					transferTo={direction.transferTo}
+					clickSubmit={clickSubmit}
+					changeDirection={changeDirection}
+				/>
 			</div>
-		</section>
+			<RecentHistory
+				getHistory={getHistory}
+				GetTransferRecent={GetTransferRecent}
+			/>
+			<button className="icon icon-books"></button>
+		</div>
 	);
 };
