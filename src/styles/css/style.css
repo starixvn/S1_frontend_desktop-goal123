@@ -576,7 +576,7 @@ header .header > div.function .cashier.active:after, header .header > div.functi
 
 header .header > div.function .cashier:after, header .header > div.function .wallet:after, header .header > div.function .memberfile:after {
   font-family: 'icomoon';
-  content: "\e94c";
+  content: "\e954";
   -webkit-transform: rotate(90deg);
           transform: rotate(90deg);
   color: #fff;
@@ -1149,7 +1149,7 @@ footer .copyright {
 }
 
 .inputBox .dropdown > .dropdown-container, .inputBox-org .dropdown > .dropdown-container, .inputBox-white .dropdown > .dropdown-container, .inputBox-blue .dropdown > .dropdown-container, .inputBox-gray .dropdown > .dropdown-container, .inputBox-yellow .dropdown > .dropdown-container {
-  margin-left: 0;
+  margin-left: 5px;
   width: 100%;
   color: #666;
 }
@@ -1178,6 +1178,7 @@ footer .copyright {
           align-items: center;
   font-family: "Microsoft YaHei", sans-serif;
   color: #c6c6c6;
+  margin-left: 5px;
 }
 
 .inputBox .dropdown > .btn:after, .inputBox-org .dropdown > .btn:after, .inputBox-white .dropdown > .btn:after, .inputBox-blue .dropdown > .btn:after, .inputBox-gray .dropdown > .btn:after, .inputBox-yellow .dropdown > .btn:after {
@@ -1651,6 +1652,13 @@ main > .swiper-container .swiper-slide {
 
 #leftMenu + div {
   width: 77%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 #leftMenu .menuModule {
@@ -1696,7 +1704,7 @@ main > .swiper-container .swiper-slide {
 
 #leftMenu .menuModule .menuHeader:after {
   font-family: 'icomoon';
-  content: "\e94c";
+  content: "\e954";
   font-size: 24px;
   -webkit-transform: rotate(-90deg);
           transform: rotate(-90deg);
@@ -1770,6 +1778,7 @@ main > .swiper-container .swiper-slide {
   color: #1E85EC;
   float: right;
   font-size: 30px;
+  text-align: right;
 }
 
 .list div {
@@ -1815,8 +1824,8 @@ main > .swiper-container .swiper-slide {
 
 .list .listHeader div:first-child, .list .listBody div:first-child {
   -webkit-box-flex: 0;
-      -ms-flex: 0 0 50px;
-          flex: 0 0 50px;
+      -ms-flex: 0 0 49px;
+          flex: 0 0 49px;
 }
 
 .list .listHeader div:last-child, .list .listBody div:last-child {
@@ -1938,10 +1947,18 @@ main > .swiper-container .swiper-slide {
 }
 
 .pagination {
-  margin: 30px 0;
+  width: calc(100% - 68px);
+  margin: 30px auto;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
 }
 
 .pagination a {
@@ -2096,8 +2113,9 @@ main > .swiper-container .swiper-slide {
 }
 
 .inside-title.icon:before {
-  font-size: 36px;
+  font-size: 50px;
   margin-right: 10px;
+  margin-top: -10px;
 }
 
 .inside-title span {
@@ -2384,6 +2402,10 @@ main > .swiper-container .swiper-slide {
           align-items: center;
 }
 
+.align-items-center .txt-lightgray {
+  text-align: center;
+}
+
 .bankName {
   padding: 5px 30px;
   height: 40px;
@@ -2469,38 +2491,38 @@ main > .swiper-container .swiper-slide {
   text-align: center;
 }
 
-.Submit.active, .Cancel.active, .uploadSuccess.active, .updateSuccess.active, .Success.active, .tokyc.active, .addBankpop.active {
+.Submit.active, .Cancel.active, .uploadSuccess.active, .updateSuccess.active, .Success.active, .tokyc.active, .addBankpop.active, .changePassWordpop.active {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
 
-.Submit .icon, .Cancel .icon, .uploadSuccess .icon, .updateSuccess .icon, .Success .icon, .tokyc .icon, .addBankpop .icon {
+.Submit .icon, .Cancel .icon, .uploadSuccess .icon, .updateSuccess .icon, .Success .icon, .tokyc .icon, .addBankpop .icon, .changePassWordpop .icon {
   font-size: 36px;
   color: #fab617;
 }
 
-.Submit .icon.icon-bell, .Cancel .icon.icon-bell, .uploadSuccess .icon.icon-bell, .updateSuccess .icon.icon-bell, .Success .icon.icon-bell, .tokyc .icon.icon-bell, .addBankpop .icon.icon-bell {
+.Submit .icon.icon-icon32px_notification, .Cancel .icon.icon-icon32px_notification, .uploadSuccess .icon.icon-icon32px_notification, .updateSuccess .icon.icon-icon32px_notification, .Success .icon.icon-icon32px_notification, .tokyc .icon.icon-icon32px_notification, .addBankpop .icon.icon-icon32px_notification, .changePassWordpop .icon.icon-icon32px_notification {
   -webkit-transform-origin: bottom;
           transform-origin: bottom;
   -webkit-transform: rotate(20deg);
           transform: rotate(20deg);
 }
 
-.Submit .title, .Cancel .title, .uploadSuccess .title, .updateSuccess .title, .Success .title, .tokyc .title, .addBankpop .title {
+.Submit .title, .Cancel .title, .uploadSuccess .title, .updateSuccess .title, .Success .title, .tokyc .title, .addBankpop .title, .changePassWordpop .title {
   margin: 10px 0 20px;
 }
 
-.Submit .txt-lightgray, .Cancel .txt-lightgray, .uploadSuccess .txt-lightgray, .updateSuccess .txt-lightgray, .Success .txt-lightgray, .tokyc .txt-lightgray, .addBankpop .txt-lightgray {
+.Submit .txt-lightgray, .Cancel .txt-lightgray, .uploadSuccess .txt-lightgray, .updateSuccess .txt-lightgray, .Success .txt-lightgray, .tokyc .txt-lightgray, .addBankpop .txt-lightgray, .changePassWordpop .txt-lightgray {
   text-align: center;
 }
 
-.Submit .popList, .Cancel .popList, .uploadSuccess .popList, .updateSuccess .popList, .Success .popList, .tokyc .popList, .addBankpop .popList {
+.Submit .popList, .Cancel .popList, .uploadSuccess .popList, .updateSuccess .popList, .Success .popList, .tokyc .popList, .addBankpop .popList, .changePassWordpop .popList {
   width: 100%;
   margin-top: 30px;
 }
 
-.Submit .popList ul, .Cancel .popList ul, .uploadSuccess .popList ul, .updateSuccess .popList ul, .Success .popList ul, .tokyc .popList ul, .addBankpop .popList ul {
+.Submit .popList ul, .Cancel .popList ul, .uploadSuccess .popList ul, .updateSuccess .popList ul, .Success .popList ul, .tokyc .popList ul, .addBankpop .popList ul, .changePassWordpop .popList ul {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -2513,13 +2535,13 @@ main > .swiper-container .swiper-slide {
           justify-content: space-between;
 }
 
-.Submit .popList ul li, .Cancel .popList ul li, .uploadSuccess .popList ul li, .updateSuccess .popList ul li, .Success .popList ul li, .tokyc .popList ul li, .addBankpop .popList ul li {
+.Submit .popList ul li, .Cancel .popList ul li, .uploadSuccess .popList ul li, .updateSuccess .popList ul li, .Success .popList ul li, .tokyc .popList ul li, .addBankpop .popList ul li, .changePassWordpop .popList ul li {
   line-height: 30px;
   letter-spacing: 1px;
   font-size: 12px;
 }
 
-.Submit .popList ul li:first-child, .Cancel .popList ul li:first-child, .uploadSuccess .popList ul li:first-child, .updateSuccess .popList ul li:first-child, .Success .popList ul li:first-child, .tokyc .popList ul li:first-child, .addBankpop .popList ul li:first-child {
+.Submit .popList ul li:first-child, .Cancel .popList ul li:first-child, .uploadSuccess .popList ul li:first-child, .updateSuccess .popList ul li:first-child, .Success .popList ul li:first-child, .tokyc .popList ul li:first-child, .addBankpop .popList ul li:first-child, .changePassWordpop .popList ul li:first-child {
   color: #1E85EC;
   font-weight: bold;
 }
@@ -2642,9 +2664,8 @@ main > .swiper-container .swiper-slide {
 .slipInfo {
   width: calc(100% / 3 - 110px);
   float: left;
-  margin-right: 30px;
   border-radius: 15px;
-  padding: 20px 40px;
+  padding: 20px 40px 20px 70px;
 }
 
 .slipInfo button.icon {
@@ -2792,7 +2813,7 @@ main > .swiper-container .swiper-slide {
 }
 
 .offers .swiper-button-next:after, .offers .swiper-button-prev:after {
-  content: "\e94c";
+  content: "\e954";
   font-size: 48px;
   font-family: 'icomoon';
   color: #fff;
@@ -3251,5 +3272,121 @@ main > .swiper-container .swiper-slide {
       -ms-flex: auto;
           flex: auto;
   margin-right: 10px;
+}
+
+.kycHeight {
+  height: calc(100% - 190px);
+}
+
+.kycHeight .subModuleBody {
+  height: calc(100% - 40px);
+}
+
+.kycHeight .icon {
+  font-size: 48px;
+}
+
+.history {
+  width: calc(100% - 70px);
+  margin: 10px auto;
+}
+
+.quickSelect {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0 34px;
+}
+
+.quickSelect > div.inputBox, .quickSelect > div.inputBox-org, .quickSelect > div.inputBox-white, .quickSelect > div.inputBox-blue, .quickSelect > div.inputBox-gray, .quickSelect > div.inputBox-yellow, .quickSelect > div:first-child {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  margin-right: 5px;
+}
+
+.quickSelect > div:first-child {
+  position: relative;
+}
+
+.quickSelect > div:first-child .inputBox, .quickSelect > div:first-child .inputBox-org, .quickSelect > div:first-child .inputBox-white, .quickSelect > div:first-child .inputBox-blue, .quickSelect > div:first-child .inputBox-gray, .quickSelect > div:first-child .inputBox-yellow {
+  position: absolute;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+.quickSelect i {
+  white-space: nowrap;
+}
+
+.pageSelect {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  position: absolute;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  right: 0;
+  top: 0;
+  width: 150px;
+  margin: 0;
+}
+
+.pageSelect .dropdown {
+  width: auto;
+}
+
+.pageSelect .dropdown > .btn {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 100%;
+  margin-left: 0;
+}
+
+.pageSelect .dropdown .dropdown-container {
+  margin-left: 0;
+}
+
+.pageSelect .dropdown .dropdown-container .dropdown-item {
+  text-align: center;
+}
+
+.nodata {
+  text-align: center;
+  margin: 50px 0;
+}
+
+.changePassWord {
+  max-width: 855px;
+  margin: 60px auto 60px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.changePassWord .lastChange {
+  width: calc(100% - 5px);
+  padding-left: 5px;
+  color: #1E85EC;
+}
+
+.changePassWord .lastChange span {
+  color: #fff;
+  margin-left: 10px;
+}
+
+.changePassWord .inputBox, .changePassWord .inputBox-org, .changePassWord .inputBox-white, .changePassWord .inputBox-blue, .changePassWord .inputBox-gray, .changePassWord .inputBox-yellow {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  margin-right: 5px;
 }
 /*# sourceMappingURL=style.css.map */
