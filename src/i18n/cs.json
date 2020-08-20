@@ -153,7 +153,16 @@
   "lbl_EnterAmount":"Enter Amount",
   "lbl_EligibleWithdrawalAmount":"您可提款的金额为",
   "lbl_AddNewAccount":"新增账户",
-  "lbl_NumberOfBankAccounts":"Number of bank accounts"
-
-
+  "lbl_NumberOfBankAccounts":"Number of bank accounts",
+  "lbl_SelectBank_Required":"请选择银行账户",
+  "lbl_Deduction":"相抵流水缺欠金额",
+  "lbl_Balance":"余额",
+  "lbl_ConfirmWithdrawal":"请确认提现资讯。",
+  "lbl_WithdrawalTo":"提现至",
+  "lbl_AccountNumber":"帐户号码",
+  "lbl_BankAccountName":"账户名称",
+  "lbl_WithdrawalAmount":"提现金额",
+  "lbl_Max":"最高",
+  "lbl_Min":"最低",
+  "":""
 }
