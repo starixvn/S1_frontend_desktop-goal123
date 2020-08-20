@@ -37,12 +37,18 @@ export class Dropdown extends Component {
 					displayKey={item.displayKey}
 					i18n={this.props.i18n}
 					onClick={this.selectItem.bind(null, i)}
+					displayText={item.displayText}
+					imgUrl={this.props.imgUrl + item.image}
+					className={this.props.className}
 				/>
 			);
 		});
 
 		let selected = null;
-		if (this.props.options[this.props.selectedIdx]) {
+		if (
+			this.props.options?.length > 0 &&
+			this.props.options[this.props.selectedIdx]
+		) {
 			let _s = this.props.options[this.props.selectedIdx];
 
 			if (_s.displayText) {
@@ -59,7 +65,9 @@ export class Dropdown extends Component {
 				className="dropdown"
 				ref={this.wrapper}
 				onClick={this.clickDropdown}>
-				<i className={`icon ${this.props.icon}`}></i>
+				{this.props.icon ? (
+					<i className={`icon ${this.props.icon}`}></i>
+				) : null}
 				<button className="btn">{selected}</button>
 				<div
 					className={`dropdown-container${
@@ -75,7 +83,16 @@ export class Dropdown extends Component {
 const Item = props => {
 	return (
 		<div className="dropdown-item" onClick={props.onClick}>
-			{props.i18n(props.displayKey)}
+			{props.imgUrl ? (
+				<>
+					<div className={props.className}>
+						<img src={props.imgUrl} alt="" />
+					</div>
+					<div>{props.displayText}</div>
+				</>
+			) : (
+				props.i18n(props.displayKey)
+			)}
 		</div>
 	);
 };
