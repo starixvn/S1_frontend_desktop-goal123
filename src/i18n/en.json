@@ -153,7 +153,18 @@
   "lbl_EnterAmount":"Enter Amount",
   "lbl_EligibleWithdrawalAmount":"Your eligible withdrawal amount is",
   "lbl_AddNewAccount":"Add New Account",
-  "lbl_NumberOfBankAccounts":"Number of bank accounts"
-
+  "lbl_NumberOfBankAccounts":"Number of bank accounts",
+  "lbl_UpdateBankInfo":"Please update your bank account details before making withdrawal.",
+  "lbl_BankNumber":"Account Number",
+  "lbl_BankAccountNameHint":"Please use your real name for account name. This field cannot be changed once entered!",
+  "msg_NeedAccountNo":"Need Account Number",
+  "msg_EnterRealName":"Please enter your real name.",
+  "lbl_ContactCSD":"For any request of modification, please contact CSD.",
+  "lbl_QuickPick":"Quick Pick",
+  "lbl_From":"From",
+  "lbl_To":"To",
+  "lbl_TransferHistory":"Transfer History",
+  "lbl_Statement":"Statement",
+  "lbl_WithdrawalHistory":"Withdrawal History"
 
 }

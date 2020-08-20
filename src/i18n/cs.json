@@ -153,7 +153,19 @@
   "lbl_EnterAmount":"Enter Amount",
   "lbl_EligibleWithdrawalAmount":"您可提款的金额为",
   "lbl_AddNewAccount":"新增账户",
-  "lbl_NumberOfBankAccounts":"Number of bank accounts"
+  "lbl_NumberOfBankAccounts":"Number of bank accounts",
+  "lbl_UpdateBankInfo":"请在提现前完成更新银行资讯",
+  "lbl_BankNumber":"银行账户号码",
+  "lbl_BankAccountNameHint":"账号名称请填写真实姓名，完成后将无法修改！",
+  "msg_NeedAccountNo":"需要账户号码",
+  "msg_EnterRealName":"请输入您的真实姓名",
+  "lbl_ContactCSD":"如有任何修改需求，请联系客服。",
+  "lbl_QuickPick":"时间快选",
+  "lbl_From":"从",
+  "lbl_To":"至",
+  "lbl_TransferHistory":"转账历史记录",
+  "lbl_Statement":"账变记录",
+  "lbl_WithdrawalHistory":"提款历史记录"
 
 
 }
