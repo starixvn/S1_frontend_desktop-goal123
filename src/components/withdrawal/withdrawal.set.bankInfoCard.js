@@ -1,0 +1,167 @@
+import React, { useEffect, useState, useRef, useContext } from "react";
+import { useTranslation } from "react-i18next";
+import { api_account_GetCustBankInfo } from "../../service/api/account";
+import { api_accountStrict_DelCustBankInfo } from "../../service/api/accountStrict";
+import config from "../../config";
+import { popBoxContext, userInfoContext } from "../common/context";
+import { defPopBoxType } from "../common/popBox";
+
+export default props => {
+	const [bankInfoList, setBankInfoList] = useState([]);
+	const [hasCheckedKey, setHasCheckedKey] = useState();
+	const { userInfo } = useContext(userInfoContext);
+	const { setPopBox } = useContext(popBoxContext);
+	const isMountedRef = useRef(null);
+	const { t } = useTranslation();
+	const popBoxData = useContext(popBoxContext).popBox;
+
+	useEffect(() => {
+		isMountedRef.current = true;
+		return () => (isMountedRef.current = false);
+	});
+
+	useEffect(() => {
+		getApiBankCard();
+	}, []);
+
+	useEffect(() => {
+		props.allBankCardData(bankInfoList);
+	}, [bankInfoList]);
+
+	useEffect(() => {
+		if (popBoxData.refresh === true) {
+			getApiBankCard();
+		}
+	}, [popBoxData.refresh]);
+
+	const getApiBankCard = () => {
+		api_account_GetCustBankInfo().then(
+			res => {
+				if (isMountedRef.current) {
+					if (res.data.errorCode === 0) {
+						if (res.data.data.bankInfoDetail?.length > 0) {
+							setBankInfoList(res.data.data.bankInfoDetail);
+						}
+					} else {
+					}
+				}
+			},
+			err => {
+				if (isMountedRef.current) {
+					//
+				}
+			}
+		);
+	};
+
+	const checkInput = (sysId, accountNo, bankName) => {
+		let value = hasCheckedKey === accountNo ? "" : accountNo;
+		setHasCheckedKey(value);
+		if (value) {
+			props.bankCardValue(sysId, accountNo, bankName);
+		} else {
+			props.bankCardValue(0, 0, "");
+		}
+	};
+
+	const popDelete = (sysId, accountNo) => {
+		setPopBox({
+			isOpen: true,
+			popBoxType: defPopBoxType.TitleWithButton,
+			message: t("lbl_CheckConfirm"),
+			btnBar: (
+				<div className="btnGroup">
+					<button className="btn-cancel" onClick={ClickCancel}>
+						{t("lbl_No")}
+					</button>
+					<button
+						className="btn-check"
+						onClick={deleteCard.bind(this, sysId, accountNo)}>
+						{t("lbl_Yes")}
+					</button>
+				</div>
+			)
+		});
+	};
+
+	const ClickCancel = () => {
+		setPopBox({ isOpen: false });
+	};
+
+	const deleteCard = (sysId, accountNo) => {
+		api_accountStrict_DelCustBankInfo({
+			AccountName: userInfo.accountName,
+			AccountNo: accountNo,
+			SysId: sysId
+		}).then(
+			res => {
+				if (res.data.errorCode === 0) {
+					setBankInfoList(
+						bankInfoList.filter(
+							item => item.accountNo !== accountNo
+						)
+					);
+					setPopBox({ isOpen: false });
+				} else {
+					alert(res.data.message);
+				}
+			},
+			err => {
+				if (isMountedRef.current) {
+					alert(t("msg_ApiServerError"));
+				}
+			}
+		);
+	};
+
+	let bankCard = bankInfoList.map(item => {
+		let key = `withdrawal-banklist-${item.accountNo}`;
+		let checkKey = `${key}-check`;
+
+		return (
+			<div className="addBankName" key={key}>
+				<div className="addBankInfo">
+					<div className="bankName">
+						<img
+							src={`${config.imgUrl}/common/images/BankLogo/${item.bankLogo}`}
+							alt={item.bankName}
+						/>
+					</div>
+					<div className="checkbox">
+						<input
+							type="checkbox"
+							checked={hasCheckedKey === item.accountNo}
+							onChange={checkInput.bind(
+								this,
+								item.sysId,
+								item.accountNo,
+								item.bankName
+							)}
+							id={checkKey}
+						/>
+						<label
+							htmlFor={checkKey}
+							className="icon icon-checkbox-checked"></label>
+					</div>
+				</div>
+				<div className="addBankInfo">
+					<div className="txt-blue2">
+						<span>{item.accountNo.slice(0, 4)}</span>
+						<span>{item.accountNo.slice(4, 8)}</span>
+						<span>{item.accountNo.slice(8, 12)}</span>
+						<span>{item.accountNo.slice(12, 16)}</span>
+					</div>
+					<div
+						className="icon icon-bin"
+						onClick={popDelete.bind(
+							this,
+							item.sysId,
+							item.accountNo
+						)}></div>
+				</div>
+			</div>
+		);
+	});
+
+	return <>{bankCard}</>;
+};

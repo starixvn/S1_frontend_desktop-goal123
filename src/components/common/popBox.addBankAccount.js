@@ -91,7 +91,7 @@ export default () => {
 	};
 
 	const ClickCancel = () => {
-		setPopBox({ isOpen: false });
+		setPopBox({ isOpen: false, refresh: true });
 	};
 
 	const checkAll = () => {
@@ -138,13 +138,16 @@ export default () => {
 				res => {
 					if (isMountedRef.current) {
 						if (res.data.errorCode === 0) {
-							setUserInfo(prev => ({
-								...prev,
-								accountName: userValue.realName
-							}));
+							if (!userInfo.accountName) {
+								setUserInfo(prev => ({
+									...prev,
+									accountName: userValue.realName
+								}));
+							}
 							setPopBox({
 								isOpen: true,
 								popBoxType: defPopBoxType.AddBankSuccess,
+								refresh: true,
 								btnBar: (
 									<div className="btnGroup">
 										<button
