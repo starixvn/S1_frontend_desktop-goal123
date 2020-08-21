@@ -175,5 +175,7 @@
   "lbl_To":"至",
   "lbl_TransferHistory":"转账历史记录",
   "lbl_Statement":"账变记录",
-  "lbl_WithdrawalHistory":"提款历史记录"
+  "lbl_WithdrawalHistory":"提款历史记录",
+  "lbl_DepositHistory":"存款历史记录"
+
 }

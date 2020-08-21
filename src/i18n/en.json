@@ -175,5 +175,6 @@
   "lbl_To":"To",
   "lbl_TransferHistory":"Transfer History",
   "lbl_Statement":"Statement",
-  "lbl_WithdrawalHistory":"Withdrawal History"
+  "lbl_WithdrawalHistory":"Withdrawal History",
+  "lbl_DepositHistory":"Deposit History"
 }
