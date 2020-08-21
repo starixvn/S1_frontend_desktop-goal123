@@ -81,6 +81,7 @@ const Content = () => {
 				};
 				setFilterData(transactionData);
 			}
+			setPagination(prev => ({ ...prev, currentPage: 1 }));
 			GetStatement(transactionData, 1);
 		}
 	};

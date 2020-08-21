@@ -79,7 +79,6 @@ const Content = () => {
 		if (!processing) {
 			setProcessing(true);
 			let transactionData = filterData;
-			let pageNumber = pagination.pageNumber;
 
 			if (!isUnix) {
 				transactionData = {
@@ -88,6 +87,7 @@ const Content = () => {
 				};
 				setFilterData(transactionData);
 			}
+			setPagination(prev => ({ ...prev, currentPage: 1 }));
 			GetDepositInfoHistory(transactionData, 1);
 		}
 	};
@@ -184,8 +184,8 @@ const Content = () => {
 		if (!processing) {
 			setProcessing(true);
 			let transactionData = filterData;
-
 			setPagination(prev => ({ ...prev, currentPage: page }));
+
 			GetDepositInfoHistory(transactionData, page);
 		}
 	};

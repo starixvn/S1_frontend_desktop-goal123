@@ -85,6 +85,7 @@ const Content = () => {
 				};
 				setFilterData(transactionData);
 			}
+			setPagination(prev => ({ ...prev, currentPage: 1 }));
 			GetWithdrawalInfoHistory(transactionData, 1);
 		}
 	};
