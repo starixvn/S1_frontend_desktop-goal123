@@ -1,5 +1,6 @@
 import React from "react";
 import moment from "moment";
+import { useTranslation } from "react-i18next";
 import { number_format } from "../common/common";
 
 const statusClassName = {
@@ -11,6 +12,16 @@ const statusClassName = {
 };
 
 export const TransactionHistory = props => {
+	const { t } = useTranslation();
+
+	let btnGroup = null;
+	if (props.status === 1) {
+		btnGroup = (
+			<button className="btn-cancel" onClick={props.ClickCancel}>
+				{t("lbl_Cancel")}
+			</button>
+		);
+	}
 	return (
 		<div>
 			<div>{props.idx}</div>
@@ -23,8 +34,9 @@ export const TransactionHistory = props => {
 			<div>{props.transId}</div>
 			<div>{number_format(props.amount, props._isConvert)}</div>
 			<div className={statusClassName[props.status]}>
-				{props.i18n(`lbl_DepositStatus${props.status}`)}
+				{t(`lbl_DepositStatus${props.status}`)}
 			</div>
+			<div className="btnGroup">{btnGroup}</div>
 		</div>
 	);
 };

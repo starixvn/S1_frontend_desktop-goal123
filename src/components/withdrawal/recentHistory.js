@@ -1,14 +1,19 @@
 import React, { useEffect, useRef, useState, useContext } from "react";
 import moment from "moment";
 import { useTranslation } from "react-i18next";
-import { userInfoContext } from "../common/context";
-import { api_payment_GetWithdrawalInfoRecent } from "../../service/api/payment";
+import { userInfoContext, popBoxContext } from "../common/context";
+import {
+	api_payment_GetWithdrawalInfoRecent,
+	api_payment_SetWithdrawalCancel
+} from "../../service/api/payment";
 import { TransactionHistory } from "./historyResult";
 import { isConvert } from "../common/common";
+import { defPopBoxType } from "../common/popBox";
 
 export default props => {
 	const { t } = useTranslation();
 	const { userInfo } = useContext(userInfoContext);
+	const { setPopBox } = useContext(popBoxContext);
 	const _isConvert = isConvert(userInfo.currencyId);
 	const [getHistory, setGetHistory] = useState(null);
 	const isMountedRef = useRef(null);
@@ -41,6 +46,54 @@ export default props => {
 		);
 	};
 
+	const ClickCancel = transId => {
+		const ClosePopBox = () => {
+			setPopBox({ isOpen: false });
+		};
+
+		const ClickConfirm = () => {
+			setPopBox({ isOpen: false });
+			api_payment_SetWithdrawalCancel(transId).then(
+				res => {
+					if (isMountedRef.current) {
+						if (res.data.errorCode === 0) {
+							setGetHistory(prev => {
+								let newData = [...prev];
+								let idx = newData.findIndex(
+									x => x.transId === transId
+								);
+								newData[idx].status = 5;
+								return newData;
+							});
+						} else {
+							alert(res.data.message);
+						}
+					}
+				},
+				err => {
+					if (isMountedRef.current) {
+						alert(t("msg_ApiServerError"));
+					}
+				}
+			);
+		};
+
+		setPopBox({
+			isOpen: true,
+			defPopBoxType: defPopBoxType.Cancel,
+			btn: (
+				<div className="btnGroup">
+					<button className="btn-cancel" onClick={ClosePopBox}>
+						{t("lbl_No")}
+					</button>
+					<button className="btn-check" onClick={ClickConfirm}>
+						{t("lbl_Yes")}
+					</button>
+				</div>
+			)
+		});
+	};
+
 	let arr = getHistory?.map((item, i) => {
 		return (
 			<TransactionHistory
@@ -49,6 +102,7 @@ export default props => {
 				_isConvert={_isConvert}
 				i18n={t}
 				{...item}
+				ClickCancel={ClickCancel.bind(this, item.transId)}
 			/>
 		);
 	});
@@ -62,8 +116,9 @@ export default props => {
 				</div>
 				<div>{t("lbl_ID")}</div>
 				<div>{t("lbl_Amount")}</div>
+				<div>{t("lbl_Status")}</div>
 				<div>
-					{t("lbl_Status")}
+					{t("lbl_Action")}
 					<button
 						className="icon icon-spinner11"
 						onClick={GetWithdrawalInfoRecent}></button>
