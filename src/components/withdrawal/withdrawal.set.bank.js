@@ -127,23 +127,34 @@ export default () => {
 		let AccountNo = accountNoValue;
 		let amount = parseInt(amountValue, 10);
 		let sysId = sysIdValue;
-		api_payment_WithdrawalReq(AccountNo, amount, sysId).then(res => {
-			if (res.data.errorCode === 0) {
-				setPopBox({
-					isOpen: true,
-					popBoxType: defPopBoxType.Success,
-					btnBar: (
-						<div className="btnGroup">
-							<button className="btn-check" onClick={ClickDone}>
-								OK
-							</button>
-						</div>
-					)
-				});
-			} else {
-				alert(res.data.message);
+		api_payment_WithdrawalReq(AccountNo, amount, sysId).then(
+			res => {
+				if (isMountedRef.current) {
+					if (res.data.errorCode === 0) {
+						setPopBox({
+							isOpen: true,
+							popBoxType: defPopBoxType.Success,
+							btnBar: (
+								<div className="btnGroup">
+									<button
+										className="btn-check"
+										onClick={ClickDone}>
+										OK
+									</button>
+								</div>
+							)
+						});
+					} else {
+						alert(res.data.message);
+					}
+				}
+			},
+			err => {
+				if (isMountedRef.current) {
+					alert(t("msg_ApiServerError"));
+				}
 			}
-		});
+		);
 	};
 
 	return (
