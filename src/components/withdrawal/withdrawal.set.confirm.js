@@ -1,26 +1,12 @@
-import React, { useEffect, useRef, useState, useContext } from "react";
+import React, { useContext } from "react";
 import { useTranslation } from "react-i18next";
-import { userInfoContext, popBoxContext } from "../common/context";
+import { userInfoContext } from "../common/context";
 import { isConvert, number_format } from "../common/common";
 
 export default props => {
 	const { t } = useTranslation();
 	const { userInfo } = useContext(userInfoContext);
 	const _isConvert = isConvert(userInfo.currencyId);
-	const isMountedRef = useRef(null);
-
-	useEffect(() => {
-		isMountedRef.current = true;
-		return () => (isMountedRef.current = false);
-	});
-
-	const toParentConfirm = () => {
-		props.getChildConfirm(false);
-	};
-
-	const SubmitWitdhdraw = () => {
-		props.submitWithdrawal(true);
-	};
 
 	return (
 		<div className="subModuleBody column align-items-center">
@@ -50,10 +36,10 @@ export default props => {
 				</ul>
 			</div>
 			<div className="btnGroup">
-				<button className="btn-cancel" onClick={toParentConfirm}>
+				<button className="btn-cancel" onClick={props.cancelSubmit}>
 					{t("lbl_Cancel")}
 				</button>
-				<button className="btn-check" onClick={SubmitWitdhdraw}>
+				<button className="btn-check" onClick={props.confirmSubmit}>
 					{t("lbl_Submit")}
 				</button>
 			</div>

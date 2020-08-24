@@ -52,10 +52,8 @@ export default () => {
 		);
 	};
 
-	const refreshAvailable = childValue => {
-		if (childValue === true) {
-			getApiBalance();
-		}
+	const refreshAvailableBalance = () => {
+		getApiBalance();
 	};
 
 	const getBankCardValue = (childSysId, childAccountNo, bankName) => {
@@ -68,22 +66,52 @@ export default () => {
 		setAllBankCardData(childValue);
 	};
 
-	const getAmountValue = childValue => {
-		setAmountValue(childValue);
+	const onChangeAmount = e => {
+		let value = e.target.value;
+		setAmountValue(value);
 	};
 
-	const getChildConfirm = childValue => {
-		setShowConfirmPage(childValue);
+	const ClickClose = () => {
+		setPopBox({ isOpen: false });
 	};
 
-	const getChildSubmit = childValue => {
-		setShowConfirmPage(childValue);
-		if (childValue === true) {
-			SubmitWithdrawal();
+	const toConfirmPage = () => {
+		if (amountValue < 1 || amountValue === "") {
+			setPopBox({
+				isOpen: true,
+				popBoxType: defPopBoxType.ErrorMsg,
+				message: t("lbl_AmountTooltip"),
+				btnBar: (
+					<div className="btnGroup">
+						<button className="btn-cancel" onClick={ClickClose}>
+							{t("lbl_Close")}
+						</button>
+					</div>
+				)
+			});
+		} else if (accountNoValue === "" || sysIdValue === 0) {
+			setPopBox({
+				isOpen: true,
+				popBoxType: defPopBoxType.ErrorMsg,
+				message: t("lbl_SelectBank_Required"),
+				btnBar: (
+					<div className="btnGroup">
+						<button className="btn-cancel" onClick={ClickClose}>
+							{t("lbl_Close")}
+						</button>
+					</div>
+				)
+			});
+		} else {
+			setShowConfirmPage(true);
 		}
 	};
 
-	const SubmitWithdrawal = () => {
+	const cancelSubmit = () => {
+		setShowConfirmPage(false);
+	};
+
+	const confirmSubmit = () => {
 		let AccountNo = accountNoValue;
 		let amount = parseInt(amountValue, 10);
 		let sysId = sysIdValue;
@@ -120,7 +148,7 @@ export default () => {
 			<div className="walletModule">
 				<Available
 					availableBalance={balanceData.availableBalance}
-					refreshAvailable={refreshAvailable}
+					refreshAvailableBalance={refreshAvailableBalance}
 				/>
 			</div>
 			<div className="walletModule">
@@ -144,18 +172,18 @@ export default () => {
 									}
 								/>
 								<CashBar
-									getAmountValue={getAmountValue}
+									onChangeAmount={onChangeAmount}
 									amountValue={amountValue}
 									availableBalance={
 										balanceData.availableBalance
 									}
 								/>
 								<InputModuleRow
-									getAmountValue={getAmountValue}
+									onChangeAmount={onChangeAmount}
 									amountValue={amountValue}
 									sysIdValue={sysIdValue}
 									accountNoValue={accountNoValue}
-									getChildConfirm={getChildConfirm}
+									toConfirmPage={toConfirmPage}
 								/>
 							</div>
 						) : (
@@ -164,8 +192,8 @@ export default () => {
 								amountValue={amountValue}
 								sysIdValue={sysIdValue}
 								accountNoValue={accountNoValue}
-								getChildConfirm={getChildConfirm}
-								submitWithdrawal={getChildSubmit}
+								cancelSubmit={cancelSubmit}
+								confirmSubmit={confirmSubmit}
 							/>
 						)}
 					</div>
