@@ -9,8 +9,9 @@ import BankInfoCard from "./withdrawal.set.bankInfoCard";
 import WithdrawalConfirm from "./withdrawal.set.confirm";
 import { api_payment_WithdrawalReq } from "../../service/api/payment";
 import { api_account_GetWithdrawalAvailableBalance } from "../../service/api/account";
-import { popBoxContext } from "../common/context";
+import { popBoxContext, userInfoContext } from "../common/context";
 import { defPopBoxType } from "../common/popBox";
+import { isConvert } from "../common/common";
 
 export default () => {
 	const { t } = useTranslation();
@@ -23,6 +24,8 @@ export default () => {
 	const [bankNameValue, setBankNameValue] = useState("");
 	const [amountValue, setAmountValue] = useState(0);
 	const [showConfirmPage, setShowConfirmPage] = useState(false);
+	const { userInfo } = useContext(userInfoContext);
+	const _isConvert = isConvert(userInfo.currencyId);
 
 	useEffect(() => {
 		isMountedRef.current = true;
@@ -52,10 +55,8 @@ export default () => {
 		);
 	};
 
-	const refreshAvailable = childValue => {
-		if (childValue === true) {
-			getApiBalance();
-		}
+	const refreshAvailableBalance = () => {
+		getApiBalance();
 	};
 
 	const getBankCardValue = (childSysId, childAccountNo, bankName) => {
@@ -68,51 +69,92 @@ export default () => {
 		setAllBankCardData(childValue);
 	};
 
-	const getAmountValue = childValue => {
-		setAmountValue(childValue);
+	const onChangeAmount = e => {
+		let value = e.target.value;
+		setAmountValue(value);
 	};
 
-	const getChildConfirm = childValue => {
-		setShowConfirmPage(childValue);
+	const ClickClose = () => {
+		setPopBox({ isOpen: false });
 	};
 
-	const getChildSubmit = childValue => {
-		setShowConfirmPage(childValue);
-		if (childValue === true) {
-			SubmitWithdrawal();
+	const toConfirmPage = () => {
+		if (amountValue < 1 || amountValue === "") {
+			setPopBox({
+				isOpen: true,
+				popBoxType: defPopBoxType.ErrorMsg,
+				message: t("lbl_AmountTooltip"),
+				btnBar: (
+					<div className="btnGroup">
+						<button className="btn-cancel" onClick={ClickClose}>
+							{t("lbl_Close")}
+						</button>
+					</div>
+				)
+			});
+		} else if (accountNoValue === "" || sysIdValue === 0) {
+			setPopBox({
+				isOpen: true,
+				popBoxType: defPopBoxType.ErrorMsg,
+				message: t("lbl_SelectBank_Required"),
+				btnBar: (
+					<div className="btnGroup">
+						<button className="btn-cancel" onClick={ClickClose}>
+							{t("lbl_Close")}
+						</button>
+					</div>
+				)
+			});
+		} else {
+			setShowConfirmPage(true);
 		}
 	};
 
-	const SubmitWithdrawal = () => {
+	const cancelSubmit = () => {
+		setShowConfirmPage(false);
+	};
+
+	const confirmSubmit = () => {
+		let ClickDone = () => {
+			setAmountValue(0);
+			getApiBalance();
+			setPopBox({
+				isOpen: false
+			});
+			setShowConfirmPage(false);
+		};
+
 		let AccountNo = accountNoValue;
 		let amount = parseInt(amountValue, 10);
 		let sysId = sysIdValue;
-		api_payment_WithdrawalReq(AccountNo, amount, sysId).then(res => {
-			if (res.data.errorCode === 0) {
-				setPopBox({
-					isOpen: true,
-					popBoxType: defPopBoxType.Success,
-					btnBar: (
-						<div className="btnGroup">
-							<button className="btn-check" onClick={ClickDone}>
-								OK
-							</button>
-						</div>
-					)
-				});
-			} else {
-				alert(res.data.message);
+		api_payment_WithdrawalReq(AccountNo, amount, sysId).then(
+			res => {
+				if (isMountedRef.current) {
+					if (res.data.errorCode === 0) {
+						setPopBox({
+							isOpen: true,
+							popBoxType: defPopBoxType.Success,
+							btnBar: (
+								<div className="btnGroup">
+									<button
+										className="btn-check"
+										onClick={ClickDone}>
+										OK
+									</button>
+								</div>
+							)
+						});
+					} else {
+						alert(res.data.message);
+					}
+				}
+			},
+			err => {
+				if (isMountedRef.current) {
+					alert(t("msg_ApiServerError"));
+				}
 			}
-		});
-	};
-
-	const ClickDone = () => {
-		setAmountValue(0);
-		getApiBalance();
-		setPopBox({
-			isOpen: false
-		});
-		setShowConfirmPage(false);
+		);
 	};
 
 	return (
@@ -120,7 +162,8 @@ export default () => {
 			<div className="walletModule">
 				<Available
 					availableBalance={balanceData.availableBalance}
-					refreshAvailable={refreshAvailable}
+					refreshAvailableBalance={refreshAvailableBalance}
+					_isConvert={_isConvert}
 				/>
 			</div>
 			<div className="walletModule">
@@ -128,6 +171,7 @@ export default () => {
 					<BankInfoCard
 						bankCardValue={getBankCardValue}
 						allBankCardData={getAllBankCardData}
+						_isConvert={_isConvert}
 					/>
 					<AddBankAccount allBankCardData={allBankCardData} />
 				</div>
@@ -142,20 +186,23 @@ export default () => {
 									availableBalance={
 										balanceData.availableBalance
 									}
+									_isConvert={_isConvert}
 								/>
 								<CashBar
-									getAmountValue={getAmountValue}
+									onChangeAmount={onChangeAmount}
 									amountValue={amountValue}
 									availableBalance={
 										balanceData.availableBalance
 									}
+									_isConvert={_isConvert}
 								/>
 								<InputModuleRow
-									getAmountValue={getAmountValue}
+									onChangeAmount={onChangeAmount}
 									amountValue={amountValue}
 									sysIdValue={sysIdValue}
 									accountNoValue={accountNoValue}
-									getChildConfirm={getChildConfirm}
+									toConfirmPage={toConfirmPage}
+									_isConvert={_isConvert}
 								/>
 							</div>
 						) : (
@@ -164,8 +211,9 @@ export default () => {
 								amountValue={amountValue}
 								sysIdValue={sysIdValue}
 								accountNoValue={accountNoValue}
-								getChildConfirm={getChildConfirm}
-								submitWithdrawal={getChildSubmit}
+								cancelSubmit={cancelSubmit}
+								confirmSubmit={confirmSubmit}
+								_isConvert={_isConvert}
 							/>
 						)}
 					</div>
