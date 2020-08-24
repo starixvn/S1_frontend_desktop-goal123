@@ -9,6 +9,7 @@ import Join from "./popBox.join";
 import AddBankAccount from "./popBox.addBankAccount";
 import AddBankSuccess from "./popBox.addBankSuccess";
 import TitleWithButton from "./popBox.titleWithButton";
+import ChangePsw from "./popBox.changePsw";
 
 export const defPopBoxType = {
 	Cancel: "Cancel",
@@ -19,7 +20,8 @@ export const defPopBoxType = {
 	Join: "Join",
 	AddBankAccount: "AddBankAccount",
 	AddBankSuccess: "AddBankSuccess",
-	TitleWithButton: "TitleWithButton"
+	TitleWithButton: "TitleWithButton",
+	ChangePsw: "ChangePsw"
 };
 
 export default () => {
@@ -70,6 +72,11 @@ export default () => {
 				/>
 			);
 			break;
+
+		case defPopBoxType.ChangePsw:
+			content = (
+				<ChangePsw btnBar={popBox.btnBar} message={popBox.message} />
+			);
 
 		case defPopBoxType.default:
 			break;

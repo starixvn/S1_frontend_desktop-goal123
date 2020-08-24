@@ -5,6 +5,9 @@ export default props => {
 		<>
 			<div className="inputBox">
 				<i className={`icon ${props.icon}`}></i>
+				{props.title ? (
+					<i className="txt-blue12">{props.title}</i>
+				) : null}
 				<input
 					type={props.inputType ?? "text"}
 					placeholder={props.placeholder}
