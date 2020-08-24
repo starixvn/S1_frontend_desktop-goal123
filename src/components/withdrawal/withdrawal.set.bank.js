@@ -9,8 +9,9 @@ import BankInfoCard from "./withdrawal.set.bankInfoCard";
 import WithdrawalConfirm from "./withdrawal.set.confirm";
 import { api_payment_WithdrawalReq } from "../../service/api/payment";
 import { api_account_GetWithdrawalAvailableBalance } from "../../service/api/account";
-import { popBoxContext } from "../common/context";
+import { popBoxContext, userInfoContext } from "../common/context";
 import { defPopBoxType } from "../common/popBox";
+import { isConvert } from "../common/common";
 
 export default () => {
 	const { t } = useTranslation();
@@ -23,6 +24,8 @@ export default () => {
 	const [bankNameValue, setBankNameValue] = useState("");
 	const [amountValue, setAmountValue] = useState(0);
 	const [showConfirmPage, setShowConfirmPage] = useState(false);
+	const { userInfo } = useContext(userInfoContext);
+	const _isConvert = isConvert(userInfo.currencyId);
 
 	useEffect(() => {
 		isMountedRef.current = true;
@@ -112,6 +115,15 @@ export default () => {
 	};
 
 	const confirmSubmit = () => {
+		let ClickDone = () => {
+			setAmountValue(0);
+			getApiBalance();
+			setPopBox({
+				isOpen: false
+			});
+			setShowConfirmPage(false);
+		};
+
 		let AccountNo = accountNoValue;
 		let amount = parseInt(amountValue, 10);
 		let sysId = sysIdValue;
@@ -134,21 +146,13 @@ export default () => {
 		});
 	};
 
-	const ClickDone = () => {
-		setAmountValue(0);
-		getApiBalance();
-		setPopBox({
-			isOpen: false
-		});
-		setShowConfirmPage(false);
-	};
-
 	return (
 		<>
 			<div className="walletModule">
 				<Available
 					availableBalance={balanceData.availableBalance}
 					refreshAvailableBalance={refreshAvailableBalance}
+					_isConvert={_isConvert}
 				/>
 			</div>
 			<div className="walletModule">
@@ -156,6 +160,7 @@ export default () => {
 					<BankInfoCard
 						bankCardValue={getBankCardValue}
 						allBankCardData={getAllBankCardData}
+						_isConvert={_isConvert}
 					/>
 					<AddBankAccount allBankCardData={allBankCardData} />
 				</div>
@@ -170,6 +175,7 @@ export default () => {
 									availableBalance={
 										balanceData.availableBalance
 									}
+									_isConvert={_isConvert}
 								/>
 								<CashBar
 									onChangeAmount={onChangeAmount}
@@ -177,6 +183,7 @@ export default () => {
 									availableBalance={
 										balanceData.availableBalance
 									}
+									_isConvert={_isConvert}
 								/>
 								<InputModuleRow
 									onChangeAmount={onChangeAmount}
@@ -184,6 +191,7 @@ export default () => {
 									sysIdValue={sysIdValue}
 									accountNoValue={accountNoValue}
 									toConfirmPage={toConfirmPage}
+									_isConvert={_isConvert}
 								/>
 							</div>
 						) : (
@@ -194,6 +202,7 @@ export default () => {
 								accountNoValue={accountNoValue}
 								cancelSubmit={cancelSubmit}
 								confirmSubmit={confirmSubmit}
+								_isConvert={_isConvert}
 							/>
 						)}
 					</div>

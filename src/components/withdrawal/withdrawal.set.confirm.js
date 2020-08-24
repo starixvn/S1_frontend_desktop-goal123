@@ -1,12 +1,11 @@
 import React, { useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { userInfoContext } from "../common/context";
-import { isConvert, number_format } from "../common/common";
+import { number_format } from "../common/common";
 
 export default props => {
 	const { t } = useTranslation();
 	const { userInfo } = useContext(userInfoContext);
-	const _isConvert = isConvert(userInfo.currencyId);
 
 	return (
 		<div className="subModuleBody column align-items-center">
@@ -32,7 +31,9 @@ export default props => {
 				</ul>
 				<ul>
 					<li>{t("lbl_WithdrawalAmount")}</li>
-					<li>{number_format(props.amountValue, _isConvert)}</li>
+					<li>
+						{number_format(props.amountValue, props._isConvert)}
+					</li>
 				</ul>
 			</div>
 			<div className="btnGroup">
