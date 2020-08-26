@@ -1053,6 +1053,14 @@ footer .copyright {
   display: flex;
   width: 100%;
   height: 47px;
+  position: relative;
+}
+
+.inputModuleRow .tip {
+  position: absolute;
+  -webkit-transform: translateY(100%);
+          transform: translateY(100%);
+  bottom: 0;
 }
 
 .inputBox, .inputBox-org, .inputBox-white, .inputBox-blue, .inputBox-gray, .inputBox-yellow {
@@ -2600,6 +2608,12 @@ main > .swiper-container .swiper-slide {
   font-weight: normal;
 }
 
+.directions ~ .tip {
+  width: calc(100% - 22px);
+  max-width: 80%;
+  min-width: 75%;
+}
+
 .directions ul {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -2869,6 +2883,16 @@ main > .swiper-container .swiper-slide {
       -ms-flex-pack: justify;
           justify-content: space-between;
   max-width: calc(50% - 40px);
+  position: relative;
+}
+
+.walletModule .walletBalanceModule .tip {
+  position: absolute;
+  bottom: 0;
+  -webkit-transform: translateY(100%);
+          transform: translateY(100%);
+  padding: 10px 0;
+  margin-left: 15px;
 }
 
 .walletModule .walletBalanceModule span.icon-balance {
@@ -3445,6 +3469,13 @@ main > .swiper-container .swiper-slide {
   margin-right: 5px;
 }
 
+.changePassWord .tip, .forgetPassWord .tip {
+  position: absolute;
+  -webkit-transform: translateY(calc(100% + 10px));
+          transform: translateY(calc(100% + 10px));
+  padding: 0;
+}
+
 .forgetPassWord .icon {
   font-size: 18px;
 }
@@ -3501,6 +3532,9 @@ main > .swiper-container .swiper-slide {
 
 .profileEdit .profile {
   margin: 0 70px 0 0;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
 }
 
 .profileEdit .profile > div {
@@ -3522,6 +3556,9 @@ main > .swiper-container .swiper-slide {
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: flex-end;
+  -webkit-box-flex: 1.5;
+      -ms-flex: 1.5;
+          flex: 1.5;
 }
 
 .profileEdit .editModule .inputBox:first-child, .profileEdit .editModule .inputBox-org:first-child, .profileEdit .editModule .inputBox-white:first-child, .profileEdit .editModule .inputBox-blue:first-child, .profileEdit .editModule .inputBox-gray:first-child, .profileEdit .editModule .inputBox-yellow:first-child {
@@ -3533,6 +3570,10 @@ main > .swiper-container .swiper-slide {
   -webkit-box-pack: unset;
       -ms-flex-pack: unset;
           justify-content: unset;
+}
+
+.profileEdit .editModule .tip {
+  width: 100%;
 }
 
 .haveBank {
@@ -3562,6 +3603,14 @@ main > .swiper-container .swiper-slide {
 .accountName span {
   color: #fff;
   margin: 0 10px;
+}
+
+.accountName button {
+  color: #1E85EC;
+}
+
+.accountName .tip {
+  padding-left: 0;
 }
 
 .announcement, .personal {
