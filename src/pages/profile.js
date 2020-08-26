@@ -2,6 +2,7 @@ import React from "react";
 import Wrapper from "../components/common/wrapper";
 import Layout from "../components/common/layout";
 import Profile from "../components/profile/profile";
+import LeftMenu from "../components/common/leftMenu";
 
 export default () => {
 	return (
@@ -9,7 +10,7 @@ export default () => {
 			<Layout>
 				<main>
 					<section class="inside">
-						<div id="leftMenu"></div>
+						<LeftMenu />
 						<div class="rightModule">
 							<Profile />
 						</div>

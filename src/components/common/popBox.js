@@ -24,7 +24,7 @@ export const defPopBoxType = {
 	AddBankSuccess: "AddBankSuccess",
 	TitleWithButton: "TitleWithButton",
 	ProfileConfirmCheck: "ProfileConfirmCheck",
-	ProfileCompelete: "ProfileCompelete"
+	ProfileCompelete: "ProfileCompelete",
 	ChangePsw: "ChangePsw"
 };
 
