@@ -6,6 +6,13 @@ import DateTime from "react-datetime";
 
 export default props => {
 	const { t } = useTranslation();
+
+	let legalDate = moment().subtract(21, "year");
+
+	const valid = current => {
+		return current.isBefore(legalDate);
+	};
+
 	const dataList = [
 		{
 			label: t("lbl_RealName"),
@@ -96,8 +103,10 @@ export default props => {
 							value={props.birthValue}
 							onChange={props.onChangeBirth}
 							timeFormat={false}
-							dateFormat={true}
+							dateFormat={"YYYY-MM-DD"}
 							onBlur={props.checkBirth}
+							defaultValue={legalDate}
+							isValidDate={valid}
 						/>
 					</div>
 				) : (
