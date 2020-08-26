@@ -8,18 +8,24 @@ import { isConvert } from "../components/common/common";
 import { userInfoContext, popBoxContext } from "../components/common/context";
 import { TransactionHistory } from "../components/withdrawal/historyResult";
 import { defPopBoxType } from "../components/common/popBox";
-import { PageNumber } from "../components/common/pageNumber";
+import { Pagination } from "../components/common/pagination";
 import Wrapper from "../components/common/wrapper";
 import Layout from "../components/common/layout";
 import moment from "moment";
 import Filter from "../components/common/historyFilter";
+import LeftMenu from "../components/common/leftMenu";
 
 export default () => {
 	return (
 		<Wrapper afterLogin={true}>
 			<Layout>
 				<main>
-					<Content />
+					<section className="inside">
+						<LeftMenu />
+						<div className="rightModule">
+							<Content />
+						</div>
+					</section>
 				</main>
 			</Layout>
 		</Wrapper>
@@ -58,6 +64,10 @@ const Content = () => {
 				if (isMountedRef.current) {
 					if (res.data.errorCode === 0) {
 						setGetHistory(res.data.data);
+						setPagination(prev => ({
+							...prev,
+							totalPages: res.data.totalPages
+						}));
 					} else {
 						alert(res.data.message);
 					}
@@ -138,29 +148,11 @@ const Content = () => {
 		});
 	};
 
-	const clickPageNumber = (i, e) => {
-		e.preventDefault();
-		let page = 1;
-
-		if (!isNaN(i)) {
-			page = i;
-		} else if (i === "lastPage") {
-			page =
-				pagination.currentPage === 1 ? 1 : pagination.currentPage - 1;
-		} else if (i === "nextPage") {
-			page =
-				pagination.currentPage === pagination.totalPages
-					? pagination.totalPages
-					: pagination.currentPage + 1;
-		} else {
-			page = pagination.currentPage;
-		}
-
+	const clickPageNumber = page => {
 		if (!processing) {
 			setProcessing(true);
 			let transactionData = filterData;
 			setPagination(prev => ({ ...prev, currentPage: page }));
-
 			GetWithdrawalInfoHistory(transactionData, page);
 		}
 	};
@@ -181,52 +173,47 @@ const Content = () => {
 	});
 
 	return (
-		<section className="inside">
-			<div id="leftMenu"></div>
-			<div className="rightModule">
-				<div className="infoModule">
-					<div className="inside-title icon icon-icon32px_History">
-						<span>{t("lbl_WithdrawalHistory")}</span>
-					</div>
-					<Filter submitHandler={clickDateSubmit} />
-					{getHistory ? (
-						getHistory.length > 0 ? (
-							<div className="list history">
-								<div className="listHeader">
-									<div>{t("lbl_NO")}</div>
-									<div>
-										{t("lbl_Date")} {moment().format("Z")}
-									</div>
-									<div>{t("lbl_ID")}</div>
-									<div>{t("lbl_Amount")}</div>
-									<div>{t("lbl_Status")}</div>
-									<div>
-										{t("lbl_Action")}
-										<button
-											className="icon icon-spinner11"
-											onClick={clickDateSubmit.bind(
-												this,
-												filterData.StartDate,
-												filterData.EndDate
-											)}></button>
-									</div>
-								</div>
-								<div className="listBody">{arr}</div>
-							</div>
-						) : (
-							<div className="nodata">{t("msg_NoData")}</div>
-						)
-					) : null}
-
-					{pagination.totalPages !== 0 ? (
-						<PageNumber
-							totalPages={pagination.totalPages}
-							currentPage={pagination.currentPage}
-							clickPageNumber={clickPageNumber}
-						/>
-					) : null}
-				</div>
+		<div className="infoModule">
+			<div className="inside-title icon icon-icon32px_History">
+				<span>{t("lbl_WithdrawalHistory")}</span>
 			</div>
-		</section>
+			<Filter submitHandler={clickDateSubmit} />
+			{getHistory ? (
+				getHistory.length > 0 ? (
+					<div className="list history">
+						<div className="listHeader">
+							<div>{t("lbl_NO")}</div>
+							<div>
+								{t("lbl_Date")} {moment().format("Z")}
+							</div>
+							<div>{t("lbl_ID")}</div>
+							<div>{t("lbl_Amount")}</div>
+							<div>{t("lbl_Status")}</div>
+							<div>
+								{t("lbl_Action")}
+								<button
+									className="icon icon-spinner11"
+									onClick={clickDateSubmit.bind(
+										this,
+										filterData.StartDate,
+										filterData.EndDate
+									)}></button>
+							</div>
+						</div>
+						<div className="listBody">{arr}</div>
+					</div>
+				) : (
+					<div className="nodata">{t("msg_NoData")}</div>
+				)
+			) : null}
+
+			{pagination.totalPages !== 0 ? (
+				<Pagination
+					totalPages={pagination.totalPages}
+					currentPage={pagination.currentPage}
+					clickPageNumber={clickPageNumber}
+				/>
+			) : null}
+		</div>
 	);
 };

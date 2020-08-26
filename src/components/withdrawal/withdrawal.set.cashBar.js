@@ -1,16 +1,6 @@
-import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
+import React from "react";
 
 export default props => {
-	const { t } = useTranslation();
-	const [barValue, setBarValue] = useState("");
-
-	const handleSlider = e => {
-		let value = e.target.value;
-		setBarValue(value);
-		props.getAmountValue(value);
-	};
-
 	let minValue = 0;
 	let maxValue = props.availableBalance;
 
@@ -23,11 +13,11 @@ export default props => {
 				min={minValue}
 				max={maxValue}
 				step="1"
-				onChange={handleSlider}
+				onChange={props.onChangeAmount}
 				value={props.amountValue}
 			/>
 			<div className="cashPoint">
-				<span>{barValue}</span>
+				<span>{props.amountValue}</span>
 			</div>
 			{/* </div> */}
 
