@@ -7,6 +7,7 @@ export const defActionType = {
 	EDIT_ACCOUNT_NUMBER: "EDIT_ACCOUNT_NUMBER",
 	EDIT_ACCOUNT_NAME: "EDIT_ACCOUNT_NAME",
 	BACK_TO_INIT: "BACK_TO_INIT"
+	// DELETE_BANK_ACCOUNT: "DELETE_BANK_ACCOUNT"
 };
 
 const defStepModule = {
@@ -87,6 +88,11 @@ export function reducer(state, action) {
 				step: newStep,
 				displayModule: defStepModule[newStep]
 			};
+
+		// case defAActionType.DELETE_BANK_ACCOUNT:
+		// 	return{
+		// 		...state
+		// 	}
 
 		default:
 			console.log("this action type is not exists");
