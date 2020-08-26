@@ -176,6 +176,21 @@
   "lbl_TransferHistory":"转账历史记录",
   "lbl_Statement":"账变记录",
   "lbl_WithdrawalHistory":"提款历史记录",
-  "lbl_DepositHistory":"存款历史记录"
-
+  "lbl_DepositHistory":"存款历史记录",
+  "lbl_Phone":"电话号码",
+  "lbl_Birthday":"生日",
+  "lbl_ProfileModifyWarning":"为确保帐户安全，个人资料填写后，将无法修改。",
+  "lbl_NameRequired":"请填写姓名栏位",
+  "lbl_BirthRequired":"请填写生日栏位",
+  "lbl_PhoneRequired":"请填写电话栏位",
+  "lbl_Age21Warning":"年龄至少在21岁以上",
+  "lbl_EnsureTransactionsCorrect":"为确保所有交易正确无误，",
+  "lbl_ReModify":"重新更改",
+  "lbl_Later":"稍后",
+  "lbl_DepositNow":"马上存款",
+  "lbl_UpdatedSuccessfully":"更新成功",
+  "lbl_Awesome":"太棒了",
+  "lbl_GoDepositPage":"前往存款页面",
+  "lbl_Country":"国家",
+  "lbl_RegisterTime":"注册时间"
 }
