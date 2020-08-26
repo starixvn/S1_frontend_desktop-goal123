@@ -9,6 +9,8 @@ import Join from "./popBox.join";
 import AddBankAccount from "./popBox.addBankAccount";
 import AddBankSuccess from "./popBox.addBankSuccess";
 import TitleWithButton from "./popBox.titleWithButton";
+import ProfileConfirmCheck from "./popBox.profileConfirmCheck";
+import ProfileCompelete from "./popBox.profileCompelete";
 
 export const defPopBoxType = {
 	Cancel: "Cancel",
@@ -19,7 +21,9 @@ export const defPopBoxType = {
 	Join: "Join",
 	AddBankAccount: "AddBankAccount",
 	AddBankSuccess: "AddBankSuccess",
-	TitleWithButton: "TitleWithButton"
+	TitleWithButton: "TitleWithButton",
+	ProfileConfirmCheck: "ProfileConfirmCheck",
+	ProfileCompelete: "ProfileCompelete"
 };
 
 export default () => {
@@ -69,6 +73,19 @@ export default () => {
 					message={popBox.message}
 				/>
 			);
+			break;
+
+		case defPopBoxType.ProfileConfirmCheck:
+			content = (
+				<ProfileConfirmCheck
+					btnBar={popBox.btnBar}
+					accountName={popBox.accountName}
+				/>
+			);
+			break;
+
+		case defPopBoxType.ProfileCompelete:
+			content = <ProfileCompelete btnBar={popBox.btnBar} />;
 			break;
 
 		case defPopBoxType.default:
