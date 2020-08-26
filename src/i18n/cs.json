@@ -176,6 +176,15 @@
   "lbl_TransferHistory":"转账历史记录",
   "lbl_Statement":"账变记录",
   "lbl_WithdrawalHistory":"提款历史记录",
-  "lbl_DepositHistory":"存款历史记录"
+  "lbl_DepositHistory":"存款历史记录",
+  "lbl_Announcement":"公告",
+  "lbl_ChangePasswordHint":"Modify the password when logging in,and regular modification is beneficial to account security.",
+  "lbl_OldPassword":"当前密码",
+  "lbl_NewPassword":"新密码",
+  "msg_Updatesuccessful":"更新成功",
+  "lbl_ForgetPwdHint":"若您忘记您的用户名或密码，请提供您的电子邮件后我们将寄新密码至您的邮箱。",
+  "lbl_EnterAccountNumber":"Enter Account Number",
+  "msg_AccountWrongFormat":"Account Number format is wrong.",
+  "lbl_BankCardsFull":"Bank Card Is Full"
 
 }
