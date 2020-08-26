@@ -13,6 +13,7 @@ import {
 	initState,
 	defActionType
 } from "./bankInfo.reducer";
+import { userInfoContext } from "../common/context";
 import InitPanel from "./bankInfo.set.init";
 import BankPanel from "./bankInfo.set.bank";
 import AccountPanel from "./bankInfo.set.account";
@@ -20,6 +21,7 @@ import ShowCard from "./bankInfo.showCard";
 
 export default () => {
 	const { t } = useTranslation();
+	const { userInfo } = useContext(userInfoContext);
 	const [state, dispatch] = useReducer(reducer, initState);
 	const [showTip, setShowTip] = useState(false);
 	const isMountedRef = useRef(null);
@@ -30,16 +32,28 @@ export default () => {
 	});
 
 	useEffect(() => {
+		GetCustBankInfo();
+	}, []);
+
+	const GetCustBankInfo = () => {
 		api_account_GetCustBankInfo().then(
 			res => {
 				if (isMountedRef.current) {
 					if (res.data.errorCode === 0) {
 						let datas = res.data.data;
-						dispatch({
-							type: defActionType.GET_CUST_BANK_INFO,
-							accountName: datas.accountName,
-							custBankList: datas.bankInfoDetail
-						});
+						if (datas !== null) {
+							dispatch({
+								type: defActionType.GET_CUST_BANK_INFO,
+								accountName: datas.accountName,
+								custBankList: datas.bankInfoDetail
+							});
+						} else {
+							dispatch({
+								type: defActionType.GET_CUST_BANK_INFO,
+								accountName: "",
+								custBankList: []
+							});
+						}
 					} else {
 						alert(res.data.message);
 					}
@@ -51,9 +65,7 @@ export default () => {
 				}
 			}
 		);
-	}, []);
-
-	console.log(state);
+	};
 
 	const clickTip = () => {
 		let _showTip = !showTip;
@@ -84,6 +96,7 @@ export default () => {
 					accountName={
 						state.accountName !== "" ? state.accountName : ""
 					}
+					reload={GetCustBankInfo}
 				/>
 			);
 			break;
@@ -100,10 +113,10 @@ export default () => {
 					<div>{t("lbl_UpdateBankInfo")}</div>
 				</div>
 
-				{state.accountName ? (
+				{userInfo.accountName ? (
 					<div className="accountName">
 						{t("lbl_BankAccountName")}
-						<span>{state.accountName}</span>
+						<span>{userInfo.accountName}</span>
 						<button
 							className="icon icon-error"
 							onClick={clickTip}></button>
@@ -119,6 +132,7 @@ export default () => {
 			<ShowCard
 				accountName={state.accountName}
 				custBankList={state.custBankList}
+				reload={GetCustBankInfo}
 			/>
 		</>
 	);

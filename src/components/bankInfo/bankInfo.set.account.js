@@ -6,7 +6,7 @@ import { api_accountStrict_SetCustBankInfo } from "../../service/api/accountStri
 import config from "../../config";
 import Inputbox from "../common/inputbox";
 
-export default ({ dispatch, bankInfo, account, accountName }) => {
+export default ({ dispatch, bankInfo, account, accountName, reload }) => {
 	const { t } = useTranslation();
 	const { userInfo, setUserInfo } = useContext(userInfoContext);
 	const [tip, setTip] = useState({ accountName: "", accountNumber: "" });
@@ -50,10 +50,11 @@ export default ({ dispatch, bankInfo, account, accountName }) => {
 
 	const editAccountName = e => {
 		let val = e.target.value;
-		dispatch({ type: defActionType.EDIT_ACCOUNT_NAME, account: val });
+		dispatch({ type: defActionType.EDIT_ACCOUNT_NAME, accountName: val });
 	};
 
-	const clickSubmit = () => {
+	const clickSubmit = e => {
+		e.preventDefault();
 		let _accountName = userInfo.accountName
 			? { checked: true }
 			: checkAccount(accountName, "accountName");
@@ -74,6 +75,7 @@ export default ({ dispatch, bankInfo, account, accountName }) => {
 									accountName: accountName
 								}));
 							}
+							reload();
 							dispatch({ type: defActionType.BACK_TO_INIT });
 						} else {
 							alert(res.data.message);
@@ -107,7 +109,9 @@ export default ({ dispatch, bankInfo, account, accountName }) => {
 			</div>
 			<div className="subModuleList">
 				<div className="subModule">
-					<div className="subModuleBody column">
+					<form
+						className="subModuleBody column"
+						onSubmit={clickSubmit}>
 						<div>
 							<div className="bankName">
 								<img
@@ -119,7 +123,7 @@ export default ({ dispatch, bankInfo, account, accountName }) => {
 							<Inputbox
 								value={accountName}
 								onChange={editAccountName}
-								placeholder={t("lbl_RealName")}
+								title={t("lbl_RealName")}
 								tip={tip.accountName}
 							/>
 						) : null}
@@ -127,18 +131,16 @@ export default ({ dispatch, bankInfo, account, accountName }) => {
 							<Inputbox
 								value={account}
 								onChange={editAccountNumber}
-								placeholder={t("lbl_BankNumber")}
+								title={t("lbl_BankNumber")}
 								tip={tip.accountNumber}
 							/>
 							<div className="btnGroup">
-								<button
-									className="btn-check"
-									onClick={clickSubmit}>
+								<button className="btn-check" type="submit">
 									{t("lbl_Submit")}
 								</button>
 							</div>
 						</div>
-					</div>
+					</form>
 				</div>
 			</div>
 		</>
