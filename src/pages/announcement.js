@@ -22,7 +22,6 @@ const Content = () => {
 	const { t } = useTranslation();
 	const { userInfo } = useContext(userInfoContext);
 	const [getAnnouncement, setGetAnnouncement] = useState([]);
-	const [time, setTime] = useState({ startDate: "", endDate: "" });
 	const isMountedRef = useRef(null);
 
 	useEffect(() => {

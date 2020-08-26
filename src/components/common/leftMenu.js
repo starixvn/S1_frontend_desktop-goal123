@@ -1,55 +1,83 @@
-import React from "react";
+import React, { useContext } from "react";
+import { Link } from "@reach/router";
+import path from "../../path";
+import { userInfoContext } from "../common/context";
 
 export default () => {
+	const { userInfo } = useContext(userInfoContext);
 	return (
 		<div id="leftMenu">
 			<div className="menuModule">
 				<button className="menuHeader">Cashier</button>
-				<button className="menuSelect active">
+				<Link
+					to={`/${userInfo.langId}/${path.deposit.root}`}
+					className="menuSelect active">
 					<span>Deposit</span>
-				</button>
-				<button className="menuSelect">
+				</Link>
+				<Link
+					to={`/${userInfo.langId}/${path.transferFunds.root}`}
+					className="menuSelect">
 					<span>Transfer Funds</span>
-				</button>
-				<button className="menuSelect">
+				</Link>
+				<Link
+					to={`/${userInfo.langId}/${path.withdrawal.root}`}
+					className="menuSelect">
 					<span>Withdrawal</span>
-				</button>
+				</Link>
 			</div>
 			<div className="menuModule">
 				<button className="menuHeader">History</button>
-				<button className="menuSelect">
+				<Link
+					to={`/${userInfo.langId}/${path.depositHistory.root}`}
+					className="menuSelect">
 					<span>Deposit History</span>
-				</button>
-				<button className="menuSelect">
+				</Link>
+				<Link
+					to={`/${userInfo.langId}/${path.transferHistory.root}`}
+					className="menuSelect">
 					<span>Transfer History</span>
-				</button>
-				<button className="menuSelect">
+				</Link>
+				<Link
+					to={`/${userInfo.langId}/${path.withdrawalHistory.root}`}
+					className="menuSelect">
 					<span>Withdrawal History</span>
-				</button>
-				<button className="menuSelect">
+				</Link>
+				<Link
+					to={`/${userInfo.langId}/${path.statement.root}`}
+					className="menuSelect">
 					<span>Statement</span>
-				</button>
+				</Link>
 			</div>
 			<div className="menuModule">
 				<button className="menuHeader">My Account</button>
-				<button className="menuSelect">
+				<Link
+					to={`/${userInfo.langId}/${path.changePassword.root}`}
+					className="menuSelect">
 					<span>Change Password</span>
-				</button>
-				<button className="menuSelect">
+				</Link>
+				<Link
+					to={`/${userInfo.langId}/${path.profile.root}`}
+					className="menuSelect">
 					<span>Profile</span>
-				</button>
-				<button className="menuSelect">
+				</Link>
+				<Link
+					to={`/${userInfo.langId}/${path.bankInfo.root}`}
+					className="menuSelect">
 					<span>Bank Info</span>
-				</button>
+				</Link>
 			</div>
 			<div className="menuModule">
 				<button className="menuHeader">Message</button>
-				<button className="menuSelect">
+				<Link
+					to={`/${userInfo.langId}/${path.message.root}`}
+					className="menuSelect">
 					<span>Personal Message</span>
-				</button>
-				<button className="menuSelect">
+				</Link>
+				<Link
+					to={`/${userInfo.langId}/${path.announcement.root}`}
+					className="menuSelect">
 					<span>Announcement</span>
-				</button>
+				</Link>
 			</div>
 		</div>
 	);
