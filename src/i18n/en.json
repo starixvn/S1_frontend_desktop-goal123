@@ -185,5 +185,10 @@
   "lbl_ForgetPwdHint":"If you have forgotten your username or password, please provide your email and we will send your new password to your registered email address.",
   "lbl_EnterAccountNumber":"Enter Account Number",
   "msg_AccountWrongFormat":"Account Number format is wrong.",
-  "lbl_BankCardsFull":"Bank Card Is Full"
+  "lbl_BankCardsFull":"Bank Card Is Full",
+  "msg_ForceLogedout":"You have logged out!! Please login and try again!!",
+  "lbl_History":"History",
+  "lbl_MyAccount":"My Account",
+  "lbl_Message":"Message",
+  "lbl_PersonalMsg":"Personal Message"
 }
