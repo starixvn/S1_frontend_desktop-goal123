@@ -13,8 +13,6 @@ export default props => {
 		return current.isBefore(legalDate);
 	};
 
-	console.log("props:", props.checkName);
-
 	return (
 		<div className="editModule">
 			{!props.userInfo.AccountName ? (
