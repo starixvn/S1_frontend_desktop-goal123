@@ -6,9 +6,9 @@ export default ({ btnBar }) => {
 
 	return (
 		<div className="Cancel active">
-			<div class="icon icon-icon32px_Profile"></div>
-			<div class="title">{t("lbl_UpdatedSuccessfully")}</div>
-			<div class="txt-lightgray">
+			<div className="icon icon-icon32px_Profile"></div>
+			<div className="title">{t("lbl_UpdatedSuccessfully")}</div>
+			<div className="txt-lightgray">
 				{t("lbl_Awesome")}!
 				<br />
 				{t("lbl_GoDepositPage")}?
