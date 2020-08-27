@@ -990,7 +990,7 @@ footer .copyright {
           justify-content: center;
 }
 
-.joinpop .joinloginModule .joinloginFunction a, .loginpop .joinloginModule .joinloginFunction a {
+.joinpop .joinloginModule .joinloginFunction .title + div button, .loginpop .joinloginModule .joinloginFunction .title + div button {
   text-decoration: underline;
   font-size: 12px;
   text-align: right;
@@ -1003,6 +1003,12 @@ footer .copyright {
 
 .joinpop .joinloginModule .joinloginFunction .btnGroup, .loginpop .joinloginModule .joinloginFunction .btnGroup {
   margin: 10px 0;
+}
+
+.joinpop .joinloginModule .joinloginFunction .inputBox.active, .joinpop .joinloginModule .joinloginFunction .active.inputBox-org, .joinpop .joinloginModule .joinloginFunction .active.inputBox-white, .joinpop .joinloginModule .joinloginFunction .active.inputBox-blue, .joinpop .joinloginModule .joinloginFunction .active.inputBox-gray, .joinpop .joinloginModule .joinloginFunction .active.inputBox-yellow, .loginpop .joinloginModule .joinloginFunction .inputBox.active, .loginpop .joinloginModule .joinloginFunction .active.inputBox-org, .loginpop .joinloginModule .joinloginFunction .active.inputBox-white, .loginpop .joinloginModule .joinloginFunction .active.inputBox-blue, .loginpop .joinloginModule .joinloginFunction .active.inputBox-gray, .loginpop .joinloginModule .joinloginFunction .active.inputBox-yellow {
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
 }
 
 .txt-orange {
@@ -1035,6 +1041,14 @@ footer .copyright {
 
 .txt-red {
   color: #f73201;
+}
+
+.txt-dark {
+  color: #191919;
+}
+
+.txt-darkBlue {
+  color: #284985;
 }
 
 .inputModule {
@@ -1079,6 +1093,17 @@ footer .copyright {
       -ms-flex-align: center;
           align-items: center;
   padding: 4px 10px;
+  z-index: 1;
+}
+
+.inputBox input[type="date"], .inputBox-org input[type="date"], .inputBox-white input[type="date"], .inputBox-blue input[type="date"], .inputBox-gray input[type="date"], .inputBox-yellow input[type="date"] {
+  opacity: 0;
+}
+
+.inputBox input[type="date"] + .iconModule, .inputBox-org input[type="date"] + .iconModule, .inputBox-white input[type="date"] + .iconModule, .inputBox-blue input[type="date"] + .iconModule, .inputBox-gray input[type="date"] + .iconModule, .inputBox-yellow input[type="date"] + .iconModule {
+  position: absolute;
+  right: 15px;
+  pointer-events: none;
 }
 
 .inputBox::-webkit-input-placeholder, .inputBox-org::-webkit-input-placeholder, .inputBox-white::-webkit-input-placeholder, .inputBox-blue::-webkit-input-placeholder, .inputBox-gray::-webkit-input-placeholder, .inputBox-yellow::-webkit-input-placeholder {
@@ -1149,9 +1174,6 @@ footer .copyright {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
 }
@@ -1380,7 +1402,7 @@ input[type="file"] {
 
 .btnGroup button.gray, .btnGroup button.btn-cancel, .btnGroup a.gray, .btnGroup a.btn-cancel {
   background: #c6c6c6;
-  color: #000;
+  color: black;
 }
 
 .btnGroup button.gray:hover, .btnGroup button.btn-cancel:hover, .btnGroup a.gray:hover, .btnGroup a.btn-cancel:hover {
@@ -1404,7 +1426,7 @@ input[type="file"] {
 
 .btnGroup button.yellow, .btnGroup a.yellow {
   background: #fab617;
-  color: #000;
+  color: black;
 }
 
 .btnGroup button.yellow:hover, .btnGroup a.yellow:hover {
@@ -1432,6 +1454,15 @@ input[type="file"] {
   background: #db2c01;
 }
 
+.btnGroup button.blueBorder, .btnGroup a.blueBorder {
+  border: 1px solid #1E85EC;
+  color: white;
+}
+
+.btnGroup button.blueBorder:hover, .btnGroup a.blueBorder:hover {
+  background: #1E85EC;
+}
+
 .btnGroup button.icon:before, .btnGroup a.icon:before {
   font-weight: normal;
 }
@@ -1439,6 +1470,7 @@ input[type="file"] {
 .tip {
   font-size: 12px;
   padding: 0 10px;
+  width: 100%;
 }
 
 .Terms {
@@ -1721,17 +1753,30 @@ main > .swiper-container .swiper-slide {
   transition: 0.7s;
 }
 
-#leftMenu .menuModule .menuSelect {
+#leftMenu .menuModule a.menuSelect {
   border-bottom: 1px solid #1D3662;
   overflow: hidden;
   position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 10px;
+  width: 100%;
+  color: #fff;
+  font-size: 16px;
+  letter-spacing: 1px;
+  font-weight: bold;
+  text-align: left;
 }
 
-#leftMenu .menuModule .menuSelect span {
+#leftMenu .menuModule a.menuSelect span {
   z-index: 1;
 }
 
-#leftMenu .menuModule .menuSelect:before {
+#leftMenu .menuModule a.menuSelect:before {
   font-family: 'icomoon';
   content: "\e94e";
   font-size: 24px;
@@ -1740,7 +1785,7 @@ main > .swiper-container .swiper-slide {
   z-index: 1;
 }
 
-#leftMenu .menuModule .menuSelect.active:after {
+#leftMenu .menuModule a.menuSelect.active:after {
   content: '';
   width: 100%;
   height: 100%;
@@ -1751,7 +1796,7 @@ main > .swiper-container .swiper-slide {
   z-index: 0;
 }
 
-#leftMenu .menuModule .menuSelect:last-child {
+#leftMenu .menuModule a.menuSelect:last-child {
   border-bottom: 0;
 }
 
@@ -2599,12 +2644,25 @@ main > .swiper-container .swiper-slide {
   min-width: 75%;
 }
 
-.directions ~ .inputBox, .directions ~ .inputBox-org, .directions ~ .inputBox-white, .directions ~ .inputBox-blue, .directions ~ .inputBox-gray, .directions ~ .inputBox-yellow {
+.directions ~ form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.directions ~ form .inputBox, .directions ~ form .inputBox-org, .directions ~ form .inputBox-white, .directions ~ form .inputBox-blue, .directions ~ form .inputBox-gray, .directions ~ form .inputBox-yellow {
   max-width: 80%;
   min-width: 75%;
 }
 
-.directions ~ .inputBox .iconModule .icon:before, .directions ~ .inputBox-org .iconModule .icon:before, .directions ~ .inputBox-white .iconModule .icon:before, .directions ~ .inputBox-blue .iconModule .icon:before, .directions ~ .inputBox-gray .iconModule .icon:before, .directions ~ .inputBox-yellow .iconModule .icon:before {
+.directions ~ form .inputBox .iconModule .icon:before, .directions ~ form .inputBox-org .iconModule .icon:before, .directions ~ form .inputBox-white .iconModule .icon:before, .directions ~ form .inputBox-blue .iconModule .icon:before, .directions ~ form .inputBox-gray .iconModule .icon:before, .directions ~ form .inputBox-yellow .iconModule .icon:before {
   font-weight: normal;
 }
 
@@ -2825,7 +2883,7 @@ main > .swiper-container .swiper-slide {
 
 .offers .swiper-slide .odds div:nth-child(2) {
   background: #fab617;
-  color: #000;
+  color: black;
 }
 
 .offers .swiper-button-next, .offers .swiper-button-prev {
@@ -3383,6 +3441,10 @@ main > .swiper-container .swiper-slide {
   margin-right: 5px;
 }
 
+.quickSelect > div.inputBox.promoType, .quickSelect > div.promoType.inputBox-org, .quickSelect > div.promoType.inputBox-white, .quickSelect > div.promoType.inputBox-blue, .quickSelect > div.promoType.inputBox-gray, .quickSelect > div.promoType.inputBox-yellow, .quickSelect > div:first-child.promoType {
+  max-width: none;
+}
+
 .quickSelect > div:first-child {
   position: relative;
   max-width: 322px;
@@ -3462,18 +3524,12 @@ main > .swiper-container .swiper-slide {
   margin-left: 10px;
 }
 
-.changePassWord .inputBox, .changePassWord .inputBox-org, .changePassWord .inputBox-white, .changePassWord .inputBox-blue, .changePassWord .inputBox-gray, .changePassWord .inputBox-yellow, .forgetPassWord .inputBox, .forgetPassWord .inputBox-org, .forgetPassWord .inputBox-white, .forgetPassWord .inputBox-blue, .forgetPassWord .inputBox-gray, .forgetPassWord .inputBox-yellow {
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
-  margin-right: 5px;
-}
-
-.changePassWord .tip, .forgetPassWord .tip {
-  position: absolute;
-  -webkit-transform: translateY(calc(100% + 10px));
-          transform: translateY(calc(100% + 10px));
-  padding: 0;
+.forgetPassWord {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
 }
 
 .forgetPassWord .icon {
@@ -3663,6 +3719,14 @@ main > .swiper-container .swiper-slide {
   margin: 0 auto;
 }
 
+.personal .list > div div {
+  font-weight: normal;
+}
+
+.personal .list .haveRead .listHeader div {
+  font-weight: bold;
+}
+
 .personal .list .listHeader, .personal .list .functionMenu {
   border-radius: 0;
 }
@@ -3795,5 +3859,274 @@ main > .swiper-container .swiper-slide {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+}
+
+.proList {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0 40px;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  line-height: 20px;
+}
+
+.proList > div {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 calc(100% / 3 - 50px);
+          flex: 0 0 calc(100% / 3 - 50px);
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  color: #1E85EC;
+  margin: 15px 0;
+  position: relative;
+}
+
+.proList > div.active {
+  opacity: 0.7;
+}
+
+.proList > div.active .claimed {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.proList > div .new, .proList > div .claimed {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  background: #fab617;
+  border-radius: 100%;
+  width: 50px;
+  height: 50px;
+  padding: 0;
+  color: white;
+  display: none;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-weight: bold;
+}
+
+.proList > div .new:before, .proList > div .claimed:before {
+  content: "NEW";
+}
+
+.proList > div .new.active, .proList > div .claimed.active {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.proList > div .claimed {
+  background: rgba(219, 44, 1, 0.8);
+  width: 75px;
+  height: 75px;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+
+.proList > div .claimed:before {
+  content: "CLAIMED";
+}
+
+.proList > div .txt-dark, .proList > div .txt-darkBlue {
+  font-weight: bold;
+  margin: 15px 0;
+}
+
+.proList > div .txt-gray li {
+  font-size: 12px;
+  list-style: disc;
+  margin-left: 16px;
+}
+
+.proList > div img {
+  border-radius: 10px;
+}
+
+.proList > div > div {
+  padding: 0 5px;
+}
+
+.proList .rollover {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 12px;
+  font-weight: bold;
+  margin: 20px 0;
+}
+
+.proList .rollover > div {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.proList .rollover > div .icon:before {
+  font-weight: normal;
+  margin-right: 5px;
+}
+
+.promotionsInfo {
+  padding: 40px;
+}
+
+.promotionsInfo img {
+  border-radius: 15px;
+}
+
+.promotionsInfo .proData {
+  background: white;
+  border-radius: 15px;
+  margin-top: 20px;
+  padding: 40px;
+}
+
+.promotionsInfo .proData .proDataTitle {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.promotionsInfo .proData .proDataTitle .txt-darkBlue {
+  font-weight: bold;
+  -webkit-box-flex: 3;
+      -ms-flex: 3;
+          flex: 3;
+}
+
+.promotionsInfo .proData .proDataTitle .btnGroup {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.icon-icon32px_deposit + .stepBar + .subModuleList .subModule {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 calc(100% / 3 - 27px);
+          flex: 0 0 calc(100% / 3 - 27px);
+}
+
+form {
+  width: 100%;
+}
+
+.casinoSelect {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0 34px;
+  height: 49px;
+}
+
+.casinoSelect > div {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  margin-right: 5px;
+}
+
+.slotList {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0 40px;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  line-height: 20px;
+}
+
+.slotList > div {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 calc(100% / 5 - 45px);
+          flex: 0 0 calc(100% / 5 - 45px);
+  padding: 15px;
+  background: white;
+  border-radius: 10px;
+  color: #1E85EC;
+  margin: 10px 0;
+  position: relative;
+}
+
+.slotList > div img {
+  border-radius: 10px;
+}
+
+.slotList > div .txt-darkBlue {
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.slotList > div .btnGroup {
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin: 10px 0 0;
+}
+
+.slotList > div .btnGroup button {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 calc(50% - 5px);
+          flex: 0 0 calc(50% - 5px);
+  min-width: auto;
+  margin: 0;
+}
+
+.slotList > div .brand {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.slotList > div .brand:before {
+  content: "";
+  border-color: #134DAE transparent transparent #134DAE;
+  border-style: solid;
+  border-width: 25px 45px;
+  border-top-left-radius: 10px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  -webkit-filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.5));
+          filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.5));
+}
+
+.slotList > div .brand span {
+  z-index: 1;
+  position: absolute;
+  top: 7px;
+  left: 7px;
+  color: white;
+  font-weight: bold;
+}
+
+.slotList > div .icon-star-full {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  font-size: 24px;
+  color: white;
+  -webkit-filter: drop-shadow(0px 3px 1px rgba(0, 0, 0, 0.5));
+          filter: drop-shadow(0px 3px 1px rgba(0, 0, 0, 0.5));
+}
+
+.slotList > div .icon-star-full.active {
+  color: #fab617;
 }
 /*# sourceMappingURL=style.css.map */
