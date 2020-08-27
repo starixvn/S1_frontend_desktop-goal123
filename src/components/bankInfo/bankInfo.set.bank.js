@@ -4,7 +4,7 @@ import { defActionType } from "./bankInfo.reducer";
 import { api_payment_GetBankInfoSysList } from "../../service/api/payment";
 import config from "../../config";
 
-export default ({ dispatch, state }) => {
+export default ({ dispatch, bankList }) => {
 	const { t } = useTranslation();
 	const isMountedRef = useRef(null);
 
@@ -28,7 +28,9 @@ export default ({ dispatch, state }) => {
 				}
 			},
 			err => {
-				alert(t("msg_ApiServerError"));
+				if (isMountedRef.current) {
+					alert(t("msg_ApiServerError"));
+				}
 			}
 		);
 	}, []);
@@ -41,7 +43,7 @@ export default ({ dispatch, state }) => {
 		dispatch({ type: defActionType.SELECT_BANK, bankIdx });
 	};
 
-	let arr = state.bankList?.map((item, i) => {
+	let arr = bankList?.map((item, i) => {
 		return (
 			<li key={`addBankAccount-${item.sysId}`}>
 				<a onClick={selectBank.bind(this, i)}>

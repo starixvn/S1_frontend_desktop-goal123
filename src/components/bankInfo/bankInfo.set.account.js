@@ -1,14 +1,19 @@
 import React, { useState, useContext, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { defActionType } from "./bankInfo.reducer";
-import { userInfoContext } from "../common/context";
 import { api_accountStrict_SetCustBankInfo } from "../../service/api/accountStrict";
 import config from "../../config";
 import Inputbox from "../common/inputbox";
 
-export default ({ dispatch, bankInfo, account, accountName, reload }) => {
+export default ({
+	dispatch,
+	bankInfo,
+	accountNumber,
+	accountName,
+	alreadyHasAccountName,
+	reload
+}) => {
 	const { t } = useTranslation();
-	const { userInfo, setUserInfo } = useContext(userInfoContext);
 	const [tip, setTip] = useState({ accountName: "", accountNumber: "" });
 	const isMountedRef = useRef(null);
 
@@ -25,13 +30,13 @@ export default ({ dispatch, bankInfo, account, accountName, reload }) => {
 		let checked = true;
 		let message = "";
 
-		if (col === "accountName") {
-			if (val === "" || val === undefined) {
+		if (col === "accountName" && !alreadyHasAccountName) {
+			if (!val) {
 				message = t("msg_EnterRealName");
 				checked = false;
 			}
 		} else if (col === "accountNumber") {
-			if (val === "" || val === undefined) {
+			if (!val) {
 				message = t("msg_NeedAccountNo");
 				checked = false;
 			} else if (isNaN(val)) {
@@ -43,53 +48,48 @@ export default ({ dispatch, bankInfo, account, accountName, reload }) => {
 		return { checked, message };
 	};
 
-	const editAccountNumber = e => {
+	const editField = (_col, e) => {
 		let val = e.target.value;
-		dispatch({ type: defActionType.EDIT_ACCOUNT_NUMBER, account: val });
-	};
-
-	const editAccountName = e => {
-		let val = e.target.value;
-		dispatch({ type: defActionType.EDIT_ACCOUNT_NAME, accountName: val });
+		dispatch({
+			type: defActionType.EDIT_FIELD,
+			col: _col,
+			value: val
+		});
 	};
 
 	const clickSubmit = e => {
 		e.preventDefault();
-		let _accountName = userInfo.accountName
-			? { checked: true }
-			: checkAccount(accountName, "accountName");
-		let _ccountNumber = checkAccount(account, "accountNumber");
+		let _accountName = checkAccount(accountName, "accountName");
+		let _accountNumber = checkAccount(accountNumber, "accountNumber");
 
-		if (_ccountNumber.checked && _accountName.checked) {
+		if (_accountNumber.checked && _accountName.checked) {
 			api_accountStrict_SetCustBankInfo({
-				AccountName: userInfo.accountName ?? accountName,
-				AccountNo: account,
+				AccountName: accountName,
+				AccountNo: accountNumber,
 				SysId: bankInfo.sysId
 			}).then(
 				res => {
 					if (isMountedRef.current) {
 						if (res.data.errorCode === 0) {
-							if (!userInfo.accountName) {
-								setUserInfo(prev => ({
-									...prev,
-									accountName: accountName
-								}));
-							}
-							reload();
-							dispatch({ type: defActionType.BACK_TO_INIT });
+							dispatch({
+								type: defActionType.BACK_TO_INIT,
+								func: reload
+							});
 						} else {
 							alert(res.data.message);
 						}
 					}
 				},
 				err => {
-					alert(t("msg_ApiServerError"));
+					if (isMountedRef.current) {
+						alert(t("msg_ApiServerError"));
+					}
 				}
 			);
 		} else {
 			setTip({
 				accountName: _accountName.message,
-				accountNumber: _ccountNumber.message
+				accountNumber: _accountNumber.message
 			});
 		}
 	};
@@ -119,18 +119,18 @@ export default ({ dispatch, bankInfo, account, accountName, reload }) => {
 								/>
 							</div>
 						</div>
-						{!userInfo.accountName ? (
+						{!alreadyHasAccountName ? (
 							<Inputbox
 								value={accountName}
-								onChange={editAccountName}
+								onChange={editField.bind(this, "accountName")}
 								title={t("lbl_RealName")}
 								tip={tip.accountName}
 							/>
 						) : null}
 						<div className="inputModuleRow">
 							<Inputbox
-								value={account}
-								onChange={editAccountNumber}
+								value={accountNumber}
+								onChange={editField.bind(this, "accountNumber")}
 								title={t("lbl_BankNumber")}
 								tip={tip.accountNumber}
 							/>

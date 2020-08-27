@@ -1,11 +1,12 @@
+import { func } from "prop-types";
+
 export const defActionType = {
 	TO_NEXT_STEP: "TO_NEXT_STEP",
 	TO_LAST_STEP: "TO_LAST_STEP",
 	GET_CUST_BANK_INFO: "GET_CUST_BANK_INFO",
 	SET_BANKLIST: "SET_BANKLIST",
 	SELECT_BANK: "SELECT_BANK",
-	EDIT_ACCOUNT_NUMBER: "EDIT_ACCOUNT_NUMBER",
-	EDIT_ACCOUNT_NAME: "EDIT_ACCOUNT_NAME",
+	EDIT_FIELD: "EDIT_FIELD",
 	BACK_TO_INIT: "BACK_TO_INIT"
 };
 
@@ -47,10 +48,17 @@ export function reducer(state, action) {
 			};
 
 		case defActionType.GET_CUST_BANK_INFO:
+			let _accountName = "";
+			let _custBankList = [];
+			if (action.datas) {
+				_accountName = action.datas.accountName;
+				_custBankList = action.datas.bankInfoDetail;
+			}
+
 			return {
 				...state,
-				accountName: action.accountName,
-				custBankList: action.custBankList
+				accountName: _accountName,
+				custBankList: _custBankList
 			};
 
 		case defActionType.SET_BANKLIST:
@@ -63,27 +71,22 @@ export function reducer(state, action) {
 			newStep = state.step + 1;
 			return {
 				...state,
-				account: "",
+				accountNumber: "",
 				accountName: "",
 				bankIdx: action.bankIdx,
 				step: newStep,
 				displayModule: defStepModule[newStep]
 			};
 
-		case defActionType.EDIT_ACCOUNT_NUMBER:
+		case defActionType.EDIT_FIELD:
 			return {
 				...state,
-				account: action.account
-			};
-
-		case defActionType.EDIT_ACCOUNT_NAME:
-			return {
-				...state,
-				accountName: action.accountName
+				[action.col]: action.value
 			};
 
 		case defActionType.BACK_TO_INIT:
 			newStep = 1;
+			action.func();
 			return {
 				...state,
 				step: newStep,

@@ -28,7 +28,8 @@ export default ({ dispatch, numberOfAccount }) => {
 				)}
 
 				<div className="remainder">
-					{t("lbl_NumberOfBankAccounts")}: {numberOfAccount}/3
+					{t("lbl_NumberOfBankAccounts")}:{" "}
+					{numberOfAccount ? numberOfAccount : 0}/3
 				</div>
 			</div>
 		</div>

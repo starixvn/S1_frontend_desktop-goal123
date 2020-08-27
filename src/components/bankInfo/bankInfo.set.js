@@ -21,7 +21,7 @@ import ShowCard from "./bankInfo.showCard";
 
 export default () => {
 	const { t } = useTranslation();
-	const { userInfo } = useContext(userInfoContext);
+	const { userInfo, setUserInfo } = useContext(userInfoContext);
 	const [state, dispatch] = useReducer(reducer, initState);
 	const [showTip, setShowTip] = useState(false);
 	const isMountedRef = useRef(null);
@@ -41,19 +41,16 @@ export default () => {
 				if (isMountedRef.current) {
 					if (res.data.errorCode === 0) {
 						let datas = res.data.data;
-						if (datas !== null) {
-							dispatch({
-								type: defActionType.GET_CUST_BANK_INFO,
-								accountName: datas.accountName,
-								custBankList: datas.bankInfoDetail
-							});
-						} else {
-							dispatch({
-								type: defActionType.GET_CUST_BANK_INFO,
-								accountName: "",
-								custBankList: []
-							});
+						if (!userInfo.accountName) {
+							setUserInfo(prev => ({
+								...prev,
+								accountName: state.accountName
+							}));
 						}
+						dispatch({
+							type: defActionType.GET_CUST_BANK_INFO,
+							datas: datas
+						});
 					} else {
 						alert(res.data.message);
 					}
@@ -84,7 +81,9 @@ export default () => {
 			break;
 
 		case defModule.BankPanel:
-			displayModule = <BankPanel dispatch={dispatch} state={state} />;
+			displayModule = (
+				<BankPanel dispatch={dispatch} bankList={state.bankList} />
+			);
 			break;
 
 		case defModule.AccountPanel:
@@ -92,10 +91,13 @@ export default () => {
 				<AccountPanel
 					dispatch={dispatch}
 					bankInfo={state.bankList[state.bankIdx]}
-					account={state.account}
+					accountNumber={state.accountNumber}
 					accountName={
-						state.accountName !== "" ? state.accountName : ""
+						userInfo.accountName
+							? userInfo.accountName
+							: state.accountName
 					}
+					alreadyHasAccountName={userInfo.accountName ? true : false}
 					reload={GetCustBankInfo}
 				/>
 			);
