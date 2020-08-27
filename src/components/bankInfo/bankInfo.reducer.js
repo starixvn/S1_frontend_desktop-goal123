@@ -6,8 +6,7 @@ export const defActionType = {
 	GET_CUST_BANK_INFO: "GET_CUST_BANK_INFO",
 	SET_BANKLIST: "SET_BANKLIST",
 	SELECT_BANK: "SELECT_BANK",
-	EDIT_FIELD: "EDIT_FIELD",
-	BACK_TO_INIT: "BACK_TO_INIT"
+	EDIT_FIELD: "EDIT_FIELD"
 };
 
 const defStepModule = {
@@ -48,6 +47,7 @@ export function reducer(state, action) {
 			};
 
 		case defActionType.GET_CUST_BANK_INFO:
+			newStep = 1;
 			let _accountName = "";
 			let _custBankList = [];
 			if (action.datas) {
@@ -58,7 +58,9 @@ export function reducer(state, action) {
 			return {
 				...state,
 				accountName: _accountName,
-				custBankList: _custBankList
+				custBankList: _custBankList,
+				step: newStep,
+				displayModule: defStepModule[newStep]
 			};
 
 		case defActionType.SET_BANKLIST:
@@ -82,15 +84,6 @@ export function reducer(state, action) {
 			return {
 				...state,
 				[action.col]: action.value
-			};
-
-		case defActionType.BACK_TO_INIT:
-			newStep = 1;
-			action.func();
-			return {
-				...state,
-				step: newStep,
-				displayModule: defStepModule[newStep]
 			};
 
 		default:

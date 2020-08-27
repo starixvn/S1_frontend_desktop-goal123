@@ -32,21 +32,22 @@ export default () => {
 	});
 
 	useEffect(() => {
-		GetCustBankInfo();
+		GetCustBankInfo(false);
 	}, []);
 
-	const GetCustBankInfo = () => {
+	const GetCustBankInfo = setAccountName => {
 		api_account_GetCustBankInfo().then(
 			res => {
 				if (isMountedRef.current) {
 					if (res.data.errorCode === 0) {
 						let datas = res.data.data;
-						if (!userInfo.accountName) {
+						if (setAccountName) {
 							setUserInfo(prev => ({
 								...prev,
-								accountName: state.accountName
+								accountName: datas.accountName
 							}));
 						}
+
 						dispatch({
 							type: defActionType.GET_CUST_BANK_INFO,
 							datas: datas
@@ -134,7 +135,7 @@ export default () => {
 			<ShowCard
 				accountName={state.accountName}
 				custBankList={state.custBankList}
-				reload={GetCustBankInfo}
+				reload={GetCustBankInfo.bind(this, false)}
 			/>
 		</>
 	);

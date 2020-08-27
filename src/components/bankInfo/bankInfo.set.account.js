@@ -71,10 +71,7 @@ export default ({
 				res => {
 					if (isMountedRef.current) {
 						if (res.data.errorCode === 0) {
-							dispatch({
-								type: defActionType.BACK_TO_INIT,
-								func: reload
-							});
+							reload(!alreadyHasAccountName);
 						} else {
 							alert(res.data.message);
 						}
