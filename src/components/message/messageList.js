@@ -19,6 +19,7 @@ export default props => {
 				if (isMountedRef.current) {
 					if (res.data.errorCode === 0) {
 						setMsgContentData(res.data.data.content);
+						props.getMsgList(props.page);
 					} else {
 						alert(res.data.message);
 					}
@@ -43,7 +44,7 @@ export default props => {
 			: props.createTime.split("T", 1);
 
 	return (
-		<div>
+		<div className={props.flag ? "haveRead" : ""}>
 			<div className="listHeader">
 				<div className="checkbox">
 					<input

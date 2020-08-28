@@ -72,9 +72,15 @@ export default () => {
 		setSelectItems([...selectItems, checkId]);
 		let result = [];
 		if (selectItems.includes(checkId)) {
-			result = selectItems.filter(s => s !== checkId);
+			result = selectItems.filter(item => item !== checkId);
+			if (result.length < 5) {
+				setIsCheckAll(false);
+			}
 		} else {
 			result = [...selectItems, checkId];
+			if (result.length === 5) {
+				setIsCheckAll(true);
+			}
 		}
 		setSelectItems(result);
 	};
@@ -160,6 +166,8 @@ export default () => {
 							onChangeCheck={onChildChanged.bind(this, item.id)}
 							parentIsCheckAll={isCheckAll}
 							selectItems={selectItems}
+							getMsgList={getMsgList}
+							page={pagination.currentPage}
 						/>
 					))}
 				</div>

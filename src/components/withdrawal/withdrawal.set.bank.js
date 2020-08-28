@@ -6,14 +6,21 @@ import Calculation from "./withdrawal.set.calculation";
 import CashBar from "./withdrawal.set.cashBar";
 import InputModuleRow from "./withdrawal.set.inputModuleRow";
 import BankInfoCard from "./withdrawal.set.bankInfoCard";
+import KycUpload from "./withdrawal.set.kycUpload";
+import KycPending from "./withdrawal.set.kycPending";
 import WithdrawalConfirm from "./withdrawal.set.confirm";
-import { api_payment_WithdrawalReq } from "../../service/api/payment";
+import {
+	api_payment_WithdrawalReq,
+	api_payment_KycCheck
+} from "../../service/api/payment";
 import { api_account_GetWithdrawalAvailableBalance } from "../../service/api/account";
 import { popBoxContext, userInfoContext } from "../common/context";
 import { defPopBoxType } from "../common/popBox";
 import { isConvert } from "../common/common";
+import StepBar from "../common/stepBar";
+import defStep from "../withdrawal/defStep";
 
-export default () => {
+export default step => {
 	const { t } = useTranslation();
 	const { setPopBox } = useContext(popBoxContext);
 	const isMountedRef = useRef(null);
@@ -26,6 +33,7 @@ export default () => {
 	const [showConfirmPage, setShowConfirmPage] = useState(false);
 	const { userInfo } = useContext(userInfoContext);
 	const _isConvert = isConvert(userInfo.currencyId);
+	const [kycStatus, setKycStatus] = useState("");
 
 	useEffect(() => {
 		isMountedRef.current = true;
@@ -33,8 +41,30 @@ export default () => {
 	});
 
 	useEffect(() => {
+		getKycStatus();
 		getApiBalance();
 	}, []);
+
+	const getKycStatus = () => {
+		api_payment_KycCheck().then(
+			res => {
+				if (isMountedRef.current) {
+					if (res.data.errorCode === 0) {
+						setKycStatus("normal");
+					} else if (res.data.errorCode === 1) {
+						setKycStatus("kycUpload");
+					} else if (res.data.errorCode === 2) {
+						setKycStatus("kycPending");
+					}
+				}
+			},
+			err => {
+				if (isMountedRef.current) {
+					alert(t("msg_ApiServerError"));
+				}
+			}
+		);
+	};
 
 	const getApiBalance = () => {
 		api_account_GetWithdrawalAvailableBalance().then(
@@ -122,15 +152,18 @@ export default () => {
 				isOpen: false
 			});
 			setShowConfirmPage(false);
+			getKycStatus();
 		};
 
 		let AccountNo = accountNoValue;
-		let amount = parseInt(amountValue, 10);
+		let amount = _isConvert
+			? amountValue * 1000
+			: parseInt(amountValue, 10);
 		let sysId = sysIdValue;
 		api_payment_WithdrawalReq(AccountNo, amount, sysId).then(
 			res => {
 				if (isMountedRef.current) {
-					if (res.data.errorCode === 0) {
+					if (res.data.errorCode === 2) {
 						setPopBox({
 							isOpen: true,
 							popBoxType: defPopBoxType.Success,
@@ -159,66 +192,90 @@ export default () => {
 
 	return (
 		<>
-			<div className="walletModule">
-				<Available
-					availableBalance={balanceData.availableBalance}
-					refreshAvailableBalance={refreshAvailableBalance}
-					_isConvert={_isConvert}
-				/>
-			</div>
-			<div className="walletModule">
-				<div className="addBank">
-					<BankInfoCard
-						bankCardValue={getBankCardValue}
-						allBankCardData={getAllBankCardData}
-						_isConvert={_isConvert}
-					/>
-					<AddBankAccount allBankCardData={allBankCardData} />
-				</div>
-
-				<div className="subModuleList">
-					<div className="subModule">
-						{!showConfirmPage ? (
-							<div className="subModuleBody">
-								<Calculation
-									balance={balanceData.balance}
-									deduction={balanceData.deduction}
-									availableBalance={
-										balanceData.availableBalance
-									}
-									_isConvert={_isConvert}
-								/>
-								<CashBar
-									onChangeAmount={onChangeAmount}
-									amountValue={amountValue}
-									availableBalance={
-										balanceData.availableBalance
-									}
-									_isConvert={_isConvert}
-								/>
-								<InputModuleRow
-									onChangeAmount={onChangeAmount}
-									amountValue={amountValue}
-									sysIdValue={sysIdValue}
-									accountNoValue={accountNoValue}
-									toConfirmPage={toConfirmPage}
-									_isConvert={_isConvert}
-								/>
-							</div>
-						) : (
-							<WithdrawalConfirm
-								bankNameValue={bankNameValue}
-								amountValue={amountValue}
-								sysIdValue={sysIdValue}
-								accountNoValue={accountNoValue}
-								cancelSubmit={cancelSubmit}
-								confirmSubmit={confirmSubmit}
+			{kycStatus !== "normal" ? (
+				<>
+					<div className="inside-title icon icon-transfer">
+						<span>{t("lbl_Withdrawal")}</span>
+						<div>{t("lbl_SubmitPhotoIdHint")}</div>
+					</div>
+					{kycStatus === "kycUpload" ? (
+						<KycUpload getKycStatus={getKycStatus} />
+					) : (
+						<KycPending />
+					)}
+				</>
+			) : (
+				<>
+					<div className="inside-title icon icon-transfer">
+						<span>{t("lbl_Withdrawal")}</span>
+					</div>
+					<StepBar step={step} t={t} defStep={defStep} />
+					<div className="walletModule">
+						<Available
+							availableBalance={balanceData.availableBalance}
+							refreshAvailableBalance={refreshAvailableBalance}
+							_isConvert={_isConvert}
+						/>
+					</div>
+					<div className="walletModule">
+						<div className="addBank">
+							<BankInfoCard
+								bankCardValue={getBankCardValue}
+								allBankCardData={getAllBankCardData}
 								_isConvert={_isConvert}
 							/>
-						)}
+							<AddBankAccount allBankCardData={allBankCardData} />
+						</div>
+
+						<div className="subModuleList">
+							<div className="subModule">
+								{!showConfirmPage ? (
+									<div className="subModuleBody">
+										<Calculation
+											balance={balanceData.balance}
+											deduction={balanceData.deduction}
+											availableBalance={
+												balanceData.availableBalance
+											}
+											_isConvert={_isConvert}
+										/>
+										<CashBar
+											onChangeAmount={onChangeAmount}
+											amountValue={amountValue}
+											availableBalance={
+												balanceData.availableBalance
+											}
+											_isConvert={_isConvert}
+										/>
+										<InputModuleRow
+											onChangeAmount={onChangeAmount}
+											amountValue={amountValue}
+											sysIdValue={sysIdValue}
+											accountNoValue={accountNoValue}
+											toConfirmPage={toConfirmPage}
+											_isConvert={_isConvert}
+										/>
+									</div>
+								) : (
+									<WithdrawalConfirm
+										bankNameValue={bankNameValue}
+										amountValue={
+											_isConvert
+												? amountValue * 1000
+												: amountValue
+										}
+										sysIdValue={sysIdValue}
+										accountNoValue={accountNoValue}
+										cancelSubmit={cancelSubmit}
+										confirmSubmit={confirmSubmit}
+										_isConvert={_isConvert}
+									/>
+								)}
+							</div>
+						</div>
 					</div>
-				</div>
-			</div>
+				</>
+			)}
 		</>
 	);
 };
