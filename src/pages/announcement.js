@@ -66,7 +66,7 @@ const Content = () => {
 		let textColor = isToday ? "txt-blue2" : "";
 
 		return (
-			<div key={item.id}>
+			<div key={`announcement-${item.id}`}>
 				<div className="listHeader">
 					<div>{item.subject}</div>
 					<div className={textColor}>{displayTime}</div>
