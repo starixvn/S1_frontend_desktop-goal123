@@ -17,12 +17,12 @@ html.dark main {
 
 html.dark main #Marquee {
   color: white;
-  background: #000;
+  background: black;
 }
 
 html.dark main #Marquee .icon {
   color: white;
-  background: #000;
+  background: black;
 }
 
 html.dark main .sideBar {

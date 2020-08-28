@@ -88,7 +88,7 @@ body, html {
   background: #152849;
   font-size: 14px;
   font-family: "Microsoft YaHei", sans-serif;
-  color: #fff;
+  color: white;
   height: 100%;
 }
 
@@ -376,7 +376,7 @@ header .header > div.function .join, header .header > div.function .login {
   background: #1E85EC;
   border-radius: 5px;
   padding: 8px 2px;
-  color: #fff;
+  color: white;
 }
 
 header .header > div.function .login {
@@ -417,7 +417,7 @@ header .header > div.function > div .flag, header .header > div.function > butto
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  color: #fff;
+  color: white;
 }
 
 header .header > div.function > div .flag:before, header .header > div.function > button .flag:before {
@@ -496,12 +496,12 @@ header .header > div.function .cashier, header .header > div.function .wallet, h
       -ms-flex: 0 0 auto;
           flex: 0 0 auto;
   position: relative;
-  color: #fff;
+  color: white;
   cursor: pointer;
 }
 
 header .header > div.function .cashier button, header .header > div.function .wallet button, header .header > div.function .memberfile button {
-  color: #fff;
+  color: white;
   font-size: 14px;
   -webkit-transition: 0.7s;
   transition: 0.7s;
@@ -530,7 +530,7 @@ header .header > div.function .cashier .submenu a:hover, header .header > div.fu
 
 header .header > div.function .cashier .submenu a:hover.icon-exit span, header .header > div.function .wallet .submenu a:hover.icon-exit span, header .header > div.function .memberfile .submenu a:hover.icon-exit span {
   background: #1E85EC;
-  color: #fff;
+  color: white;
   -webkit-transition: 0.7s;
   transition: 0.7s;
 }
@@ -564,7 +564,7 @@ header .header > div.function .cashier.active .submenu, header .header > div.fun
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  color: #fff;
+  color: white;
 }
 
 header .header > div.function .cashier.active:after, header .header > div.function .wallet.active:after, header .header > div.function .memberfile.active:after {
@@ -579,7 +579,7 @@ header .header > div.function .cashier:after, header .header > div.function .wal
   content: "\e954";
   -webkit-transform: rotate(90deg);
           transform: rotate(90deg);
-  color: #fff;
+  color: white;
   font-size: 18px;
   -webkit-transition: 0.7s;
   transition: 0.7s;
@@ -633,7 +633,7 @@ header .header > div.function .wallet .submenu div.btnGroup a {
 }
 
 header .header > div.function .wallet .submenu div.btnGroup a:hover {
-  color: #fff;
+  color: white;
 }
 
 header .header > div.function .wallet .submenu div.loginLog, header .header > div.function .wallet .submenu div.transactionLog {
@@ -681,7 +681,7 @@ header .header > div.function .wallet .submenu div.loginLog span, header .header
 
 .gameMenu .icon-keyboard_arrow_right {
   font-size: 48px;
-  color: #fff;
+  color: white;
 }
 
 main {
@@ -1024,7 +1024,7 @@ footer .copyright {
 }
 
 .txt-white {
-  color: #fff;
+  color: white;
 }
 
 .txt-gray {
@@ -1080,7 +1080,7 @@ footer .copyright {
 .inputBox, .inputBox-org, .inputBox-white, .inputBox-blue, .inputBox-gray, .inputBox-yellow {
   width: calc(100% - 22px);
   background: #030c1b;
-  color: #fff;
+  color: white;
   border: 1px solid #1D3662;
   outline: none;
   border-radius: 5px;
@@ -1096,7 +1096,7 @@ footer .copyright {
   z-index: 1;
 }
 
-.inputBox input[type="date"], .inputBox-org input[type="date"], .inputBox-white input[type="date"], .inputBox-blue input[type="date"], .inputBox-gray input[type="date"], .inputBox-yellow input[type="date"] {
+.inputBox input[type="date"]::-webkit-inner-spin-button, .inputBox-org input[type="date"]::-webkit-inner-spin-button, .inputBox-white input[type="date"]::-webkit-inner-spin-button, .inputBox-blue input[type="date"]::-webkit-inner-spin-button, .inputBox-gray input[type="date"]::-webkit-inner-spin-button, .inputBox-yellow input[type="date"]::-webkit-inner-spin-button, .inputBox input[type="date"]::-webkit-calendar-picker-indicator, .inputBox-org input[type="date"]::-webkit-calendar-picker-indicator, .inputBox-white input[type="date"]::-webkit-calendar-picker-indicator, .inputBox-blue input[type="date"]::-webkit-calendar-picker-indicator, .inputBox-gray input[type="date"]::-webkit-calendar-picker-indicator, .inputBox-yellow input[type="date"]::-webkit-calendar-picker-indicator {
   opacity: 0;
 }
 
@@ -1134,7 +1134,7 @@ footer .copyright {
 .inputBox input, .inputBox-org input, .inputBox-white input, .inputBox-blue input, .inputBox-gray input, .inputBox-yellow input {
   background: transparent;
   border: 0;
-  color: #fff;
+  color: white;
   outline: none;
   -webkit-box-flex: 1;
       -ms-flex: auto;
@@ -1246,7 +1246,7 @@ footer .copyright {
 }
 
 .inputBox-white {
-  background: #fff;
+  background: white;
   -webkit-box-flex: 2;
       -ms-flex: 2;
           flex: 2;
@@ -1268,7 +1268,7 @@ footer .copyright {
 }
 
 .inputBox-blue .dropdown .txt-white {
-  color: #fff;
+  color: white;
 }
 
 .inputBox-blue .dropdown .dropdown-item {
@@ -1393,7 +1393,7 @@ input[type="file"] {
 
 .btnGroup button.orange, .btnGroup a.orange {
   background: #f77900;
-  color: #fff;
+  color: white;
 }
 
 .btnGroup button.orange:hover, .btnGroup a.orange:hover {
@@ -1407,12 +1407,12 @@ input[type="file"] {
 
 .btnGroup button.gray:hover, .btnGroup button.btn-cancel:hover, .btnGroup a.gray:hover, .btnGroup a.btn-cancel:hover {
   background: #666;
-  color: #fff;
+  color: white;
 }
 
 .btnGroup button.blue, .btnGroup button.btn-check, .btnGroup a.blue, .btnGroup a.btn-check {
   background: #1E85EC;
-  color: #fff;
+  color: white;
 }
 
 .btnGroup button.blue:hover, .btnGroup button.btn-check:hover, .btnGroup a.blue:hover, .btnGroup a.btn-check:hover {
@@ -1421,7 +1421,7 @@ input[type="file"] {
 
 .btnGroup button.darkGray, .btnGroup a.darkGray {
   background: #666;
-  color: #fff;
+  color: white;
 }
 
 .btnGroup button.yellow, .btnGroup a.yellow {
@@ -1442,12 +1442,12 @@ input[type="file"] {
 
 .btnGroup button.yellowborder:hover, .btnGroup a.yellowborder:hover {
   background: #fab617;
-  color: #fff;
+  color: white;
 }
 
 .btnGroup button.red, .btnGroup a.red {
   background: #f73201;
-  color: #fff;
+  color: white;
 }
 
 .btnGroup button.red:hover, .btnGroup a.red:hover {
@@ -1565,7 +1565,7 @@ main > .swiper-container .swiper-slide {
   -webkit-box-flex: 0;
       -ms-flex: 0 0 100%;
           flex: 0 0 100%;
-  color: #fff;
+  color: white;
   text-align: left;
   font-size: 14px;
 }
@@ -1717,7 +1717,7 @@ main > .swiper-container .swiper-slide {
           align-items: center;
   padding: 10px;
   width: 100%;
-  color: #fff;
+  color: white;
   font-size: 16px;
   letter-spacing: 1px;
   font-weight: bold;
@@ -1853,7 +1853,7 @@ main > .swiper-container .swiper-slide {
 .list .listTag button {
   line-height: 30px;
   background: #1E85EC;
-  color: #fff;
+  color: white;
   padding: 0 10px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
@@ -1895,7 +1895,7 @@ main > .swiper-container .swiper-slide {
 
 .list .listHeader {
   background: #030c1b;
-  color: #fff;
+  color: white;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   display: -webkit-box;
@@ -2037,12 +2037,12 @@ main > .swiper-container .swiper-slide {
 
 .pagination a.active {
   background: #1E85EC;
-  color: #fff;
+  color: white;
 }
 
 .pagination a:hover:not(.active) {
   background: #1E85EC;
-  color: #fff;
+  color: white;
 }
 
 .stepBar {
@@ -2247,7 +2247,7 @@ main > .swiper-container .swiper-slide {
 
 .subModuleList .subModule .subModuleTitle div span {
   white-space: nowrap;
-  color: #fff;
+  color: white;
 }
 
 .subModuleList .subModule .subModuleTitle div span:last-child {
@@ -2448,7 +2448,7 @@ main > .swiper-container .swiper-slide {
 }
 
 .platformName + div.subModuleList .subModuleBody ul li a {
-  background: #fff;
+  background: white;
   padding: 5px 10px;
   width: calc(100% - 20px);
 }
@@ -2474,7 +2474,7 @@ main > .swiper-container .swiper-slide {
   padding: 5px 30px;
   height: 40px;
   border-radius: 30px;
-  background: #fff;
+  background: white;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -2899,7 +2899,7 @@ main > .swiper-container .swiper-slide {
   content: "\e954";
   font-size: 48px;
   font-family: 'icomoon';
-  color: #fff;
+  color: white;
 }
 
 .offers .swiper-button-next {
@@ -2966,7 +2966,7 @@ main > .swiper-container .swiper-slide {
 }
 
 .walletModule .walletBalanceModule span.icon-balance.icon:before {
-  color: #fff;
+  color: white;
   margin-right: 5px;
 }
 
@@ -3049,7 +3049,7 @@ main > .swiper-container .swiper-slide {
 }
 
 .walletTransfer .walletModule .from span, .walletTransfer .walletModule .to span {
-  color: #fff;
+  color: white;
   display: none;
 }
 
@@ -3281,7 +3281,7 @@ main > .swiper-container .swiper-slide {
 }
 
 .addBank + div.subModuleList .subModuleBody ul li a {
-  background: #fff;
+  background: white;
   padding: 5px 10px;
   width: calc(100% - 20px);
 }
@@ -3520,7 +3520,7 @@ main > .swiper-container .swiper-slide {
 }
 
 .changePassWord .lastChange span, .forgetPassWord .lastChange span {
-  color: #fff;
+  color: white;
   margin-left: 10px;
 }
 
@@ -3568,6 +3568,11 @@ main > .swiper-container .swiper-slide {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
+}
+
+.profile > div div > span {
+  color: #1E85EC;
+  margin-left: 5px;
 }
 
 .profile > div div:first-child {
@@ -3657,7 +3662,7 @@ main > .swiper-container .swiper-slide {
 }
 
 .accountName span {
-  color: #fff;
+  color: white;
   margin: 0 10px;
 }
 
@@ -3719,12 +3724,12 @@ main > .swiper-container .swiper-slide {
   margin: 0 auto;
 }
 
-.personal .list > div div {
-  font-weight: normal;
+.personal .list > div div.listHeader {
+  font-weight: bold;
 }
 
 .personal .list .haveRead .listHeader div {
-  font-weight: bold;
+  font-weight: normal;
 }
 
 .personal .list .listHeader, .personal .list .functionMenu {
@@ -3805,13 +3810,13 @@ main > .swiper-container .swiper-slide {
 }
 
 .personal .list .functionMenu label {
-  border: 1px solid #fff;
-  color: #fff;
+  border: 1px solid white;
+  color: white;
 }
 
 .personal .list .functionMenu .icon-bin, .personal .list .functionMenu .icon-spinner11 {
   font-size: 16px;
-  color: #fff;
+  color: white;
 }
 
 .personal .list .functionMenu button.icon-bin {
@@ -3836,11 +3841,7 @@ main > .swiper-container .swiper-slide {
 }
 
 .otp {
-  border-radius: 100%;
-  width: 24px;
-  height: 24px;
   color: #1E85EC;
-  background: white;
   font-size: 16px;
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
@@ -3851,7 +3852,10 @@ main > .swiper-container .swiper-slide {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  margin-left: 10px;
+}
+
+.otp + span {
+  color: #1E85EC;
 }
 
 .otpBtn {
@@ -3861,7 +3865,7 @@ main > .swiper-container .swiper-slide {
           justify-content: center;
 }
 
-.proList {
+.proList, .slotList, .newsList {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -3874,7 +3878,7 @@ main > .swiper-container .swiper-slide {
   line-height: 20px;
 }
 
-.proList > div {
+.proList > div, .slotList > div, .newsList > div {
   -webkit-box-flex: 0;
       -ms-flex: 0 0 calc(100% / 3 - 50px);
           flex: 0 0 calc(100% / 3 - 50px);
@@ -3886,17 +3890,17 @@ main > .swiper-container .swiper-slide {
   position: relative;
 }
 
-.proList > div.active {
+.proList > div.active, .slotList > div.active, .newsList > div.active {
   opacity: 0.7;
 }
 
-.proList > div.active .claimed {
+.proList > div.active .claimed, .slotList > div.active .claimed, .newsList > div.active .claimed {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
 
-.proList > div .new, .proList > div .claimed {
+.proList > div .new, .proList > div .claimed, .slotList > div .new, .slotList > div .claimed, .newsList > div .new, .newsList > div .claimed {
   position: absolute;
   top: -10px;
   left: -10px;
@@ -3916,17 +3920,17 @@ main > .swiper-container .swiper-slide {
   font-weight: bold;
 }
 
-.proList > div .new:before, .proList > div .claimed:before {
+.proList > div .new:before, .proList > div .claimed:before, .slotList > div .new:before, .slotList > div .claimed:before, .newsList > div .new:before, .newsList > div .claimed:before {
   content: "NEW";
 }
 
-.proList > div .new.active, .proList > div .claimed.active {
+.proList > div .new.active, .proList > div .claimed.active, .slotList > div .new.active, .slotList > div .claimed.active, .newsList > div .new.active, .newsList > div .claimed.active {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
 
-.proList > div .claimed {
+.proList > div .claimed, .slotList > div .claimed, .newsList > div .claimed {
   background: rgba(219, 44, 1, 0.8);
   width: 75px;
   height: 75px;
@@ -3934,30 +3938,26 @@ main > .swiper-container .swiper-slide {
           transform: rotate(-45deg);
 }
 
-.proList > div .claimed:before {
+.proList > div .claimed:before, .slotList > div .claimed:before, .newsList > div .claimed:before {
   content: "CLAIMED";
 }
 
-.proList > div .txt-dark, .proList > div .txt-darkBlue {
+.proList > div .txt-dark, .proList > div .txt-darkBlue, .slotList > div .txt-dark, .slotList > div .txt-darkBlue, .newsList > div .txt-dark, .newsList > div .txt-darkBlue {
   font-weight: bold;
   margin: 15px 0;
 }
 
-.proList > div .txt-gray li {
+.proList > div .txt-gray li, .slotList > div .txt-gray li, .newsList > div .txt-gray li {
   font-size: 12px;
   list-style: disc;
   margin-left: 16px;
 }
 
-.proList > div img {
+.proList > div img, .slotList > div img, .newsList > div img {
   border-radius: 10px;
 }
 
-.proList > div > div {
-  padding: 0 5px;
-}
-
-.proList .rollover {
+.proList .rollover, .slotList .rollover, .newsList .rollover {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -3966,13 +3966,13 @@ main > .swiper-container .swiper-slide {
   margin: 20px 0;
 }
 
-.proList .rollover > div {
+.proList .rollover > div, .slotList .rollover > div, .newsList .rollover > div {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
 }
 
-.proList .rollover > div .icon:before {
+.proList .rollover > div .icon:before, .slotList .rollover > div .icon:before, .newsList .rollover > div .icon:before {
   font-weight: normal;
   margin-right: 5px;
 }
@@ -4039,48 +4039,27 @@ form {
   margin-right: 5px;
 }
 
-.slotList {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  padding: 0 40px;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  line-height: 20px;
-}
-
-.slotList > div {
+.slotList > div, .newsList > div {
   -webkit-box-flex: 0;
       -ms-flex: 0 0 calc(100% / 5 - 45px);
           flex: 0 0 calc(100% / 5 - 45px);
   padding: 15px;
-  background: white;
-  border-radius: 10px;
-  color: #1E85EC;
   margin: 10px 0;
-  position: relative;
 }
 
-.slotList > div img {
-  border-radius: 10px;
-}
-
-.slotList > div .txt-darkBlue {
-  font-weight: bold;
+.slotList > div .txt-darkBlue, .newsList > div .txt-darkBlue {
   font-size: 12px;
+  margin: 0;
 }
 
-.slotList > div .btnGroup {
+.slotList > div .btnGroup, .newsList > div .btnGroup {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
   margin: 10px 0 0;
 }
 
-.slotList > div .btnGroup button {
+.slotList > div .btnGroup button, .newsList > div .btnGroup button {
   -webkit-box-flex: 0;
       -ms-flex: 0 0 calc(50% - 5px);
           flex: 0 0 calc(50% - 5px);
@@ -4088,13 +4067,13 @@ form {
   margin: 0;
 }
 
-.slotList > div .brand {
+.slotList > div .brand, .newsList > div .brand {
   position: absolute;
   top: 0;
   left: 0;
 }
 
-.slotList > div .brand:before {
+.slotList > div .brand:before, .newsList > div .brand:before {
   content: "";
   border-color: #134DAE transparent transparent #134DAE;
   border-style: solid;
@@ -4107,7 +4086,7 @@ form {
           filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.5));
 }
 
-.slotList > div .brand span {
+.slotList > div .brand span, .newsList > div .brand span {
   z-index: 1;
   position: absolute;
   top: 7px;
@@ -4116,7 +4095,7 @@ form {
   font-weight: bold;
 }
 
-.slotList > div .icon-star-full {
+.slotList > div .icon-star-full, .newsList > div .icon-star-full {
   position: absolute;
   right: 20px;
   top: 20px;
@@ -4126,7 +4105,73 @@ form {
           filter: drop-shadow(0px 3px 1px rgba(0, 0, 0, 0.5));
 }
 
-.slotList > div .icon-star-full.active {
+.slotList > div .icon-star-full.active, .newsList > div .icon-star-full.active {
   color: #fab617;
+}
+
+.newsList > div {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 calc(100% / 3 - 45px);
+          flex: 0 0 calc(100% / 3 - 45px);
+}
+
+.newsList > div .btnGroup button {
+  -webkit-box-flex: 1;
+      -ms-flex: auto;
+          flex: auto;
+}
+
+.newsList > div .txt-darkBlue {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+}
+
+.newsList > div .txt-gray {
+  font-size: 12px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+}
+
+article {
+  padding: 40px;
+}
+
+article img {
+  max-width: 400px;
+  float: right;
+  margin: 0 0 10px 20px;
+  border-radius: 10px;
+}
+
+article h1, article h2 {
+  font-size: 24px;
+  margin-bottom: 15px;
+  color: #1E85EC;
+  font-weight: bold;
+}
+
+article h2 {
+  font-size: 14px;
+  margin-top: 30px;
+  font-weight: normal;
+}
+
+article p {
+  line-height: 18px;
+  margin-bottom: 18px;
+  letter-spacing: 1px;
+  color: #c6c6c6;
+}
+
+.rdt {
+  -webkit-box-flex: 1;
+      -ms-flex: auto;
+          flex: auto;
 }
 /*# sourceMappingURL=style.css.map */
