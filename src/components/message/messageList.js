@@ -24,7 +24,6 @@ export default props => {
 			moment(props.createTime, "YYYY-MM-DD"),
 			"day"
 		);
-
 		if (compareDay < 1) {
 			setDisplayTime(props.createTime.slice(11, 19));
 		} else {
@@ -60,7 +59,7 @@ export default props => {
 						type="checkbox"
 						id={`msgList-checkBox-${props.id}`}
 						onChange={props.onChangeCheck}
-						checked={props.parentIsCheckAll ? true : props.checked}
+						checked={props.selectItems.includes(props.id)}
 					/>
 					<label
 						htmlFor={`msgList-checkBox-${props.id}`}

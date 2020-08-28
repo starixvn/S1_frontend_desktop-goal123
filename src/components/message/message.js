@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import {
 	api_account_GetMsgList,
 	api_account_DelMsg
@@ -6,6 +6,8 @@ import {
 import { useTranslation } from "react-i18next";
 import MessageList from "./messageList";
 import { Pagination } from "../common/pagination";
+import { popBoxContext } from "../common/context";
+import { defPopBoxType } from "../common/popBox";
 
 export default () => {
 	const { t } = useTranslation();
@@ -15,6 +17,7 @@ export default () => {
 		totalPages: 0,
 		currentPage: 1
 	});
+	const { setPopBox } = useContext(popBoxContext);
 	const [selectItems, setSelectItems] = useState([]);
 	const [isCheckAll, setIsCheckAll] = useState(false);
 
@@ -76,6 +79,27 @@ export default () => {
 		setSelectItems(result);
 	};
 
+	const popDelete = () => {
+		const ClickCancel = () => {
+			setPopBox({ isOpen: false });
+		};
+		setPopBox({
+			isOpen: true,
+			popBoxType: defPopBoxType.TitleWithButton,
+			message: t("lbl_CheckConfirm"),
+			btnBar: (
+				<div className="btnGroup">
+					<button className="btn-cancel" onClick={ClickCancel}>
+						{t("lbl_No")}
+					</button>
+					<button className="btn-check" onClick={deleteMessage}>
+						{t("lbl_Yes")}
+					</button>
+				</div>
+			)
+		});
+	};
+
 	const deleteMessage = () => {
 		if (selectItems.length > 0) {
 			api_account_DelMsg(selectItems).then(
@@ -85,6 +109,7 @@ export default () => {
 							getMsgList(pagination.currentPage);
 							setSelectItems([]);
 							setIsCheckAll(false);
+							setPopBox({ isOpen: false });
 						} else {
 							alert(res.data.message);
 						}
@@ -104,7 +129,6 @@ export default () => {
 			<div className="inside-title icon icon-icon32px_openmail">
 				<span>{t("lbl_Message")}</span>
 			</div>
-
 			<div className="personal">
 				<div className="list">
 					<div className="functionMenu">
@@ -121,7 +145,7 @@ export default () => {
 						</div>
 						<button
 							className="icon icon-bin"
-							onClick={deleteMessage}></button>
+							onClick={popDelete}></button>
 						<button
 							className="icon icon-spinner11"
 							onClick={() =>
@@ -135,6 +159,7 @@ export default () => {
 							key={`msgList-${item.id}`}
 							onChangeCheck={onChildChanged.bind(this, item.id)}
 							parentIsCheckAll={isCheckAll}
+							selectItems={selectItems}
 						/>
 					))}
 				</div>
