@@ -39,10 +39,12 @@ export default props => {
 			res => {
 				if (isMountedRef.current) {
 					if (res.data.errorCode === 0) {
-						if (res.data.data.bankInfoDetail?.length > 0) {
+						if (
+							res.data.data &&
+							res.data.data.bankInfoDetail?.length > 0
+						) {
 							setBankInfoList(res.data.data.bankInfoDetail);
 						}
-					} else {
 					}
 				}
 			},
