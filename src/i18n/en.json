@@ -190,5 +190,8 @@
   "lbl_History":"History",
   "lbl_MyAccount":"My Account",
   "lbl_Message":"Message",
-  "lbl_PersonalMsg":"Personal Message"
+  "lbl_PersonalMsg":"Personal Message",
+  "lbl_News":"News",
+  "lbl_Details":"Details",
+  "lbl_ViewAll":"View All"
 }
