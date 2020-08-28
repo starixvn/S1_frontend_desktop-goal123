@@ -145,8 +145,6 @@ export default () => {
 			} else {
 				submitProfile();
 			}
-		} else {
-			console.log("input error");
 		}
 	};
 
