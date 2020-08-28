@@ -4,6 +4,7 @@ import { userInfoContext } from "../components/common/context";
 import { api_message_GetAnnouncement } from "../service/api/message";
 import Wrapper from "../components/common/wrapper";
 import Layout from "../components/common/layout";
+import LeftMenu from "../components/common/leftMenu";
 import moment from "moment";
 
 export default () => {
@@ -11,7 +12,12 @@ export default () => {
 		<Wrapper afterLogin={true}>
 			<Layout>
 				<main>
-					<Content />
+					<section className="inside">
+						<LeftMenu />
+						<div className="rightModule">
+							<Content />
+						</div>
+					</section>
 				</main>
 			</Layout>
 		</Wrapper>
@@ -60,7 +66,7 @@ const Content = () => {
 		let textColor = isToday ? "txt-blue2" : "";
 
 		return (
-			<div key={item.id}>
+			<div key={`announcement-${item.id}`}>
 				<div className="listHeader">
 					<div>{item.subject}</div>
 					<div className={textColor}>{displayTime}</div>
@@ -71,18 +77,13 @@ const Content = () => {
 	});
 
 	return (
-		<section className="inside">
-			<div id="leftMenu"></div>
-			<div className="rightModule">
-				<div className="infoModule">
-					<div className="inside-title icon icon-icon32px_openmail">
-						<span>{t("lbl_Announcement")}</span>
-					</div>
-					<div className="announcement">
-						<div className="list">{arr}</div>
-					</div>
-				</div>
+		<div className="infoModule">
+			<div className="inside-title icon icon-icon32px_openmail">
+				<span>{t("lbl_Announcement")}</span>
 			</div>
-		</section>
+			<div className="announcement">
+				<div className="list">{arr}</div>
+			</div>
+		</div>
 	);
 };

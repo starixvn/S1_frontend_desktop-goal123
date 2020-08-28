@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { Redirect } from "@reach/router";
 import * as ct from "../common/context";
 import { GET_LANG_ID } from "../../service/language";
@@ -9,8 +9,11 @@ import { IS_LOGGED_IN } from "../../service/auth";
 import { api_accountStrict_GetCustProfile } from "../../service/api/accountStrict";
 import {
 	api_account_GetMsgCount,
-	api_account_GetWalletInfo
+	api_account_GetWalletInfo,
+	api_account_onlineCheck
 } from "../../service/api/account";
+import { defPopBoxType } from "../common/popBox";
+import useInterval from "../hook/useInterval";
 
 export default ({ children, afterLogin = false }) => {
 	const { t, i18n } = useTranslation();
@@ -43,7 +46,24 @@ export default ({ children, afterLogin = false }) => {
 
 	useEffect(() => {
 		IS_LOGGED_IN().then(isLogin => {
-			if (afterLogin && !isLogin && isMountedRef.current) {
+			if (userInfo.kickout) {
+				const ClickClose = () => {
+					setPopBox({ isOpen: false });
+					setUserInfo(prevS => ({ ...prevS, kickout: false }));
+				};
+				setPopBox({
+					isOpen: true,
+					popBoxType: defPopBoxType.ErrorMsg,
+					message: t("msg_ForceLogedout"),
+					btnBar: (
+						<div className="btnGroup">
+							<button className="btn-cancel" onClick={ClickClose}>
+								{t("lbl_Close")}
+							</button>
+						</div>
+					)
+				});
+			} else if (afterLogin && !isLogin && isMountedRef.current) {
 				setRedirectPath(`/${userInfo.langId}`);
 			}
 			if (isLogin !== userInfo.isLogin && isMountedRef.current) {
@@ -53,7 +73,13 @@ export default ({ children, afterLogin = false }) => {
 				}));
 			}
 		});
-	}, [userInfo.isLogin, setUserInfo, setRedirectPath]);
+	}, [
+		userInfo.isLogin,
+		userInfo.kickout,
+		setUserInfo,
+		setRedirectPath,
+		setPopBox
+	]);
 
 	useEffect(() => {
 		if (userInfo.isLogin) {
@@ -146,10 +172,48 @@ export default ({ children, afterLogin = false }) => {
 		}
 	}, []);
 
+	useInterval(
+		() => {
+			const ClickClose = () => {
+				setPopBox({ isOpen: false });
+			};
+			api_account_onlineCheck().then(
+				res => {
+					if (res.data.errorCode !== 0) {
+						setUserInfo(prev => ({
+							...prev,
+							isLogin: false,
+							langId: prev.langId,
+							kickout: true
+						}));
+					}
+				},
+				err => {
+					setPopBox({
+						isOpen: true,
+						popBoxType: defPopBoxType.ErrorMsg,
+						message: t("msg_ApiServerError"),
+						btnBar: (
+							<div className="btnGroup">
+								<button
+									className="btn-cancel"
+									onClick={ClickClose}>
+									{t("lbl_Close")}
+								</button>
+							</div>
+						)
+					});
+				}
+			);
+		},
+		userInfo.isLogin ? 10000 : null
+	);
+
 	if (redirectPath === null) {
 		if (
-			correctPath &&
-			((afterLogin === true && userInfo.isLogin) || !afterLogin)
+			(correctPath &&
+				((afterLogin === true && userInfo.isLogin) || !afterLogin)) ||
+			(afterLogin && userInfo.isLogin === false && userInfo.kickout)
 		) {
 			return (
 				<ct.userInfoContext.Provider value={{ userInfo, setUserInfo }}>
