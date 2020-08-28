@@ -31,42 +31,45 @@ export default props => {
 		{
 			label: t("lbl_RealName"),
 			value: props.userInfo.accountName,
-			format: "normal"
+			show: props.userInfo.accountName ? true : false
 		},
 		{ label: t("lbl_Birthday"), value: birth, format: "normal" },
 		{
 			label: t("lbl_Phone"),
-			value: props.userInfo.AreaCode + props.userInfo.phoneNo,
-			format: "phone"
+			value: "(" + props.userInfo.AreaCode + ")" + props.userInfo.phoneNo,
+			format: "phone",
+			show: props.userInfo.phoneNo ? true : false
 		},
 		{
 			label: t("lbl_Username"),
 			value: props.userInfo.userName,
-			format: "normal"
+			show: true
 		},
 		{
 			label: t("lbl_Country"),
 			value: props.userInfo.country,
-			format: "normal"
+			show: true
 		},
 		{
 			label: t("lbl_Email"),
 			value: props.userInfo.email,
-			format: "normal"
+			show: true
 		},
 		{
 			label: t("lbl_RegisterTime"),
 			value: moment(props.userInfo.regTime).format("lll"),
-			format: "normal"
+			show: true
 		},
 		{
 			label: t("lbl_LastLogin"),
 			value: moment(props.userInfo.lastLogin).format("lll"),
-			format: "normal"
+			show: true
 		}
 	];
 
-	const layout = dataList?.map(item => {
+	const showColumn = dataList?.filter(item => item.show === true);
+
+	const layout = showColumn?.map(item => {
 		return (
 			<div key={`profileRead-${item.label}`}>
 				<div>{item.label}</div>
@@ -74,13 +77,11 @@ export default props => {
 					{item.value}
 					{item.format === "phone" ? (
 						<button className="icon icon-mobile otp"></button>
-					) : (
-						""
-					)}
+					) : null}
 				</div>
 			</div>
 		);
 	});
 
-	return <>{layout}</>;
+	return <div className="profile">{layout}</div>;
 };

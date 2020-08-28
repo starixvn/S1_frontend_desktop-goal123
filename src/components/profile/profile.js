@@ -3,8 +3,7 @@ import { api_accountStrict_SetProfile } from "../../service/api/accountStrict";
 import { useTranslation } from "react-i18next";
 import areaCode from "../../datas/areaCode";
 import ProfileRead from "./profileRead";
-import ProfileEditInfo from "./profileEditInfo";
-import ProfileEditInput from "./profileEditInput";
+import ProfileEdit from "./profileEdit";
 import moment from "moment";
 import { defPopBoxType } from "../common/popBox";
 import { popBoxContext, userInfoContext } from "../common/context";
@@ -84,6 +83,7 @@ export default () => {
 			checkResult = false;
 			setNameErr(t("lbl_NameRequired"));
 		} else if (!userInfo.AccountName && nameValue !== "") {
+			setNameErr("");
 			checkResult = true;
 		}
 		return checkResult;
@@ -98,6 +98,7 @@ export default () => {
 			setBirthErr(t("lbl_BirthRequired"));
 		} else if (!userInfo.birth_d && birthValue !== "") {
 			checkResult = true;
+			setBirthErr("");
 		}
 		return checkResult;
 	};
@@ -112,6 +113,7 @@ export default () => {
 			setPhoneErr(t("lbl_PhoneRequired"));
 		} else if (!userInfo.phoneNo && phoneValue !== "") {
 			checkResult = true;
+			setPhoneErr("");
 		}
 		return checkResult;
 	};
@@ -143,6 +145,8 @@ export default () => {
 			} else {
 				submitProfile();
 			}
+		} else {
+			console.log("input error");
 		}
 	};
 
@@ -151,7 +155,7 @@ export default () => {
 			setRedirectPath(`/${userInfo.langId}/${path.deposit.root}`);
 		};
 		api_accountStrict_SetProfile({
-			AccountName: !userInfo.AccountName
+			AccountName: !userInfo.accountName
 				? nameValue
 				: userInfo.accountName,
 			Birth_d: !userInfo.birth_d
@@ -224,10 +228,19 @@ export default () => {
 				<span>{t("lbl_Profile")}</span>
 				<div>{t("lbl_ProfileModifyWarning")}</div>
 			</div>
-			{!userInfo.AccountName || !userInfo.birth_d || !userInfo.phoneNo ? (
-				<div className="profileEdit">
-					<ProfileEditInfo userInfo={userInfo} />
-					<ProfileEditInput
+			<div
+				className={
+					!userInfo.accountName ||
+					!userInfo.birth_d ||
+					!userInfo.phoneNo
+						? "profileEdit"
+						: ""
+				}>
+				<ProfileRead userInfo={userInfo} />
+				{!userInfo.accountName ||
+				!userInfo.birth_d ||
+				!userInfo.phoneNo ? (
+					<ProfileEdit
 						userInfo={userInfo}
 						submitProfile={submitCheck}
 						onChangeName={onChangeName}
@@ -243,12 +256,8 @@ export default () => {
 						checkBirth={checkBirth}
 						checkPhone={checkPhone}
 					/>
-				</div>
-			) : (
-				<div className="profile">
-					<ProfileRead userInfo={userInfo} />
-				</div>
-			)}
+				) : null}
+			</div>
 		</div>
 	) : (
 		<Redirect to={redirectPath} noThrow />

@@ -15,7 +15,8 @@ export default props => {
 
 	return (
 		<div className="editModule">
-			{!props.userInfo.AccountName ? (
+			{console.log(props.userInfo)}
+			{!props.userInfo.accountName ? (
 				<Inputbox
 					title={t("lbl_RealName")}
 					checkIcon="icon icon-error"
