@@ -63,5 +63,11 @@ export default {
 	},
 	changePassword: {
 		root: "changePassword"
+	},
+	forgetPassword: {
+		root: "forgetPassword"
+	},
+	news: {
+		root: "news"
 	}
 };
