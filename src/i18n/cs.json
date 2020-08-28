@@ -206,6 +206,17 @@
   "lbl_History":"历史记录",
   "lbl_MyAccount":"我的账户",
   "lbl_Message":"信息",
-  "lbl_PersonalMsg":"站内信"
-
+  "lbl_PersonalMsg":"站内信",
+  "lbl_Month1":"一月",
+  "lbl_Month2":"二月",
+  "lbl_Month3":"三月",
+  "lbl_Month4":"四月",
+  "lbl_Month5":"五月",
+  "lbl_Month6":"六月",
+  "lbl_Month7":"七月",
+  "lbl_Month8":"八月",
+  "lbl_Month9":"九月",
+  "lbl_Month10":"十月",
+  "lbl_Month11":"十一月",
+  "lbl_Month12":"十二月"
 }

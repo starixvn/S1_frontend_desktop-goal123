@@ -206,5 +206,17 @@
   "lbl_History":"History",
   "lbl_MyAccount":"My Account",
   "lbl_Message":"Message",
-  "lbl_PersonalMsg":"Personal Message"
+  "lbl_PersonalMsg":"Personal Message",
+  "lbl_Month1":"JAN",
+  "lbl_Month2":"FEB",
+  "lbl_Month3":"MAR",
+  "lbl_Month4":"APR",
+  "lbl_Month5":"MAY",
+  "lbl_Month6":"JUN",
+  "lbl_Month7":"JUL",
+  "lbl_Month8":"AUG",
+  "lbl_Month9":"SEP",
+  "lbl_Month10":"OCT",
+  "lbl_Month11":"NOV",
+  "lbl_Month12":"DEC"
 }
