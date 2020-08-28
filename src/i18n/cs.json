@@ -218,5 +218,17 @@
   "lbl_Month9":"九月",
   "lbl_Month10":"十月",
   "lbl_Month11":"十一月",
-  "lbl_Month12":"十二月"
+  "lbl_Month12":"十二月",
+  "lbl_SubmitPhotoIdHint":"请上传国家政府发行证件以完成提款验证流程：",
+  "lbl_SubmitPhotoId":"提交附有照片的身份证",
+  "lbl_WaitKYC":"审查流程进行中",
+  "lbl_WaitKYCHint":"感谢您上传所需文件，审查流程正进行中，恳请稍后",
+  "lbl_SubmitPhotoIdList_Title":"下列中，请上传其一证件：",
+  "lbl_ImageUploadWarning":"请上传整个文档的彩色图像。",
+  "lbl_ImageJpgPngOnly":"仅限JPG或PNG。",
+  "lbl_NationalIdentityCard":"国民身份证",
+  "lbl_Passport":"护照副本",
+  "lbl_DrivingLicense":"驾驶执照",
+  "lbl_BirthCertificate":"出生证明",
+  "xx":"xxx"
 }
