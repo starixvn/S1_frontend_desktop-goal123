@@ -218,5 +218,17 @@
   "lbl_Month9":"SEP",
   "lbl_Month10":"OCT",
   "lbl_Month11":"NOV",
-  "lbl_Month12":"DEC"
+  "lbl_Month12":"DEC",
+  "lbl_SubmitPhotoIdHint":"To fulfilled withdrawal, a verification is required to complete with a government-issued documents:",
+  "lbl_SubmitPhotoId":"Submit Photo ID",
+  "lbl_WaitKYC":"Verification is in progress",
+  "lbl_WaitKYCHint":"Thank you for submitting the required document, kindly bear with us for a moment while the verification is in progress.",
+  "lbl_SubmitPhotoIdList_Title":"Kindly submit either one of the ID listed as below:",
+  "lbl_ImageUploadWarning":"Upload a color image of the entire document.Screenshots  are not allowed.",
+  "lbl_ImageJpgPngOnly":"JPG orPNG only.",
+  "lbl_NationalIdentityCard":"National Identity Card",
+  "lbl_Passport":"Passport",
+  "lbl_DrivingLicense":"Driving License",
+  "lbl_BirthCertificate":"Birth Certificate",
+  "xx":"xxx"
 }
