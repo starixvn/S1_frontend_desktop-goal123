@@ -135,12 +135,12 @@ export default () => {
 						<div className="checkbox">
 							<input
 								type="checkbox"
-								id="c1"
+								id={`message-selectAll`}
 								onChange={onClickCheckAll}
 								checked={isCheckAll}
 							/>
 							<label
-								for="c1"
+								htmlFor={`message-selectAll`}
 								className="icon icon-checkbox-checked"></label>
 						</div>
 						<button

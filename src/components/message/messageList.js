@@ -6,37 +6,18 @@ import moment from "moment";
 export default props => {
 	const { t } = useTranslation();
 	const isMountedRef = useRef(null);
-	const [displayTime, setDisplayTime] = useState("");
-	const [msgContentData, setMsgContentData] = useState("");
-	const [showContent, setShowContent] = useState(false);
+	const [msgContentData, setMsgContentData] = useState(null);
 
 	useEffect(() => {
 		isMountedRef.current = true;
 		return () => (isMountedRef.current = false);
 	});
 
-	useEffect(() => {
-		getDisplayTime();
-	}, []);
-
-	const getDisplayTime = () => {
-		let compareDay = moment().diff(
-			moment(props.createTime, "YYYY-MM-DD"),
-			"day"
-		);
-		if (compareDay < 1) {
-			setDisplayTime(props.createTime.slice(11, 19));
-		} else {
-			setDisplayTime(props.createTime.split("T", 1));
-		}
-	};
-
 	const getMsgContent = () => {
 		api_account_GetMsgContent(props.id).then(
 			res => {
 				if (isMountedRef.current) {
 					if (res.data.errorCode === 0) {
-						setShowContent(!showContent);
 						setMsgContentData(res.data.data.content);
 					} else {
 						alert(res.data.message);
@@ -50,6 +31,16 @@ export default props => {
 			}
 		);
 	};
+
+	let compareDay = moment().diff(
+		moment(props.createTime, "YYYY-MM-DD"),
+		"day"
+	);
+
+	let displayTime =
+		compareDay < 1
+			? props.createTime.slice(11, 19)
+			: props.createTime.split("T", 1);
 
 	return (
 		<div>
@@ -73,7 +64,10 @@ export default props => {
 						onClick={getMsgContent}></button>
 				</div>
 			</div>
-			<div className={`listBody ${showContent ? "active" : ""}`}>
+			<div
+				className={`listBody ${
+					msgContentData !== null ? "active" : ""
+				}`}>
 				{msgContentData}
 			</div>
 		</div>
