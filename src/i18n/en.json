@@ -192,5 +192,19 @@
   "lbl_Awesome":"Awesome",
   "lbl_GoDepositPage":"Go to deposit page",
   "lbl_Country":"Country",
-  "lbl_RegisterTime":"Register Time"
+  "lbl_RegisterTime":"Register Time",
+  "lbl_Announcement":"Announcement",
+  "lbl_ChangePasswordHint":"Modify the password when logging in,and regular modification is beneficial to account security.",
+  "lbl_OldPassword":"Old Password",
+  "lbl_NewPassword":"New Password",
+  "msg_Updatesuccessful":"Update Successfully",
+  "lbl_ForgetPwdHint":"If you have forgotten your username or password, please provide your email and we will send your new password to your registered email address.",
+  "lbl_EnterAccountNumber":"Enter Account Number",
+  "msg_AccountWrongFormat":"Account Number format is wrong.",
+  "lbl_BankCardsFull":"Bank Card Is Full",
+  "msg_ForceLogedout":"You have logged out!! Please login and try again!!",
+  "lbl_History":"History",
+  "lbl_MyAccount":"My Account",
+  "lbl_Message":"Message",
+  "lbl_PersonalMsg":"Personal Message"
 }

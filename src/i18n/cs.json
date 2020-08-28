@@ -192,5 +192,20 @@
   "lbl_Awesome":"太棒了",
   "lbl_GoDepositPage":"前往存款页面",
   "lbl_Country":"国家",
-  "lbl_RegisterTime":"注册时间"
+  "lbl_RegisterTime":"注册时间",
+  "lbl_Announcement":"公告",
+  "lbl_ChangePasswordHint":"Modify the password when logging in,and regular modification is beneficial to account security.",
+  "lbl_OldPassword":"当前密码",
+  "lbl_NewPassword":"新密码",
+  "msg_Updatesuccessful":"更新成功",
+  "lbl_ForgetPwdHint":"若您忘记您的用户名或密码，请提供您的电子邮件后我们将寄新密码至您的邮箱。",
+  "lbl_EnterAccountNumber":"Enter Account Number",
+  "msg_AccountWrongFormat":"Account Number format is wrong.",
+  "lbl_BankCardsFull":"Bank Card Is Full",
+  "msg_ForceLogedout":"已登出！请重新登录后再试！",
+  "lbl_History":"历史记录",
+  "lbl_MyAccount":"我的账户",
+  "lbl_Message":"信息",
+  "lbl_PersonalMsg":"站内信"
+
 }

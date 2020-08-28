@@ -5,6 +5,7 @@ import { api_account_ChangePassword } from "../service/api/account";
 import { defPopBoxType } from "../components/common/popBox";
 import Wrapper from "../components/common/wrapper";
 import Layout from "../components/common/layout";
+import LeftMenu from "../components/common/leftMenu";
 import Inputbox from "../components/common/inputbox.password";
 
 export default () => {
@@ -12,7 +13,12 @@ export default () => {
 		<Wrapper afterLogin={true}>
 			<Layout>
 				<main>
-					<Content />
+					<section className="inside">
+						<LeftMenu />
+						<div className="rightModule">
+							<Content />
+						</div>
+					</section>
 				</main>
 			</Layout>
 		</Wrapper>
@@ -165,51 +171,46 @@ const Content = () => {
 	};
 
 	return (
-		<section className="inside">
-			<div id="leftMenu"></div>
-			<div className="rightModule">
-				<div className="infoModule">
-					<div className="inside-title icon icon-icon32px_password">
-						<span>{t("lbl_ChangePassword")}</span>
-						<div>{t("lbl_ChangePasswordHint")}</div>
-					</div>
-					<form className="changePassWord" onSubmit={clickSubmit}>
-						{/* <div className="lastChange">
+		<div className="infoModule">
+			<div className="inside-title icon icon-icon32px_password">
+				<span>{t("lbl_ChangePassword")}</span>
+				<div>{t("lbl_ChangePasswordHint")}</div>
+			</div>
+			<form className="changePassWord" onSubmit={clickSubmit}>
+				{/* <div className="lastChange">
 							Last Change<span>JUN 10,2020 4:15 PM</span>
 						</div> */}
-						<Inputbox
-							inputType={showPsw.oldPsw ? "text" : "password"}
-							title={t("lbl_OldPassword")}
-							value={userPsw.oldPsw}
-							onChange={editField.bind(this, "oldPsw")}
-							onBlur={checkPswHandler.bind(this, "oldPsw")}
-							showPsw={showPsw.oldPsw}
-							showPswHandler={showPswHandler.bind(this, "oldPsw")}
-							warning={warning.oldPsw.status}
-							tip={warning.oldPsw.msg}
-						/>
-						<Inputbox
-							inputType={showPsw.newPsw ? "text" : "password"}
-							title={t("lbl_NewPassword")}
-							value={userPsw.newPsw}
-							onChange={editField.bind(this, "newPsw")}
-							onBlur={checkPswHandler.bind(this, "newPsw")}
-							showPsw={showPsw.newPsw}
-							showPswHandler={showPswHandler.bind(this, "newPsw")}
-							warning={warning.newPsw.status}
-							tip={warning.newPsw.msg}
-						/>
-						<div className="btnGroup">
-							<button
-								className="btn-check"
-								type="submit"
-								onClick={clickSubmit}>
-								{t("lbl_Submit")}
-							</button>
-						</div>
-					</form>
+				<Inputbox
+					inputType={showPsw.oldPsw ? "text" : "password"}
+					title={t("lbl_OldPassword")}
+					value={userPsw.oldPsw}
+					onChange={editField.bind(this, "oldPsw")}
+					onBlur={checkPswHandler.bind(this, "oldPsw")}
+					showPsw={showPsw.oldPsw}
+					showPswHandler={showPswHandler.bind(this, "oldPsw")}
+					warning={warning.oldPsw.status}
+					tip={warning.oldPsw.msg}
+				/>
+				<Inputbox
+					inputType={showPsw.newPsw ? "text" : "password"}
+					title={t("lbl_NewPassword")}
+					value={userPsw.newPsw}
+					onChange={editField.bind(this, "newPsw")}
+					onBlur={checkPswHandler.bind(this, "newPsw")}
+					showPsw={showPsw.newPsw}
+					showPswHandler={showPswHandler.bind(this, "newPsw")}
+					warning={warning.newPsw.status}
+					tip={warning.newPsw.msg}
+				/>
+				<div className="btnGroup">
+					<button
+						className="btn-check"
+						type="submit"
+						onClick={clickSubmit}>
+						{t("lbl_Submit")}
+					</button>
 				</div>
-			</div>
-		</section>
+			</form>
+		</div>
 	);
 };
