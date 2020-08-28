@@ -32,7 +32,7 @@ export default () => {
 	});
 
 	useEffect(() => {
-		if (userInfo.regTime) {
+		if (userInfo.isLogin && userInfo.currencyId) {
 			getAreaCode();
 		}
 	}, [userInfo.country]);
