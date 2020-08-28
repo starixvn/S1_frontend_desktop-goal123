@@ -9,9 +9,9 @@ export default () => {
 		<Wrapper afterLogin={true}>
 			<Layout>
 				<main>
-					<section class="inside">
+					<section className="inside">
 						<LeftMenu />
-						<div class="rightModule">
+						<div className="rightModule">
 							<Profile />
 						</div>
 					</section>

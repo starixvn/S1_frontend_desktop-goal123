@@ -6,31 +6,36 @@ import moment from "moment";
 export default props => {
 	const { t } = useTranslation();
 	const isMountedRef = useRef(null);
-	const [msgContentData, setMsgContentData] = useState(null);
+	const [msgContentData, setMsgContentData] = useState("");
+	const [showContent, setShowContent] = useState(false);
 
 	useEffect(() => {
 		isMountedRef.current = true;
 		return () => (isMountedRef.current = false);
 	});
 
-	const getMsgContent = () => {
-		api_account_GetMsgContent(props.id).then(
-			res => {
-				if (isMountedRef.current) {
-					if (res.data.errorCode === 0) {
-						setMsgContentData(res.data.data.content);
-						props.getMsgList(props.page);
-					} else {
-						alert(res.data.message);
+	const getMsgContent = getMsg => {
+		if (getMsg) {
+			api_account_GetMsgContent(props.id).then(
+				res => {
+					if (isMountedRef.current) {
+						if (res.data.errorCode === 0) {
+							setShowContent(true);
+							setMsgContentData(res.data.data.content);
+						} else {
+							alert(res.data.message);
+						}
+					}
+				},
+				err => {
+					if (isMountedRef.current) {
+						alert(t("msg_ApiServerError"));
 					}
 				}
-			},
-			err => {
-				if (isMountedRef.current) {
-					alert(t("msg_ApiServerError"));
-				}
-			}
-		);
+			);
+		} else {
+			setShowContent(false);
+		}
 	};
 
 	let compareDay = moment().diff(
@@ -44,7 +49,7 @@ export default props => {
 			: props.createTime.split("T", 1);
 
 	return (
-		<div className={props.flag ? "haveRead" : ""}>
+		<div>
 			<div className="listHeader">
 				<div className="checkbox">
 					<input
@@ -62,13 +67,13 @@ export default props => {
 					{displayTime}
 					<button
 						className="icon icon-keyboard_arrow_down"
-						onClick={getMsgContent}></button>
+						onClick={getMsgContent.bind(
+							this,
+							!showContent
+						)}></button>
 				</div>
 			</div>
-			<div
-				className={`listBody ${
-					msgContentData !== null ? "active" : ""
-				}`}>
+			<div className={`listBody ${showContent ? "active" : ""}`}>
 				{msgContentData}
 			</div>
 		</div>
