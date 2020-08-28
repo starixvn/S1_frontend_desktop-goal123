@@ -152,15 +152,18 @@ export default step => {
 				isOpen: false
 			});
 			setShowConfirmPage(false);
+			getKycStatus();
 		};
 
 		let AccountNo = accountNoValue;
-		let amount = parseInt(amountValue, 10);
+		let amount = _isConvert
+			? amountValue * 1000
+			: parseInt(amountValue, 10);
 		let sysId = sysIdValue;
 		api_payment_WithdrawalReq(AccountNo, amount, sysId).then(
 			res => {
 				if (isMountedRef.current) {
-					if (res.data.errorCode === 0) {
+					if (res.data.errorCode === 2) {
 						setPopBox({
 							isOpen: true,
 							popBoxType: defPopBoxType.Success,
@@ -174,7 +177,6 @@ export default step => {
 								</div>
 							)
 						});
-						getKycStatus();
 					} else {
 						alert(res.data.message);
 					}
@@ -190,7 +192,6 @@ export default step => {
 
 	return (
 		<>
-			{console.log("kycStatus::", kycStatus)}
 			{kycStatus !== "normal" ? (
 				<>
 					<div className="inside-title icon icon-transfer">
@@ -258,7 +259,11 @@ export default step => {
 								) : (
 									<WithdrawalConfirm
 										bankNameValue={bankNameValue}
-										amountValue={amountValue}
+										amountValue={
+											_isConvert
+												? amountValue * 1000
+												: amountValue
+										}
 										sysIdValue={sysIdValue}
 										accountNoValue={accountNoValue}
 										cancelSubmit={cancelSubmit}
