@@ -4,8 +4,6 @@ import { userInfoContext } from "../common/context";
 
 export default props => {
 	const { t } = useTranslation();
-	const { userInfo } = useContext(userInfoContext);
-
 	return (
 		<div className="subModuleList kycHeight">
 			<div className="subModule">

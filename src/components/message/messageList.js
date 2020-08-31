@@ -6,7 +6,6 @@ import moment from "moment";
 export default props => {
 	const { t } = useTranslation();
 	const isMountedRef = useRef(null);
-	const [displayTime, setDisplayTime] = useState("");
 	const [msgContentData, setMsgContentData] = useState("");
 	const [showContent, setShowContent] = useState(false);
 
@@ -15,45 +14,42 @@ export default props => {
 		return () => (isMountedRef.current = false);
 	});
 
-	useEffect(() => {
-		getDisplayTime();
-	}, []);
-
-	const getDisplayTime = () => {
-		let compareDay = moment().diff(
-			moment(props.createTime, "YYYY-MM-DD"),
-			"day"
-		);
-		if (compareDay < 1) {
-			setDisplayTime(props.createTime.slice(11, 19));
+	const getMsgContent = getMsg => {
+		if (getMsg) {
+			api_account_GetMsgContent(props.id).then(
+				res => {
+					if (isMountedRef.current) {
+						if (res.data.errorCode === 0) {
+							setShowContent(true);
+							setMsgContentData(res.data.data.content);
+						} else {
+							alert(res.data.message);
+						}
+					}
+				},
+				err => {
+					if (isMountedRef.current) {
+						alert(t("msg_ApiServerError"));
+					}
+				}
+			);
 		} else {
-			setDisplayTime(props.createTime.split("T", 1));
+			setShowContent(false);
 		}
 	};
 
-	const getMsgContent = () => {
-		api_account_GetMsgContent(props.id).then(
-			res => {
-				if (isMountedRef.current) {
-					if (res.data.errorCode === 0) {
-						setShowContent(!showContent);
-						setMsgContentData(res.data.data.content);
-						props.getMsgList(props.page);
-					} else {
-						alert(res.data.message);
-					}
-				}
-			},
-			err => {
-				if (isMountedRef.current) {
-					alert(t("msg_ApiServerError"));
-				}
-			}
-		);
-	};
+	let compareDay = moment().diff(
+		moment(props.createTime, "YYYY-MM-DD"),
+		"day"
+	);
+
+	let displayTime =
+		compareDay < 1
+			? props.createTime.slice(11, 19)
+			: props.createTime.split("T", 1);
 
 	return (
-		<div className={props.flag ? "haveRead" : ""}>
+		<div>
 			<div className="listHeader">
 				<div className="checkbox">
 					<input
@@ -71,7 +67,10 @@ export default props => {
 					{displayTime}
 					<button
 						className="icon icon-keyboard_arrow_down"
-						onClick={getMsgContent}></button>
+						onClick={getMsgContent.bind(
+							this,
+							!showContent
+						)}></button>
 				</div>
 			</div>
 			<div className={`listBody ${showContent ? "active" : ""}`}>

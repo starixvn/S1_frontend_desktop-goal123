@@ -21,12 +21,14 @@ const Content = () => {
 	let gameId = getUrlParameter("gameId");
 	return (
 		<main>
-			<iframe
-				src={GET_ENTER_PAGE_URL(
-					userInfo.langId,
-					tpId,
-					gameId
-				)}></iframe>
+			<section className="inside">
+				<iframe
+					src={GET_ENTER_PAGE_URL(
+						userInfo.langId,
+						tpId,
+						gameId
+					)}></iframe>
+			</section>
 		</main>
 	);
 };
