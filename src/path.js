@@ -69,5 +69,11 @@ export default {
 	},
 	news: {
 		root: "news"
+	},
+	newsInfo: {
+		root: "newsInfo"
+	},
+	promotion: {
+		root: "promotion"
 	}
 };

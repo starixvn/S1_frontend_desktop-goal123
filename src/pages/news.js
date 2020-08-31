@@ -5,15 +5,13 @@ import LeftMenu from "../components/common/leftMenu";
 import path from "../path";
 import { useTranslation } from "react-i18next";
 import { userInfoContext } from "../components/common/context";
-import { api_news_GetNews, api_news_GetNewsById } from "../service/api/news";
+import { api_news_GetNews } from "../service/api/news";
 import { Pagination } from "../components/common/pagination";
-import NewsInfo from "../components/news/news.content";
-
-import newsImg1 from "../styles/img/NEWS1.jpg";
+import { Redirect } from "@reach/router";
 
 export default () => {
 	return (
-		<Wrapper afterLogin={true}>
+		<Wrapper>
 			<Layout>
 				<main>
 					<section className="inside">
@@ -33,12 +31,7 @@ const Content = () => {
 	const { userInfo } = useContext(userInfoContext);
 	const [getNews, setGetNews] = useState();
 	const [processing, setProcessing] = useState(false);
-	const [newsContent, setNewsContent] = useState(false);
-	const [newsInfo, setNewsInfo] = useState({
-		title: "",
-		content: "",
-		imgURL: ""
-	});
+	const [redirectPath, setRedirectPath] = useState(null);
 	const [pagination, setPagination] = useState({
 		totalPages: 0,
 		currentPage: 1
@@ -82,30 +75,8 @@ const Content = () => {
 	};
 
 	const openNews = newsId => {
-		api_news_GetNewsById({
-			langId: userInfo.langId,
-			NewsId: newsId
-		}).then(
-			res => {
-				if (isMountedRef.current) {
-					if (res.data.errorCode === 0) {
-						let datas = res.data.data;
-						setNewsContent(true);
-						setNewsInfo({
-							title: datas.title,
-							content: datas.content,
-							imageURL: datas.imageURL
-						});
-					} else {
-						alert(res.data.message);
-					}
-				}
-			},
-			err => {
-				if (isMountedRef.current) {
-					alert(t("msg_ApiServerError"));
-				}
-			}
+		setRedirectPath(
+			`/${userInfo.langId}/${path.newsInfo.root}?newsId=${newsId}`
 		);
 	};
 
@@ -115,10 +86,6 @@ const Content = () => {
 			setPagination(prev => ({ ...prev, currentPage: page }));
 			GetNews(page);
 		}
-	};
-
-	const clickBack = () => {
-		setNewsContent(false);
 	};
 
 	let arr = getNews?.map(item => {
@@ -138,7 +105,7 @@ const Content = () => {
 		);
 	});
 
-	return !newsContent ? (
+	return redirectPath === null ? (
 		<div className="infoModule">
 			<div className="inside-title icon icon-newspaper">
 				<span>{t("lbl_News")}</span>
@@ -153,11 +120,6 @@ const Content = () => {
 			) : null}
 		</div>
 	) : (
-		<NewsInfo
-			title={newsInfo.title}
-			content={newsInfo.content}
-			imageURL={newsInfo.imageURL}
-			clickBack={clickBack}
-		/>
+		<Redirect to={redirectPath} noThrow />
 	);
 };
