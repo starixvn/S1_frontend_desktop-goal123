@@ -2,8 +2,8 @@ import React from "react";
 
 export default props => {
 	return (
-		<div className="checkbox">
-			<div className="agree">
+		<div className="agree">
+			<div className="checkbox">
 				<input
 					type="checkbox"
 					id={props.id}
@@ -11,8 +11,8 @@ export default props => {
 					onChange={props.onChange}
 				/>
 				<label htmlFor={props.id}></label>
-				{props.children}
 			</div>
+			{props.children}
 		</div>
 	);
 };
