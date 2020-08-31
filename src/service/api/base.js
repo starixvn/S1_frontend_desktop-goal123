@@ -42,3 +42,13 @@ export const tpRequest = axios.create({
 	withCredentials: true,
 	baseURL: `${rootURL}/api/Tp`
 });
+
+export const newsRequest = axios.create({
+	withCredentials: true,
+	baseURL: `${rootURL}/api/News`
+});
+
+export const promotionRequest = axios.create({
+	withCredentials: true,
+	baseURL: `${rootURL}/api/Promotion`
+});
