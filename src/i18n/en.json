@@ -193,5 +193,14 @@
   "lbl_PersonalMsg":"Personal Message",
   "lbl_News":"News",
   "lbl_Details":"Details",
-  "lbl_ViewAll":"View All"
+  "lbl_ViewAll":"View All",
+  "lbl_BackToNews":"Back To NEWS",
+  "lbl_SoccerBetting":"Soccer Betting",
+  "lbl_BasketballBetting":"Basketball Betting",
+  "lbl_FootballBetting":"Football Betting",
+  "lbl_TennisBetting":"Tennis Betting",
+  "lbl_HockeyBetting":"Hockey Betting",
+  "lbl_eSportsBetting":"E-Sport Betting",
+  "lbl_SportsBetting":"Sports Betting",
+  "lbl_About":"About"
 }
