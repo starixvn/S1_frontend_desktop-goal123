@@ -77,12 +77,12 @@ export default () => {
 
 	const checkName = () => {
 		let checkResult = false;
-		if (userInfo.AccountName) {
+		if (userInfo.accountName) {
 			checkResult = true;
-		} else if (!userInfo.AccountName && nameValue === "") {
+		} else if (!userInfo.accountName && nameValue === "") {
 			checkResult = false;
 			setNameErr(t("lbl_NameRequired"));
-		} else if (!userInfo.AccountName && nameValue !== "") {
+		} else if (!userInfo.accountName && nameValue !== "") {
 			setNameErr("");
 			checkResult = true;
 		}
@@ -124,7 +124,7 @@ export default () => {
 			checkBirth() === true &&
 			checkPhone() === true
 		) {
-			if (!userInfo.AccountName) {
+			if (!userInfo.accountName) {
 				setPopBox({
 					isOpen: true,
 					popBoxType: defPopBoxType.ProfileConfirmCheck,
@@ -174,7 +174,7 @@ export default () => {
 					if (res.data.errorCode === 0) {
 						setUserInfo(prev => ({
 							...prev,
-							accountName: !userInfo.AccountName
+							accountName: !userInfo.accountName
 								? nameValue
 								: userInfo.accountName,
 							birth_d: !userInfo.birth_d

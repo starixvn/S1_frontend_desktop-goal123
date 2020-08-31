@@ -38,7 +38,6 @@ export default props => {
 						timeFormat={false}
 						dateFormat={"YYYY-MM-DD"}
 						onBlur={props.checkBirth}
-						defaultValue={legalDate}
 						isValidDate={valid}
 					/>
 				</div>
