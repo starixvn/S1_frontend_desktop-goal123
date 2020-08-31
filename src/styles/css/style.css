@@ -733,18 +733,18 @@ main section > div .articleModule {
   margin-top: 50px;
 }
 
-main section > div .articleModule div {
+main section > div .articleModule a {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
   margin-right: 30px;
 }
 
-main section > div .articleModule div:last-child {
+main section > div .articleModule a:last-child {
   margin-right: 0;
 }
 
-main section > div .articleModule div .title {
+main section > div .articleModule a .title {
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -1549,8 +1549,6 @@ main > .swiper-container .swiper-slide {
 
 #Marquee .marquee-box .marquee-run {
   position: absolute;
-  -webkit-animation: marquee 7s infinite;
-          animation: marquee 7s infinite;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1561,75 +1559,14 @@ main > .swiper-container .swiper-slide {
   margin-left: 20px;
 }
 
-#Marquee .marquee-box .marquee-run a {
+#Marquee .marquee-box .marquee-run a, #Marquee .marquee-box .marquee-run button {
   -webkit-box-flex: 0;
-      -ms-flex: 0 0 100%;
-          flex: 0 0 100%;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
   color: white;
   text-align: left;
   font-size: 14px;
-}
-
-@-webkit-keyframes marquee {
-  0% {
-    -webkit-transform: translateX(0%);
-            transform: translateX(0%);
-  }
-  25% {
-    -webkit-transform: translateX(0%);
-            transform: translateX(0%);
-  }
-  35% {
-    -webkit-transform: translateX(-100%);
-            transform: translateX(-100%);
-  }
-  60% {
-    -webkit-transform: translateX(-100%);
-            transform: translateX(-100%);
-  }
-  70% {
-    -webkit-transform: translateX(-200%);
-            transform: translateX(-200%);
-  }
-  95% {
-    -webkit-transform: translateX(-200%);
-            transform: translateX(-200%);
-  }
-  100% {
-    -webkit-transform: translateX(0%);
-            transform: translateX(0%);
-  }
-}
-
-@keyframes marquee {
-  0% {
-    -webkit-transform: translateX(0%);
-            transform: translateX(0%);
-  }
-  25% {
-    -webkit-transform: translateX(0%);
-            transform: translateX(0%);
-  }
-  35% {
-    -webkit-transform: translateX(-100%);
-            transform: translateX(-100%);
-  }
-  60% {
-    -webkit-transform: translateX(-100%);
-            transform: translateX(-100%);
-  }
-  70% {
-    -webkit-transform: translateX(-200%);
-            transform: translateX(-200%);
-  }
-  95% {
-    -webkit-transform: translateX(-200%);
-            transform: translateX(-200%);
-  }
-  100% {
-    -webkit-transform: translateX(0%);
-            transform: translateX(0%);
-  }
+  font: inherit;
 }
 
 .quickLink {
@@ -2165,6 +2102,25 @@ main > .swiper-container .swiper-slide {
   margin-bottom: 10px;
 }
 
+.infoModule > button.icon-arrow-left2 {
+  color: white;
+  margin: 40px 40px 0;
+  font-size: 18px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background: #1E85EC;
+  border-radius: 10px;
+  padding: 5px 10px;
+}
+
+.infoModule > button.icon-arrow-left2:before {
+  margin-right: 5px;
+}
+
 .inside-title {
   padding: 40px;
   border-bottom: 1px solid #0f2346;
@@ -2504,7 +2460,7 @@ main > .swiper-container .swiper-slide {
 #popup {
   background: rgba(0, 0, 0, 0.7);
   position: fixed;
-  z-index: 9999;
+  z-index: 5;
   top: 0;
   width: 100%;
   height: 100%;
@@ -3212,6 +3168,11 @@ main > .swiper-container .swiper-slide {
 
 .addBank + div.subModuleList .subModuleBody {
   height: calc(100% - 40px);
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
 }
 
 .addBank + div.subModuleList .subModuleBody > div {
@@ -3963,7 +3924,7 @@ main > .swiper-container .swiper-slide {
   display: flex;
   font-size: 12px;
   font-weight: bold;
-  margin: 20px 0;
+  margin: 10px 0;
 }
 
 .proList .rollover > div, .slotList .rollover > div, .newsList .rollover > div {
@@ -3975,6 +3936,27 @@ main > .swiper-container .swiper-slide {
 .proList .rollover > div .icon:before, .slotList .rollover > div .icon:before, .newsList .rollover > div .icon:before {
   font-weight: normal;
   margin-right: 5px;
+}
+
+.proList > div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.proList .btnGroup {
+  width: 100%;
+}
+
+.proList .btnGroup .blue {
+  margin: 0;
 }
 
 .promotionsInfo {
@@ -4113,12 +4095,26 @@ form {
   -webkit-box-flex: 0;
       -ms-flex: 0 0 calc(100% / 3 - 45px);
           flex: 0 0 calc(100% / 3 - 45px);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 .newsList > div .btnGroup button {
   -webkit-box-flex: 1;
       -ms-flex: auto;
           flex: auto;
+}
+
+.newsList > div .time {
+  font-size: 12px;
 }
 
 .newsList > div .txt-darkBlue {
@@ -4162,6 +4158,10 @@ article h2 {
   font-weight: normal;
 }
 
+article h2.time {
+  margin-top: 0;
+}
+
 article p {
   line-height: 18px;
   margin-bottom: 18px;
@@ -4173,5 +4173,137 @@ article p {
   -webkit-box-flex: 1;
       -ms-flex: auto;
           flex: auto;
+}
+
+iframe {
+  width: 100%;
+  margin: auto;
+  height: 100%;
+  min-height: 860px;
+}
+
+.loading {
+  background: rgba(0, 0, 0, 0.7);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  left: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.loading img {
+  width: auto;
+  margin-right: 5px;
+}
+
+.loading img:nth-child(2) {
+  opacity: 0;
+  -webkit-animation: loading 2s infinite;
+          animation: loading 2s infinite;
+}
+
+.loading img:nth-child(3) {
+  opacity: 0;
+  -webkit-animation: loading 2s infinite;
+          animation: loading 2s infinite;
+  -webkit-animation-delay: 0.2s;
+          animation-delay: 0.2s;
+}
+
+.loading img:nth-child(4) {
+  opacity: 0;
+  -webkit-animation: loading 2s infinite;
+          animation: loading 2s infinite;
+  -webkit-animation-delay: 0.4s;
+          animation-delay: 0.4s;
+}
+
+@-webkit-keyframes loading {
+  0% {
+    opacity: 0;
+    margin-top: 30px;
+  }
+  50% {
+    opacity: 1;
+    margin-top: -30px;
+  }
+  100% {
+    opacity: 0;
+    margin-top: 30px;
+  }
+}
+
+@keyframes loading {
+  0% {
+    opacity: 0;
+    margin-top: 30px;
+  }
+  50% {
+    opacity: 1;
+    margin-top: -30px;
+  }
+  100% {
+    opacity: 0;
+    margin-top: 30px;
+  }
+}
+
+.progressBarModule {
+  font-weight: bold;
+  padding: 0 2px;
+}
+
+.progressBarModule .bounsName {
+  font-weight: bold;
+  color: #152849;
+}
+
+.progressBarModule .turnover {
+  color: #134DAE;
+}
+
+.progressBarModule .turnover span {
+  color: #1E85EC;
+}
+
+.progressBarModule .progressBar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.progressBarModule .progressBar .bar {
+  height: 10px;
+  border: 1px solid #1E85EC;
+  border-radius: 10px;
+  margin-right: 10px;
+  -webkit-box-flex: 1;
+      -ms-flex: auto;
+          flex: auto;
+}
+
+.progressBarModule .progressBar .bar .progress {
+  background: #1E85EC;
+  height: 100%;
+}
+
+.progressBarModule .progressBar .percentage {
+  color: #1E85EC;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
 }
 /*# sourceMappingURL=style.css.map */
