@@ -16,6 +16,9 @@ export default props => {
 					<i className="icon icon-information-solid"></i>
 				</div>
 			</div>
+			<div className="tip active">
+				{props.warning.status ? props.warning.msg : null}
+			</div>
 			<div className="btnGroup">
 				<button className="btn-check" onClick={props.toConfirmPage}>
 					{t("lbl_Submit")}

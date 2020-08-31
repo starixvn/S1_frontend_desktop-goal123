@@ -230,5 +230,7 @@
   "lbl_Passport":"Passport",
   "lbl_DrivingLicense":"Driving License",
   "lbl_BirthCertificate":"Birth Certificate",
-  "xx":"xxx"
+  "lbl_RolloverOver":"Insufficient rollover turnover",
+  "lbl_DepositOver":"Your required withdrawal amount had exceeded your current available balance.",
+  "lbl_WithdrawalOver":"Your required withdrawal amount had exceeded your elegible withdrawal amount."
 }
