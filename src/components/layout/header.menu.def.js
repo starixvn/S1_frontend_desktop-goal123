@@ -22,6 +22,7 @@ export const defMenuLinks = {
 	},
 	eSport: {
 		productInfo: productList.eSport,
+		path: path.sports.root,
 		displayKey: "lbl_eSports"
 	},
 	// numberGame: {

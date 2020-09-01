@@ -1,10 +1,8 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { useTranslation } from "react-i18next";
-import { userInfoContext, popBoxContext } from "../common/context";
-import { Link } from "@reach/router";
-import { SET_ENTER_PAGE } from "../../service/enterPage";
-import { defPopBoxType } from "../common/popBox";
+import { userInfoContext } from "../common/context";
 import { defSportsBetting } from "./footer.def";
+import LinkItems from "../common/linkItems";
 
 import Responsibility1 from "../../styles/img/responsibility1.png";
 import Responsibility2 from "../../styles/img/responsibility2.png";
@@ -15,37 +13,26 @@ import SocialMedia3 from "../../styles/img/fb.png";
 import SocialMedia4 from "../../styles/img/yb.png";
 import SocialMedia5 from "../../styles/img/ig.png";
 
+const Bettings = ({ t }) => {
+	const { userInfo } = useContext(userInfoContext);
+	return (
+		<div>
+			<span className="title">{t("lbl_SportsBetting")}</span>
+			<div>
+				<LinkItems
+					defMenuLinks={defSportsBetting}
+					t={t}
+					langId={userInfo.langId}
+					isLogin={userInfo.isLogin}
+					checkMatchPage={false}
+				/>
+			</div>
+		</div>
+	);
+};
+
 export default () => {
 	const { t } = useTranslation();
-	const { userInfo } = useContext(userInfoContext);
-	const { setPopBox } = useContext(popBoxContext);
-
-	const clickGame = (_tpId, _gameId) => {
-		const openLoginPop = () => {
-			setPopBox({
-				isOpen: true,
-				popBoxType: defPopBoxType.Login
-			});
-		};
-
-		SET_ENTER_PAGE({
-			langId: userInfo.langId,
-			tpId: _tpId,
-			gameId: _gameId,
-			isLogin: userInfo.isLogin,
-			loginCallback: openLoginPop
-		});
-	};
-
-	let sportsGameRow = defSportsBetting.map(item => {
-		return (
-			<button
-				key={`footer-sports-${item.displayKey}`}
-				onClick={clickGame.bind(this, item.tpId, item.gameId)}>
-				{t(item.displayKey)}
-			</button>
-		);
-	});
 
 	return (
 		<footer>
@@ -61,10 +48,7 @@ export default () => {
 						<a href="">Responsible Gambling</a>
 					</div>
 				</div>
-				<div>
-					<span className="title">{t("lbl_SportsBetting")}</span>
-					<div>{sportsGameRow}</div>
-				</div>
+				<Bettings t={t} />
 				<div>
 					<span className="title">Licenses</span>
 					<div>

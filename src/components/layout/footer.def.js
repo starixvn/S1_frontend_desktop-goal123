@@ -1,37 +1,40 @@
-export const defSportsBetting = [
-	{
-		displayKey: "lbl_SoccerBetting",
-		gameId: 1,
-		tpId: 1
+import productList from "../../datas/productList";
+import path from "../../path";
+
+export const defSportsBetting = {
+	soccer: {
+		productInfo: productList.soccer,
+		path: path.sports.root,
+		displayKey: "lbl_SoccerBetting"
 	},
-	{
-		displayKey: "lbl_BasketballBetting",
-		gameId: 2,
-		tpId: 1
+	basketball: {
+		productInfo: productList.basketball,
+		path: path.sports.root,
+		displayKey: "lbl_BasketballBetting"
 	},
-	{
-		displayKey: "lbl_badminton",
-		gameId: 9,
-		tpId: 1
+	badminton: {
+		productInfo: productList.badminton,
+		path: path.sports.root,
+		displayKey: "lbl_badminton"
 	},
-	{
-		displayKey: "lbl_FootballBetting",
-		gameId: 3,
-		tpId: 1
+	football: {
+		productInfo: productList.football,
+		path: path.sports.root,
+		displayKey: "lbl_FootballBetting"
 	},
-	{
-		displayKey: "lbl_TennisBetting",
-		gameId: 5,
-		tpId: 1
+	tennis: {
+		productInfo: productList.tennis,
+		path: path.sports.root,
+		displayKey: "lbl_TennisBetting"
 	},
-	{
-		displayKey: "lbl_HockeyBetting",
-		gameId: 4,
-		tpId: 1
+	hockey: {
+		productInfo: productList.hockey,
+		path: path.sports.root,
+		displayKey: "lbl_HockeyBetting"
 	},
-	{
-		displayKey: "lbl_eSportsBetting",
-		gameId: 43,
-		tpId: 1
+	eSport: {
+		productInfo: productList.eSport,
+		path: path.sports.root,
+		displayKey: "lbl_eSportsBetting"
 	}
-];
+};
