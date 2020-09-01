@@ -323,7 +323,6 @@ const Content = () => {
 				getHistory={getHistory}
 				GetTransferRecent={GetTransferRecent}
 			/>
-			<button className="icon icon-books"></button>
 		</div>
 	);
 };

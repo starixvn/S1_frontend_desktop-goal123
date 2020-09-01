@@ -9,6 +9,8 @@ import {
 import { TransactionHistory } from "./historyResult";
 import { isConvert } from "../common/common";
 import { defPopBoxType } from "../common/popBox";
+import path from "../../path";
+import { Link } from "@reach/router";
 
 export default props => {
 	const { t } = useTranslation();
@@ -108,23 +110,28 @@ export default props => {
 	});
 
 	return (
-		<div className="list">
-			<div className="listHeader">
-				<div>{t("NO")}</div>
-				<div>
-					{t("lbl_Date")} ({moment().format("Z")})
+		<>
+			<div className="list">
+				<div className="listHeader">
+					<div>{t("NO")}</div>
+					<div>
+						{t("lbl_Date")} ({moment().format("Z")})
+					</div>
+					<div>{t("lbl_ID")}</div>
+					<div>{t("lbl_Amount")}</div>
+					<div>{t("lbl_Status")}</div>
+					<div>
+						{t("lbl_Action")}
+						<button
+							className="icon icon-spinner11"
+							onClick={GetWithdrawalInfoRecent}></button>
+					</div>
 				</div>
-				<div>{t("lbl_ID")}</div>
-				<div>{t("lbl_Amount")}</div>
-				<div>{t("lbl_Status")}</div>
-				<div>
-					{t("lbl_Action")}
-					<button
-						className="icon icon-spinner11"
-						onClick={GetWithdrawalInfoRecent}></button>
-				</div>
+				<div className="listBody">{arr}</div>
 			</div>
-			<div className="listBody">{arr}</div>
-		</div>
+			<Link
+				to={`/${userInfo.langId}/${path.withdrawalHistory.root}`}
+				className="icon icon-books"></Link>
+		</>
 	);
 };

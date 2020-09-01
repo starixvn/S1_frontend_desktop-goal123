@@ -9,6 +9,8 @@ import {
 } from "../../service/api/payment";
 import { isConvert, number_format } from "../common/common";
 import { defPopBoxType } from "../common/popBox";
+import path from "../../path";
+import { Link } from "@reach/router";
 
 export default () => {
 	const { t } = useTranslation();
@@ -139,24 +141,29 @@ export default () => {
 	});
 
 	return (
-		<div className="list">
-			<div className="listHeader">
-				<div>{t("NO")}</div>
-				<div>
-					{t("lbl_Date")} ({moment().format("Z")})
+		<>
+			<div className="list">
+				<div className="listHeader">
+					<div>{t("NO")}</div>
+					<div>
+						{t("lbl_Date")} ({moment().format("Z")})
+					</div>
+					<div>{t("lbl_ID")}</div>
+					<div>{t("lbl_Method")}</div>
+					<div>{t("lbl_Amount")}</div>
+					<div>{t("lbl_Status")}</div>
+					<div>
+						{t("lbl_Action")}
+						<button
+							className="icon icon-spinner11"
+							onClick={GetRecentDatas}></button>
+					</div>
 				</div>
-				<div>{t("lbl_ID")}</div>
-				<div>{t("lbl_Method")}</div>
-				<div>{t("lbl_Amount")}</div>
-				<div>{t("lbl_Status")}</div>
-				<div>
-					{t("lbl_Action")}
-					<button
-						className="icon icon-spinner11"
-						onClick={GetRecentDatas}></button>
-				</div>
+				<div className="listBody">{arr}</div>
 			</div>
-			<div className="listBody">{arr}</div>
-		</div>
+			<Link
+				to={`/${userInfo.langId}/${path.depositHistory.root}`}
+				className="icon icon-books"></Link>
+		</>
 	);
 };
