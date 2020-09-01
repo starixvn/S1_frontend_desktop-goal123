@@ -4,7 +4,6 @@ import { Link } from "@reach/router";
 import Wrapper from "../components/common/wrapper";
 import Layout from "../components/common/layout";
 import path from "../path";
-import SwipperBanner from "../components/common/swipperBanner";
 
 import IndexBanner from "../styles/img/indexBanner.jpg";
 import teamAImg from "../styles/img/teamLogo1.png";
@@ -21,6 +20,7 @@ import specialImg4 from "../styles/img/speed.png";
 
 import Marquee from "../components/home/marquee";
 import News from "../components/home/news";
+import EventSwipper from "../components/home/eventSwipper";
 
 const defGameListDatas = [
 	{
@@ -169,15 +169,7 @@ const IndexPage = () => {
 					</div>
 
 					<section>
-						<div className="offers">
-							<div className="swiper-container">
-								<div className="swiper-wrapper">
-									<SwipperBanner ImgFolder="Promotion" />
-								</div>
-							</div>
-							<div className="swiper-button-next"></div>
-							<div className="swiper-button-prev"></div>
-						</div>
+						<EventSwipper />
 						<News />
 						<div className="edge">
 							<div>

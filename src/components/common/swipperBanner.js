@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import Swiper from "react-id-swiper";
 import config from "../../config";
 import { api_site_GetBanner } from "../../service/api/site";
@@ -49,7 +49,7 @@ export const ClickLink = (
 	}
 };
 
-const Panel = ({ ImgFolder }) => {
+const Panel = ({ ImgFolder, withBtn, clickPrev, clickNext }) => {
 	const [banner, setBanner] = useState([]);
 	const { userInfo } = useContext(userInfoContext);
 	const { setNav } = useContext(navContext);
@@ -100,25 +100,66 @@ const Panel = ({ ImgFolder }) => {
 		);
 	});
 
-	return <Autoplay Rows={rows} />;
+	return withBtn ? (
+		<Autoplay Rows={rows} />
+	) : (
+		<AutoPlayWithBtn
+			Rows={rows}
+			clickNext={clickNext}
+			clickPrev={clickPrev}
+		/>
+	);
+};
+
+const defSwipperConfig = {
+	spaceBetween: 30,
+	centeredSlides: true,
+	autoplay: {
+		delay: 2500,
+		disableOnInteraction: false
+	},
+	pagination: {
+		el: ".swiper-pagination",
+		clickable: true
+	},
+	rebuildOnUpdate: true
 };
 
 const Autoplay = props => {
-	const params = {
-		spaceBetween: 30,
-		centeredSlides: true,
-		autoplay: {
-			delay: 2500,
-			disableOnInteraction: false
-		},
-		pagination: {
-			el: ".swiper-pagination",
-			clickable: true
-		},
-		rebuildOnUpdate: true
-	};
+	const params = defSwipperConfig;
 
 	return <Swiper {...params}>{props.Rows}</Swiper>;
+};
+
+const AutoPlayWithBtn = ({ Rows }) => {
+	const params = defSwipperConfig;
+	const ref = useRef(null);
+
+	const goNext = () => {
+		if (ref.current !== null && ref.current.swiper !== null) {
+			ref.current.swiper.slideNext();
+		}
+	};
+
+	const goPrev = () => {
+		if (ref.current !== null && ref.current.swiper !== null) {
+			ref.current.swiper.slidePrev();
+		}
+	};
+
+	return (
+		<>
+			<div className="swiper-container">
+				<div className="swiper-wrapper">
+					<Swiper {...params} ref={ref}>
+						{Rows}
+					</Swiper>
+				</div>
+			</div>
+			<div className="swiper-button-next" onClick={goNext}></div>
+			<div className="swiper-button-prev" onClick={goPrev}></div>
+		</>
+	);
 };
 
 export default Panel;
