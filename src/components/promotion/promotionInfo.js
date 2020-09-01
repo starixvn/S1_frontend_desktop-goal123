@@ -87,6 +87,8 @@ export default () => {
 		? _isExpiry
 			? " expiredClaimedInfo"
 			: " claimedInfo"
+		: _isExpiry
+		? " expiredClaimedInfo"
 		: "";
 
 	return promotionInfo === null ? (
