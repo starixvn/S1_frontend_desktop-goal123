@@ -26,5 +26,12 @@ export default {
 	fishing: {
 		tpId: 7,
 		gameId: 10
+	},
+	cockFighting: {
+		tpId: 17
+	},
+	sabaClub: {
+		tpId: 1,
+		gameId: 200
 	}
 };

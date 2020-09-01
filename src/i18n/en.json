@@ -242,5 +242,9 @@
   "lbl_Passport":"Passport",
   "lbl_DrivingLicense":"Driving License",
   "lbl_BirthCertificate":"Birth Certificate",
-  "xx":"xxx"
+  "xx":"xxx",
+  "lbl_CockFighting":"Cock Fighting",
+  "lbl_SabaClub":"Saba Club",
+  "lbl_Slots":"Slots",
+  "lbl_Promotion":"Promotion"
 }

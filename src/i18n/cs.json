@@ -242,5 +242,8 @@
   "lbl_Passport":"护照副本",
   "lbl_DrivingLicense":"驾驶执照",
   "lbl_BirthCertificate":"出生证明",
-  "xx":"xxx"
+  "xx":"xxx",
+  "lbl_CockFighting":"斗鸡",
+  "lbl_SabaClub":"Saba Club",
+  "lbl_Slots":"老虎机"
 }

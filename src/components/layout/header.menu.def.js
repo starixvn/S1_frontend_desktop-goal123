@@ -7,19 +7,31 @@ export const defMenuLinks = {
 		path: path.sports.root,
 		displayKey: "lbl_Sports"
 	},
-	numberGame: {
-		productInfo: productList.numberGame,
-		path: path.sports.root,
-		displayKey: "lbl_NumberGame"
+	cockFighting: {
+		productInfo: productList.cockFighting,
+		displayKey: "lbl_CockFighting"
 	},
-	virtualSport: {
-		productInfo: productList.virtualSports,
-		path: path.sports.root,
-		displayKey: "lbl_VirtualSport"
+	sabaClub: {
+		productInfo: productList.sabaClub,
+		displayKey: "lbl_SabaClub"
 	},
+	eSport: {
+		productInfo: productList.eSport,
+		displayKey: "lbl_eSports"
+	},
+	// numberGame: {
+	// 	productInfo: productList.numberGame,
+	// 	path: path.sports.root,
+	// 	displayKey: "lbl_NumberGame"
+	// },
+	// virtualSport: {
+	// 	productInfo: productList.virtualSports,
+	// 	path: path.sports.root,
+	// 	displayKey: "lbl_VirtualSport"
+	// },
 	casino: {
 		path: path.casino.root,
-		displayKey: "lbl_Casino",
+		displayKey: "lbl_Slots",
 		subMenu: [
 			{
 				className: "GPI",
@@ -89,16 +101,20 @@ export const defMenuLinks = {
 			}
 		]
 	},
-	lottery: {
-		productInfo: productList.lottery,
-		path: path.sports.root,
-		displayKey: "lbl_KenoAndLottery"
-	},
-	fishing: {
-		productInfo: productList.fishing,
-		path: path.sports.root,
-		displayKey: "lbl_Fishing"
+	promotion: {
+		path: path.promotion.root,
+		displayKey: "lbl_Promotion"
 	}
+	// lottery: {
+	// 	productInfo: productList.lottery,
+	// 	path: path.sports.root,
+	// 	displayKey: "lbl_KenoAndLottery"
+	// }
+	// fishing: {
+	// 	productInfo: productList.fishing,
+	// 	path: path.sports.root,
+	// 	displayKey: "lbl_Fishing"
+	// }
 };
 
 export const defSubListClassName = {
