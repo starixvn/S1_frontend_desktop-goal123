@@ -676,7 +676,7 @@ header .header > div.function .wallet .submenu div.loginLog span, header .header
   padding: 20px 0;
 }
 
-.gameMenu a {
+.gameMenu a, .gameMenu button {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
@@ -688,9 +688,12 @@ header .header > div.function .wallet .submenu div.loginLog span, header .header
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
-.gameMenu a:before {
+.gameMenu a:before, .gameMenu button:before {
   font-size: 48px;
   margin-bottom: 10px;
 }
@@ -698,6 +701,10 @@ header .header > div.function .wallet .submenu div.loginLog span, header .header
 .gameMenu .icon-keyboard_arrow_right {
   font-size: 48px;
   color: white;
+  -webkit-box-flex: 0;
+      -ms-flex: 0;
+          flex: 0;
+  display: block;
 }
 
 main {
@@ -836,7 +843,7 @@ main section .btnGroup {
   padding-bottom: 60px;
 }
 
-.platform a {
+.platform a, .platform button {
   width: auto;
   padding: 0 5px;
 }

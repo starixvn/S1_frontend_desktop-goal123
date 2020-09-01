@@ -26,7 +26,8 @@ function SEO({ description, lang, meta, title }) {
 	let htmlClass =
 		typeof window !== undefined &&
 		(window.location.pathname === "/" ||
-			(splitPath.length >= 2 &&
+			((splitPath.length === 2 ||
+				(splitPath.length === 3 && splitPath[1] === "")) &&
 				site.siteMetadata.supportedLanguages.includes(splitPath[1])))
 			? "index"
 			: "";
