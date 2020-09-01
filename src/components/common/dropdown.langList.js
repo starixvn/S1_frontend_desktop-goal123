@@ -2,10 +2,11 @@ import React, { Component, createRef } from "react";
 import PropTypes from "prop-types";
 
 const defLangDisplayText = {
-	cs: "简体中文",
+	// cs: "简体中文",
 	en: "English",
-	th: "ภาษาไทย",
-	id: "Indonesian"
+	// th: "ภาษาไทย",
+	// id: "Indonesian",
+	vn: "Tiếng Việt"
 };
 
 const defLangList = () =>
