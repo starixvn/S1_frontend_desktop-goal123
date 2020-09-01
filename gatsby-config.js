@@ -1,10 +1,10 @@
 module.exports = {
 	siteMetadata: {
-		defaultLanguage: "en",
+		defaultLanguage: "vn",
 		title: `Goal123`,
 		description: ``,
 		author: `Goal123`,
-		supportedLanguages: ["en", "cs", "ch", "vn", "id", "th"]
+		supportedLanguages: ["en", "vn"]
 	},
 	plugins: [
 		`gatsby-plugin-react-helmet`,

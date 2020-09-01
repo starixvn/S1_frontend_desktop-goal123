@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -59,6 +60,10 @@ a {
 
 img {
   width: 100%;
+}
+
+a, button {
+  color: white;
 }
 
 .transition, header .header > div.menu .subMenu-Wrapper, .inputBox .dropdown > .dropdown-container, .inputBox-org .dropdown > .dropdown-container, .inputBox-white .dropdown > .dropdown-container, .inputBox-blue .dropdown > .dropdown-container, .inputBox-gray .dropdown > .dropdown-container, .inputBox-yellow .dropdown > .dropdown-container, .tip, .personal .list .listBody {
@@ -161,7 +166,7 @@ header .header > div.menu {
   height: 50px;
 }
 
-header .header > div.menu > a {
+header .header > div.menu > a, header .header > div.menu button {
   -webkit-box-flex: 0;
       -ms-flex: 0 0 auto;
           flex: 0 0 auto;
@@ -173,21 +178,23 @@ header .header > div.menu > a {
           align-items: center;
   border-bottom: 3px solid transparent;
   padding: 0 15px;
+  font-size: 14px;
+  font-family: "Microsoft YaHei", sans-serif;
 }
 
-header .header > div.menu > a:hover, header .header > div.menu > a.active {
+header .header > div.menu > a:hover, header .header > div.menu > a.active, header .header > div.menu button:hover, header .header > div.menu button.active {
   cursor: pointer;
   background: #fab617;
   -webkit-transform: skewX(-10deg);
           transform: skewX(-10deg);
 }
 
-header .header > div.menu > a:first-child {
+header .header > div.menu > a:first-child, header .header > div.menu button:first-child {
   margin-left: 0;
   font-size: 18px;
 }
 
-header .header > div.menu > a .icon-keyboard_arrow_right {
+header .header > div.menu > a .icon-keyboard_arrow_right, header .header > div.menu button .icon-keyboard_arrow_right {
   -webkit-transform: rotate(90deg);
           transform: rotate(90deg);
 }
@@ -226,7 +233,7 @@ header .header > div.menu .casinoList.active div, header .header > div.menu .liv
   display: flex;
 }
 
-header .header > div.menu .casinoList a, header .header > div.menu .livecasinoList a {
+header .header > div.menu .casinoList a, header .header > div.menu .casinoList button, header .header > div.menu .livecasinoList a, header .header > div.menu .livecasinoList button {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
@@ -248,18 +255,19 @@ header .header > div.menu .casinoList a, header .header > div.menu .livecasinoLi
   transition: 0.7s;
 }
 
-header .header > div.menu .casinoList a img, header .header > div.menu .livecasinoList a img {
+header .header > div.menu .casinoList a img, header .header > div.menu .casinoList button img, header .header > div.menu .livecasinoList a img, header .header > div.menu .livecasinoList button img {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
 }
 
-header .header > div.menu .casinoList a span, header .header > div.menu .livecasinoList a span {
+header .header > div.menu .casinoList a span, header .header > div.menu .casinoList button span, header .header > div.menu .livecasinoList a span, header .header > div.menu .livecasinoList button span {
   top: 35px;
   position: relative;
+  color: white;
 }
 
-header .header > div.menu .casinoList a:hover, header .header > div.menu .livecasinoList a:hover {
+header .header > div.menu .casinoList a:hover, header .header > div.menu .casinoList button:hover, header .header > div.menu .livecasinoList a:hover, header .header > div.menu .livecasinoList button:hover {
   -webkit-transition: 0.7s;
   transition: 0.7s;
 }
@@ -423,8 +431,8 @@ header .header > div.function > div .flag, header .header > div.function > butto
 header .header > div.function > div .flag:before, header .header > div.function > button .flag:before {
   content: "";
   display: block;
-  width: 30px;
-  height: 30px;
+  width: 22px;
+  height: 22px;
   margin-right: 5px;
   border-radius: 100%;
   cursor: pointer;
@@ -450,6 +458,10 @@ header .header > div.function > div .flag.id:before, header .header > div.functi
   background: url(../img/flag/id.png) no-repeat top left/cover;
 }
 
+header .header > div.function > div .flag.vn:before, header .header > div.function > button .flag.vn:before {
+  background: url(../img/flag/vn.png) no-repeat top center/cover;
+}
+
 header .header > div.function .country {
   -webkit-box-flex: 0;
       -ms-flex: 0 0 auto;
@@ -458,6 +470,7 @@ header .header > div.function .country {
   -webkit-box-ordinal-group: 4;
       -ms-flex-order: 3;
           order: 3;
+  position: relative;
 }
 
 header .header > div.function .country > .flag {
@@ -477,7 +490,10 @@ header .header > div.function .country .countryList {
   margin-top: 39px;
   background: rgba(0, 0, 0, 0.6);
   border-radius: 10px;
-  padding: 0 28px 0 10px;
+  padding: 0 10px;
+  width: 95px;
+  margin-left: -5px;
+  left: 0;
 }
 
 header .header > div.function .country .countryList button {
@@ -875,7 +891,7 @@ footer .webmap > div div:nth-child(2) {
   clear: both;
 }
 
-footer .webmap > div div a {
+footer .webmap > div div a, footer .webmap > div div button {
   font-size: 14px;
   line-height: 30px;
 }
@@ -914,11 +930,12 @@ footer .webmap > div:last-child div img {
   height: 40px;
 }
 
-footer .webmap > div:nth-child(-n+4) a {
+footer .webmap > div:nth-child(-n+4) a, footer .webmap > div:nth-child(-n+4) button {
   color: #c6c6c6;
+  text-align: left;
 }
 
-footer .webmap > div:nth-child(-n+4) a:hover {
+footer .webmap > div:nth-child(-n+4) a:hover, footer .webmap > div:nth-child(-n+4) button:hover {
   color: #f77900;
 }
 
@@ -3406,6 +3423,20 @@ main > .swiper-container .swiper-slide {
   max-width: none;
 }
 
+.quickSelect > div.inputBox.promoType button.orange, .quickSelect > div.promoType.inputBox-org button.orange, .quickSelect > div.promoType.inputBox-white button.orange, .quickSelect > div.promoType.inputBox-blue button.orange, .quickSelect > div.promoType.inputBox-gray button.orange, .quickSelect > div.promoType.inputBox-yellow button.orange, .quickSelect > div:first-child.promoType button.orange {
+  position: relative;
+  margin-left: 25px;
+}
+
+.quickSelect > div.inputBox.promoType button.orange:before, .quickSelect > div.promoType.inputBox-org button.orange:before, .quickSelect > div.promoType.inputBox-white button.orange:before, .quickSelect > div.promoType.inputBox-blue button.orange:before, .quickSelect > div.promoType.inputBox-gray button.orange:before, .quickSelect > div.promoType.inputBox-yellow button.orange:before, .quickSelect > div:first-child.promoType button.orange:before {
+  content: '｜';
+  color: #1E85EC;
+  position: absolute;
+  left: -27.5px;
+  font-weight: normal;
+  font-size: 24px;
+}
+
 .quickSelect > div:first-child {
   position: relative;
   max-width: 322px;
@@ -3855,54 +3886,6 @@ main > .swiper-container .swiper-slide {
   opacity: 0.7;
 }
 
-.proList > div.active .claimed, .slotList > div.active .claimed, .newsList > div.active .claimed {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.proList > div .new, .proList > div .claimed, .slotList > div .new, .slotList > div .claimed, .newsList > div .new, .newsList > div .claimed {
-  position: absolute;
-  top: -10px;
-  left: -10px;
-  background: #fab617;
-  border-radius: 100%;
-  width: 50px;
-  height: 50px;
-  padding: 0;
-  color: white;
-  display: none;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  font-weight: bold;
-}
-
-.proList > div .new:before, .proList > div .claimed:before, .slotList > div .new:before, .slotList > div .claimed:before, .newsList > div .new:before, .newsList > div .claimed:before {
-  content: "NEW";
-}
-
-.proList > div .new.active, .proList > div .claimed.active, .slotList > div .new.active, .slotList > div .claimed.active, .newsList > div .new.active, .newsList > div .claimed.active {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.proList > div .claimed, .slotList > div .claimed, .newsList > div .claimed {
-  background: rgba(219, 44, 1, 0.8);
-  width: 75px;
-  height: 75px;
-  -webkit-transform: rotate(-45deg);
-          transform: rotate(-45deg);
-}
-
-.proList > div .claimed:before, .slotList > div .claimed:before, .newsList > div .claimed:before {
-  content: "CLAIMED";
-}
-
 .proList > div .txt-dark, .proList > div .txt-darkBlue, .slotList > div .txt-dark, .slotList > div .txt-darkBlue, .newsList > div .txt-dark, .newsList > div .txt-darkBlue {
   font-weight: bold;
   margin: 15px 0;
@@ -3951,12 +3934,46 @@ main > .swiper-container .swiper-slide {
           justify-content: space-between;
 }
 
+.proList > div:hover {
+  background: #e2e2e2;
+  -webkit-box-shadow: 0 0 0 3px #1E85EC inset;
+          box-shadow: 0 0 0 3px #1E85EC inset;
+}
+
 .proList .btnGroup {
   width: 100%;
 }
 
 .proList .btnGroup .blue {
   margin: 0;
+}
+
+.proList.expired {
+  -webkit-filter: grayscale(1);
+          filter: grayscale(1);
+}
+
+.proList.expired > div {
+  background: #c6c6c6;
+}
+
+.proList.expired > div:hover {
+  background: white;
+}
+
+.proList.expired > div .expiredIcon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translateX(-50%) translateY(-50%) rotate(-20deg);
+          transform: translateX(-50%) translateY(-50%) rotate(-20deg);
+  background: #e2e2e2;
+  border-radius: 20px;
+  font-weight: bold;
+  padding: 5px 15px;
+  color: black;
+  font-size: 18px;
+  font-style: italic;
 }
 
 .promotionsInfo {
@@ -3994,6 +4011,13 @@ main > .swiper-container .swiper-slide {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.promotionsInfo .proData .proDataTitle .btnGroup button {
+  max-width: 130px;
 }
 
 .icon-icon32px_deposit + .stepBar + .subModuleList .subModule {
@@ -4276,6 +4300,21 @@ iframe {
   color: #1E85EC;
 }
 
+.progressBarModule .turnover button {
+  background: #1E85EC;
+  color: white;
+  border-radius: 100%;
+  padding: 4px;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  justify-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 12px;
+}
+
 .progressBarModule .progressBar {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -4305,5 +4344,93 @@ iframe {
   -webkit-box-flex: 0;
       -ms-flex: 0 0 auto;
           flex: 0 0 auto;
+}
+
+.claimedInfo, .expiredClaimedInfo {
+  position: relative;
+}
+
+.claimedInfo .claimed, .expiredClaimedInfo .claimed {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+}
+
+.claimedInfo > img, .expiredClaimedInfo > img {
+  -webkit-filter: grayscale(1);
+          filter: grayscale(1);
+}
+
+.new {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  background: #fab617;
+  border-radius: 100%;
+  width: 50px;
+  height: 50px;
+  padding: 0;
+  color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-weight: bold;
+}
+
+.new:before {
+  content: "NEW";
+}
+
+.new.active {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.claimed {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  border-radius: 100%;
+  padding: 0;
+  color: white;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-weight: bold;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background: rgba(219, 44, 1, 0.8);
+  width: 75px;
+  height: 75px;
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  z-index: 2;
+}
+
+.claimed:before {
+  content: "CLAIMED";
+}
+
+.expiredClaimedInfo {
+  -webkit-filter: grayscale(1);
+          filter: grayscale(1);
+}
+
+.expiredClaimedInfo .proData {
+  background-color: #b2b2b2;
+  background-image: url(../img/expired.png);
+  background-repeat: repeat;
+  background-size: 50px;
 }
 /*# sourceMappingURL=style.css.map */

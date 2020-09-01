@@ -6,8 +6,9 @@ import {
 	_ACTION_TYPE,
 	OPEN_IN_BLANK
 } from "../../service/enterPage";
-import { userInfoContext } from "../common/context";
+import { userInfoContext, popBoxContext } from "../common/context";
 import { defMenuLinks } from "./header.menu.def";
+import { defPopBoxType } from "../common/popBox";
 
 const getUrl = (preUrl, info) => {
 	return `/${preUrl}?tpId=${info.tpId}&gameId=${info.gameId}`;
@@ -16,11 +17,19 @@ const getUrl = (preUrl, info) => {
 export default ({ showSubMenu }) => {
 	const { t } = useTranslation();
 	const { userInfo } = useContext(userInfoContext);
+	const { setPopBox } = useContext(popBoxContext);
 
 	let currentPage =
 		typeof window !== undefined
 			? `${window.location.pathname}${window.location.search}`
 			: "";
+
+	const showLogin = () => {
+		setPopBox({
+			isOpen: true,
+			popBoxType: defPopBoxType.Login
+		});
+	};
 
 	let rows = Object.keys(defMenuLinks).map(key => {
 		let m = defMenuLinks[key];
@@ -33,7 +42,18 @@ export default ({ showSubMenu }) => {
 			);
 
 			let isBlank = rule.actionType === _ACTION_TYPE.blank;
-			if (isBlank) {
+
+			if (rule.needLogin && userInfo.isLogin === false) {
+				return (
+					<button
+						key={key}
+						onClick={showLogin}
+						className={_className}
+						onMouseOver={showSubMenu.bind(this, key)}>
+						{t(m.displayKey)}
+					</button>
+				);
+			} else if (isBlank) {
 				return (
 					<a
 						key={key}

@@ -32,7 +32,6 @@ export const SET_ENTER_PAGE = ({
 	isLogin,
 	loginCallback
 }) => {
-	console.log(loginCallback);
 	let result = GET_OPEN_RULE(langId, tpId, gameId);
 	if (!isLogin && result.needLogin) {
 		loginCallback();
