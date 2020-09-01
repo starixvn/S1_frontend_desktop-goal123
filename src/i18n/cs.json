@@ -248,5 +248,15 @@
   "lbl_Slots":"老虎机",
   "lbl_RolloverOver":"您的优惠回馈流水未达最低金额",
   "lbl_DepositOver":"您的提款申请超过您的馀额",
-  "lbl_WithdrawalOver":"您的提款申请超过您可提款金额"
+  "lbl_WithdrawalOver":"您的提款申请超过您可提款金额",
+  "lbl_PromotionsList":"优惠促销清单",
+  "lbl_All":"全部",
+  "lbl_PromotionDescription":"Promotion Description",
+  "lbl_RemainingTime":"剩余时间",
+  "lbl_RollOver":"最低投注倍数",
+  "lbl_TurnoverAccumulated":"累计流水",
+  "PromotionCategory1":"首次存款",
+  "lbl_Freebet":"Freebet",
+  "lbl_Expried":"Expried",
+  "lbl_Req":"条件."
 }

@@ -208,5 +208,15 @@
   "lbl_Slots":"Máy đánh bạc",
   "lbl_AboutGoal123":"About Goal123.com",
   "lbl_PrivacyPolicy":"Chính sách bảo mật",
-  "lbl_Affiliates":"Đại lý"
+  "lbl_Affiliates":"Đại lý",
+  "lbl_PromotionsList":"Khuyến mãi",
+  "lbl_All":"Tất cả",
+  "lbl_PromotionDescription":"Promotion Description",
+  "lbl_RemainingTime":"THỜI GIAN CÒN LẠI",
+  "lbl_RollOver":"DOANH THU CƯỢC",
+  "lbl_TurnoverAccumulated":"Tổng doanh thu cược",
+  "PromotionCategory1":"NẠP LẦN ĐẦU",
+  "lbl_Freebet":"Freebet",
+  "lbl_Expried":"Expried",
+  "lbl_Req":"Yêu cầu"
 }

@@ -252,5 +252,15 @@
   "lbl_WithdrawalOver":"Your required withdrawal amount had exceeded your elegible withdrawal amount.",
   "lbl_AboutGoal123":"About Goal123.com",
   "lbl_PrivacyPolicy":"Privacy Policy",
-  "lbl_Affiliates":"Affiliates"
+  "lbl_Affiliates":"Affiliates",
+  "lbl_PromotionsList":"Promotions List",
+  "lbl_All":"All",
+  "lbl_PromotionDescription":"Promotion Description",
+  "lbl_RemainingTime":"REMAINING TIME",
+  "lbl_RollOver":"ROLLOVER",
+  "lbl_TurnoverAccumulated":"Turnover Accumulated",
+  "PromotionCategory1":"FIRST DEPOSIT",
+  "lbl_Freebet":"Freebet",
+  "lbl_Expried":"Expried",
+  "lbl_Req":"Req."
 }
