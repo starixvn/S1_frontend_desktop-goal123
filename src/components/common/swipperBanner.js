@@ -65,7 +65,7 @@ const Panel = ({ ImgFolder, withBtn, clickPrev, clickNext }) => {
 		return () => (mounted = false);
 	}, [userInfo, ImgFolder]);
 
-	let rows = banner.map(b => {
+	let rows = banner?.map(b => {
 		let _imgFolder = b.imgFolder ?? ImgFolder;
 		let lang =
 			b.fromDB || b.lang?.includes(userInfo.langId)
@@ -147,7 +147,7 @@ const AutoPlayWithBtn = ({ Rows }) => {
 		}
 	};
 
-	return (
+	return Rows && Rows.length > 0 ? (
 		<>
 			<div className="swiper-container">
 				<div className="swiper-wrapper">
@@ -159,6 +159,8 @@ const AutoPlayWithBtn = ({ Rows }) => {
 			<div className="swiper-button-next" onClick={goNext}></div>
 			<div className="swiper-button-prev" onClick={goPrev}></div>
 		</>
+	) : (
+		<></>
 	);
 };
 
