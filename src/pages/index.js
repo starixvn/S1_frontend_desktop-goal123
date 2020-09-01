@@ -1,17 +1,14 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { Link } from "@reach/router";
 import Wrapper from "../components/common/wrapper";
 import Layout from "../components/common/layout";
-import "../styles/css/swiper.css";
+import path from "../path";
+import SwipperBanner from "../components/common/swipperBanner";
 
 import IndexBanner from "../styles/img/indexBanner.jpg";
 import teamAImg from "../styles/img/teamLogo1.png";
 import teamBImg from "../styles/img/teamLogo2.png";
-
-import newsImg1 from "../styles/img/NEWS1.jpg";
-import newsImg2 from "../styles/img/NEWS2.jpg";
-import newsImg3 from "../styles/img/NEWS3.jpg";
-import newsImg4 from "../styles/img/NEWS4.jpg";
 
 import edgeImg1 from "../styles/img/EDGE1.jpg";
 import edgeImg2 from "../styles/img/EDGE2.jpg";
@@ -23,31 +20,44 @@ import specialImg3 from "../styles/img/bank.png";
 import specialImg4 from "../styles/img/speed.png";
 
 import Marquee from "../components/home/marquee";
+import News from "../components/home/news";
 
 const defGameListDatas = [
 	{
 		displayKey: "lbl_Soccer",
-		icon: "icon icon-soccer"
+		icon: "icon icon-soccer",
+		gameId: 1,
+		tpId: 1
 	},
 	{
 		displayKey: "lbl_Basketball",
-		icon: "icon icon-basketball"
+		icon: "icon icon-basketball",
+		gameId: 2,
+		tpId: 1
 	},
 	{
 		displayKey: "lbl_Baseball",
-		icon: "icon icon-baseball"
+		icon: "icon icon-baseball",
+		gameId: 8,
+		tpId: 1
 	},
 	{
 		displayKey: "lbl_badminton",
-		icon: "icon icon-badminton"
+		icon: "icon icon-badminton",
+		gameId: 9,
+		tpId: 1
 	},
 	{
 		displayKey: "lbl_Tennis",
-		icon: "icon icon-tennis"
+		icon: "icon icon-tennis",
+		gameId: 5,
+		tpId: 1
 	},
 	{
 		displayKey: "lbl_eSports",
-		icon: "icon icon-esport"
+		icon: "icon icon-esport",
+		gameId: 43,
+		tpId: 1
 	}
 ];
 
@@ -69,29 +79,6 @@ const defBattlePanel = [
 		teamA: { name: "Torpedo - Belaz", img: teamAImg, score: 2.35 },
 		teamB: { name: "dinamo minsk", img: teamBImg, score: 3.52 },
 		gameTime: { date: "04.03", time: "23:00" }
-	}
-];
-
-const defNewsPanel = [
-	{
-		title:
-			"bóng đá trận Juve Stabia vs Cremonese 28/07/2020 - Giải Hạng 2 Italia",
-		newsImg: newsImg1
-	},
-	{
-		title:
-			"bóng đá trận Juve Stabia vs Cremonese 28/07/2020 - Giải Hạng 2 Italia",
-		newsImg: newsImg2
-	},
-	{
-		title:
-			"bóng đá trận Juve Stabia vs Cremonese 28/07/2020 - Giải Hạng 2 Italia",
-		newsImg: newsImg3
-	},
-	{
-		title:
-			"bóng đá trận Juve Stabia vs Cremonese 28/07/2020 - Giải Hạng 2 Italia",
-		newsImg: newsImg4
 	}
 ];
 
@@ -149,15 +136,6 @@ const IndexPage = () => {
 		);
 	});
 
-	const newsRows = defNewsPanel.map((item, i) => {
-		return (
-			<div key={`news-${i}`}>
-				<img src={item.newsImg} />
-				<div className="title">{item.title}</div>
-			</div>
-		);
-	});
-
 	const platformRows = defPlatform.map(item => {
 		return (
 			<a href="" key={`platform-${item}`}>
@@ -184,36 +162,23 @@ const IndexPage = () => {
 								<img src={IndexBanner} alt="banner" />
 							</div>
 						</div>
-						<div className="swiper-pagination"></div>
 					</div>
 					<Marquee />
 					<div className="gameMenu">
-						<div>
-							{gameListRows}
-							<button className="icon icon-keyboard_arrow_right"></button>
-						</div>
+						<div>{gameListRows}</div>
 					</div>
 
 					<section>
 						<div className="offers">
 							<div className="swiper-container">
 								<div className="swiper-wrapper">
-									{battleRows}
+									<SwipperBanner ImgFolder="Promotion" />
 								</div>
 							</div>
 							<div className="swiper-button-next"></div>
 							<div className="swiper-button-prev"></div>
 						</div>
-						<div className="news">
-							<div>
-								<div className="title">Goal123 NEWS</div>
-								<span></span>
-							</div>
-							<div className="articleModule">{newsRows}</div>
-						</div>
-						<div className="btnGroup">
-							<a className="yellowborder">VIEW ALL</a>
-						</div>
+						<News />
 						<div className="edge">
 							<div>
 								<div className="title">The Edge Of Goal123</div>

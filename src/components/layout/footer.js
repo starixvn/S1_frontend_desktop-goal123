@@ -1,4 +1,10 @@
-import React from "react";
+import React, { useState, useContext } from "react";
+import { useTranslation } from "react-i18next";
+import { userInfoContext, popBoxContext } from "../common/context";
+import { Link } from "@reach/router";
+import { SET_ENTER_PAGE } from "../../service/enterPage";
+import { defPopBoxType } from "../common/popBox";
+import { defSportsBetting } from "./footer.def";
 
 import Responsibility1 from "../../styles/img/responsibility1.png";
 import Responsibility2 from "../../styles/img/responsibility2.png";
@@ -10,6 +16,37 @@ import SocialMedia4 from "../../styles/img/yb.png";
 import SocialMedia5 from "../../styles/img/ig.png";
 
 export default () => {
+	const { t } = useTranslation();
+	const { userInfo } = useContext(userInfoContext);
+	const { setPopBox } = useContext(popBoxContext);
+
+	const clickGame = (_tpId, _gameId) => {
+		const openLoginPop = () => {
+			setPopBox({
+				isOpen: true,
+				popBoxType: defPopBoxType.Login
+			});
+		};
+
+		SET_ENTER_PAGE({
+			langId: userInfo.langId,
+			tpId: _tpId,
+			gameId: _gameId,
+			isLogin: userInfo.isLogin,
+			loginCallback: openLoginPop
+		});
+	};
+
+	let sportsGameRow = defSportsBetting.map(item => {
+		return (
+			<button
+				key={`footer-sports-${item.displayKey}`}
+				onClick={clickGame.bind(this, item.tpId, item.gameId)}>
+				{t(item.displayKey)}
+			</button>
+		);
+	});
+
 	return (
 		<footer>
 			<div className="webmap">
@@ -25,16 +62,8 @@ export default () => {
 					</div>
 				</div>
 				<div>
-					<span className="title">Sports Betting</span>
-					<div>
-						<a href="">Soccer Betting</a>
-						<a href="">Basketball Betting</a>
-						<a href="">Badminton</a>
-						<a href="">Football Betting</a>
-						<a href="">Tennis Betting</a>
-						<a href="">Hockey Betting</a>
-						<a href="">E-Sport Betting</a>
-					</div>
+					<span className="title">{t("lbl_SportsBetting")}</span>
+					<div>{sportsGameRow}</div>
 				</div>
 				<div>
 					<span className="title">Licenses</span>
