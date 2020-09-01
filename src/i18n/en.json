@@ -246,5 +246,8 @@
   "lbl_CockFighting":"Cock Fighting",
   "lbl_SabaClub":"Saba Club",
   "lbl_Slots":"Slots",
-  "lbl_Promotion":"Promotion"
+  "lbl_Promotion":"Promotion",
+  "lbl_RolloverOver":"Insufficient rollover turnover",
+  "lbl_DepositOver":"Your required withdrawal amount had exceeded your current available balance.",
+  "lbl_WithdrawalOver":"Your required withdrawal amount had exceeded your elegible withdrawal amount."
 }
