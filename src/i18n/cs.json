@@ -242,5 +242,16 @@
   "lbl_Passport":"护照副本",
   "lbl_DrivingLicense":"驾驶执照",
   "lbl_BirthCertificate":"出生证明",
+  "lbl_PromotionsList":"优惠促销清单",
+  "lbl_All":"全部",
+  "lbl_PromotionDescription":"Promotion Description",
+  "lbl_RemainingTime":"剩余时间",
+  "lbl_RollOver":"最低投注倍数",
+  "lbl_TurnoverAccumulated":"累计流水",
+  "PromotionCategory1":"首次存款",
+  "lbl_Freebet":"Freebet",
+  "lbl_Expried":"Expried",
+  "lbl_Req":"条件.",
+
   "xx":"xxx"
 }

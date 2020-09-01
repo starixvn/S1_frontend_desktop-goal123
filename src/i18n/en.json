@@ -242,5 +242,15 @@
   "lbl_Passport":"Passport",
   "lbl_DrivingLicense":"Driving License",
   "lbl_BirthCertificate":"Birth Certificate",
+  "lbl_PromotionsList":"Promotions List",
+  "lbl_All":"All",
+  "lbl_PromotionDescription":"Promotion Description",
+  "lbl_RemainingTime":"REMAINING TIME",
+  "lbl_RollOver":"ROLLOVER",
+  "lbl_TurnoverAccumulated":"Turnover Accumulated",
+  "PromotionCategory1":"FIRST DEPOSIT",
+  "lbl_Freebet":"Freebet",
+  "lbl_Expried":"Expried",
+  "lbl_Req":"Req.",
   "xx":"xxx"
 }
