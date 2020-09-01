@@ -4,7 +4,7 @@ import SwipperBanner from "../common/swipperBanner";
 export default () => {
 	return (
 		<div className="offers">
-			<SwipperBanner ImgFolder="Promotion" />
+			<SwipperBanner ImgFolder="Sports" />
 		</div>
 	);
 };

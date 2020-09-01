@@ -249,5 +249,8 @@
   "lbl_Promotion":"Promotion",
   "lbl_RolloverOver":"Insufficient rollover turnover",
   "lbl_DepositOver":"Your required withdrawal amount had exceeded your current available balance.",
-  "lbl_WithdrawalOver":"Your required withdrawal amount had exceeded your elegible withdrawal amount."
+  "lbl_WithdrawalOver":"Your required withdrawal amount had exceeded your elegible withdrawal amount.",
+  "lbl_AboutGoal123":"About Goal123.com",
+  "lbl_PrivacyPolicy":"Privacy Policy",
+  "lbl_Affiliates":"Affiliates"
 }

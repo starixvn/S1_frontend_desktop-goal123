@@ -1788,7 +1788,7 @@ main > .swiper-container .swiper-slide {
   border: 1px solid #435068;
 }
 
-.list + button {
+.list + button, .list + a {
   color: #1E85EC;
   float: right;
   font-size: 30px;
@@ -3928,6 +3928,12 @@ main > .swiper-container .swiper-slide {
   margin-right: 5px;
 }
 
+.proList {
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
 .proList > div {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -3939,6 +3945,8 @@ main > .swiper-container .swiper-slide {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  float: left;
+  margin-right: 10px;
 }
 
 .proList > div:hover {
@@ -4439,5 +4447,9 @@ iframe {
   background-image: url(../img/expired.png);
   background-repeat: repeat;
   background-size: 50px;
+}
+
+pre {
+  color: #666;
 }
 /*# sourceMappingURL=style.css.map */
