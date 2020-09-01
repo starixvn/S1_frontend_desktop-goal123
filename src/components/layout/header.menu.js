@@ -43,8 +43,10 @@ export default class Panel extends Component {
 
 	render() {
 		let subItems = null;
+		let mainUrl = "";
 		if (typeof defMenuLinks[this.state.menuKey]?.subMenu !== undefined) {
 			subItems = defMenuLinks[this.state.menuKey]?.subMenu;
+			mainUrl = defMenuLinks[this.state.menuKey]?.path;
 		}
 
 		return (
@@ -57,6 +59,7 @@ export default class Panel extends Component {
 							listClassName={
 								defSubListClassName[this.state.menuKey]
 							}
+							mainUrl={mainUrl}
 							subItems={subItems}
 						/>
 					</div>

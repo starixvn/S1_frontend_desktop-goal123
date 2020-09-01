@@ -5,6 +5,8 @@ import LeftMenu from "../components/common/leftMenu";
 import Withdrawal from "../components/withdrawal/withdrawal.set.bank";
 import WithdrawalWrapper from "../components/withdrawal/wrapper";
 import RecentHistory from "../components/withdrawal/recentHistory";
+import path from "../path";
+import { Link } from "@reach/router";
 
 export default () => {
 	return (

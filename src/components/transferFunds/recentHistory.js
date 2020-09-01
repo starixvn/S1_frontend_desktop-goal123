@@ -2,8 +2,10 @@ import React, { useContext, useState, useEffect, useRef } from "react";
 import moment from "moment";
 import { useTranslation } from "react-i18next";
 import { userInfoContext } from "../common/context";
-import { isConvert, number_format } from "../common/common";
+import { isConvert } from "../common/common";
 import { TransactionHistory } from "./historyResult";
+import { Link } from "@reach/router";
+import path from "../../path";
 
 const transferDirection = (direction, displayMainWallet, displaySabaWallet) => {
 	let startWallet = "";
@@ -49,23 +51,28 @@ export default props => {
 	});
 
 	return (
-		<div className="list">
-			<div className="listHeader">
-				<div>{t("NO")}</div>
-				<div>
-					{t("lbl_Date")} ({moment().format("Z")})
+		<>
+			<div className="list">
+				<div className="listHeader">
+					<div>{t("NO")}</div>
+					<div>
+						{t("lbl_Date")} ({moment().format("Z")})
+					</div>
+					<div>{t("lbl_ID")}</div>
+					<div>{t("lbl_Direction")}</div>
+					<div>{t("lbl_Amount")}</div>
+					<div>
+						{t("lbl_Status")}
+						<button
+							className="icon icon-spinner11"
+							onClick={props.GetTransferRecent}></button>
+					</div>
 				</div>
-				<div>{t("lbl_ID")}</div>
-				<div>{t("lbl_Direction")}</div>
-				<div>{t("lbl_Amount")}</div>
-				<div>
-					{t("lbl_Status")}
-					<button
-						className="icon icon-spinner11"
-						onClick={props.GetTransferRecent}></button>
-				</div>
+				<div className="listBody">{arr}</div>
 			</div>
-			<div className="listBody">{arr}</div>
-		</div>
+			<Link
+				to={`/${userInfo.langId}/${path.transferHistory.root}`}
+				className="icon icon-books"></Link>
+		</>
 	);
 };

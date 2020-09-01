@@ -3,14 +3,12 @@ import { userInfoContext } from "../common/context";
 import { Link } from "@reach/router";
 import { useTranslation } from "react-i18next";
 import { api_news_GetNews } from "../../service/api/news";
-import { Redirect } from "@reach/router";
 import path from "../../path";
 
 export default () => {
 	const { userInfo } = useContext(userInfoContext);
 	const { t } = useTranslation();
 	const [getNews, setGetNews] = useState([]);
-	const [redirectPath, setRedirectPath] = useState(null);
 	const isMountedRef = useRef(null);
 
 	useEffect(() => {
@@ -45,14 +43,14 @@ export default () => {
 		return (
 			<Link
 				key={`index-news-${i}`}
-				to={`${userInfo.langId}/${path.newsInfo.root}?newsId=${item.newsId}`}>
+				to={`/${userInfo.langId}/${path.news.root}/${path.news.sub.newsInfo.root}?newsId=${item.newsId}`}>
 				<img src={item.imageURL} />
 				<div className="title">{item.title}</div>
 			</Link>
 		);
 	});
 
-	return redirectPath === null ? (
+	return (
 		<>
 			<div className="news">
 				<div>
@@ -69,7 +67,5 @@ export default () => {
 				</Link>
 			</div>
 		</>
-	) : (
-		<Redirect to={redirectPath} noThrow />
 	);
 };

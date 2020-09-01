@@ -185,9 +185,9 @@ const LoginPanel = () => {
 							tip={tip.password.msg}
 						/>
 
-						<a href="" className="txt-blue2">
+						{/* <a href="" className="txt-blue2">
 							{t("lbl_ForgetPassword")}
-						</a>
+						</a> */}
 					</div>
 					<div className="btnGroup">
 						<button
