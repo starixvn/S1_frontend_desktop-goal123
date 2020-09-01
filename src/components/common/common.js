@@ -1,3 +1,5 @@
+import countryCode from "../../datas/countryCode";
+
 export const getUrlParameter = name => {
 	name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
 	var regex = new RegExp("[\\?&]" + name + "=([^&#]*)", "i");
@@ -31,6 +33,10 @@ const _isConvertList = {
 
 export const isConvert = currencyId => {
 	return _isConvertList[currencyId] === true;
+};
+
+export const getCountryCode = currencyId => {
+	return countryCode[currencyId];
 };
 
 export const checkAmount = (amount, minAmount, maxAmount, _isConvert, i18n) => {

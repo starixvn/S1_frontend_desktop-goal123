@@ -7,22 +7,39 @@ import MainMenu from "./header.menu.main";
 export default class Panel extends Component {
 	constructor(props) {
 		super(props);
-		if (typeof document !== `undefined`) {
-			document.addEventListener("mouseover", this.handleClickOutside);
-		}
 		this.state = { menuKey: "" };
 		this.wrapper = createRef(null);
 	}
 
-	handleClickOutside = e => {
+	handleMoveToOutside = e => {
 		if (this.wrapper.current && !this.wrapper.current.contains(e.target)) {
 			this.setState({ menuKey: "" });
 		}
 	};
 
+	componentDidMount() {
+		if (typeof document !== `undefined`) {
+			document.addEventListener(
+				"mouseover",
+				this.handleMoveToOutside,
+				true
+			);
+		}
+	}
+
 	showSubMenu = col => {
 		this.setState({ menuKey: col });
 	};
+
+	componentWillMount() {
+		if (typeof document !== `undefined`) {
+			document.removeEventListener(
+				"mouseover",
+				this.handleMoveToOutside,
+				false
+			);
+		}
+	}
 
 	render() {
 		let subItems = null;
