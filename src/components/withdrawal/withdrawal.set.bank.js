@@ -303,14 +303,14 @@ export default step => {
 											}
 											_isConvert={_isConvert}
 										/>
-										<CashBar
+										{/* <CashBar
 											onChangeAmount={onChangeAmount}
 											amountValue={amountValue}
 											availableBalance={
 												balanceData.availableBalance
 											}
 											_isConvert={_isConvert}
-										/>
+										/> */}
 										<InputModuleRow
 											onChangeAmount={onChangeAmount}
 											amountValue={amountValue}

@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import Wrapper from "../components/common/wrapper";
 import Layout from "../components/common/layout";
-import LeftMenu from "../components/common/leftMenu";
 import path from "../path";
 import { useTranslation } from "react-i18next";
 import { userInfoContext } from "../components/common/context";
 import { api_news_GetNews } from "../service/api/news";
 import { Pagination } from "../components/common/pagination";
-import { Redirect } from "@reach/router";
+import { Link } from "@reach/router";
 
 export default () => {
 	return (
@@ -15,7 +14,6 @@ export default () => {
 			<Layout>
 				<main>
 					<section className="inside">
-						<LeftMenu />
 						<div className="rightModule">
 							<Content />
 						</div>
@@ -31,7 +29,6 @@ const Content = () => {
 	const { userInfo } = useContext(userInfoContext);
 	const [getNews, setGetNews] = useState();
 	const [processing, setProcessing] = useState(false);
-	const [redirectPath, setRedirectPath] = useState(null);
 	const [pagination, setPagination] = useState({
 		totalPages: 0,
 		currentPage: 1
@@ -74,12 +71,6 @@ const Content = () => {
 		);
 	};
 
-	const openNews = newsId => {
-		setRedirectPath(
-			`/${userInfo.langId}/${path.newsInfo.root}?newsId=${newsId}`
-		);
-	};
-
 	const clickPageNumber = page => {
 		if (!processing) {
 			setProcessing(true);
@@ -95,17 +86,17 @@ const Content = () => {
 				<div className="txt-darkBlue">{item.title}</div>
 				<div className="txt-gray">{item.content}</div>
 				<div className="btnGroup">
-					<button
+					<Link
 						className="blue"
-						onClick={openNews.bind(this, item.newsId)}>
+						to={`/${userInfo.langId}/${path.news.root}/${path.news.sub.newsInfo.root}?newsId=${item.newsId}`}>
 						{t("lbl_Details")}
-					</button>
+					</Link>
 				</div>
 			</div>
 		);
 	});
 
-	return redirectPath === null ? (
+	return (
 		<div className="infoModule">
 			<div className="inside-title icon icon-newspaper">
 				<span>{t("lbl_News")}</span>
@@ -119,7 +110,5 @@ const Content = () => {
 				/>
 			) : null}
 		</div>
-	) : (
-		<Redirect to={redirectPath} noThrow />
 	);
 };

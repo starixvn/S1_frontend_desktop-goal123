@@ -68,10 +68,12 @@ export default {
 		root: "forgetPassword"
 	},
 	news: {
-		root: "news"
-	},
-	newsInfo: {
-		root: "newsInfo"
+		root: "news",
+		sub: {
+			newsInfo: {
+				root: "newsInfo"
+			}
+		}
 	},
 	promotion: {
 		root: "promotion"

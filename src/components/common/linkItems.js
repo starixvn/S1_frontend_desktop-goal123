@@ -45,7 +45,6 @@ export default ({
 	let rows = Object.keys(defMenuLinks).map(key => {
 		let m = defMenuLinks[key];
 		let _className = m.className ? m.className : "";
-		console.log(_className);
 		if (m.productInfo) {
 			let rule = GET_OPEN_RULE(
 				langId,

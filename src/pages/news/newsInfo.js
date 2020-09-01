@@ -1,13 +1,10 @@
 import React, { useEffect, useRef, useState, useContext } from "react";
-import Wrapper from "../components/common/wrapper";
-import Layout from "../components/common/layout";
-import LeftMenu from "../components/common/leftMenu";
+import Wrapper from "../../components/common/wrapper";
+import Layout from "../../components/common/layout";
 import { useTranslation } from "react-i18next";
-import { userInfoContext } from "../components/common/context";
-import { getUrlParameter } from "../components/common/common";
-import { api_news_GetNewsById } from "../service/api/news";
-import { Redirect } from "@reach/router";
-import path from "../path";
+import { userInfoContext } from "../../components/common/context";
+import { getUrlParameter } from "../../components/common/common";
+import { api_news_GetNewsById } from "../../service/api/news";
 
 export default () => {
 	return (
@@ -15,7 +12,6 @@ export default () => {
 			<Layout>
 				<main>
 					<section className="inside">
-						<LeftMenu />
 						<div className="rightModule">
 							<Content />
 						</div>
@@ -29,7 +25,6 @@ export default () => {
 const Content = () => {
 	const { t } = useTranslation();
 	const { userInfo } = useContext(userInfoContext);
-	const [redirectPath, setRedirectPath] = useState(null);
 	const [newsInfo, setNewsInfo] = useState({
 		title: "",
 		content: "",
@@ -75,22 +70,13 @@ const Content = () => {
 		);
 	};
 
-	const clickBack = () => {
-		setRedirectPath(`/${userInfo.langId}/${path.news.root}`);
-	};
-
-	return redirectPath === null ? (
+	return (
 		<div className="infoModule">
-			<a className="icon icon-arrow-left2" onClick={clickBack}>
-				{t("lbl_BackToNews")}
-			</a>
 			<article>
 				<img src={newsInfo.imageURL} />
 				<h1>{newsInfo.title}</h1>
 				<pre>{newsInfo.content}</pre>
 			</article>
 		</div>
-	) : (
-		<Redirect to={redirectPath} noThrow />
 	);
 };
