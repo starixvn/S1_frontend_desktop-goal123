@@ -203,6 +203,12 @@
   "lbl_eSportsBetting":"Cược Thể thao điện tử",
   "lbl_SportsBetting":"Cá cược Thể thao",
   "lbl_About":"About",
+  "lbl_CockFighting":"Đá gà",
+  "lbl_SabaClub":"Saba Club",
+  "lbl_Slots":"Máy đánh bạc",
+  "lbl_AboutGoal123":"About Goal123.com",
+  "lbl_PrivacyPolicy":"Chính sách bảo mật",
+  "lbl_Affiliates":"Đại lý",
   "lbl_PromotionsList":"Khuyến mãi",
   "lbl_All":"Tất cả",
   "lbl_PromotionDescription":"Promotion Description",
@@ -212,12 +218,5 @@
   "PromotionCategory1":"NẠP LẦN ĐẦU",
   "lbl_Freebet":"Freebet",
   "lbl_Expried":"Expried",
-  "lbl_Req":"Yêu cầu",
-  "lbl_CockFighting":"Đá gà",
-  "lbl_SabaClub":"Saba Club",
-  "lbl_Slots":"Máy đánh bạc",
-  "lbl_AboutGoal123":"About Goal123.com",
-  "lbl_PrivacyPolicy":"Chính sách bảo mật",
-  "lbl_Affiliates":"Đại lý",
-  "xx":"xxx"
+  "lbl_Req":"Yêu cầu"
 }

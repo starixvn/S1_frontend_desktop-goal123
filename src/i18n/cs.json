@@ -242,6 +242,13 @@
   "lbl_Passport":"护照副本",
   "lbl_DrivingLicense":"驾驶执照",
   "lbl_BirthCertificate":"出生证明",
+  "xx":"xxx",
+  "lbl_CockFighting":"斗鸡",
+  "lbl_SabaClub":"Saba Club",
+  "lbl_Slots":"老虎机",
+  "lbl_RolloverOver":"您的优惠回馈流水未达最低金额",
+  "lbl_DepositOver":"您的提款申请超过您的馀额",
+  "lbl_WithdrawalOver":"您的提款申请超过您可提款金额",
   "lbl_PromotionsList":"优惠促销清单",
   "lbl_All":"全部",
   "lbl_PromotionDescription":"Promotion Description",
@@ -251,12 +258,5 @@
   "PromotionCategory1":"首次存款",
   "lbl_Freebet":"Freebet",
   "lbl_Expried":"Expried",
-  "lbl_Req":"条件.",
-  "lbl_CockFighting":"斗鸡",
-  "lbl_SabaClub":"Saba Club",
-  "lbl_Slots":"老虎机",
-  "lbl_RolloverOver":"您的优惠回馈流水未达最低金额",
-  "lbl_DepositOver":"您的提款申请超过您的馀额",
-  "lbl_WithdrawalOver":"您的提款申请超过您可提款金额",
-  "xxx":"xxx"
+  "lbl_Req":"条件."
 }
