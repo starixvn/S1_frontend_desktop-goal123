@@ -75,5 +75,8 @@ export default {
 	},
 	promotion: {
 		root: "promotion"
+	},
+	promotionInfo: {
+		root: "promotionInfo"
 	}
 };
