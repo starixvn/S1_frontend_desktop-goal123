@@ -38,7 +38,6 @@ export default () => {
 					<Link className="logo" to={`/${userInfo.langId}`}>
 						<img src={Logo} alt={config.siteName} />
 					</Link>
-					<img src={Banner} />
 				</div>
 				<Menu casinoTpIds={casinoTpIds} />
 				<div className="function">
