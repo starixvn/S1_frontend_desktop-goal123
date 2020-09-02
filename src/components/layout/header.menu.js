@@ -1,5 +1,4 @@
 import React, { createRef, Component } from "react";
-import { _ACTION_TYPE } from "../../service/enterPage";
 import SubMenu from "./header.menu.sub";
 import { defMenuLinks, defSubListClassName } from "./header.menu.def";
 import MainMenu from "./header.menu.main";
@@ -7,7 +6,7 @@ import MainMenu from "./header.menu.main";
 export default class Panel extends Component {
 	constructor(props) {
 		super(props);
-		this.state = { menuKey: "" };
+		this.state = { menuKey: "", casinoTpIds: [] };
 		this.wrapper = createRef(null);
 	}
 
@@ -47,6 +46,15 @@ export default class Panel extends Component {
 		if (typeof defMenuLinks[this.state.menuKey]?.subMenu !== undefined) {
 			subItems = defMenuLinks[this.state.menuKey]?.subMenu;
 			mainUrl = defMenuLinks[this.state.menuKey]?.path;
+			if (
+				this.state.menuKey === "casino" &&
+				subItems &&
+				this.props.casinoTpIds?.length > 0
+			) {
+				subItems = subItems.filter(s =>
+					this.props.casinoTpIds.includes(s.tpId)
+				);
+			}
 		}
 
 		return (
