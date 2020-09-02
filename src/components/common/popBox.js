@@ -12,6 +12,7 @@ import TitleWithButton from "./popBox.titleWithButton";
 import ProfileConfirmCheck from "./popBox.profileConfirmCheck";
 import ProfileCompelete from "./popBox.profileCompelete";
 import ChangePsw from "./popBox.changePsw";
+import LogoutHint from "./popBox.logoutHint";
 
 export const defPopBoxType = {
 	Cancel: "Cancel",
@@ -25,7 +26,8 @@ export const defPopBoxType = {
 	TitleWithButton: "TitleWithButton",
 	ProfileConfirmCheck: "ProfileConfirmCheck",
 	ProfileCompelete: "ProfileCompelete",
-	ChangePsw: "ChangePsw"
+	ChangePsw: "ChangePsw",
+	LogoutHint: "LogoutHint"
 };
 
 export default () => {
@@ -89,10 +91,14 @@ export default () => {
 		case defPopBoxType.ProfileCompelete:
 			content = <ProfileCompelete btnBar={popBox.btnBar} />;
 			break;
+
 		case defPopBoxType.ChangePsw:
 			content = (
 				<ChangePsw btnBar={popBox.btnBar} message={popBox.message} />
 			);
+
+		case defPopBoxType.LogoutHint:
+			content = <LogoutHint btnBar={popBox.btnBar} />;
 
 		case defPopBoxType.default:
 			break;
