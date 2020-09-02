@@ -26,7 +26,8 @@ const defPromoNavs = [
 	{
 		displayKey: "lbl_Expired",
 		value: defFilterType.expiry,
-		className: "orange"
+		className: "orange",
+		selectedClass: "red"
 	}
 ];
 
@@ -35,7 +36,13 @@ export default ({ t, onClick, selected }) => {
 		return (
 			<button
 				key={`promo-nav-${p.displayKey}`}
-				className={p.value === selected ? "btn-check" : p.className}
+				className={
+					p.value === selected
+						? p.selectedClass
+							? p.selectedClass
+							: "btn-check"
+						: p.className
+				}
 				onClick={onClick.bind(this, p.value)}>
 				{t(p.displayKey)}
 			</button>

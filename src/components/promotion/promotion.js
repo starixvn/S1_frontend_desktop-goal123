@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { userInfoContext } from "../common/context";
 import { api_promotion_GetPromotionListV2 } from "../../service/api/promotion";
-import moment from "moment";
+import { api_account_GetCustSpecificBonus } from "../../service/api/account";
 import PromotionList from "./promotion.list";
 import PromotionNavBar, { defFilterType } from "./promotion.nav";
 import { isExpiry } from "./promotion.common";
@@ -25,12 +25,12 @@ export default () => {
 			api_promotion_GetPromotionListV2({ langId: userInfo.langId }).then(
 				res => {
 					if (res.data.errorCode === 0 && isMountedRef.current) {
-						setInitPromoList(
-							res.data.data.sort((a, b) => {
-								return a.periodFrom > b.periodFrom ? -1 : 1;
-							})
-						);
-						SetPromotionDatas(res.data.data, filter);
+						let result = res.data.data.sort((a, b) => {
+							return a.periodFrom > b.periodFrom ? -1 : 1;
+						});
+
+						setInitPromoList(result);
+						SetPromotionDatas(result, filter);
 					}
 				},
 				err => {
@@ -71,6 +71,39 @@ export default () => {
 		setFilter(type);
 	};
 
+	const RefreshProcessBar = ({ bonusCode, tpId, categoryId }) => {
+		api_account_GetCustSpecificBonus({
+			BonusCode: bonusCode,
+			TpId: tpId,
+			PromoCategoryId: categoryId
+		}).then(
+			res => {
+				if (
+					isMountedRef.current &&
+					res.data.errorCode === 0 &&
+					res.data.data
+				) {
+					let idx = initPromoList.findIndex(
+						x =>
+							x.bonusCode === bonusCode &&
+							x.tpId === tpId &&
+							x.categoryId === categoryId
+					);
+
+					if (idx !== -1) {
+						let newPromoList = [...initPromoList];
+						newPromoList[idx].custRollOver = res.data.data.rollover;
+						newPromoList[idx].custTurnOver = res.data.data.turnover;
+
+						setInitPromoList(newPromoList);
+						SetPromotionDatas(newPromoList, filter);
+					}
+				}
+			},
+			err => {}
+		);
+	};
+
 	return (
 		<div className="infoModule">
 			<div className="inside-title icon icon-gift">
@@ -86,8 +119,10 @@ export default () => {
 					promoList={promoList}
 					t={t}
 					langId={userInfo.langId}
-					currency={userInfo.currency}
+					isLogin={userInfo.isLogin}
+					currency={userInfo.currencyId}
 					filter={filter}
+					RefreshProcessBar={RefreshProcessBar}
 				/>
 			) : null}
 		</div>
