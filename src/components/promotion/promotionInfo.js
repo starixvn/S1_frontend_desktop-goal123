@@ -108,7 +108,7 @@ export default () => {
 						</div>
 						{(promotionInfo.canJoin &&
 							promotionInfo.status === 0) ||
-						userInfo.isLogin === false ? (
+						(userInfo.isLogin === false && !_isExpiry) ? (
 							<div className="btnGroup">
 								<button
 									className="btn-check"

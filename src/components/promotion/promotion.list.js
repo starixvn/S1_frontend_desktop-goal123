@@ -49,7 +49,11 @@ export default ({ promoList, t, langId, currency, filter }) => {
 			className={`proList${
 				filter === defFilterType.expiry ? " expired" : ""
 			}`}>
-			{rows}
+			{rows && rows.length > 0 ? (
+				rows
+			) : (
+				<div className="nodata">{t("msg_NoData")}</div>
+			)}
 		</div>
 	);
 };
