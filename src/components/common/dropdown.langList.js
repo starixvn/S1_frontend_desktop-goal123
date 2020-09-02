@@ -1,11 +1,14 @@
 import React, { Component, createRef } from "react";
 import PropTypes from "prop-types";
+import { Link } from "@reach/router";
+import { api_account_SetLanguage } from "../../service/api/account";
+
+const SetReplaceChar = (str, idx, newChar) => {
+	return `${str.substr(0, idx)}${newChar}${str.substr(idx + newChar.length)}`;
+};
 
 const defLangDisplayText = {
-	// cs: "简体中文",
 	en: "English",
-	// th: "ภาษาไทย",
-	// id: "Indonesian",
 	vn: "Tiếng Việt"
 };
 
@@ -40,19 +43,25 @@ export class Dropdown extends Component {
 
 	selectItem = value => {
 		this.setState({ isOpen: false });
-		this.props.onSelectItem(value);
+		api_account_SetLanguage(value);
 	};
 
 	render() {
 		let arr = defLangList().map((item, idx) => {
 			let key = `${this.props.mainKey}_${idx}`;
+			let url =
+				window.location.pathname +
+				window.location.search +
+				window.location.hash;
+			let newPathArr = SetReplaceChar(url, 1, item.value);
 			return (
-				<button
+				<Link
 					key={key}
+					to={newPathArr}
 					className={item.icon}
 					onClick={this.selectItem.bind(this, item.value)}>
 					{defLangDisplayText[item.value]}
-				</button>
+				</Link>
 			);
 		});
 

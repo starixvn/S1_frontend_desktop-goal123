@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link } from "@reach/router";
 import { userInfoContext } from "../common/context";
 import Logo from "../../styles/img/logo.png";
-import Banner from "../../styles/img/indexSmallBanner.jpg";
 import Menu from "./header.menu";
 import config from "../../config";
 import Functions from "./header.functions";
