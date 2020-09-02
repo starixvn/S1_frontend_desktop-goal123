@@ -55,6 +55,10 @@ export default ({ bankInfo, amount, _isConvert, dispatch }) => {
 	const ClickConfirm = () => {
 		setLoading(true);
 
+		const ClickClose = () => {
+			setPopBox({ isOpen: false });
+		};
+
 		api_payment_DepositReqWireTransfer({
 			amount: Number(amount),
 			sysId: bankInfo.sysId
@@ -81,14 +85,40 @@ export default ({ bankInfo, amount, _isConvert, dispatch }) => {
 							...datas
 						});
 					} else {
-						alert(res.data.message);
+						setPopBox({
+							isOpen: true,
+							popBoxType: defPopBoxType.ErrorMsg,
+							message: res.data.message,
+							btnBar: (
+								<div className="btnGroup">
+									<button
+										className="btn-cancel"
+										onClick={ClickClose}>
+										{t("lbl_Close")}
+									</button>
+								</div>
+							)
+						});
 					}
 					setLoading(false);
 				}
 			},
 			err => {
 				if (isMountedRef.current) {
-					alert(t("msg_ApiServerError"));
+					setPopBox({
+						isOpen: true,
+						popBoxType: defPopBoxType.ErrorMsg,
+						message: t("msg_ApiServerError"),
+						btnBar: (
+							<div className="btnGroup">
+								<button
+									className="btn-cancel"
+									onClick={ClickClose}>
+									{t("lbl_Close")}
+								</button>
+							</div>
+						)
+					});
 					setLoading(false);
 				}
 			}

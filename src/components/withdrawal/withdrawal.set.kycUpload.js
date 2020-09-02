@@ -1,14 +1,23 @@
-import React, { useEffect, useState, useRef, createRef } from "react";
+import React, {
+	useEffect,
+	useState,
+	useRef,
+	createRef,
+	useContext
+} from "react";
 import { useTranslation } from "react-i18next";
+import { popBoxContext } from "../common/context";
 import config from "../../config";
 import { api_accountStrict_UploadCustPhotoId } from "../../service/api/accountStrict";
 import Loading from "../common/loading";
+import { defPopBoxType } from "../common/popBox";
 
 export default props => {
 	const { t } = useTranslation();
 	const isMountedRef = useRef(null);
 	const filebox = createRef();
 	const [loading, setLoading] = useState(false);
+	const { setPopBox } = useContext(popBoxContext);
 
 	const dragOver = e => {
 		e.preventDefault();
@@ -39,6 +48,10 @@ export default props => {
 	};
 
 	const onUploadFile = () => {
+		const ClickClose = () => {
+			setPopBox({ isOpen: false });
+		};
+
 		if (fileData.length > 0) {
 			let formData = new FormData();
 			formData.append("PhotoId", fileData[0]);
@@ -48,14 +61,40 @@ export default props => {
 						if (res.data.errorCode === 0) {
 							props.getKycStatus();
 						} else {
-							alert(res.data.message);
+							setPopBox({
+								isOpen: true,
+								popBoxType: defPopBoxType.ErrorMsg,
+								message: res.data.message,
+								btnBar: (
+									<div className="btnGroup">
+										<button
+											className="btn-cancel"
+											onClick={ClickClose}>
+											{t("lbl_Close")}
+										</button>
+									</div>
+								)
+							});
 						}
 						setLoading(false);
 					}
 				},
 				err => {
 					if (isMountedRef.current) {
-						alert(t("msg_ApiServerError"));
+						setPopBox({
+							isOpen: true,
+							popBoxType: defPopBoxType.ErrorMsg,
+							message: t("msg_ApiServerError"),
+							btnBar: (
+								<div className="btnGroup">
+									<button
+										className="btn-cancel"
+										onClick={ClickClose}>
+										{t("lbl_Close")}
+									</button>
+								</div>
+							)
+						});
 						setLoading(false);
 					}
 				}

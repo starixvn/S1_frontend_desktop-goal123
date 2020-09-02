@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { api_tp_GetTransferHistory } from "../service/api/tp";
 import { isConvert } from "../components/common/common";
-import { userInfoContext } from "../components/common/context";
+import { userInfoContext, popBoxContext } from "../components/common/context";
 import { TransactionHistory } from "../components/transferFunds/historyResult";
 import { Pagination } from "../components/common/pagination";
 import Wrapper from "../components/common/wrapper";
@@ -11,6 +11,7 @@ import moment from "moment";
 import Filter from "../components/common/historyFilter";
 import LeftMenu from "../components/common/leftMenu";
 import Loading from "../components/common/loading";
+import { defPopBoxType } from "../components/common/popBox";
 
 export default () => {
 	return (
@@ -51,6 +52,7 @@ const initPagination = {
 const Content = () => {
 	const { t } = useTranslation();
 	const { userInfo } = useContext(userInfoContext);
+	const { setPopBox } = useContext(popBoxContext);
 	const [getHistory, setGetHistory] = useState(null);
 	const [filterData, setFilterData] = useState(null);
 	const [processing, setProcessing] = useState(false);
@@ -67,6 +69,10 @@ const Content = () => {
 	const GetTransferHistory = (transactionData, pageNumber) => {
 		setLoading(true);
 
+		const ClickClose = () => {
+			setPopBox({ isOpen: false });
+		};
+
 		api_tp_GetTransferHistory({
 			...transactionData,
 			PageNumber: pageNumber
@@ -80,7 +86,20 @@ const Content = () => {
 							totalPages: res.data.totalPages
 						}));
 					} else {
-						alert(res.data.message);
+						setPopBox({
+							isOpen: true,
+							popBoxType: defPopBoxType.ErrorMsg,
+							message: res.data.message,
+							btnBar: (
+								<div className="btnGroup">
+									<button
+										className="btn-cancel"
+										onClick={ClickClose}>
+										{t("lbl_Close")}
+									</button>
+								</div>
+							)
+						});
 					}
 					setProcessing(false);
 					setLoading(false);
@@ -88,7 +107,20 @@ const Content = () => {
 			},
 			err => {
 				if (isMountedRef.current) {
-					alert(t("msg_ApiServerError"));
+					setPopBox({
+						isOpen: true,
+						popBoxType: defPopBoxType.ErrorMsg,
+						message: t("msg_ApiServerError"),
+						btnBar: (
+							<div className="btnGroup">
+								<button
+									className="btn-cancel"
+									onClick={ClickClose}>
+									{t("lbl_Close")}
+								</button>
+							</div>
+						)
+					});
 					setProcessing(false);
 					setLoading(false);
 				}

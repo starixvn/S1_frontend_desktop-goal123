@@ -132,7 +132,7 @@ const Content = () => {
 						} else {
 							setPopBox({
 								isOpen: true,
-								popBoxType: defPopBoxType.ChangePsw,
+								popBoxType: defPopBoxType.ErrorMsg,
 								message: res.data.message,
 								btnBar: (
 									<div className="btnGroup">

@@ -153,6 +153,10 @@ export default () => {
 	const submitProfile = () => {
 		setLoading(true);
 
+		const ClickClose = () => {
+			setPopBox({ isOpen: false });
+		};
+
 		let linkToDeposit = () => {
 			setRedirectPath(`/${userInfo.langId}/${path.deposit.root}`);
 		};
@@ -219,7 +223,20 @@ export default () => {
 			},
 			err => {
 				if (isMountedRef.current) {
-					alert(t("msg_ApiServerError"));
+					setPopBox({
+						isOpen: true,
+						popBoxType: defPopBoxType.ErrorMsg,
+						message: t("msg_ApiServerError"),
+						btnBar: (
+							<div className="btnGroup">
+								<button
+									className="btn-cancel"
+									onClick={ClickClose}>
+									{t("lbl_Close")}
+								</button>
+							</div>
+						)
+					});
 					setLoading(false);
 				}
 			}

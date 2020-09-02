@@ -112,14 +112,40 @@ export default props => {
 							)
 						);
 					} else {
-						alert(res.data.message);
+						setPopBox({
+							isOpen: true,
+							popBoxType: defPopBoxType.ErrorMsg,
+							message: res.data.message,
+							btnBar: (
+								<div className="btnGroup">
+									<button
+										className="btn-cancel"
+										onClick={ClickCancel}>
+										{t("lbl_Close")}
+									</button>
+								</div>
+							)
+						});
 					}
 					setLoading(false);
 				}
 			},
 			err => {
 				if (isMountedRef.current) {
-					alert(t("msg_ApiServerError"));
+					setPopBox({
+						isOpen: true,
+						popBoxType: defPopBoxType.ErrorMsg,
+						message: t("msg_ApiServerError"),
+						btnBar: (
+							<div className="btnGroup">
+								<button
+									className="btn-cancel"
+									onClick={ClickCancel}>
+									{t("lbl_Close")}
+								</button>
+							</div>
+						)
+					});
 					setLoading(false);
 				}
 			}

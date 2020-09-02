@@ -1,12 +1,14 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
-import { userInfoContext } from "../common/context";
+import { userInfoContext, popBoxContext } from "../common/context";
 import { Link } from "@reach/router";
 import { useTranslation } from "react-i18next";
 import { api_news_GetNews } from "../../service/api/news";
+import { defPopBoxType } from "../common/popBox";
 import path from "../../path";
 
 export default () => {
 	const { userInfo } = useContext(userInfoContext);
+	const { setPopBox } = useContext(popBoxContext);
 	const { t } = useTranslation();
 	const [getNews, setGetNews] = useState([]);
 	const isMountedRef = useRef(null);
@@ -27,17 +29,47 @@ export default () => {
 					if (res.data.errorCode === 0) {
 						setGetNews(res.data.data);
 					} else {
-						alert(res.data.message);
+						setPopBox({
+							isOpen: true,
+							popBoxType: defPopBoxType.ErrorMsg,
+							message: res.data.message,
+							btnBar: (
+								<div className="btnGroup">
+									<button
+										className="btn-cancel"
+										onClick={ClickClose}>
+										{t("lbl_Close")}
+									</button>
+								</div>
+							)
+						});
 					}
 				}
 			},
 			err => {
 				if (isMountedRef.current) {
-					alert(t("msg_ApiServerError"));
+					setPopBox({
+						isOpen: true,
+						popBoxType: defPopBoxType.ErrorMsg,
+						message: t("msg_ApiServerError"),
+						btnBar: (
+							<div className="btnGroup">
+								<button
+									className="btn-cancel"
+									onClick={ClickClose}>
+									{t("lbl_Close")}
+								</button>
+							</div>
+						)
+					});
 				}
 			}
 		);
 	}, []);
+
+	const ClickClose = () => {
+		setPopBox({ isOpen: false });
+	};
 
 	const newsRows = getNews.map((item, i) => {
 		return (

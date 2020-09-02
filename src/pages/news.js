@@ -3,11 +3,12 @@ import Wrapper from "../components/common/wrapper";
 import Layout from "../components/common/layout";
 import path from "../path";
 import { useTranslation } from "react-i18next";
-import { userInfoContext } from "../components/common/context";
+import { userInfoContext, popBoxContext } from "../components/common/context";
 import { api_news_GetNews } from "../service/api/news";
 import { Pagination } from "../components/common/pagination";
 import { Link } from "@reach/router";
 import Loading from "../components/common/loading";
+import { defPopBoxType } from "../components/common/popBox";
 
 export default () => {
 	return (
@@ -28,6 +29,7 @@ export default () => {
 const Content = () => {
 	const { t } = useTranslation();
 	const { userInfo } = useContext(userInfoContext);
+	const { setPopBox } = useContext(popBoxContext);
 	const [getNews, setGetNews] = useState();
 	const [processing, setProcessing] = useState(false);
 	const [pagination, setPagination] = useState({
@@ -46,6 +48,10 @@ const Content = () => {
 		GetNews(1);
 	}, []);
 
+	const ClickClose = () => {
+		setPopBox({ isOpen: false });
+	};
+
 	const GetNews = pageNumber => {
 		api_news_GetNews({
 			langId: userInfo.langId,
@@ -61,14 +67,40 @@ const Content = () => {
 							totalPages: res.data.totalPages
 						}));
 					} else {
-						alert(res.data.message);
+						setPopBox({
+							isOpen: true,
+							popBoxType: defPopBoxType.ErrorMsg,
+							message: res.data.message,
+							btnBar: (
+								<div className="btnGroup">
+									<button
+										className="btn-cancel"
+										onClick={ClickClose}>
+										{t("lbl_Close")}
+									</button>
+								</div>
+							)
+						});
 					}
 					setLoading(false);
 				}
 			},
 			err => {
 				if (isMountedRef.current) {
-					alert(t("msg_ApiServerError"));
+					setPopBox({
+						isOpen: true,
+						popBoxType: defPopBoxType.ErrorMsg,
+						message: t("msg_ApiServerError"),
+						btnBar: (
+							<div className="btnGroup">
+								<button
+									className="btn-cancel"
+									onClick={ClickClose}>
+									{t("lbl_Close")}
+								</button>
+							</div>
+						)
+					});
 					setLoading(false);
 				}
 			}

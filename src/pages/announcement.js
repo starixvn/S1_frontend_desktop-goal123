@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { userInfoContext } from "../components/common/context";
+import { userInfoContext, popBoxContext } from "../components/common/context";
 import { api_message_GetAnnouncement } from "../service/api/message";
 import Wrapper from "../components/common/wrapper";
 import Layout from "../components/common/layout";
 import LeftMenu from "../components/common/leftMenu";
 import moment from "moment";
 import Loading from "../components/common/loading";
+import { defPopBoxType } from "../components/common/popBox";
 
 export default () => {
 	return (
@@ -28,6 +29,7 @@ export default () => {
 const Content = () => {
 	const { t } = useTranslation();
 	const { userInfo } = useContext(userInfoContext);
+	const { setPopBox } = useContext(popBoxContext);
 	const [getAnnouncement, setGetAnnouncement] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const isMountedRef = useRef(null);
@@ -44,19 +46,49 @@ const Content = () => {
 					if (res.data.errorCode === 0) {
 						setGetAnnouncement(res.data.data);
 					} else {
-						alert(res.data.message);
+						setPopBox({
+							isOpen: true,
+							popBoxType: defPopBoxType.ErrorMsg,
+							message: res.data.message,
+							btnBar: (
+								<div className="btnGroup">
+									<button
+										className="btn-cancel"
+										onClick={ClickClose}>
+										{t("lbl_Close")}
+									</button>
+								</div>
+							)
+						});
 					}
 					setLoading(false);
 				}
 			},
 			err => {
 				if (isMountedRef.current) {
-					alert(t("msg_ApiServerError"));
+					setPopBox({
+						isOpen: true,
+						popBoxType: defPopBoxType.ErrorMsg,
+						message: t("msg_ApiServerError"),
+						btnBar: (
+							<div className="btnGroup">
+								<button
+									className="btn-cancel"
+									onClick={ClickClose}>
+									{t("lbl_Close")}
+								</button>
+							</div>
+						)
+					});
 					setLoading(false);
 				}
 			}
 		);
 	}, []);
+
+	const ClickClose = () => {
+		setPopBox({ isOpen: false });
+	};
 
 	let arr = getAnnouncement?.map(item => {
 		let isToday =
