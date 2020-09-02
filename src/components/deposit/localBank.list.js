@@ -1,20 +1,29 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
 import path from "../../path";
 import { Link } from "gatsby";
 import { useTranslation } from "react-i18next";
 import { api_payment_GetBankInfoOffList } from "../../service/api/payment";
+import { popBoxContext } from "../common/context";
+import Loading from "../common/loading";
+import { defPopBoxType } from "../common/popBox";
 
 const _path = path.deposit.sub.localBank.root;
 
 export default () => {
 	const { t } = useTranslation();
+	const { setPopBox } = useContext(popBoxContext);
 	const [localBankList, setLocalBankList] = useState([]);
+	const [loading, setLoading] = useState(true);
 	const isMountedRef = useRef(null);
 
 	useEffect(() => {
 		isMountedRef.current = true;
 		return () => (isMountedRef.current = false);
 	});
+
+	const ClickClose = () => {
+		setPopBox({ isOpen: false });
+	};
 
 	useEffect(() => {
 		api_payment_GetBankInfoOffList().then(
@@ -25,19 +34,49 @@ export default () => {
 							setLocalBankList(res.data.data);
 						}
 					} else {
-						alert(res.data.message);
+						setPopBox({
+							isOpen: true,
+							popBoxType: defPopBoxType.ErrorMsg,
+							message: res.data.message,
+							btnBar: (
+								<div className="btnGroup">
+									<button
+										className="btn-cancel"
+										onClick={ClickClose}>
+										{t("lbl_Close")}
+									</button>
+								</div>
+							)
+						});
 					}
+					setLoading(false);
 				}
 			},
 			err => {
 				if (isMountedRef.current) {
-					alert(t("msg_ApiServerError"));
+					setPopBox({
+						isOpen: true,
+						popBoxType: defPopBoxType.ErrorMsg,
+						message: t("msg_ApiServerError"),
+						btnBar: (
+							<div className="btnGroup">
+								<button
+									className="btn-cancel"
+									onClick={ClickClose}>
+									{t("lbl_Close")}
+								</button>
+							</div>
+						)
+					});
+					setLoading(false);
 				}
 			}
 		);
 	}, []);
 
-	return localBankList !== null && localBankList.length > 0 ? (
+	return loading ? (
+		<Loading />
+	) : localBankList !== null && localBankList.length > 0 ? (
 		<div className="subModule">
 			<div className="subModuleTitle">
 				<div>

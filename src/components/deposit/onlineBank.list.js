@@ -6,12 +6,14 @@ import { isConvert } from "../common/common";
 import { userInfoContext } from "../common/context";
 import path from "../../path";
 import { useTranslation } from "react-i18next";
+import Loading from "../common/loading";
 
 const _path = path.deposit.sub.onlineBank.root;
 
 export default () => {
 	const { t } = useTranslation();
 	const [onlineBankingList, setOnlineBankingList] = useState([]);
+	const [loading, setLoading] = useState(true);
 	const { userInfo } = useContext(userInfoContext);
 	const isMountedRef = useRef(null);
 
@@ -24,6 +26,7 @@ export default () => {
 		api_payment_GetOnlinePaymentList().then(res => {
 			if (res.data.errorCode === 0 && isMountedRef.current) {
 				setOnlineBankingList(res.data.data);
+				setLoading(false);
 			}
 		});
 	}, []);
@@ -46,7 +49,9 @@ export default () => {
 		);
 	});
 
-	return onlineBankingList !== null && onlineBankingList.length > 0 ? (
+	return loading ? (
+		<Loading />
+	) : onlineBankingList !== null && onlineBankingList.length > 0 ? (
 		<div className="subModule">
 			<div className="subModuleTitle">
 				<div>

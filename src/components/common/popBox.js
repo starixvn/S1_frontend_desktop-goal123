@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { popBoxContext } from "./context";
 import Cancel from "./popBox.cancel";
 import UploadBankSlip from "./popBox.uploadBankSlip";
@@ -12,6 +12,8 @@ import TitleWithButton from "./popBox.titleWithButton";
 import ProfileConfirmCheck from "./popBox.profileConfirmCheck";
 import ProfileCompelete from "./popBox.profileCompelete";
 import ChangePsw from "./popBox.changePsw";
+import LogoutHint from "./popBox.logoutHint";
+import Loading from "./loading";
 
 export const defPopBoxType = {
 	Cancel: "Cancel",
@@ -25,7 +27,8 @@ export const defPopBoxType = {
 	TitleWithButton: "TitleWithButton",
 	ProfileConfirmCheck: "ProfileConfirmCheck",
 	ProfileCompelete: "ProfileCompelete",
-	ChangePsw: "ChangePsw"
+	ChangePsw: "ChangePsw",
+	LogoutHint: "LogoutHint"
 };
 
 export default () => {
@@ -91,10 +94,14 @@ export default () => {
 		case defPopBoxType.ProfileCompelete:
 			content = <ProfileCompelete btnBar={popBox.btnBar} />;
 			break;
+
 		case defPopBoxType.ChangePsw:
 			content = (
 				<ChangePsw btnBar={popBox.btnBar} message={popBox.message} />
 			);
+
+		case defPopBoxType.LogoutHint:
+			content = <LogoutHint btnBar={popBox.btnBar} />;
 
 		case defPopBoxType.default:
 			break;
@@ -102,7 +109,7 @@ export default () => {
 
 	return popBox.isOpen ? (
 		popBox.loading ? (
-			"Loading..."
+			<Loading />
 		) : (
 			<div id="popup" className="active">
 				<div className="pop">{content}</div>

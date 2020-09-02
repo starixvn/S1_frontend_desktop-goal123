@@ -11,6 +11,7 @@ import RecentHistory from "../components/transferFunds/recentHistory";
 import ShowWallets from "../components/transferFunds/showWallets";
 import SetAmount from "../components/transferFunds/setAmount";
 import LeftMenu from "../components/common/leftMenu";
+import Loading from "../components/common/loading";
 
 export default () => {
 	return (
@@ -46,6 +47,7 @@ const Content = () => {
 		transferTo: "lbl_TpWallet_1"
 	});
 	const [getHistory, setGetHistory] = useState(null);
+	const [loading, setLoading] = useState(true);
 	const isMountedRef = useRef(null);
 
 	useEffect(() => {
@@ -63,6 +65,8 @@ const Content = () => {
 	};
 
 	const GetWalletInfo = () => {
+		setLoading(true);
+
 		api_account_GetWalletInfo().then(
 			res => {
 				if (isMountedRef.current) {
@@ -100,6 +104,7 @@ const Content = () => {
 							)
 						});
 					}
+					setLoading(false);
 				}
 			},
 			err => {
@@ -118,12 +123,15 @@ const Content = () => {
 							</div>
 						)
 					});
+					setLoading(false);
 				}
 			}
 		);
 	};
 
 	const Transfer = (_tpId, _amount, _direction) => {
+		setLoading(true);
+
 		api_tp_Transfer({
 			TpId: _tpId === 0 ? 1 : _tpId,
 			amount: _amount,
@@ -159,6 +167,7 @@ const Content = () => {
 							)
 						});
 					}
+					setLoading(false);
 				}
 			},
 			err => {
@@ -177,12 +186,15 @@ const Content = () => {
 							</div>
 						)
 					});
+					setLoading(false);
 				}
 			}
 		);
 	};
 
 	const GetTransferRecent = () => {
+		setLoading(true);
+
 		api_tp_GetTransferRecent().then(
 			res => {
 				if (isMountedRef.current) {
@@ -204,6 +216,7 @@ const Content = () => {
 							)
 						});
 					}
+					setLoading(false);
 				}
 			},
 			err => {
@@ -222,6 +235,7 @@ const Content = () => {
 							</div>
 						)
 					});
+					setLoading(false);
 				}
 			}
 		);
@@ -296,7 +310,9 @@ const Content = () => {
 		Transfer(_wallet.id, _wallet.balance, _direction);
 	};
 
-	return (
+	return loading ? (
+		<Loading />
+	) : (
 		<div className="rightModule">
 			<div className="infoModule">
 				<div className="inside-title icon icon-transfer">

@@ -9,12 +9,14 @@ import { defActionType } from "./locaLBank.reducer";
 import { defPopBoxType } from "../common/popBox";
 import config from "../../config";
 import path from "../../path";
+import Loading from "../common/loading";
 
 export default ({ bankInfo, amount, _isConvert, dispatch }) => {
 	const { t } = useTranslation();
 	const { setPopBox } = useContext(popBoxContext);
 	const { userInfo } = useContext(userInfoContext);
 	const [redirectPath, setRedirectPath] = useState(null);
+	const [loading, setLoading] = useState(false);
 	const isMountedRef = useRef(null);
 
 	useEffect(() => {
@@ -51,6 +53,12 @@ export default ({ bankInfo, amount, _isConvert, dispatch }) => {
 	};
 
 	const ClickConfirm = () => {
+		setLoading(true);
+
+		const ClickClose = () => {
+			setPopBox({ isOpen: false });
+		};
+
 		api_payment_DepositReqWireTransfer({
 			amount: Number(amount),
 			sysId: bankInfo.sysId
@@ -77,19 +85,49 @@ export default ({ bankInfo, amount, _isConvert, dispatch }) => {
 							...datas
 						});
 					} else {
-						alert(res.data.message);
+						setPopBox({
+							isOpen: true,
+							popBoxType: defPopBoxType.ErrorMsg,
+							message: res.data.message,
+							btnBar: (
+								<div className="btnGroup">
+									<button
+										className="btn-cancel"
+										onClick={ClickClose}>
+										{t("lbl_Close")}
+									</button>
+								</div>
+							)
+						});
 					}
+					setLoading(false);
 				}
 			},
 			err => {
 				if (isMountedRef.current) {
-					alert(t("msg_ApiServerError"));
+					setPopBox({
+						isOpen: true,
+						popBoxType: defPopBoxType.ErrorMsg,
+						message: t("msg_ApiServerError"),
+						btnBar: (
+							<div className="btnGroup">
+								<button
+									className="btn-cancel"
+									onClick={ClickClose}>
+									{t("lbl_Close")}
+								</button>
+							</div>
+						)
+					});
+					setLoading(false);
 				}
 			}
 		);
 	};
 
-	return redirectPath === null ? (
+	return loading ? (
+		<Loading />
+	) : redirectPath === null ? (
 		<div className="subModuleList">
 			<div className="subModule">
 				<div className="subModuleBody column align-items-center">

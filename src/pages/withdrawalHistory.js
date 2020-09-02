@@ -14,6 +14,7 @@ import Layout from "../components/common/layout";
 import moment from "moment";
 import Filter from "../components/common/historyFilter";
 import LeftMenu from "../components/common/leftMenu";
+import Loading from "../components/common/loading";
 
 export default () => {
 	return (
@@ -45,17 +46,22 @@ const Content = () => {
 	const [processing, setProcessing] = useState(false);
 	const [filterData, setFilterData] = useState(null);
 	const [pagination, setPagination] = useState(initPagination);
+	const [loading, setLoading] = useState(false);
 	const _isConvert = isConvert(userInfo.currencyId);
 	const isMountedRef = useRef(null);
 
 	useEffect(() => {
 		isMountedRef.current = true;
-		return () => {
-			isMountedRef.current = false;
-		};
+		return () => (isMountedRef.current = false);
 	});
 
+	const ClickClose = () => {
+		setPopBox({ isOpen: false });
+	};
+
 	const GetWithdrawalInfoHistory = (transactionData, pageNumber) => {
+		setLoading(true);
+
 		api_payment_GetWithdrawalInfoHistory({
 			...transactionData,
 			PageNumber: pageNumber
@@ -69,15 +75,43 @@ const Content = () => {
 							totalPages: res.data.totalPages
 						}));
 					} else {
-						alert(res.data.message);
+						setPopBox({
+							isOpen: true,
+							popBoxType: defPopBoxType.ErrorMsg,
+							message: res.data.message,
+							btnBar: (
+								<div className="btnGroup">
+									<button
+										className="btn-cancel"
+										onClick={ClickClose}>
+										{t("lbl_Close")}
+									</button>
+								</div>
+							)
+						});
 					}
 					setProcessing(false);
+					setLoading(false);
 				}
 			},
 			err => {
 				if (isMountedRef.current) {
-					alert(t("msg_ApiServerError"));
+					setPopBox({
+						isOpen: true,
+						popBoxType: defPopBoxType.ErrorMsg,
+						message: t("msg_ApiServerError"),
+						btnBar: (
+							<div className="btnGroup">
+								<button
+									className="btn-cancel"
+									onClick={ClickClose}>
+									{t("lbl_Close")}
+								</button>
+							</div>
+						)
+					});
 					setProcessing(false);
+					setLoading(false);
 				}
 			}
 		);
@@ -120,13 +154,39 @@ const Content = () => {
 								return newData;
 							});
 						} else {
-							alert(res.data.message);
+							setPopBox({
+								isOpen: true,
+								popBoxType: defPopBoxType.ErrorMsg,
+								message: res.data.message,
+								btnBar: (
+									<div className="btnGroup">
+										<button
+											className="btn-cancel"
+											onClick={ClickClose}>
+											{t("lbl_Close")}
+										</button>
+									</div>
+								)
+							});
 						}
 					}
 				},
 				err => {
 					if (isMountedRef.current) {
-						alert(t("msg_ApiServerError"));
+						setPopBox({
+							isOpen: true,
+							popBoxType: defPopBoxType.ErrorMsg,
+							message: t("msg_ApiServerError"),
+							btnBar: (
+								<div className="btnGroup">
+									<button
+										className="btn-cancel"
+										onClick={ClickClose}>
+										{t("lbl_Close")}
+									</button>
+								</div>
+							)
+						});
 					}
 				}
 			);
@@ -172,7 +232,9 @@ const Content = () => {
 		);
 	});
 
-	return (
+	return loading ? (
+		<Loading />
+	) : (
 		<div className="infoModule">
 			<div className="inside-title icon icon-icon32px_History">
 				<span>{t("lbl_WithdrawalHistory")}</span>

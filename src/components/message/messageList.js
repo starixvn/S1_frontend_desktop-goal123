@@ -1,21 +1,32 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { api_account_GetMsgContent } from "../../service/api/account";
+import { popBoxContext } from "../common/context";
 import { useTranslation } from "react-i18next";
+import { defPopBoxType } from "../common/popBox";
 import moment from "moment";
+import Loading from "../common/loading";
 
 export default props => {
 	const { t } = useTranslation();
+	const { setPopBox } = useContext(popBoxContext);
 	const isMountedRef = useRef(null);
 	const [msgContentData, setMsgContentData] = useState("");
 	const [showContent, setShowContent] = useState(false);
+	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
 		isMountedRef.current = true;
 		return () => (isMountedRef.current = false);
 	});
 
+	const ClickClose = () => {
+		setPopBox({ isOpen: false });
+	};
+
 	const getMsgContent = getMsg => {
 		if (getMsg) {
+			setLoading(true);
+
 			api_account_GetMsgContent(props.id).then(
 				res => {
 					if (isMountedRef.current) {
@@ -23,13 +34,41 @@ export default props => {
 							setShowContent(true);
 							setMsgContentData(res.data.data.content);
 						} else {
-							alert(res.data.message);
+							setPopBox({
+								isOpen: true,
+								popBoxType: defPopBoxType.ErrorMsg,
+								message: res.data.message,
+								btnBar: (
+									<div className="btnGroup">
+										<button
+											className="btn-cancel"
+											onClick={ClickClose}>
+											{t("lbl_Close")}
+										</button>
+									</div>
+								)
+							});
 						}
+						setLoading(false);
 					}
 				},
 				err => {
 					if (isMountedRef.current) {
-						alert(t("msg_ApiServerError"));
+						setPopBox({
+							isOpen: true,
+							popBoxType: defPopBoxType.ErrorMsg,
+							message: t("msg_ApiServerError"),
+							btnBar: (
+								<div className="btnGroup">
+									<button
+										className="btn-cancel"
+										onClick={ClickClose}>
+										{t("lbl_Close")}
+									</button>
+								</div>
+							)
+						});
+						setLoading(false);
 					}
 				}
 			);
@@ -48,7 +87,9 @@ export default props => {
 			? props.createTime.slice(11, 19)
 			: props.createTime.split("T", 1);
 
-	return (
+	return loading ? (
+		<Loading />
+	) : (
 		<div>
 			<div className="listHeader">
 				<div className="checkbox">

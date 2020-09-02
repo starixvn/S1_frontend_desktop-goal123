@@ -15,11 +15,16 @@ export default props => {
 	});
 
 	const openPopBox = () => {
+		const ClickClose = () => {
+			setPopBox({ isOpen: false });
+		};
+
 		setPopBox({
 			isOpen: true,
 			popBoxType: defPopBoxType.AddBankAccount,
 			loading: true
 		});
+
 		api_payment_GetBankInfoSysList().then(
 			res => {
 				if (isMountedRef.current) {
@@ -40,7 +45,20 @@ export default props => {
 							bankInfoSysList: bankInfoArr
 						}));
 					} else {
-						alert(res.data.message);
+						setPopBox({
+							isOpen: true,
+							popBoxType: defPopBoxType.ErrorMsg,
+							message: res.data.message,
+							btnBar: (
+								<div className="btnGroup">
+									<button
+										className="btn-cancel"
+										onClick={ClickClose}>
+										{t("lbl_Close")}
+									</button>
+								</div>
+							)
+						});
 						setPopBox(prevP => ({
 							...prevP,
 							loading: false
@@ -50,7 +68,20 @@ export default props => {
 			},
 			err => {
 				if (isMountedRef.current) {
-					alert(t("msg_ApiServerError"));
+					setPopBox({
+						isOpen: true,
+						popBoxType: defPopBoxType.ErrorMsg,
+						message: t("msg_ApiServerError"),
+						btnBar: (
+							<div className="btnGroup">
+								<button
+									className="btn-cancel"
+									onClick={ClickClose}>
+									{t("lbl_Close")}
+								</button>
+							</div>
+						)
+					});
 					setPopBox(prevP => ({
 						...prevP,
 						loading: false

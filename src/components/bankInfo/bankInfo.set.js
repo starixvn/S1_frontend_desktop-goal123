@@ -13,17 +13,21 @@ import {
 	initState,
 	defActionType
 } from "./bankInfo.reducer";
-import { userInfoContext } from "../common/context";
+import { userInfoContext, popBoxContext } from "../common/context";
 import InitPanel from "./bankInfo.set.init";
 import BankPanel from "./bankInfo.set.bank";
 import AccountPanel from "./bankInfo.set.account";
 import ShowCard from "./bankInfo.showCard";
+import Loading from "../common/loading";
+import { defPopBoxType } from "../common/popBox";
 
 export default () => {
 	const { t } = useTranslation();
 	const { userInfo, setUserInfo } = useContext(userInfoContext);
+	const { setPopBox } = useContext(popBoxContext);
 	const [state, dispatch] = useReducer(reducer, initState);
 	const [showTip, setShowTip] = useState(false);
+	const [loading, setLoading] = useState(true);
 	const isMountedRef = useRef(null);
 
 	useEffect(() => {
@@ -34,6 +38,10 @@ export default () => {
 	useEffect(() => {
 		GetCustBankInfo(false);
 	}, []);
+
+	const ClickClose = () => {
+		setPopBox({ isOpen: false });
+	};
 
 	const GetCustBankInfo = setAccountName => {
 		api_account_GetCustBankInfo().then(
@@ -53,13 +61,41 @@ export default () => {
 							datas: datas
 						});
 					} else {
-						alert(res.data.message);
+						setPopBox({
+							isOpen: true,
+							popBoxType: defPopBoxType.ErrorMsg,
+							message: res.data.message,
+							btnBar: (
+								<div className="btnGroup">
+									<button
+										className="btn-cancel"
+										onClick={ClickClose}>
+										{t("lbl_Close")}
+									</button>
+								</div>
+							)
+						});
 					}
+					setLoading(false);
 				}
 			},
 			err => {
 				if (isMountedRef.current) {
-					alert(t("msg_ApiServerError"));
+					setPopBox({
+						isOpen: true,
+						popBoxType: defPopBoxType.ErrorMsg,
+						message: t("msg_ApiServerError"),
+						btnBar: (
+							<div className="btnGroup">
+								<button
+									className="btn-cancel"
+									onClick={ClickClose}>
+									{t("lbl_Close")}
+								</button>
+							</div>
+						)
+					});
+					setLoading(false);
 				}
 			}
 		);
@@ -108,7 +144,9 @@ export default () => {
 			break;
 	}
 
-	return (
+	return loading ? (
+		<Loading />
+	) : (
 		<>
 			<div className="infoModule">
 				<div className="inside-title icon icon-icon32px_bank-account">

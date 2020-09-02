@@ -9,12 +9,11 @@ import { api_payment_GetBankInfoOffList } from "../../service/api/payment";
 import { Redirect, Link } from "@reach/router";
 import { isConvert } from "../common/common";
 import { useTranslation } from "react-i18next";
-import { userInfoContext } from "../common/context";
+import { userInfoContext, popBoxContext } from "../common/context";
 import DepositWrapper from "./wrapper";
 import BankPanel from "./localBank.set.bank";
 import AmountPanel from "./localBank.set.amount";
 import ConfirmPanel from "./localBank.set.confirm";
-import BankSlip from "./deposit.bankSlip";
 import path from "../../path";
 import {
 	reducer,
@@ -22,12 +21,16 @@ import {
 	defModule,
 	defActionType
 } from "./localBank.reducer";
+import Loading from "../common/loading";
+import { defPopBoxType } from "../common/popBox";
 
 export default () => {
 	const { t } = useTranslation();
 	const [redirectPath, setRedirectPath] = useState(null);
 	const { userInfo } = useContext(userInfoContext);
+	const { setPopBox } = useContext(popBoxContext);
 	const [state, dispatch] = useReducer(reducer, initState);
+	const [loading, setLoading] = useState(true);
 	const _isConvert = isConvert(userInfo.currencyId);
 	const isMountedRef = useRef(null);
 
@@ -53,17 +56,49 @@ export default () => {
 							);
 						}
 					} else {
-						alert(res.data.message);
+						setPopBox({
+							isOpen: true,
+							popBoxType: defPopBoxType.ErrorMsg,
+							message: res.data.message,
+							btnBar: (
+								<div className="btnGroup">
+									<button
+										className="btn-cancel"
+										onClick={ClickClose}>
+										{t("lbl_Close")}
+									</button>
+								</div>
+							)
+						});
 					}
+					setLoading(false);
 				}
 			},
 			err => {
 				if (isMountedRef.current) {
-					alert(t("msg_ApiServerError"));
+					setPopBox({
+						isOpen: true,
+						popBoxType: defPopBoxType.ErrorMsg,
+						message: t("msg_ApiServerError"),
+						btnBar: (
+							<div className="btnGroup">
+								<button
+									className="btn-cancel"
+									onClick={ClickClose}>
+									{t("lbl_Close")}
+								</button>
+							</div>
+						)
+					});
+					setLoading(false);
 				}
 			}
 		);
 	}, []);
+
+	const ClickClose = () => {
+		setPopBox({ isOpen: false });
+	};
 
 	let displayModule = null;
 	switch (state.displayModule) {
@@ -103,7 +138,9 @@ export default () => {
 		dispatch({ type: defActionType.CLICK_BACK });
 	};
 
-	return redirectPath === null ? (
+	return loading ? (
+		<Loading />
+	) : redirectPath === null ? (
 		<DepositWrapper step={state.step}>
 			<div className="platformName">
 				<div className="icon icon-library"></div>

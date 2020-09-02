@@ -9,7 +9,7 @@ import React, {
 import moment from "moment";
 import DateTime from "react-datetime";
 import { useTranslation } from "react-i18next";
-import { userInfoContext } from "../common/context";
+import { userInfoContext, popBoxContext } from "../common/context";
 import { number_format, isConvert } from "../common/common";
 import {
 	api_payment_UploadReceipt,
@@ -17,68 +17,13 @@ import {
 } from "../../service/api/payment";
 import style from "../../styles/css/datePicker.css";
 import config from "../../config";
-
-export default props => {
-	const { t } = useTranslation();
-	const { userInfo } = useContext(userInfoContext);
-	const _isConvert = isConvert(userInfo.currencyId);
-	const isMountedRef = useRef(null);
-
-	useEffect(() => {
-		isMountedRef.current = true;
-		return () => (isMountedRef.current = false);
-	});
-
-	return (
-		<>
-			<section className="inside">
-				<div id="leftMenu"></div>
-				<div className="rightModule">
-					<div className="infoModule">
-						<div className="deposit-title icon icon-library">
-							<span>{t("lbl_Deposit")}</span>
-							<div>{t("lbl_DepositOptionHint")}</div>
-						</div>
-						<div className="slipInfo">
-							<button className="icon icon-arrow-left2"></button>
-							<div className="smallList">
-								<ul>
-									<li>
-										{t("lbl_Date")} ({moment().format("Z")})
-									</li>
-									<li>
-										{moment(props.datas.depositTime).format(
-											"YYYY/MM/DD HH:mm:ss A"
-										)}
-									</li>
-									<li>{t("lbl_ID")}</li>
-									<li>{props.datas.transId}</li>
-									<li>{t("lbl_RealName")}</li>
-									<li>{props.datas.accountName}</li>
-									<li>{t("lbl_BankName")}</li>
-									<li>{props.datas.bankName}</li>
-									<li>{t("lbl_DepositAmount")}</li>
-									<li>{props.datas.amount}</li>
-								</ul>
-							</div>
-							<div className="subModuleList">
-								<div className="subModule">
-									<div className="subModuleBody column align-items-center">
-										<Module i18n={t} />
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
-		</>
-	);
-};
+import Loading from "../common/loading";
+import { defPopBoxType } from "../common/popBox";
 
 export class Module extends Component {
 	state = {
 		processing: false,
+		loading: false,
 		depositTime: this.props.depositTime ? this.props.depositTime : null,
 		refId: this.props.refId ? this.props.refId : "",
 		picFileName: this.props.picFileName ? this.props.picFileName : null,
@@ -111,6 +56,8 @@ export class Module extends Component {
 		};
 
 		if (files.length > 0) {
+			this.setState({ loading: true });
+
 			let formData = new FormData();
 			formData.append("TransId", this.props.transId);
 			formData.append("Receipt", files[0]);
@@ -118,18 +65,44 @@ export class Module extends Component {
 				res => {
 					if (this.isMountedRef) {
 						if (res.data.errorCode === 0) {
-							alert(this.props.i18n("lbl_UploadSuccess"));
+							const CloseSuccessAlert = () => {
+								this.props.setPopBox(prevS => ({
+									...prevS,
+									isOpen: true,
+									popBoxType: defPopBoxType.UploadBankSlip,
+									btnBar: prevS.prevBtnBar
+								}));
+							};
+
+							this.props.setPopBox(prevS => ({
+								...prevS,
+								isOpen: true,
+								popBoxType: defPopBoxType.Success,
+								prevBtnBar: prevS.btnBar,
+								btnBar: (
+									<div className="btnGroup">
+										<button
+											className="btn-cancel"
+											onClick={CloseSuccessAlert}>
+											{this.props.i18n("lbl_Close")}
+										</button>
+									</div>
+								)
+							}));
+							// alert(this.props.i18n("lbl_UploadSuccess"));
 							if (this.props.refreshDatas) {
 								this.props.refreshDatas();
 							}
 						} else {
 							alert(res.data.message);
 						}
+						this.setState({ loading: false });
 					}
 				},
 				err => {
 					if (this.isMountedRef) {
 						alert(this.datas.i18n("msg_ApiServerError"));
+						this.setState({ loading: false });
 					}
 				}
 			);
@@ -150,6 +123,8 @@ export class Module extends Component {
 			let bankSlip = this.props.bankSlip;
 
 			if (this.state.refId !== "") {
+				this.setState({ loading: true });
+
 				api_payment_SetDepositReceipt(
 					this.props.transId,
 					moment(this.state.depositTime).unix(),
@@ -167,7 +142,10 @@ export class Module extends Component {
 							} else if (this.props.backDeposit) {
 								this.props.backDeposit();
 							}
+
 							this.setState({ processing: false });
+							this.setState({ loading: false });
+
 							if (this.props.ClosePopBox) {
 								this.props.ClosePopBox();
 							}
@@ -177,6 +155,7 @@ export class Module extends Component {
 						if (this.isMountedRef) {
 							alert(this.props.i18n("msg_ApiServerError"));
 							this.setState({ processing: false });
+							this.setState({ loading: false });
 						}
 					}
 				);
@@ -189,7 +168,9 @@ export class Module extends Component {
 		}
 	};
 	render() {
-		return (
+		return this.loading ? (
+			<Loading />
+		) : (
 			<>
 				<span className="title">
 					{this.props.i18n("lbl_SubmitProof")}

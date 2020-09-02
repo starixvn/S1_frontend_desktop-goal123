@@ -2,13 +2,15 @@ import React, { useEffect, useState, useRef, useContext } from "react";
 import { api_payment_GetStatement } from "../service/api/payment";
 import { number_format, isConvert } from "../components/common/common";
 import { useTranslation } from "react-i18next";
-import { userInfoContext } from "../components/common/context";
+import { userInfoContext, popBoxContext } from "../components/common/context";
 import { Pagination } from "../components/common/pagination";
 import Wrapper from "../components/common/wrapper";
 import Layout from "../components/common/layout";
 import Filter from "../components/common/historyFilter";
 import moment from "moment";
 import LeftMenu from "../components/common/leftMenu";
+import Loading from "../components/common/loading";
+import { defPopBoxType } from "../components/common/popBox";
 
 export default () => {
 	return (
@@ -35,11 +37,13 @@ const initPagination = {
 const Content = () => {
 	const { t } = useTranslation();
 	const { userInfo } = useContext(userInfoContext);
+	const { setPopBox } = useContext(popBoxContext);
 	const _isConvert = isConvert(userInfo.currencyId);
 	const [getHistory, setGetHistory] = useState(null);
 	const [processing, setProcessing] = useState(false);
 	const [filterData, setFilterData] = useState(null);
 	const [pagination, setPagination] = useState(initPagination);
+	const [loading, setLoading] = useState(false);
 	const isMountedRef = useRef(null);
 
 	useEffect(() => {
@@ -48,6 +52,12 @@ const Content = () => {
 	});
 
 	const GetStatement = (transactionData, pageNumber) => {
+		setLoading(true);
+
+		const ClickClose = () => {
+			setPopBox({ isOpen: false });
+		};
+
 		api_payment_GetStatement({
 			...transactionData,
 			PageNumber: pageNumber
@@ -61,15 +71,43 @@ const Content = () => {
 							totalPages: res.data.totalPages
 						}));
 					} else {
-						alert(res.data.message);
+						setPopBox({
+							isOpen: true,
+							popBoxType: defPopBoxType.ErrorMsg,
+							message: res.data.message,
+							btnBar: (
+								<div className="btnGroup">
+									<button
+										className="btn-cancel"
+										onClick={ClickClose}>
+										{t("lbl_Close")}
+									</button>
+								</div>
+							)
+						});
 					}
 					setProcessing(false);
+					setLoading(false);
 				}
 			},
 			err => {
 				if (isMountedRef.current) {
-					alert(t("msg_ApiServerError"));
+					setPopBox({
+						isOpen: true,
+						popBoxType: defPopBoxType.ErrorMsg,
+						message: t("msg_ApiServerError"),
+						btnBar: (
+							<div className="btnGroup">
+								<button
+									className="btn-cancel"
+									onClick={ClickClose}>
+									{t("lbl_Close")}
+								</button>
+							</div>
+						)
+					});
 					setProcessing(false);
+					setLoading(false);
 				}
 			}
 		);
@@ -118,7 +156,9 @@ const Content = () => {
 		);
 	});
 
-	return (
+	return loading ? (
+		<Loading />
+	) : (
 		<div className="infoModule">
 			<div className="inside-title icon icon-icon32px_History">
 				<span>{t("lbl_Statement")}</span>

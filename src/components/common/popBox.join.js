@@ -86,17 +86,47 @@ const JoinPanel = () => {
 						});
 						setSiteCurrency(() => currencyArr);
 					} else {
-						alert(res.data.message);
+						setPopBox({
+							isOpen: true,
+							popBoxType: defPopBoxType.ErrorMsg,
+							message: res.data.message,
+							btnBar: (
+								<div className="btnGroup">
+									<button
+										className="btn-cancel"
+										onClick={ClickClose}>
+										{t("lbl_Close")}
+									</button>
+								</div>
+							)
+						});
 					}
 				}
 			},
 			err => {
 				if (isMountedRef.current) {
-					alert(t("msg_ApiServerError"));
+					setPopBox({
+						isOpen: true,
+						popBoxType: defPopBoxType.ErrorMsg,
+						message: t("msg_ApiServerError"),
+						btnBar: (
+							<div className="btnGroup">
+								<button
+									className="btn-cancel"
+									onClick={ClickClose}>
+									{t("lbl_Close")}
+								</button>
+							</div>
+						)
+					});
 				}
 			}
 		);
 	}, []);
+
+	const ClickClose = () => {
+		setPopBox({ isOpen: false });
+	};
 
 	const showPswHandler = () => {
 		setShowPsw(!showPsw);
@@ -209,7 +239,20 @@ const JoinPanel = () => {
 				},
 				err => {
 					if (isMountedRef.current) {
-						alert(t("msg_ApiServerError"));
+						setPopBox({
+							isOpen: true,
+							popBoxType: defPopBoxType.ErrorMsg,
+							message: t("msg_ApiServerError"),
+							btnBar: (
+								<div className="btnGroup">
+									<button
+										className="btn-cancel"
+										onClick={ClickClose}>
+										{t("lbl_Close")}
+									</button>
+								</div>
+							)
+						});
 					}
 				}
 			);
@@ -266,7 +309,20 @@ const JoinPanel = () => {
 				},
 				err => {
 					if (isMountedRef.current) {
-						alert(t("msg_ApiServerError"));
+						setPopBox({
+							isOpen: true,
+							popBoxType: defPopBoxType.ErrorMsg,
+							message: t("msg_ApiServerError"),
+							btnBar: (
+								<div className="btnGroup">
+									<button
+										className="btn-cancel"
+										onClick={ClickClose}>
+										{t("lbl_Close")}
+									</button>
+								</div>
+							)
+						});
 					}
 				}
 			);
@@ -383,7 +439,24 @@ const JoinPanel = () => {
 												...res_custInfo.data.data
 											};
 										} else {
-											alert(res_custInfo.data.message);
+											setPopBox({
+												isOpen: true,
+												popBoxType:
+													defPopBoxType.ErrorMsg,
+												message:
+													res_custInfo.data.message,
+												btnBar: (
+													<div className="btnGroup">
+														<button
+															className="btn-cancel"
+															onClick={
+																ClickClose
+															}>
+															{t("lbl_Close")}
+														</button>
+													</div>
+												)
+											});
 										}
 										setUserInfo(_user);
 										setPopBox({ isOpen: false });
@@ -391,7 +464,20 @@ const JoinPanel = () => {
 								},
 								err => {
 									if (isMountedRef.current) {
-										alert(t("msg_ApiServerError"));
+										setPopBox({
+											isOpen: true,
+											popBoxType: defPopBoxType.ErrorMsg,
+											message: t("msg_ApiServerError"),
+											btnBar: (
+												<div className="btnGroup">
+													<button
+														className="btn-cancel"
+														onClick={ClickClose}>
+														{t("lbl_Close")}
+													</button>
+												</div>
+											)
+										});
 										setPopBox({ isOpen: false });
 									}
 								}
@@ -421,13 +507,39 @@ const JoinPanel = () => {
 								};
 							});
 						} else {
-							alert(message);
+							setPopBox({
+								isOpen: true,
+								popBoxType: defPopBoxType.ErrorMsg,
+								message: message,
+								btnBar: (
+									<div className="btnGroup">
+										<button
+											className="btn-cancel"
+											onClick={ClickClose}>
+											{t("lbl_Close")}
+										</button>
+									</div>
+								)
+							});
 						}
 					}
 				},
 				err => {
 					if (isMountedRef.current) {
-						alert(t("msg_ApiServerError"));
+						setPopBox({
+							isOpen: true,
+							popBoxType: defPopBoxType.ErrorMsg,
+							message: t("msg_ApiServerError"),
+							btnBar: (
+								<div className="btnGroup">
+									<button
+										className="btn-cancel"
+										onClick={ClickClose}>
+										{t("lbl_Close")}
+									</button>
+								</div>
+							)
+						});
 					}
 				}
 			);

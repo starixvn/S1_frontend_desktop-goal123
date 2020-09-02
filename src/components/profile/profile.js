@@ -10,6 +10,7 @@ import { popBoxContext, userInfoContext } from "../common/context";
 import { getCountryCode } from "../common/common";
 import path from "../../path";
 import { Redirect } from "@reach/router";
+import Loading from "../common/loading";
 
 export default () => {
 	const { userInfo, setUserInfo } = useContext(userInfoContext);
@@ -17,6 +18,7 @@ export default () => {
 	const isMountedRef = useRef(null);
 	const { setPopBox } = useContext(popBoxContext);
 	const [redirectPath, setRedirectPath] = useState(null);
+	const [loading, setLoading] = useState(false);
 
 	const [nameValue, setNameValue] = useState("");
 	const [birthValue, setBirthValue] = useState("");
@@ -149,6 +151,12 @@ export default () => {
 	};
 
 	const submitProfile = () => {
+		setLoading(true);
+
+		const ClickClose = () => {
+			setPopBox({ isOpen: false });
+		};
+
 		let linkToDeposit = () => {
 			setRedirectPath(`/${userInfo.langId}/${path.deposit.root}`);
 		};
@@ -210,17 +218,34 @@ export default () => {
 							)
 						});
 					}
+					setLoading(false);
 				}
 			},
 			err => {
 				if (isMountedRef.current) {
-					alert(t("msg_ApiServerError"));
+					setPopBox({
+						isOpen: true,
+						popBoxType: defPopBoxType.ErrorMsg,
+						message: t("msg_ApiServerError"),
+						btnBar: (
+							<div className="btnGroup">
+								<button
+									className="btn-cancel"
+									onClick={ClickClose}>
+									{t("lbl_Close")}
+								</button>
+							</div>
+						)
+					});
+					setLoading(false);
 				}
 			}
 		);
 	};
 
-	return redirectPath === null ? (
+	return loading ? (
+		<Loading />
+	) : redirectPath === null ? (
 		<div className="infoModule">
 			<div className="inside-title icon icon-icon32px_Profile">
 				<span>{t("lbl_Profile")}</span>

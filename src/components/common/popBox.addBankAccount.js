@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-
 import { api_accountStrict_SetCustBankInfo } from "../../service/api/accountStrict";
 import { popBoxContext, userInfoContext } from "../common/context";
 import { defPopBoxType } from "../common/popBox";
@@ -22,7 +21,7 @@ const initTip = {
 
 export default ({ bankInfoSysList = [] }) => {
 	const { t } = useTranslation();
-	const { setPopBox } = useContext(popBoxContext);
+	const { popBox, setPopBox } = useContext(popBoxContext);
 	const { userInfo, setUserInfo } = useContext(userInfoContext);
 	const [userValue, setUserValue] = useState(initValue);
 	const [tip, setTip] = useState(initTip);
@@ -99,6 +98,10 @@ export default ({ bankInfoSysList = [] }) => {
 		return checked;
 	};
 
+	const ClickClose = () => {
+		setPopBox({ isOpen: false });
+	};
+
 	const ClickSubmit = () => {
 		let checked = checkAll();
 
@@ -132,13 +135,39 @@ export default ({ bankInfoSysList = [] }) => {
 								)
 							});
 						} else {
-							alert(res.data.message);
+							setPopBox({
+								isOpen: true,
+								popBoxType: defPopBoxType.ErrorMsg,
+								message: res.data.message,
+								btnBar: (
+									<div className="btnGroup">
+										<button
+											className="btn-cancel"
+											onClick={ClickClose}>
+											{t("lbl_Close")}
+										</button>
+									</div>
+								)
+							});
 						}
 					}
 				},
 				err => {
 					if (isMountedRef.current) {
-						alert(t("msg_ApiServerError"));
+						setPopBox({
+							isOpen: true,
+							popBoxType: defPopBoxType.ErrorMsg,
+							message: t("msg_ApiServerError"),
+							btnBar: (
+								<div className="btnGroup">
+									<button
+										className="btn-cancel"
+										onClick={ClickClose}>
+										{t("lbl_Close")}
+									</button>
+								</div>
+							)
+						});
 					}
 				}
 			);

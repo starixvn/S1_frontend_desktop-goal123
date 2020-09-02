@@ -2,8 +2,11 @@ import React, { useState, useContext, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { defActionType } from "./bankInfo.reducer";
 import { api_accountStrict_SetCustBankInfo } from "../../service/api/accountStrict";
+import { popBoxContext } from "../common/context";
 import config from "../../config";
 import Inputbox from "../common/inputbox";
+import Loading from "../common/loading";
+import { defPopBoxType } from "../common/popBox";
 
 export default ({
 	dispatch,
@@ -14,13 +17,19 @@ export default ({
 	reload
 }) => {
 	const { t } = useTranslation();
+	const { setPopBox } = useContext(popBoxContext);
 	const [tip, setTip] = useState({ accountName: "", accountNumber: "" });
+	const [loading, setLoading] = useState(false);
 	const isMountedRef = useRef(null);
 
 	useEffect(() => {
 		isMountedRef.current = true;
 		return () => (isMountedRef.current = false);
 	});
+
+	const ClickClose = () => {
+		setPopBox({ isOpen: false });
+	};
 
 	const toLastStep = () => {
 		dispatch({ type: defActionType.TO_LAST_STEP });
@@ -63,6 +72,7 @@ export default ({
 		let _accountNumber = checkAccount(accountNumber, "accountNumber");
 
 		if (_accountNumber.checked && _accountName.checked) {
+			setLoading(true);
 			api_accountStrict_SetCustBankInfo({
 				AccountName: accountName,
 				AccountNo: accountNumber,
@@ -73,13 +83,41 @@ export default ({
 						if (res.data.errorCode === 0) {
 							reload(!alreadyHasAccountName);
 						} else {
-							alert(res.data.message);
+							setPopBox({
+								isOpen: true,
+								popBoxType: defPopBoxType.ErrorMsg,
+								message: res.data.message,
+								btnBar: (
+									<div className="btnGroup">
+										<button
+											className="btn-cancel"
+											onClick={ClickClose}>
+											{t("lbl_Close")}
+										</button>
+									</div>
+								)
+							});
 						}
+						setLoading(false);
 					}
 				},
 				err => {
 					if (isMountedRef.current) {
-						alert(t("msg_ApiServerError"));
+						setPopBox({
+							isOpen: true,
+							popBoxType: defPopBoxType.ErrorMsg,
+							message: t("msg_ApiServerError"),
+							btnBar: (
+								<div className="btnGroup">
+									<button
+										className="btn-cancel"
+										onClick={ClickClose}>
+										{t("lbl_Close")}
+									</button>
+								</div>
+							)
+						});
+						setLoading(false);
 					}
 				}
 			);
@@ -91,7 +129,9 @@ export default ({
 		}
 	};
 
-	return (
+	return loading ? (
+		<Loading />
+	) : (
 		<>
 			<div className="platformName">
 				<div className="icon icon-arrow-right2"></div>

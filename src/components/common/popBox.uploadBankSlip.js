@@ -24,7 +24,12 @@ export default props => {
 
 	return (
 		<div className="upload active">
-			<Module i18n={t} {...props} ClosePopBox={ClosePopBox} />
+			<Module
+				i18n={t}
+				{...props}
+				ClosePopBox={ClosePopBox}
+				setPopBox={setPopBox}
+			/>
 		</div>
 	);
 };

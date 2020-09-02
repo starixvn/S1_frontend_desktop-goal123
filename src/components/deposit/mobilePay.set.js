@@ -21,11 +21,13 @@ import {
 	defModule,
 	defActionType
 } from "./mobilePay.reducer";
+import Loading from "../common/loading";
 
 export default () => {
 	const { t } = useTranslation();
 	const [redirectPath, setRedirectPath] = useState(null);
 	const { userInfo } = useContext(userInfoContext);
+	const [loading, setLoading] = useState(true);
 	const isMountedRef = useRef(null);
 	const [state, dispatch] = useReducer(reducer, initState);
 
@@ -54,10 +56,12 @@ export default () => {
 								channelList: res.data.data
 							});
 						}
+						setLoading(false);
 					}
 				},
 				err => {
 					if (isMountedRef.current) {
+						setLoading(false);
 					}
 				}
 			);
@@ -104,7 +108,9 @@ export default () => {
 		dispatch({ type: defActionType.CLICK_BACK });
 	};
 
-	return redirectPath === null ? (
+	return loading ? (
+		<Loading />
+	) : redirectPath === null ? (
 		<DepositWrapper step={state.step}>
 			<div className="platformName">
 				<div className={`icon icon-${gName}`}></div>

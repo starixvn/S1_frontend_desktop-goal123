@@ -20,6 +20,7 @@ import { isConvert } from "../common/common";
 import StepBar from "../common/stepBar";
 import defStep from "../withdrawal/defStep";
 import { checkWithdrawalAmount } from "../common/common";
+import Loading from "../common/loading";
 
 export default step => {
 	const { t } = useTranslation();
@@ -39,6 +40,7 @@ export default step => {
 		status: null,
 		msg: ""
 	});
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
 		isMountedRef.current = true;
@@ -51,6 +53,8 @@ export default step => {
 	}, []);
 
 	const getKycStatus = () => {
+		setLoading(true);
+
 		api_payment_KycCheck().then(
 			res => {
 				if (isMountedRef.current) {
@@ -61,30 +65,75 @@ export default step => {
 					} else if (res.data.errorCode === 2) {
 						setKycStatus("kycPending");
 					}
+					setLoading(false);
 				}
 			},
 			err => {
 				if (isMountedRef.current) {
-					alert(t("msg_ApiServerError"));
+					setPopBox({
+						isOpen: true,
+						popBoxType: defPopBoxType.ErrorMsg,
+						message: t("msg_ApiServerError"),
+						btnBar: (
+							<div className="btnGroup">
+								<button
+									className="btn-cancel"
+									onClick={ClickClose}>
+									{t("lbl_Close")}
+								</button>
+							</div>
+						)
+					});
+					setLoading(false);
 				}
 			}
 		);
 	};
 
 	const getApiBalance = () => {
+		setLoading(true);
+
 		api_account_GetWithdrawalAvailableBalance().then(
 			res => {
 				if (isMountedRef.current) {
 					if (res.data.errorCode === 0) {
 						setBalanceData(res.data.data);
 					} else {
-						alert(res.data.message);
+						setPopBox({
+							isOpen: true,
+							popBoxType: defPopBoxType.ErrorMsg,
+							message: res.data.message,
+							btnBar: (
+								<div className="btnGroup">
+									<button
+										className="btn-cancel"
+										onClick={ClickClose}>
+										{t("lbl_Close")}
+									</button>
+								</div>
+							)
+						});
 					}
+					setLoading(false);
 				}
 			},
 			err => {
 				if (isMountedRef.current) {
-					alert(t("msg_ApiServerError"));
+					setPopBox({
+						isOpen: true,
+						popBoxType: defPopBoxType.ErrorMsg,
+						message: t("msg_ApiServerError"),
+						btnBar: (
+							<div className="btnGroup">
+								<button
+									className="btn-cancel"
+									onClick={ClickClose}>
+									{t("lbl_Close")}
+								</button>
+							</div>
+						)
+					});
+					setLoading(false);
 				}
 			}
 		);
@@ -248,13 +297,28 @@ export default step => {
 			},
 			err => {
 				if (isMountedRef.current) {
-					alert(t("msg_ApiServerError"));
+					setPopBox({
+						isOpen: true,
+						popBoxType: defPopBoxType.ErrorMsg,
+						message: t("msg_ApiServerError"),
+						btnBar: (
+							<div className="btnGroup">
+								<button
+									className="btn-cancel"
+									onClick={ClickClose}>
+									{t("lbl_Close")}
+								</button>
+							</div>
+						)
+					});
 				}
 			}
 		);
 	};
 
-	return (
+	return loading ? (
+		<Loading />
+	) : (
 		<>
 			{kycStatus !== "normal" ? (
 				<>

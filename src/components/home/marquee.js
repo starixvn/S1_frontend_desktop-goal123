@@ -1,17 +1,31 @@
 import React, { Component, useContext, createRef } from "react";
 import { useTranslation } from "react-i18next";
 import { api_message_GetAnnouncement } from "../../service/api/message";
-import { userInfoContext } from "../common/context";
+import { userInfoContext, popBoxContext } from "../common/context";
 import { GET_LANG_ID } from "../../service/language";
 import { Redirect } from "@reach/router";
+import { defPopBoxType } from "../common/popBox";
 import path from "../../path";
 
 export default () => {
 	const { t } = useTranslation();
 	const { userInfo } = useContext(userInfoContext);
+	const { setPopBox } = useContext(popBoxContext);
 	let langId = GET_LANG_ID(userInfo.langId);
 
-	return <Marquee langId={langId} i18n={t} isLogin={userInfo.isLogin} />;
+	const ClickClose = () => {
+		setPopBox({ isOpen: false });
+	};
+
+	return (
+		<Marquee
+			langId={langId}
+			i18n={t}
+			isLogin={userInfo.isLogin}
+			setPopBox={setPopBox}
+			ClickClose={ClickClose}
+		/>
+	);
 };
 
 class Marquee extends Component {
@@ -109,13 +123,39 @@ class Marquee extends Component {
 							datas: res.data.data
 						});
 					} else {
-						alert(res.data.message);
+						this.props.setPopBox({
+							isOpen: true,
+							popBoxType: defPopBoxType.ErrorMsg,
+							message: res.data.message,
+							btnBar: (
+								<div className="btnGroup">
+									<button
+										className="btn-cancel"
+										onClick={this.props.ClickClose}>
+										{this.props.i18n("lbl_Close")}
+									</button>
+								</div>
+							)
+						});
 					}
 				}
 			},
 			err => {
 				if (this.isMountedRef) {
-					alert(this.props.i18n("msg_ApiServerError"));
+					this.props.setPopBox({
+						isOpen: true,
+						popBoxType: defPopBoxType.ErrorMsg,
+						message: this.props.i18n("msg_ApiServerError"),
+						btnBar: (
+							<div className="btnGroup">
+								<button
+									className="btn-cancel"
+									onClick={this.props.ClickClose}>
+									{this.props.i18n("lbl_Close")}
+								</button>
+							</div>
+						)
+					});
 				}
 			}
 		);

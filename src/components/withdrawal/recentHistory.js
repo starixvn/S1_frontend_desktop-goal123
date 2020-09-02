@@ -11,6 +11,7 @@ import { isConvert } from "../common/common";
 import { defPopBoxType } from "../common/popBox";
 import path from "../../path";
 import { Link } from "@reach/router";
+import Loading from "../common/loading";
 
 export default props => {
 	const { t } = useTranslation();
@@ -18,6 +19,7 @@ export default props => {
 	const { setPopBox } = useContext(popBoxContext);
 	const _isConvert = isConvert(userInfo.currencyId);
 	const [getHistory, setGetHistory] = useState(null);
+	const [loading, setLoading] = useState(true);
 	const isMountedRef = useRef(null);
 
 	useEffect(() => {
@@ -29,20 +31,54 @@ export default props => {
 		GetWithdrawalInfoRecent();
 	}, []);
 
+	const ClickClose = () => {
+		setPopBox({ isOpen: false });
+	};
+
 	const GetWithdrawalInfoRecent = () => {
+		setLoading(true);
+
 		api_payment_GetWithdrawalInfoRecent().then(
 			res => {
 				if (isMountedRef.current) {
 					if (res.data.errorCode === 0) {
 						setGetHistory(res.data.data);
 					} else {
-						alert(res.data.message);
+						setPopBox({
+							isOpen: true,
+							popBoxType: defPopBoxType.ErrorMsg,
+							message: res.data.message,
+							btnBar: (
+								<div className="btnGroup">
+									<button
+										className="btn-cancel"
+										onClick={ClickClose}>
+										{t("lbl_Close")}
+									</button>
+								</div>
+							)
+						});
 					}
+					setLoading(false);
 				}
 			},
 			err => {
 				if (isMountedRef.current) {
-					alert(t("msg_ApiServerError"));
+					setPopBox({
+						isOpen: true,
+						popBoxType: defPopBoxType.ErrorMsg,
+						message: t("msg_ApiServerError"),
+						btnBar: (
+							<div className="btnGroup">
+								<button
+									className="btn-cancel"
+									onClick={ClickClose}>
+									{t("lbl_Close")}
+								</button>
+							</div>
+						)
+					});
+					setLoading(false);
 				}
 			}
 		);
@@ -54,6 +90,8 @@ export default props => {
 		};
 
 		const ClickConfirm = () => {
+			setLoading(true);
+
 			setPopBox({ isOpen: false });
 			api_payment_SetWithdrawalCancel(transId).then(
 				res => {
@@ -68,13 +106,41 @@ export default props => {
 								return newData;
 							});
 						} else {
-							alert(res.data.message);
+							setPopBox({
+								isOpen: true,
+								popBoxType: defPopBoxType.ErrorMsg,
+								message: res.data.message,
+								btnBar: (
+									<div className="btnGroup">
+										<button
+											className="btn-cancel"
+											onClick={ClickClose}>
+											{t("lbl_Close")}
+										</button>
+									</div>
+								)
+							});
 						}
+						setLoading(false);
 					}
 				},
 				err => {
 					if (isMountedRef.current) {
-						alert(t("msg_ApiServerError"));
+						setPopBox({
+							isOpen: true,
+							popBoxType: defPopBoxType.ErrorMsg,
+							message: t("msg_ApiServerError"),
+							btnBar: (
+								<div className="btnGroup">
+									<button
+										className="btn-cancel"
+										onClick={ClickClose}>
+										{t("lbl_Close")}
+									</button>
+								</div>
+							)
+						});
+						setLoading(false);
 					}
 				}
 			);
@@ -109,7 +175,9 @@ export default props => {
 		);
 	});
 
-	return (
+	return loading ? (
+		<Loading />
+	) : (
 		<>
 			<div className="list">
 				<div className="listHeader">

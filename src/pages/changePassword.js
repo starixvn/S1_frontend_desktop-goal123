@@ -7,6 +7,7 @@ import Wrapper from "../components/common/wrapper";
 import Layout from "../components/common/layout";
 import LeftMenu from "../components/common/leftMenu";
 import Inputbox from "../components/common/inputbox.password";
+import Loading from "../components/common/loading";
 
 export default () => {
 	return (
@@ -46,6 +47,7 @@ const Content = () => {
 	const [userPsw, setUserPsw] = useState(initPsw);
 	const [warning, setWarning] = useState(initWarning);
 	const [showPsw, setShowPsw] = useState(initShowPsw);
+	const [loading, setLoading] = useState(false);
 	const isMountedRef = useRef(null);
 
 	useEffect(() => {
@@ -104,6 +106,8 @@ const Content = () => {
 		};
 
 		if (_oldPsw.checked && _newPsw.checked) {
+			setLoading(true);
+
 			api_account_ChangePassword({
 				OldPassword: userPsw.oldPsw,
 				NewPassword: userPsw.newPsw
@@ -128,7 +132,7 @@ const Content = () => {
 						} else {
 							setPopBox({
 								isOpen: true,
-								popBoxType: defPopBoxType.ChangePsw,
+								popBoxType: defPopBoxType.ErrorMsg,
 								message: res.data.message,
 								btnBar: (
 									<div className="btnGroup">
@@ -141,6 +145,7 @@ const Content = () => {
 								)
 							});
 						}
+						setLoading(false);
 					}
 				},
 				err => {
@@ -159,6 +164,7 @@ const Content = () => {
 								</div>
 							)
 						});
+						setLoading(false);
 					}
 				}
 			);
@@ -170,16 +176,15 @@ const Content = () => {
 		}
 	};
 
-	return (
+	return loading ? (
+		<Loading />
+	) : (
 		<div className="infoModule">
 			<div className="inside-title icon icon-icon32px_password">
 				<span>{t("lbl_ChangePassword")}</span>
 				<div>{t("lbl_ChangePasswordHint")}</div>
 			</div>
 			<form className="changePassWord" onSubmit={clickSubmit}>
-				{/* <div className="lastChange">
-							Last Change<span>JUN 10,2020 4:15 PM</span>
-						</div> */}
 				<Inputbox
 					inputType={showPsw.oldPsw ? "text" : "password"}
 					title={t("lbl_OldPassword")}
