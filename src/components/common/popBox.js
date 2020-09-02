@@ -61,7 +61,9 @@ export default () => {
 			break;
 
 		case defPopBoxType.AddBankAccount:
-			content = <AddBankAccount />;
+			content = (
+				<AddBankAccount bankInfoSysList={popBox.bankInfoSysList} />
+			);
 			break;
 
 		case defPopBoxType.AddBankSuccess:
@@ -99,9 +101,13 @@ export default () => {
 	}
 
 	return popBox.isOpen ? (
-		<div id="popup" className="active">
-			<div className="pop">{content}</div>
-		</div>
+		popBox.loading ? (
+			"Loading..."
+		) : (
+			<div id="popup" className="active">
+				<div className="pop">{content}</div>
+			</div>
+		)
 	) : (
 		<></>
 	);

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { api_payment_GetBankInfoSysList } from "../../service/api/payment";
+
 import { api_accountStrict_SetCustBankInfo } from "../../service/api/accountStrict";
 import { popBoxContext, userInfoContext } from "../common/context";
 import { defPopBoxType } from "../common/popBox";
@@ -20,11 +20,10 @@ const initTip = {
 	realName_after: ""
 };
 
-export default () => {
+export default ({ bankInfoSysList = [] }) => {
 	const { t } = useTranslation();
 	const { setPopBox } = useContext(popBoxContext);
 	const { userInfo, setUserInfo } = useContext(userInfoContext);
-	const [bankInfoSysList, setBankInfoSysList] = useState([]);
 	const [userValue, setUserValue] = useState(initValue);
 	const [tip, setTip] = useState(initTip);
 	const isMountedRef = useRef(null);
@@ -34,33 +33,7 @@ export default () => {
 		return () => (isMountedRef.current = false);
 	});
 
-	useEffect(() => {
-		api_payment_GetBankInfoSysList().then(
-			res => {
-				if (isMountedRef.current) {
-					if (res.data.errorCode === 0) {
-						const datas = res.data.data;
-						let bankInfoArr = datas.map((item, i) => {
-							return {
-								id: i,
-								sysId: item.sysId,
-								displayText: item.bankName,
-								image: item.bankLogo
-							};
-						});
-						setBankInfoSysList(bankInfoArr);
-					} else {
-						alert(res.data.message);
-					}
-				}
-			},
-			err => {
-				if (isMountedRef.current) {
-					alert(t("msg_ApiServerError"));
-				}
-			}
-		);
-	}, []);
+	useEffect(() => {}, []);
 
 	const onSelectItem = i => {
 		setUserValue(prev => ({ ...prev, bankId: i }));
