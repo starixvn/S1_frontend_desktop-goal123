@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { popBoxContext } from "./context";
 import Cancel from "./popBox.cancel";
 import UploadBankSlip from "./popBox.uploadBankSlip";
@@ -13,6 +13,7 @@ import ProfileConfirmCheck from "./popBox.profileConfirmCheck";
 import ProfileCompelete from "./popBox.profileCompelete";
 import ChangePsw from "./popBox.changePsw";
 import LogoutHint from "./popBox.logoutHint";
+import Loading from "./loading";
 
 export const defPopBoxType = {
 	Cancel: "Cancel",
@@ -105,9 +106,13 @@ export default () => {
 	}
 
 	return popBox.isOpen ? (
-		<div id="popup" className="active">
-			<div className="pop">{content}</div>
-		</div>
+		popBox.loading ? (
+			<Loading />
+		) : (
+			<div id="popup" className="active">
+				<div className="pop">{content}</div>
+			</div>
+		)
 	) : (
 		<></>
 	);

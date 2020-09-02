@@ -22,7 +22,7 @@ const initTip = {
 
 export default () => {
 	const { t } = useTranslation();
-	const { setPopBox } = useContext(popBoxContext);
+	const { popBox, setPopBox } = useContext(popBoxContext);
 	const { userInfo, setUserInfo } = useContext(userInfoContext);
 	const [bankInfoSysList, setBankInfoSysList] = useState([]);
 	const [userValue, setUserValue] = useState(initValue);
@@ -35,6 +35,7 @@ export default () => {
 	});
 
 	useEffect(() => {
+		setPopBox(prev => ({ ...prev, loading: true }));
 		api_payment_GetBankInfoSysList().then(
 			res => {
 				if (isMountedRef.current) {
@@ -52,11 +53,13 @@ export default () => {
 					} else {
 						alert(res.data.message);
 					}
+					setPopBox(prev => ({ ...prev, loading: false }));
 				}
 			},
 			err => {
 				if (isMountedRef.current) {
 					alert(t("msg_ApiServerError"));
+					setPopBox(prev => ({ ...prev, loading: false }));
 				}
 			}
 		);

@@ -9,6 +9,7 @@ export default props => {
 
 	const openPopBox = () => {
 		setPopBox({
+			loading: false,
 			isOpen: true,
 			popBoxType: defPopBoxType.AddBankAccount,
 			refresh: false
