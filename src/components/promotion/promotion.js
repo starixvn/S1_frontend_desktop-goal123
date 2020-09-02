@@ -78,7 +78,11 @@ export default () => {
 			PromoCategoryId: categoryId
 		}).then(
 			res => {
-				if (isMountedRef.current && res.data.errorCode === 0) {
+				if (
+					isMountedRef.current &&
+					res.data.errorCode === 0 &&
+					res.data.data
+				) {
 					let idx = initPromoList.findIndex(
 						x =>
 							x.bonusCode === bonusCode &&

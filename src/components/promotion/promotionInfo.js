@@ -29,42 +29,46 @@ export default () => {
 	useEffect(() => {
 		if (userInfo.isLogin !== null) {
 			let _bonusCode = getUrlParameter("bonusCode");
-			api_promotion_GetPromotionDetail({
-				langId: userInfo.langId,
-				BonusCode: _bonusCode
-			}).then(
-				res => {
-					if (isMountedRef.current) {
-						if (res.data.errorCode === 0) {
-							setPromotionInfo(res.data.data);
-						} else {
-							alert(res.data.message);
-						}
-					}
-				},
-				err => {
-					if (isMountedRef.current) {
-						alert(t("msg_ApiServerError"));
-					}
-				}
-			);
+			GetPromotionDetail(userInfo.langId, _bonusCode);
 		}
 	}, [userInfo.isLogin, userInfo.langId]);
 
-	const onJoinPromotion = () => {
+	const GetPromotionDetail = (langId, _bonusCode) => {
+		api_promotion_GetPromotionDetail({
+			langId: langId,
+			BonusCode: _bonusCode
+		}).then(
+			res => {
+				if (isMountedRef.current) {
+					if (res.data.errorCode === 0) {
+						setPromotionInfo(res.data.data);
+					} else {
+						alert(res.data.message);
+					}
+				}
+			},
+			err => {
+				if (isMountedRef.current) {
+					alert(t("msg_ApiServerError"));
+				}
+			}
+		);
+	};
+
+	const onJoinPromotion = _promo => {
 		if (userInfo.isLogin === false) {
 			setPopBox({
 				isOpen: true,
 				popBoxType: defPopBoxType.Login
 			});
 		} else {
-			let _bonusCode = getUrlParameter("bonusCode");
 			api_promotion_SetClaimPromotion({
 				langId: userInfo.langId,
-				BonusCode: _bonusCode
+				BonusCode: _promo.bonusCode
 			}).then(
 				res => {
 					if (isMountedRef.current && res.data.errorCode === 0) {
+						GetPromotionDetail(userInfo.langId, _promo.bonusCode);
 						const ClosePopBox = () => {
 							setPopBox({
 								isOpen: false
@@ -100,7 +104,11 @@ export default () => {
 			PromoCategoryId: categoryId
 		}).then(
 			res => {
-				if (isMountedRef.current && res.data.errorCode === 0) {
+				if (
+					isMountedRef.current &&
+					res.data.errorCode === 0 &&
+					res.data.data
+				) {
 					setPromotionInfo(prevS => ({
 						...prevS,
 						custRollOver: res.data.data.rollover,
@@ -151,7 +159,10 @@ export default () => {
 							<div className="btnGroup">
 								<button
 									className="btn-check"
-									onClick={onJoinPromotion}>
+									onClick={onJoinPromotion.bind(
+										this,
+										promotionInfo
+									)}>
 									{t("lbl_JoinNow")}
 								</button>
 							</div>
