@@ -488,7 +488,7 @@ header .header > div.function .country .countryList {
   display: none;
   position: absolute;
   margin-top: 39px;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.8);
   border-radius: 10px;
   padding: 0 10px;
   width: 95px;
@@ -527,7 +527,7 @@ header .header > div.function .cashier .submenu, header .header > div.function .
   display: none;
   position: absolute;
   margin-top: 30px;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.8);
   border-radius: 15px;
   padding: 15px;
   -webkit-box-orient: vertical;
@@ -1495,6 +1495,7 @@ input[type="file"] {
   font-size: 12px;
   padding: 0 10px;
   width: 100%;
+  color: #c6c6c6;
 }
 
 .Terms {
@@ -1644,6 +1645,10 @@ main > .swiper-container .swiper-slide {
 
 .quickLink a img {
   width: auto;
+}
+
+.rightModule {
+  width: 100%;
 }
 
 #leftMenu {
@@ -2124,6 +2129,7 @@ main > .swiper-container .swiper-slide {
   border-radius: 5px;
   background: rgba(29, 54, 98, 0.7);
   margin-bottom: 10px;
+  padding-bottom: 10px;
 }
 
 .infoModule > button.icon-arrow-left2 {
@@ -2228,12 +2234,16 @@ main > .swiper-container .swiper-slide {
 .subModuleList .subModule .subModuleTitle div span {
   white-space: nowrap;
   color: white;
+  font-weight: normal;
+}
+
+.subModuleList .subModule .subModuleTitle div span:first-child {
+  color: #fab617;
 }
 
 .subModuleList .subModule .subModuleTitle div span:last-child {
-  color: #c6c6c6;
+  color: #f73201;
   font-size: 12px;
-  font-weight: normal;
 }
 
 .subModuleList .subModule .subModuleBody {
@@ -2382,6 +2392,12 @@ main > .swiper-container .swiper-slide {
   -webkit-box-align: end;
       -ms-flex-align: end;
           align-items: flex-end;
+}
+
+.platformName + div.subModuleList .subModuleBody > div.buttonBox {
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
 }
 
 .platformName + div.subModuleList .subModuleBody > div > .bankName {
@@ -3946,7 +3962,8 @@ main > .swiper-container .swiper-slide {
       -ms-flex-pack: justify;
           justify-content: space-between;
   float: left;
-  margin-right: 10px;
+  margin: 15px 5px;
+  max-width: 330px;
 }
 
 .proList > div:hover {
@@ -4219,6 +4236,7 @@ iframe {
   margin: auto;
   height: 100%;
   min-height: 860px;
+  max-width: 1366px;
 }
 
 .loading {
@@ -4451,5 +4469,61 @@ iframe {
 
 pre {
   color: #666;
+}
+
+.bankLogo img {
+  background: white;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0px 1000px #030c1b inset;
+          box-shadow: 0 0 0px 1000px #030c1b inset;
+  -webkit-text-fill-color: white;
+}
+
+.buttonBox {
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.buttonBox button {
+  margin: 5px;
+  max-width: 140px;
+}
+
+.buttonBox button .icon {
+  display: none;
+  margin-left: 5px;
+  background: white;
+  color: #1E85EC;
+  border-radius: 100%;
+  padding: 1px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.buttonBox button.active {
+  background: #134DAE;
+}
+
+.buttonBox button.active .icon {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.mobileAmount {
+  margin-top: 30px;
+}
+
+.mobileAmount span {
+  margin-right: 5px;
 }
 /*# sourceMappingURL=style.css.map */

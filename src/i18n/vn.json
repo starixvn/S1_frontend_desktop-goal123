@@ -218,5 +218,8 @@
   "PromotionCategory1":"NẠP LẦN ĐẦU",
   "lbl_Freebet":"Freebet",
   "lbl_Expried":"Expried",
-  "lbl_Req":"Yêu cầu"
+  "lbl_Req":"Yêu cầu",
+  "lbl_Expired":"Expired",
+  "lbl_FreeBet":"FreeBet",
+	"lbl_PromotionsDesc":"Promotions Description"
 }

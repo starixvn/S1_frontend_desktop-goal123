@@ -5,15 +5,30 @@ export const isExpiry = ({
 	periodTo,
 	custExpiryTime,
 	isLogin,
-	status,
-	isJoin
+	isJoin,
+	status
 }) => {
 	let bonusExpiry = false;
 	if (isLogin && isJoin) {
 		bonusExpiry =
-			status === promoStatus.Expiry ||
-			moment(moment.unix(custExpiryTime)).isBefore(new moment());
+			moment(moment.unix(custExpiryTime)).isBefore(new moment()) ||
+			(status !== promoStatus.running &&
+				status !== promoStatus.TransferOut);
 	}
 
 	return moment(moment.unix(periodTo)).isBefore(new moment()) || bonusExpiry;
+};
+
+export const isNew = ({ periodFrom }) => {
+	return moment(moment.unix(periodFrom)).isAfter(
+		new moment().add(-14, "days")
+	);
+};
+
+export const isClaimed = ({ isJoin, status }) => {
+	return (
+		isJoin ||
+		status === promoStatus.running ||
+		status === promoStatus.TransferOut
+	);
 };

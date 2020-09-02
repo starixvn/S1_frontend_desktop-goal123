@@ -1,7 +1,16 @@
 import React from "react";
 import { number_format } from "../common/common";
 
-export default ({ custRollOver, custTurnOver, isJoin, t, currency }) => {
+export default ({
+	custRollOver,
+	custTurnOver,
+	isJoin,
+	t,
+	currency,
+	RefreshProcessBar,
+	_isConvert,
+	hideReloadBtn
+}) => {
 	if (isJoin) {
 		let percentage =
 			custTurnOver > custRollOver
@@ -14,11 +23,15 @@ export default ({ custRollOver, custTurnOver, isJoin, t, currency }) => {
 				<div className="turnover">
 					<span>
 						{t(`Currency_${currency}`)}{" "}
-						{number_format(custTurnOver)}
+						{number_format(custTurnOver, _isConvert)}
 					</span>{" "}
 					/ ({t("lbl_Req")} {t(`Currency_${currency}`)}{" "}
-					{number_format(custRollOver)})
-					<button className="icon icon-spinner11"></button>
+					{number_format(custRollOver, _isConvert)})
+					{hideReloadBtn ? null : (
+						<button
+							className="icon icon-spinner11"
+							onClick={RefreshProcessBar}></button>
+					)}
 				</div>
 				<div className="progressBar">
 					<div className="bar">

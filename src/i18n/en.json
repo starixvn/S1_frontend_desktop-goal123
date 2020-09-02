@@ -262,5 +262,8 @@
 	"PromotionCategory1": "FIRST DEPOSIT",
 	"lbl_Freebet": "Freebet",
 	"lbl_Expried": "Expried",
-	"lbl_Req": "Req."
+	"lbl_Req": "Req.",
+	"lbl_Expired":"Expired",
+	"lbl_FreeBet":"FreeBet",
+	"lbl_PromotionsDesc":"Promotions Description"
 }

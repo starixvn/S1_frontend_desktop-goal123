@@ -5,25 +5,28 @@ import path from "../../path";
 import ProcessBar from "./promotion.processBar";
 import { defFilterType } from "./promotion.nav";
 import { promoStatus } from "./promotion.def";
+import { isNew, isClaimed, isExpiry } from "./promotion.common";
+import { isConvert } from "../common/common";
 
-const isNew = periodFrom => {
-	return moment(moment.unix(periodFrom)).isAfter(
-		new moment().add(-14, "days")
-	);
-};
-
-export default ({ promoList, t, langId, currency, filter }) => {
+export default ({
+	promoList,
+	t,
+	langId,
+	currency,
+	filter,
+	RefreshProcessBar,
+	isLogin
+}) => {
+	let _isConvert = isConvert(currency);
 	let rows = promoList?.map(p => {
-		let _isNew =
-			p.isJoin || p.status === promoStatus.running
-				? false
-				: isNew(p.periodFrom);
+		let _isClaimed = isClaimed(p);
+		let _isNew = _isClaimed ? false : isNew(p);
+
 		return (
 			<div
 				key={`promotion.list-${p.bonusCode}-${p.categoryId}-${p.tpId}`}
-				className={
-					p.isJoin || p.status === promoStatus.running ? "active" : ""
-				}>
+				className={_isClaimed ? "active" : ""}>
+				{_isClaimed ? <div className="claimed"></div> : null}
 				{filter === defFilterType.expiry ? (
 					<div className="expiredIcon">EXPIRED</div>
 				) : (
@@ -31,10 +34,17 @@ export default ({ promoList, t, langId, currency, filter }) => {
 				)}
 				<img src={p.banner} alt={p.title} />
 				<div className="txt-darkBlue">{p.title}</div>
-				<div className="txt-dark">Promotions Description</div>
+				<div className="txt-dark">{t("lbl_PromotionsDesc")}</div>
 				<div className="txt-gray">{p.description}</div>
 				<PromoRule t={t} {...p} />
-				<ProcessBar t={t} {...p} currency={currency} />
+				<ProcessBar
+					{...p}
+					t={t}
+					_isConvert={_isConvert}
+					currency={currency}
+					RefreshProcessBar={RefreshProcessBar.bind(this, p)}
+					hideReloadBtn={isExpiry({ ...p, isLogin: isLogin })}
+				/>
 				<Link
 					className="btnGroup"
 					to={`/${langId}/${path.promotion.root}/${path.promotion.sub.promotionInfo.root}?BonusCode=${p.bonusCode}`}>
@@ -44,17 +54,15 @@ export default ({ promoList, t, langId, currency, filter }) => {
 		);
 	});
 
-	return (
+	return rows && rows.length > 0 ? (
 		<div
 			className={`proList${
 				filter === defFilterType.expiry ? " expired" : ""
 			}`}>
-			{rows && rows.length > 0 ? (
-				rows
-			) : (
-				<div className="nodata">{t("msg_NoData")}</div>
-			)}
+			{rows}
 		</div>
+	) : (
+		<div className="nodata">{t("msg_NoData")}</div>
 	);
 };
 
