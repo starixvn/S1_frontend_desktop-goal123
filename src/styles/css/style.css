@@ -368,6 +368,14 @@ header .header > div.menu .livecasinoList .liveSA:hover {
   background: url(../img/liveSA_a.png) no-repeat center 0px/auto 100%;
 }
 
+header .header > div.menu .livecasinoList .liveAE {
+  background: url(../img/liveAE.png) no-repeat center 10px/auto 100%;
+}
+
+header .header > div.menu .livecasinoList .liveAE:hover {
+  background: url(../img/liveAE_a.png) no-repeat center 0px/auto 100%;
+}
+
 header .header > div.function {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -491,12 +499,12 @@ header .header > div.function .country .countryList {
   background: rgba(0, 0, 0, 0.8);
   border-radius: 10px;
   padding: 0 10px;
-  width: 95px;
+  width: 105px;
   margin-left: -5px;
   left: 0;
 }
 
-header .header > div.function .country .countryList button {
+header .header > div.function .country .countryList button, header .header > div.function .country .countryList a {
   margin: 10px 0;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -3694,6 +3702,10 @@ main > .swiper-container .swiper-slide {
   margin: 0 auto;
 }
 
+.announcement pre, .personal pre {
+  color: white;
+}
+
 .announcement .list .listHeader, .announcement .list .listBody, .personal .list .listHeader, .personal .list .listBody {
   padding: 10px 20px;
 }
@@ -3907,6 +3919,54 @@ main > .swiper-container .swiper-slide {
 
 .proList > div.active, .slotList > div.active, .newsList > div.active {
   opacity: 0.7;
+}
+
+.proList > div.active .claimed, .slotList > div.active .claimed, .newsList > div.active .claimed {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.proList > div .new, .proList > div .claimed, .slotList > div .new, .slotList > div .claimed, .newsList > div .new, .newsList > div .claimed {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  background: #fab617;
+  border-radius: 100%;
+  width: 50px;
+  height: 50px;
+  padding: 0;
+  color: white;
+  display: none;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-weight: bold;
+}
+
+.proList > div .new:before, .proList > div .claimed:before, .slotList > div .new:before, .slotList > div .claimed:before, .newsList > div .new:before, .newsList > div .claimed:before {
+  content: "NEW";
+}
+
+.proList > div .new.active, .proList > div .claimed.active, .slotList > div .new.active, .slotList > div .claimed.active, .newsList > div .new.active, .newsList > div .claimed.active {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.proList > div .claimed, .slotList > div .claimed, .newsList > div .claimed {
+  background: rgba(219, 44, 1, 0.8);
+  width: 75px;
+  height: 75px;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+
+.proList > div .claimed:before, .slotList > div .claimed:before, .newsList > div .claimed:before {
+  content: "CLAIMED";
 }
 
 .proList > div .txt-dark, .proList > div .txt-darkBlue, .slotList > div .txt-dark, .slotList > div .txt-darkBlue, .newsList > div .txt-dark, .newsList > div .txt-darkBlue {
@@ -4222,6 +4282,10 @@ article p {
   line-height: 18px;
   margin-bottom: 18px;
   letter-spacing: 1px;
+  color: #c6c6c6;
+}
+
+article pre {
   color: #c6c6c6;
 }
 

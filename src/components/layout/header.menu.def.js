@@ -130,6 +130,12 @@ export const defMenuLinks = {
 				icon: "icon icon-SA",
 				displayText: "SA",
 				menuType: defMenuType.entPage
+			},
+			{
+				className: "liveAE",
+				icon: "icon icon-AE",
+				displayText: "AE",
+				menuType: defMenuType.entPage
 			}
 		]
 	},
