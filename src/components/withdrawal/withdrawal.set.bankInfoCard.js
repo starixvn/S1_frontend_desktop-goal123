@@ -5,12 +5,14 @@ import { api_accountStrict_DelCustBankInfo } from "../../service/api/accountStri
 import config from "../../config";
 import { popBoxContext, userInfoContext } from "../common/context";
 import { defPopBoxType } from "../common/popBox";
+import Loading from "../common/loading";
 
 export default props => {
 	const [bankInfoList, setBankInfoList] = useState([]);
 	const [hasCheckedKey, setHasCheckedKey] = useState();
 	const { userInfo } = useContext(userInfoContext);
 	const { setPopBox } = useContext(popBoxContext);
+	const [loading, setLoading] = useState(true);
 	const isMountedRef = useRef(null);
 	const { t } = useTranslation();
 	const popBoxData = useContext(popBoxContext).popBox;
@@ -46,11 +48,13 @@ export default props => {
 							setBankInfoList(res.data.data.bankInfoDetail);
 						}
 					}
+					setLoading(false);
 				}
 			},
 			err => {
 				if (isMountedRef.current) {
 					//
+					setLoading(false);
 				}
 			}
 		);
@@ -91,26 +95,32 @@ export default props => {
 	};
 
 	const deleteCard = (sysId, accountNo) => {
+		setPopBox({ isOpen: false });
+		setLoading(true);
+
 		api_accountStrict_DelCustBankInfo({
 			AccountName: userInfo.accountName,
 			AccountNo: accountNo,
 			SysId: sysId
 		}).then(
 			res => {
-				if (res.data.errorCode === 0) {
-					setBankInfoList(
-						bankInfoList.filter(
-							item => item.accountNo !== accountNo
-						)
-					);
-					setPopBox({ isOpen: false });
-				} else {
-					alert(res.data.message);
+				if (isMountedRef.current) {
+					if (res.data.errorCode === 0) {
+						setBankInfoList(
+							bankInfoList.filter(
+								item => item.accountNo !== accountNo
+							)
+						);
+					} else {
+						alert(res.data.message);
+					}
+					setLoading(false);
 				}
 			},
 			err => {
 				if (isMountedRef.current) {
 					alert(t("msg_ApiServerError"));
+					setLoading(false);
 				}
 			}
 		);
@@ -120,7 +130,9 @@ export default props => {
 		let key = `withdrawal-banklist-${item.accountNo}`;
 		let checkKey = `${key}-check`;
 
-		return (
+		return loading ? (
+			<Loading />
+		) : (
 			<div className="addBankName" key={key}>
 				<div className="addBankInfo">
 					<div className="bankName">

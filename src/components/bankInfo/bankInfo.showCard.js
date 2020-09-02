@@ -1,13 +1,15 @@
-import React, { useEffect, useRef, useContext } from "react";
+import React, { useEffect, useRef, useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import config from "../../config";
 import { popBoxContext } from "../common/context";
 import { defPopBoxType } from "../common/popBox";
 import { api_accountStrict_DelCustBankInfo } from "../../service/api/accountStrict";
+import Loading from "../common/loading";
 
 export default ({ accountName, custBankList, reload }) => {
 	const { t } = useTranslation();
 	const { setPopBox } = useContext(popBoxContext);
+	const [loading, setLoading] = useState(false);
 	const isMountedRef = useRef(null);
 
 	useEffect(() => {
@@ -23,6 +25,11 @@ export default ({ accountName, custBankList, reload }) => {
 		};
 
 		const deleteCard = (sysId, accountNo) => {
+			setPopBox({
+				isOpen: false
+			});
+			setLoading(true);
+
 			api_accountStrict_DelCustBankInfo({
 				AccountName: accountName,
 				AccountNo: accountNo,
@@ -38,11 +45,13 @@ export default ({ accountName, custBankList, reload }) => {
 						} else {
 							alert(res.data.message);
 						}
+						setLoading(false);
 					}
 				},
 				err => {
 					if (isMountedRef.current) {
 						alert(t("msg_ApiServerError"));
+						setLoading(false);
 					}
 				}
 			);
@@ -90,7 +99,9 @@ export default ({ accountName, custBankList, reload }) => {
 			</div>
 		);
 	});
-	return (
+	return loading ? (
+		<Loading />
+	) : (
 		<>
 			{custBankList?.length > 0 ? (
 				<div className="infoModule">

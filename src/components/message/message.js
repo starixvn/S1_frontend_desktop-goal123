@@ -8,6 +8,7 @@ import MessageList from "./messageList";
 import { Pagination } from "../common/pagination";
 import { popBoxContext } from "../common/context";
 import { defPopBoxType } from "../common/popBox";
+import Loading from "../common/loading";
 
 export default () => {
 	const { t } = useTranslation();
@@ -20,6 +21,7 @@ export default () => {
 	const { setPopBox } = useContext(popBoxContext);
 	const [selectItems, setSelectItems] = useState([]);
 	const [isCheckAll, setIsCheckAll] = useState(false);
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
 		isMountedRef.current = true;
@@ -48,11 +50,13 @@ export default () => {
 					} else {
 						alert(res.data.message);
 					}
+					setLoading(false);
 				}
 			},
 			err => {
 				if (isMountedRef.current) {
 					alert(t("msg_ApiServerError"));
+					setLoading(false);
 				}
 			}
 		);
@@ -109,6 +113,9 @@ export default () => {
 	};
 
 	const deleteMessage = () => {
+		setPopBox({ isOpen: false });
+		setLoading(true);
+
 		api_account_DelMsg(selectItems).then(
 			res => {
 				if (isMountedRef.current) {
@@ -116,21 +123,24 @@ export default () => {
 						getMsgList(pagination.currentPage);
 						setSelectItems([]);
 						setIsCheckAll(false);
-						setPopBox({ isOpen: false });
 					} else {
 						alert(res.data.message);
 					}
+					setLoading(false);
 				}
 			},
 			err => {
 				if (isMountedRef.current) {
 					alert(t("msg_ApiServerError"));
+					setLoading(false);
 				}
 			}
 		);
 	};
 
-	return (
+	return loading ? (
+		<Loading />
+	) : (
 		<div className="infoModule">
 			<div className="inside-title icon icon-icon32px_openmail">
 				<span>{t("lbl_Message")}</span>

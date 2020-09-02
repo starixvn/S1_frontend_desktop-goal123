@@ -1,11 +1,13 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { defActionType } from "./bankInfo.reducer";
 import { api_payment_GetBankInfoSysList } from "../../service/api/payment";
 import config from "../../config";
+import Loading from "../common/loading";
 
 export default ({ dispatch, bankList }) => {
 	const { t } = useTranslation();
+	const [loading, setLoading] = useState(true);
 	const isMountedRef = useRef(null);
 
 	useEffect(() => {
@@ -25,11 +27,13 @@ export default ({ dispatch, bankList }) => {
 					} else {
 						alert(res.data.message);
 					}
+					setLoading(false);
 				}
 			},
 			err => {
 				if (isMountedRef.current) {
 					alert(t("msg_ApiServerError"));
+					setLoading(false);
 				}
 			}
 		);
@@ -56,7 +60,9 @@ export default ({ dispatch, bankList }) => {
 		);
 	});
 
-	return (
+	return loading ? (
+		<Loading />
+	) : (
 		<>
 			<div className="platformName">
 				<div className="icon icon-arrow-right2"></div>

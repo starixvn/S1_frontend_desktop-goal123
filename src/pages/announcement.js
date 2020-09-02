@@ -6,6 +6,7 @@ import Wrapper from "../components/common/wrapper";
 import Layout from "../components/common/layout";
 import LeftMenu from "../components/common/leftMenu";
 import moment from "moment";
+import Loading from "../components/common/loading";
 
 export default () => {
 	return (
@@ -28,6 +29,7 @@ const Content = () => {
 	const { t } = useTranslation();
 	const { userInfo } = useContext(userInfoContext);
 	const [getAnnouncement, setGetAnnouncement] = useState([]);
+	const [loading, setLoading] = useState(true);
 	const isMountedRef = useRef(null);
 
 	useEffect(() => {
@@ -44,11 +46,13 @@ const Content = () => {
 					} else {
 						alert(res.data.message);
 					}
+					setLoading(false);
 				}
 			},
 			err => {
 				if (isMountedRef.current) {
 					alert(t("msg_ApiServerError"));
+					setLoading(false);
 				}
 			}
 		);
@@ -76,7 +80,9 @@ const Content = () => {
 		);
 	});
 
-	return (
+	return loading ? (
+		<Loading />
+	) : (
 		<div className="infoModule">
 			<div className="inside-title icon icon-icon32px_openmail">
 				<span>{t("lbl_Announcement")}</span>

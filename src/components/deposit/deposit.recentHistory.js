@@ -11,6 +11,7 @@ import { isConvert, number_format } from "../common/common";
 import { defPopBoxType } from "../common/popBox";
 import path from "../../path";
 import { Link } from "@reach/router";
+import Loading from "../common/loading";
 
 export default () => {
 	const { t } = useTranslation();
@@ -18,6 +19,7 @@ export default () => {
 	const { setPopBox } = useContext(popBoxContext);
 	const _isConvert = isConvert(userInfo.currencyId);
 	const [getHistory, setGetHistory] = useState(null);
+	const [loading, setLoading] = useState(false);
 	const isMountedRef = useRef(null);
 
 	useEffect(() => {
@@ -30,6 +32,8 @@ export default () => {
 	}, []);
 
 	const GetRecentDatas = () => {
+		setLoading(true);
+
 		api_payment_GetDepositInfoRecent().then(
 			res => {
 				if (isMountedRef.current) {
@@ -38,11 +42,13 @@ export default () => {
 					} else {
 						alert(res.data.message);
 					}
+					setLoading(false);
 				}
 			},
 			err => {
 				if (isMountedRef.current) {
 					alert(t("msg_ApiServerError"));
+					setLoading(false);
 				}
 			}
 		);
@@ -80,6 +86,8 @@ export default () => {
 
 	const ClickCancel = transId => {
 		const ClickConfirm = () => {
+			setLoading(true);
+
 			setPopBox({ isOpen: false });
 			api_payment_SetDepositCancel(transId).then(
 				res => {
@@ -94,10 +102,13 @@ export default () => {
 								return newD;
 							});
 						}
+						setLoading(false);
 					}
 				},
 				err => {
 					if (isMountedRef.current) {
+						alert(t("msg_ApiServerError"));
+						setLoading(false);
 					}
 				}
 			);
@@ -140,7 +151,9 @@ export default () => {
 		);
 	});
 
-	return (
+	return loading ? (
+		<Loading />
+	) : (
 		<>
 			<div className="list">
 				<div className="listHeader">

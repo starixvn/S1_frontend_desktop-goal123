@@ -3,12 +3,14 @@ import { useTranslation } from "react-i18next";
 import { api_payment_GetMobilePayGroupList } from "../../service/api/payment";
 import path from "../../path";
 import { Link } from "gatsby";
+import Loading from "../common/loading";
 
 const _path = path.deposit.sub.mobilePay.root;
 
 export default () => {
 	const { t } = useTranslation();
 	const [paymentList, setPaymentList] = useState([]);
+	const [loading, setLoading] = useState(true);
 	const isMountedRef = useRef(null);
 
 	useEffect(() => {
@@ -31,7 +33,7 @@ export default () => {
 						// 	content: res.data.message
 						// });
 					}
-					// setLoading(false);
+					setLoading(false);
 				}
 			},
 			err => {
@@ -42,6 +44,7 @@ export default () => {
 					// 	title: i18n.lbl_ImportantNote,
 					// 	content: i18n.msg_ApiServerError
 					// });
+					setLoading(false);
 				}
 			}
 		);
@@ -57,7 +60,9 @@ export default () => {
 		);
 	});
 
-	return paymentList !== null && paymentList.length > 0 ? (
+	return loading ? (
+		<Loading />
+	) : paymentList !== null && paymentList.length > 0 ? (
 		<div className="subModule">
 			<div className="subModuleTitle">
 				<div>

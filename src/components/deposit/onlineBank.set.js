@@ -21,11 +21,13 @@ import {
 	defModule,
 	defActionType
 } from "./onlineBank.reducer";
+import Loading from "../common/loading";
 
 export default () => {
 	const { t } = useTranslation();
 	const [redirectPath, setRedirectPath] = useState(null);
 	const { userInfo } = useContext(userInfoContext);
+	const [loading, setLoading] = useState(true);
 	const isMountedRef = useRef(null);
 	const [state, dispatch] = useReducer(reducer, initState);
 
@@ -71,6 +73,7 @@ export default () => {
 								`${userInfo.langId}/${path.deposit.root}`
 							);
 						}
+						setLoading(false);
 					}
 				}
 			});
@@ -115,7 +118,9 @@ export default () => {
 		dispatch({ type: defActionType.CLICK_BACK });
 	};
 
-	return redirectPath === null ? (
+	return loading ? (
+		<Loading />
+	) : redirectPath === null ? (
 		<DepositWrapper step={state.step}>
 			<div className="platformName">
 				<div className={`icon icon-${pName}`}></div>

@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { userInfoContext } from "../../components/common/context";
 import { getUrlParameter } from "../../components/common/common";
 import { api_news_GetNewsById } from "../../service/api/news";
+import Loading from "../../components/common/loading";
 
 export default () => {
 	return (
@@ -25,6 +26,7 @@ export default () => {
 const Content = () => {
 	const { t } = useTranslation();
 	const { userInfo } = useContext(userInfoContext);
+	const [loading, setLoading] = useState(true);
 	const [newsInfo, setNewsInfo] = useState({
 		title: "",
 		content: "",
@@ -60,11 +62,13 @@ const Content = () => {
 					} else {
 						alert(res.data.message);
 					}
+					setLoading(false);
 				}
 			},
 			err => {
 				if (isMountedRef.current) {
 					alert(t("msg_ApiServerError"));
+					setLoading(false);
 				}
 			}
 		);

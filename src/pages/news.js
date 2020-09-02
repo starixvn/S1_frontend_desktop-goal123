@@ -7,6 +7,7 @@ import { userInfoContext } from "../components/common/context";
 import { api_news_GetNews } from "../service/api/news";
 import { Pagination } from "../components/common/pagination";
 import { Link } from "@reach/router";
+import Loading from "../components/common/loading";
 
 export default () => {
 	return (
@@ -33,6 +34,7 @@ const Content = () => {
 		totalPages: 0,
 		currentPage: 1
 	});
+	const [loading, setLoading] = useState(true);
 	const isMountedRef = useRef(null);
 
 	useEffect(() => {
@@ -61,11 +63,13 @@ const Content = () => {
 					} else {
 						alert(res.data.message);
 					}
+					setLoading(false);
 				}
 			},
 			err => {
 				if (isMountedRef.current) {
 					alert(t("msg_ApiServerError"));
+					setLoading(false);
 				}
 			}
 		);
@@ -96,7 +100,9 @@ const Content = () => {
 		);
 	});
 
-	return (
+	return loading ? (
+		<Loading />
+	) : (
 		<div className="infoModule">
 			<div className="inside-title icon icon-newspaper">
 				<span>{t("lbl_News")}</span>

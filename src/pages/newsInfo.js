@@ -8,6 +8,7 @@ import { getUrlParameter } from "../components/common/common";
 import { api_news_GetNewsById } from "../service/api/news";
 import { Redirect } from "@reach/router";
 import path from "../path";
+import Loading from "../components/common/loading";
 
 export default () => {
 	return (
@@ -35,6 +36,7 @@ const Content = () => {
 		content: "",
 		imgURL: ""
 	});
+	const [loading, setLoading] = useState(true);
 	const isMountedRef = useRef(null);
 
 	useEffect(() => {
@@ -65,11 +67,13 @@ const Content = () => {
 					} else {
 						alert(res.data.message);
 					}
+					setLoading(false);
 				}
 			},
 			err => {
 				if (isMountedRef.current) {
 					alert(t("msg_ApiServerError"));
+					setLoading(false);
 				}
 			}
 		);
@@ -79,7 +83,9 @@ const Content = () => {
 		setRedirectPath(`/${userInfo.langId}/${path.news.root}`);
 	};
 
-	return redirectPath === null ? (
+	return loading ? (
+		<Loading />
+	) : redirectPath === null ? (
 		<div className="infoModule">
 			<a className="icon icon-arrow-left2" onClick={clickBack}>
 				{t("lbl_BackToNews")}

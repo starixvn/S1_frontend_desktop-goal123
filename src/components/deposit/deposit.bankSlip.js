@@ -17,6 +17,7 @@ import {
 } from "../../service/api/payment";
 import style from "../../styles/css/datePicker.css";
 import config from "../../config";
+import Loading from "../common/loading";
 
 export default props => {
 	const { t } = useTranslation();
@@ -79,6 +80,7 @@ export default props => {
 export class Module extends Component {
 	state = {
 		processing: false,
+		loading: false,
 		depositTime: this.props.depositTime ? this.props.depositTime : null,
 		refId: this.props.refId ? this.props.refId : "",
 		picFileName: this.props.picFileName ? this.props.picFileName : null,
@@ -111,6 +113,8 @@ export class Module extends Component {
 		};
 
 		if (files.length > 0) {
+			this.setState({ loading: true });
+
 			let formData = new FormData();
 			formData.append("TransId", this.props.transId);
 			formData.append("Receipt", files[0]);
@@ -125,11 +129,13 @@ export class Module extends Component {
 						} else {
 							alert(res.data.message);
 						}
+						this.setState({ loading: false });
 					}
 				},
 				err => {
 					if (this.isMountedRef) {
 						alert(this.datas.i18n("msg_ApiServerError"));
+						this.setState({ loading: false });
 					}
 				}
 			);
@@ -150,6 +156,8 @@ export class Module extends Component {
 			let bankSlip = this.props.bankSlip;
 
 			if (this.state.refId !== "") {
+				this.setState({ loading: true });
+
 				api_payment_SetDepositReceipt(
 					this.props.transId,
 					moment(this.state.depositTime).unix(),
@@ -167,7 +175,10 @@ export class Module extends Component {
 							} else if (this.props.backDeposit) {
 								this.props.backDeposit();
 							}
+
 							this.setState({ processing: false });
+							this.setState({ loading: false });
+
 							if (this.props.ClosePopBox) {
 								this.props.ClosePopBox();
 							}
@@ -177,6 +188,7 @@ export class Module extends Component {
 						if (this.isMountedRef) {
 							alert(this.props.i18n("msg_ApiServerError"));
 							this.setState({ processing: false });
+							this.setState({ loading: false });
 						}
 					}
 				);
@@ -189,7 +201,9 @@ export class Module extends Component {
 		}
 	};
 	render() {
-		return (
+		return this.loading ? (
+			<Loading />
+		) : (
 			<>
 				<span className="title">
 					{this.props.i18n("lbl_SubmitProof")}

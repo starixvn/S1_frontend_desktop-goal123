@@ -4,6 +4,7 @@ import { defActionType } from "./bankInfo.reducer";
 import { api_accountStrict_SetCustBankInfo } from "../../service/api/accountStrict";
 import config from "../../config";
 import Inputbox from "../common/inputbox";
+import Loading from "../common/loading";
 
 export default ({
 	dispatch,
@@ -15,6 +16,7 @@ export default ({
 }) => {
 	const { t } = useTranslation();
 	const [tip, setTip] = useState({ accountName: "", accountNumber: "" });
+	const [loading, setLoading] = useState(false);
 	const isMountedRef = useRef(null);
 
 	useEffect(() => {
@@ -63,6 +65,7 @@ export default ({
 		let _accountNumber = checkAccount(accountNumber, "accountNumber");
 
 		if (_accountNumber.checked && _accountName.checked) {
+			setLoading(true);
 			api_accountStrict_SetCustBankInfo({
 				AccountName: accountName,
 				AccountNo: accountNumber,
@@ -75,11 +78,13 @@ export default ({
 						} else {
 							alert(res.data.message);
 						}
+						setLoading(false);
 					}
 				},
 				err => {
 					if (isMountedRef.current) {
 						alert(t("msg_ApiServerError"));
+						setLoading(false);
 					}
 				}
 			);
@@ -91,7 +96,9 @@ export default ({
 		}
 	};
 
-	return (
+	return loading ? (
+		<Loading />
+	) : (
 		<>
 			<div className="platformName">
 				<div className="icon icon-arrow-right2"></div>

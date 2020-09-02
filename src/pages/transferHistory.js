@@ -10,6 +10,7 @@ import Layout from "../components/common/layout";
 import moment from "moment";
 import Filter from "../components/common/historyFilter";
 import LeftMenu from "../components/common/leftMenu";
+import Loading from "../components/common/loading";
 
 export default () => {
 	return (
@@ -53,6 +54,7 @@ const Content = () => {
 	const [getHistory, setGetHistory] = useState(null);
 	const [filterData, setFilterData] = useState(null);
 	const [processing, setProcessing] = useState(false);
+	const [loading, setLoading] = useState(false);
 	const [pagination, setPagination] = useState(initPagination);
 	const _isConvert = isConvert(userInfo.currencyId);
 	const isMountedRef = useRef(null);
@@ -63,6 +65,8 @@ const Content = () => {
 	});
 
 	const GetTransferHistory = (transactionData, pageNumber) => {
+		setLoading(true);
+
 		api_tp_GetTransferHistory({
 			...transactionData,
 			PageNumber: pageNumber
@@ -79,12 +83,14 @@ const Content = () => {
 						alert(res.data.message);
 					}
 					setProcessing(false);
+					setLoading(false);
 				}
 			},
 			err => {
 				if (isMountedRef.current) {
 					alert(t("msg_ApiServerError"));
 					setProcessing(false);
+					setLoading(false);
 				}
 			}
 		);
@@ -141,7 +147,9 @@ const Content = () => {
 		);
 	});
 
-	return (
+	return loading ? (
+		<Loading />
+	) : (
 		<div className="infoModule">
 			<div className="inside-title icon icon-icon32px_History">
 				<span>{t("lbl_TransferHistory")}</span>

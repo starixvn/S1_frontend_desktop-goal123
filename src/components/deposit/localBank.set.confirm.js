@@ -9,12 +9,14 @@ import { defActionType } from "./locaLBank.reducer";
 import { defPopBoxType } from "../common/popBox";
 import config from "../../config";
 import path from "../../path";
+import Loading from "../common/loading";
 
 export default ({ bankInfo, amount, _isConvert, dispatch }) => {
 	const { t } = useTranslation();
 	const { setPopBox } = useContext(popBoxContext);
 	const { userInfo } = useContext(userInfoContext);
 	const [redirectPath, setRedirectPath] = useState(null);
+	const [loading, setLoading] = useState(false);
 	const isMountedRef = useRef(null);
 
 	useEffect(() => {
@@ -51,6 +53,8 @@ export default ({ bankInfo, amount, _isConvert, dispatch }) => {
 	};
 
 	const ClickConfirm = () => {
+		setLoading(true);
+
 		api_payment_DepositReqWireTransfer({
 			amount: Number(amount),
 			sysId: bankInfo.sysId
@@ -79,17 +83,21 @@ export default ({ bankInfo, amount, _isConvert, dispatch }) => {
 					} else {
 						alert(res.data.message);
 					}
+					setLoading(false);
 				}
 			},
 			err => {
 				if (isMountedRef.current) {
 					alert(t("msg_ApiServerError"));
+					setLoading(false);
 				}
 			}
 		);
 	};
 
-	return redirectPath === null ? (
+	return loading ? (
+		<Loading />
+	) : redirectPath === null ? (
 		<div className="subModuleList">
 			<div className="subModule">
 				<div className="subModuleBody column align-items-center">

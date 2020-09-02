@@ -14,6 +14,7 @@ import Layout from "../components/common/layout";
 import Filter from "../components/common/historyFilter";
 import moment from "moment";
 import LeftMenu from "../components/common/leftMenu";
+import Loading from "../components/common/loading";
 
 export default () => {
 	return (
@@ -44,6 +45,7 @@ const Content = () => {
 		totalPages: 0,
 		currentPage: 1
 	});
+	const [loading, setLoading] = useState(false);
 	const isMountedRef = useRef(null);
 
 	useEffect(() => {
@@ -52,6 +54,8 @@ const Content = () => {
 	});
 
 	const GetDepositInfoHistory = (transactionData, pageNumber) => {
+		setLoading(true);
+
 		api_payment_GetDepositInfoHistory({
 			...transactionData,
 			PageNumber: pageNumber
@@ -68,12 +72,14 @@ const Content = () => {
 						alert(res.data.message);
 					}
 					setProcessing(false);
+					setLoading(false);
 				}
 			},
 			err => {
 				if (isMountedRef.current) {
 					alert(t("msg_ApiServerError"));
 					setProcessing(false);
+					setLoading(false);
 				}
 			}
 		);
@@ -123,7 +129,9 @@ const Content = () => {
 
 	const ClickCancel = transId => {
 		const ClickConfirm = () => {
+			setLoading(true);
 			setPopBox({ isOpen: false });
+
 			api_payment_SetDepositCancel(transId).then(
 				res => {
 					if (isMountedRef.current) {
@@ -137,11 +145,13 @@ const Content = () => {
 								return newD;
 							});
 						}
+						setLoading(false);
 					}
 				},
 				err => {
 					if (isMountedRef.current) {
 						alert(t("msg_ApiServerError"));
+						setLoading(false);
 					}
 				}
 			);
@@ -201,7 +211,9 @@ const Content = () => {
 		);
 	});
 
-	return (
+	return loading ? (
+		<Loading />
+	) : (
 		<div className="infoModule">
 			<div className="inside-title icon icon-icon32px_History">
 				<span>{t("lbl_DepositHistory")}</span>

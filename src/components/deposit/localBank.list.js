@@ -3,12 +3,14 @@ import path from "../../path";
 import { Link } from "gatsby";
 import { useTranslation } from "react-i18next";
 import { api_payment_GetBankInfoOffList } from "../../service/api/payment";
+import Loading from "../common/loading";
 
 const _path = path.deposit.sub.localBank.root;
 
 export default () => {
 	const { t } = useTranslation();
 	const [localBankList, setLocalBankList] = useState([]);
+	const [loading, setLoading] = useState(true);
 	const isMountedRef = useRef(null);
 
 	useEffect(() => {
@@ -27,17 +29,21 @@ export default () => {
 					} else {
 						alert(res.data.message);
 					}
+					setLoading(false);
 				}
 			},
 			err => {
 				if (isMountedRef.current) {
 					alert(t("msg_ApiServerError"));
+					setLoading(false);
 				}
 			}
 		);
 	}, []);
 
-	return localBankList !== null && localBankList.length > 0 ? (
+	return loading ? (
+		<Loading />
+	) : localBankList !== null && localBankList.length > 0 ? (
 		<div className="subModule">
 			<div className="subModuleTitle">
 				<div>

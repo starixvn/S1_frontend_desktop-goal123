@@ -2,12 +2,14 @@ import React, { useState, useEffect, useRef } from "react";
 import { api_account_GetMsgContent } from "../../service/api/account";
 import { useTranslation } from "react-i18next";
 import moment from "moment";
+import Loading from "../common/loading";
 
 export default props => {
 	const { t } = useTranslation();
 	const isMountedRef = useRef(null);
 	const [msgContentData, setMsgContentData] = useState("");
 	const [showContent, setShowContent] = useState(false);
+	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
 		isMountedRef.current = true;
@@ -16,6 +18,8 @@ export default props => {
 
 	const getMsgContent = getMsg => {
 		if (getMsg) {
+			setLoading(true);
+
 			api_account_GetMsgContent(props.id).then(
 				res => {
 					if (isMountedRef.current) {
@@ -25,11 +29,13 @@ export default props => {
 						} else {
 							alert(res.data.message);
 						}
+						setLoading(false);
 					}
 				},
 				err => {
 					if (isMountedRef.current) {
 						alert(t("msg_ApiServerError"));
+						setLoading(false);
 					}
 				}
 			);
@@ -48,7 +54,9 @@ export default props => {
 			? props.createTime.slice(11, 19)
 			: props.createTime.split("T", 1);
 
-	return (
+	return loading ? (
+		<Loading />
+	) : (
 		<div>
 			<div className="listHeader">
 				<div className="checkbox">

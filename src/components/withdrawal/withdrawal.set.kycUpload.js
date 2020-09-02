@@ -2,11 +2,13 @@ import React, { useEffect, useState, useRef, createRef } from "react";
 import { useTranslation } from "react-i18next";
 import config from "../../config";
 import { api_accountStrict_UploadCustPhotoId } from "../../service/api/accountStrict";
+import Loading from "../common/loading";
 
 export default props => {
 	const { t } = useTranslation();
 	const isMountedRef = useRef(null);
 	const filebox = createRef();
+	const [loading, setLoading] = useState(false);
 
 	const dragOver = e => {
 		e.preventDefault();
@@ -48,18 +50,22 @@ export default props => {
 						} else {
 							alert(res.data.message);
 						}
+						setLoading(false);
 					}
 				},
 				err => {
 					if (isMountedRef.current) {
 						alert(t("msg_ApiServerError"));
+						setLoading(false);
 					}
 				}
 			);
 		}
 	};
 
-	return (
+	return loading ? (
+		<Loading />
+	) : (
 		<div className="subModuleList">
 			<div className="subModule">
 				<div className="subModuleBody column align-items-center">

@@ -18,12 +18,14 @@ import InitPanel from "./bankInfo.set.init";
 import BankPanel from "./bankInfo.set.bank";
 import AccountPanel from "./bankInfo.set.account";
 import ShowCard from "./bankInfo.showCard";
+import Loading from "../common/loading";
 
 export default () => {
 	const { t } = useTranslation();
 	const { userInfo, setUserInfo } = useContext(userInfoContext);
 	const [state, dispatch] = useReducer(reducer, initState);
 	const [showTip, setShowTip] = useState(false);
+	const [loading, setLoading] = useState(true);
 	const isMountedRef = useRef(null);
 
 	useEffect(() => {
@@ -55,11 +57,13 @@ export default () => {
 					} else {
 						alert(res.data.message);
 					}
+					setLoading(false);
 				}
 			},
 			err => {
 				if (isMountedRef.current) {
 					alert(t("msg_ApiServerError"));
+					setLoading(false);
 				}
 			}
 		);
@@ -108,7 +112,9 @@ export default () => {
 			break;
 	}
 
-	return (
+	return loading ? (
+		<Loading />
+	) : (
 		<>
 			<div className="infoModule">
 				<div className="inside-title icon icon-icon32px_bank-account">
