@@ -29,11 +29,11 @@ const initValue = {
 };
 
 const initTip = {
-	username: { warningIcon: false, msg: "" },
-	password: { warningIcon: false, msg: "" },
-	email: { warningIcon: false, msg: "" },
-	currency: { warningIcon: false, msg: "" },
-	checkbox: { warningIcon: false, msg: "" }
+	username: { checked: null, msg: "" },
+	password: { checked: null, msg: "" },
+	email: { checked: null, msg: "" },
+	currency: { checked: null, msg: "" },
+	checkbox: { checked: null, msg: "" }
 };
 
 const defaultLangId = GET_LANG_ID();
@@ -132,23 +132,26 @@ const JoinPanel = () => {
 		setShowPsw(!showPsw);
 	};
 
-	const onFocusCol = col => {
+	const clickInfo = col => {
 		let msg = "";
-
 		if (col === "username") {
-			msg = "lbl_UsernameTooltip";
+			msg = t("lbl_UsernameTooltip");
 		} else if (col === "password") {
-			msg = "lbl_PasswordTooltip";
+			msg = t("lbl_PasswordTooltip");
 		} else if (col === "email") {
-			msg = "lbl_EmailToolTip";
+			msg = t("lbl_EmailToolTip");
+		}
+
+		if (tip[col].msg === msg) {
+			msg = "";
 		}
 
 		setTip(prev => {
 			return {
 				...prev,
 				[col]: {
-					warningIcon: false,
-					msg: t(msg)
+					checked: tip[col].checked,
+					msg: msg
 				}
 			};
 		});
@@ -164,7 +167,7 @@ const JoinPanel = () => {
 
 	const checkValue = (col, e) => {
 		let val = e.target.value;
-		let checked = false;
+		let checked = true;
 		let msg = "";
 
 		if (col === "username") {
@@ -185,7 +188,7 @@ const JoinPanel = () => {
 			return {
 				...prev,
 				[col]: {
-					warningIcon: true,
+					checked: checked,
 					msg: t(msg)
 				}
 			};
@@ -218,7 +221,7 @@ const JoinPanel = () => {
 									return {
 										...prev,
 										username: {
-											warningIcon: true,
+											checked: false,
 											msg: t("msg_UsernameNotAvailable")
 										}
 									};
@@ -228,7 +231,7 @@ const JoinPanel = () => {
 									return {
 										...prev,
 										username: {
-											warningIcon: false,
+											checked: true,
 											msg: ""
 										}
 									};
@@ -288,7 +291,7 @@ const JoinPanel = () => {
 									return {
 										...prev,
 										email: {
-											warningIcon: true,
+											checked: false,
 											msg: t("msg_MailExisted")
 										}
 									};
@@ -298,7 +301,7 @@ const JoinPanel = () => {
 									return {
 										...prev,
 										email: {
-											warningIcon: false,
+											checked: true,
 											msg: ""
 										}
 									};
@@ -336,7 +339,7 @@ const JoinPanel = () => {
 			return {
 				...prev,
 				currency: {
-					warningIcon: false,
+					checked: true,
 					msg: t("lbl_PreferredCurrencyToolTip")
 				}
 			};
@@ -382,19 +385,19 @@ const JoinPanel = () => {
 				return {
 					...prev,
 					username: {
-						warningIcon: !_usernameCheck.checked,
+						checked: _usernameCheck.checked,
 						msg: t(_usernameCheck.msg)
 					},
 					password: {
-						warningIcon: !_passwordCheck.checked,
+						checked: _passwordCheck.checked,
 						msg: t(_passwordCheck.msg)
 					},
 					email: {
-						warningIcon: !_emailCheck.checked,
+						checked: _emailCheck.checked,
 						msg: t(_emailCheck.msg)
 					},
 					checkbox: {
-						warningIcon: false,
+						checked: true,
 						msg: t(checkboxMsg)
 					}
 				};
@@ -491,7 +494,7 @@ const JoinPanel = () => {
 								return {
 									...prev,
 									username: {
-										warningIcon: true,
+										checked: false,
 										msg: message
 									}
 								};
@@ -501,7 +504,7 @@ const JoinPanel = () => {
 								return {
 									...prev,
 									password: {
-										warningIcon: true,
+										checked: false,
 										msg: message
 									}
 								};
@@ -573,11 +576,10 @@ const JoinPanel = () => {
 							placeholder={t("lbl_Username")}
 							value={userValue.username}
 							tip={tip.username.msg}
-							onFocus={onFocusCol.bind(null, "username")}
+							checked={tip.username.checked}
+							clickInfo={clickInfo.bind(this, "username")}
 							onChange={EditField.bind(null, "username")}
 							onBlur={checkValue.bind(null, "username")}
-							warning={tip.username.warningIcon}
-							warningIcon="icon-warning"
 						/>
 
 						<InputboxPSW
@@ -586,12 +588,12 @@ const JoinPanel = () => {
 							placeholder={t("lbl_Password")}
 							value={userValue.password}
 							tip={tip.password.msg}
-							onFocus={onFocusCol.bind(null, "password")}
 							onChange={EditField.bind(null, "password")}
 							onBlur={checkValue.bind(null, "password")}
 							showPsw={showPsw}
 							showPswHandler={showPswHandler}
-							warning={tip.password.warningIcon}
+							checked={tip.password.checked}
+							clickInfo={clickInfo.bind(this, "password")}
 						/>
 
 						<Inputbox
@@ -599,11 +601,10 @@ const JoinPanel = () => {
 							placeholder={t("lbl_Email")}
 							value={userValue.email}
 							tip={tip.email.msg}
-							onFocus={onFocusCol.bind(null, "email")}
+							checked={tip.email.checked}
+							clickInfo={clickInfo.bind(this, "email")}
 							onChange={EditField.bind(null, "email")}
 							onBlur={checkValue.bind(null, "email")}
-							warning={tip.email.warningIcon}
-							warningIcon="icon-warning"
 						/>
 
 						<div className="inputBox">

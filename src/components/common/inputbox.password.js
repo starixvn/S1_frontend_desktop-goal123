@@ -30,8 +30,18 @@ export default props => {
 							onClick={props.showPswHandler}></i>
 					) : null}
 
-					{props.warning ? (
-						<i className="icon icon-warning"></i>
+					{props.checked !== undefined ? (
+						<div className="iconModule">
+							{props.checked === null ? (
+								<i
+									className={`icon icon-information-solid`}
+									onClick={props.clickInfo}></i>
+							) : props.checked ? (
+								<i className={`icon icon-checkmark`}></i>
+							) : !props.checked && props.checked !== null ? (
+								<i className={`icon icon-cross`}></i>
+							) : null}
+						</div>
 					) : null}
 				</div>
 			</div>

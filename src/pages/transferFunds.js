@@ -48,6 +48,10 @@ const Content = () => {
 	});
 	const [getHistory, setGetHistory] = useState(null);
 	const [loading, setLoading] = useState(true);
+	const [status, setStatus] = useState({
+		checked: null,
+		tip: ""
+	});
 	const isMountedRef = useRef(null);
 
 	useEffect(() => {
@@ -268,17 +272,25 @@ const Content = () => {
 
 		let result = checkAmount(_amount, minAmount, maxAmount, _isConvert, t);
 		if (result.status !== 0) {
-			// setWarning({
-			// 	status: true,
-			// 	msg: result.msg
-			// });
+			setStatus({
+				checked: false,
+				tip: result.msg
+			});
 		} else {
-			// setWarning({
-			// 	status: false,
-			// 	msg: ""
-			// });
+			setStatus({
+				checked: true,
+				tip: ""
+			});
 		}
 		return result.status === 0;
+	};
+
+	const clickInfo = () => {
+		let _msg = status.tip === "" ? t("lbl_AmountTooltip") : "";
+		setStatus({
+			checked: null,
+			tip: _msg
+		});
 	};
 
 	const clickSubmit = () => {
@@ -333,6 +345,10 @@ const Content = () => {
 					transferTo={direction.transferTo}
 					clickSubmit={clickSubmit}
 					changeDirection={changeDirection}
+					onBlur={ValidAmount.bind(this, amount)}
+					clickInfo={clickInfo}
+					checked={status.checked}
+					tip={status.tip}
 				/>
 			</div>
 			<RecentHistory

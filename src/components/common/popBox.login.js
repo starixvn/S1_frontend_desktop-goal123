@@ -13,8 +13,8 @@ const initValue = {
 };
 
 const initTip = {
-	username: { warnigIcon: false, msg: "" },
-	password: { warnigIcon: false, msg: "" }
+	username: { checked: null, msg: "" },
+	password: { checked: null, msg: "" }
 };
 
 const LoginPanel = () => {
@@ -35,6 +35,23 @@ const LoginPanel = () => {
 		setShowPsw(!showPsw);
 	};
 
+	const clickInfo = col => {
+		let _msg =
+			col === "username" ? t("msg_UsernameReq") : t("msg_PasswordReq");
+
+		if (tip[col].msg === _msg) {
+			_msg = "";
+		}
+
+		setTip(prev => ({
+			...prev,
+			[col]: {
+				checked: tip[col].checked,
+				msg: _msg
+			}
+		}));
+	};
+
 	const EditField = (col, e) => {
 		let val = e.target.value;
 		setUserValue(prev => {
@@ -51,7 +68,7 @@ const LoginPanel = () => {
 				return {
 					...prev,
 					[col]: {
-						warningIcon: true,
+						checked: false,
 						msg: t(msg)
 					}
 				};
@@ -61,7 +78,7 @@ const LoginPanel = () => {
 				return {
 					...prev,
 					[col]: {
-						warningIcon: false,
+						checked: true,
 						msg: ""
 					}
 				};
@@ -95,7 +112,7 @@ const LoginPanel = () => {
 							return {
 								...prev,
 								username: {
-									warnigIcon: true,
+									checked: false,
 									msg: res.message
 								}
 							};
@@ -107,7 +124,7 @@ const LoginPanel = () => {
 							return {
 								...prev,
 								password: {
-									warnigIcon: true,
+									checked: false,
 									msg: res.message
 								}
 							};
@@ -123,11 +140,11 @@ const LoginPanel = () => {
 
 			setTip({
 				username: {
-					warnigIcon: userValue.username === "",
+					checked: !userValue.username === "",
 					msg: t(usernameMsg)
 				},
 				password: {
-					warnigIcon: userValue.password === "",
+					checked: !userValue.password === "",
 					msg: t(passwordMsg)
 				}
 			});
@@ -167,7 +184,8 @@ const LoginPanel = () => {
 							value={userValue.username}
 							onChange={EditField.bind(null, "username")}
 							onBlur={checkValue.bind(null, "username")}
-							warning={tip.username.warnigIcon}
+							clickInfo={clickInfo.bind(this, "username")}
+							checked={tip.username.checked}
 							tip={tip.username.msg}
 							warningIcon="icon-warning"
 						/>
@@ -181,7 +199,8 @@ const LoginPanel = () => {
 							onBlur={checkValue.bind(null, "password")}
 							showPsw={showPsw}
 							showPswHandler={showPswHandler}
-							warning={tip.password.warnigIcon}
+							checked={tip.password.checked}
+							clickInfo={clickInfo.bind(this, "password")}
 							tip={tip.password.msg}
 						/>
 

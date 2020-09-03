@@ -13,18 +13,24 @@ const initValue = {
 	accountNo: ""
 };
 
-const initTip = {
-	realName: "",
-	accountNo: "",
-	realName_after: ""
-};
-
 export default ({ bankInfoSysList = [] }) => {
 	const { t } = useTranslation();
 	const { popBox, setPopBox } = useContext(popBoxContext);
 	const { userInfo, setUserInfo } = useContext(userInfoContext);
 	const [userValue, setUserValue] = useState(initValue);
-	const [tip, setTip] = useState(initTip);
+	const [status, setStatus] = useState({
+		realName: {
+			checked: null,
+			tip: ""
+		},
+		accountNo: {
+			checked: null,
+			tip: ""
+		},
+		realName_after: {
+			tip: ""
+		}
+	});
 	const isMountedRef = useRef(null);
 
 	useEffect(() => {
@@ -43,69 +49,79 @@ export default ({ bankInfoSysList = [] }) => {
 		setUserValue(prev => ({ ...prev, [col]: val }));
 	};
 
-	const showTip = col => {
-		let msg =
-			col === "realName"
-				? t("lbl_BankAccountNameHint")
-				: t("lbl_ContactCSD");
-		if (tip.realName_after !== "") {
-			msg = "";
-		}
-		setTip(prev => {
-			return { ...prev, [col]: msg };
-		});
-	};
+	const clickInfo = col => {
+		let _tip = "";
 
-	const closeTip = col => {
-		setTip(prev => {
-			return { ...prev, [col]: "" };
-		});
+		if (col === "realName") {
+			_tip = t("lbl_BankAccountNameHint");
+		} else if (col === "realName_after") {
+			_tip = t("lbl_ContactCSD");
+		} else {
+			_tip = t("lbl_BankNumber");
+		}
+
+		if (status[col].tip === _tip) {
+			_tip = "";
+		}
+
+		setStatus(prev => ({
+			...prev,
+			[col]: {
+				checked: status[col].checked,
+				tip: _tip
+			}
+		}));
 	};
 
 	const ClickCancel = () => {
 		setPopBox({ isOpen: false, refresh: true });
 	};
 
-	const checkAll = () => {
+	const checkAll = (val, col) => {
 		let checked = true;
+		let message = "";
 
 		if (userInfo.accountName !== null && userInfo.accountName !== "") {
-			if (userValue.accountNo === "") {
-				setTip(prev => {
-					return { ...prev, accountNo: t("msg_NeedAccountNo") };
-				});
+			if (col === "accountNo" && !val) {
+				message = t("msg_NeedAccountNo");
 				checked = false;
 			}
 		} else {
-			if (userValue.realName === "") {
-				setTip(prev => {
-					return { ...prev, realName: t("msg_EnterRealName") };
-				});
+			if (col === "realName" && !val) {
+				message = t("msg_EnterRealName");
 				checked = false;
-			} else if (userValue.accountNo === "") {
-				setTip(prev => {
-					return { ...prev, accountNo: t("msg_NeedAccountNo") };
-				});
+			} else if (col === "accountNo" && !val) {
+				message = t("msg_NeedAccountNo");
 				checked = false;
 			}
 		}
+
+		setStatus(prev => ({
+			...prev,
+			[col]: {
+				checked: checked,
+				tip: message
+			}
+		}));
 
 		if (bankInfoSysList?.length <= 0) {
 			console.log("Bank list is null.");
 			checked = false;
 		}
 
-		return checked;
+		return { checked, message };
 	};
 
 	const ClickClose = () => {
 		setPopBox({ isOpen: false });
 	};
 
-	const ClickSubmit = () => {
-		let checked = checkAll();
+	const ClickSubmit = e => {
+		e.preventDefault();
+		let _realName = checkAll(userValue.realName, "realName");
+		let _accountNo = checkAll(userValue.accountNo, "accountNo");
 
-		if (checked) {
+		if (_realName.checked && _accountNo.checked) {
 			api_accountStrict_SetCustBankInfo({
 				AccountName: userValue.realName,
 				AccountNo: userValue.accountNo,
@@ -175,7 +191,7 @@ export default ({ bankInfoSysList = [] }) => {
 	};
 
 	return (
-		<div className="addBankpop active">
+		<div className="addBankpop active" onSubmit={ClickSubmit}>
 			<span className="title">{t("lbl_AddNewAccount")}</span>
 			<div className="txt-lightgray">{t("lbl_UpdateBankInfo")}</div>
 			{!userInfo.accountName ? (
@@ -183,9 +199,10 @@ export default ({ bankInfoSysList = [] }) => {
 					value={userValue.realName}
 					onChange={editField.bind(this, "realName")}
 					placeholder={t("lbl_RealName")}
-					onFocus={showTip.bind(this, "realName")}
-					onBlur={closeTip.bind(this, "realName")}
-					tip={tip.realName}
+					onBlur={checkAll.bind(this, userValue.realName, "realName")}
+					clickInfo={clickInfo.bind(this, "realName")}
+					checked={status.realName.checked}
+					tip={status.realName.tip}
 				/>
 			) : (
 				<>
@@ -198,11 +215,11 @@ export default ({ bankInfoSysList = [] }) => {
 						</div>
 						<div
 							className="iconModule"
-							onClick={showTip.bind(this, "realName_after")}>
+							onClick={clickInfo.bind(this, "realName_after")}>
 							<i className="icon icon-information-solid"></i>
 						</div>
 					</div>
-					<div>{tip.realName_after}</div>
+					<div>{status.realName_after.tip}</div>
 				</>
 			)}
 			<div className="inputBox">
@@ -218,8 +235,11 @@ export default ({ bankInfoSysList = [] }) => {
 			<Inputbox
 				value={userValue.accountNo}
 				onChange={editField.bind(this, "accountNo")}
+				onBlur={checkAll.bind(this, userValue.accountNo, "accountNo")}
 				placeholder={t("lbl_BankNumber")}
-				tip={tip.accountNo}
+				clickInfo={clickInfo.bind(this, "accountNo")}
+				checked={status.accountNo.checked}
+				tip={status.accountNo.tip}
 			/>
 			<div className="btnGroup">
 				<button className="btn-cancel" onClick={ClickCancel}>
@@ -228,7 +248,7 @@ export default ({ bankInfoSysList = [] }) => {
 				<button className="btn-check" onClick={ClickSubmit}>
 					{t("lbl_Submit")}
 				</button>
-			</div>{" "}
+			</div>
 		</div>
 	);
 };
