@@ -3,10 +3,9 @@ import { useTranslation } from "react-i18next";
 import { userInfoContext } from "../common/context";
 import { defSportsBetting } from "./footer.def";
 import LinkItems from "../common/linkItems";
+import { Link } from "gatsby";
+import path from "../../path";
 
-import Responsibility1 from "../../styles/img/responsibility1.png";
-import Responsibility2 from "../../styles/img/responsibility2.png";
-import Licenses from "../../styles/img/licenses.png";
 import SocialMedia1 from "../../styles/img/te.png";
 import SocialMedia2 from "../../styles/img/tw.png";
 import SocialMedia3 from "../../styles/img/fb.png";
@@ -38,55 +37,82 @@ export default () => {
 	return (
 		<footer>
 			<div className="webmap">
-				<div>
-					<span className="title">{t("lbl_AboutGoal123")}</span>
-					<div>
-						<button>{t("lbl_Affiliates")}</button>
-						<a
-							href={TandC(userInfo.langId).RuleRegulations}
-							target="_blank">
-							{t("lbl_RuleRegulations")}
-						</a>
-						<button href="">Disclaimer</button>
-						<a
-							href={TandC(userInfo.langId).PrivacyPolicy}
-							target="_blank">
-							{t("lbl_PrivacyPolicy")}
-						</a>
-						<a href={TandC(userInfo.langId).terms} target="_blank">
-							{t("lbl_TermsConditions")}
-						</a>
-						<a
-							href={TandC(userInfo.langId).OurPolicies}
-							target="_blank">
-							Responsible Gambling
-						</a>
-					</div>
-				</div>
 				<Bettings
 					t={t}
 					langId={userInfo.langId}
 					isLogin={userInfo.isLogin}
 				/>
 				<div>
-					<span className="title">Licenses</span>
+					<span className="title">{t("lbl_OurPolicies")}</span>
 					<div>
-						<button>
-							<img src={Licenses} />
-						</button>
+						<a
+							href={TandC(userInfo.langId).ResposibleGaming}
+							target="_blank">
+							{t("lbl_ResposibleGaming")}
+						</a>
+						<a href={TandC(userInfo.langId).terms} target="_blank">
+							{t("lbl_TermsConditions")}
+						</a>
+						<a
+							href={TandC(userInfo.langId).PrivacyPolicy}
+							target="_blank">
+							{t("lbl_PrivacyPolicy")}
+						</a>
+						<a
+							href={TandC(userInfo.langId).CookiePolicy}
+							target="_blank">
+							{t("lbl_CookiePolicy")}
+						</a>
 					</div>
 				</div>
 				<div>
-					<span className="title">Payment Options</span>
+					<span className="title">{t("lbl_HelpSupport")}</span>
 					<div>
-						<button>
-							<img src={Responsibility1} />
-						</button>
-						<button>
-							<img src={Responsibility2} />
-						</button>
+						<a
+							href={TandC(userInfo.langId).RuleRegulations}
+							target="_blank">
+							{t("lbl_RuleRegulations")}
+						</a>
+						<a
+							href={TandC(userInfo.langId).AccountTerms}
+							target="_blank">
+							{t("lbl_AccountTerms")}
+						</a>
+						<a href={TandC(userInfo.langId).FAQ} target="_blank">
+							{t("lbl_FAQ")}
+						</a>
 					</div>
 				</div>
+				<div>
+					<span className="title">{t("lbl_Promotion")}</span>
+					<div>
+						<Link to={path.promotion.root}>
+							{t("lbl_Promotion")}
+						</Link>
+					</div>
+				</div>
+				<div>
+					<span className="title">{t("lbl_AboutGoal123")}</span>
+					<div>
+						<a
+							href={TandC(userInfo.langId).AboutUs}
+							target="_blank">
+							{t("lbl_AboutUs")}
+						</a>
+						<a href={TandC(userInfo.langId).Terms} target="_blank">
+							{t("lbl_Terms")}
+						</a>
+						<a
+							href={TandC(userInfo.langId).ContactUs}
+							target="_blank">
+							{t("lbl_ContactUs")}
+						</a>
+					</div>
+				</div>
+			</div>
+			<div>
+				<span className="title">{t("lbl_ContactUs")}</span>
+				<div>{t("lbl_ConatctUsHint")}</div>
 				{/* <div>
 					<span className="title">Social Media</span>
 					<div>

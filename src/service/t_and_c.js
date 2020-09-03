@@ -4,7 +4,7 @@ export default langId => {
 	return {
 		terms: `${config.t_and_cURL}/SiteSkin/${config.siteName}/Static/${langId}/TermsConditions.html`,
 		rule: `${config.t_and_cURL}/SiteSkin/${config.siteName}/Static/${langId}/RulesandRegulations.html`,
-		OurPolicies: `${config.t_and_cURL}/SiteSkin/${config.siteName}/Static/${langId}/ResposibleGaming.html`,
+		ResposibleGaming: `${config.t_and_cURL}/SiteSkin/${config.siteName}/Static/${langId}/ResposibleGaming.html`,
 		PrivacyPolicy: `${config.t_and_cURL}/SiteSkin/${config.siteName}/Static/${langId}/PrivacyPolicy.html`,
 		CookiePolicy: `${config.t_and_cURL}/SiteSkin/${config.siteName}/Static/${langId}/CookiePolicy.html`,
 		RuleRegulations: `${config.t_and_cURL}/SiteSkin/${config.siteName}/Static/${langId}/RulesandRegulations.html`,

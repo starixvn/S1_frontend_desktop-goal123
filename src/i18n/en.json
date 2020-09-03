@@ -265,5 +265,16 @@
 	"lbl_Req": "Req.",
 	"lbl_Expired":"Expired",
 	"lbl_FreeBet":"FreeBet",
-	"lbl_PromotionsDesc":"Promotions Description"
+	"lbl_PromotionsDesc":"Promotions Description",
+	"lbl_OurPolicies":"Our Policies",
+	"lbl_HelpSupport":"Help & Support",
+	"lbl_ContactUs":"Contact Us",
+	"lbl_BaseballBetting":"Baseball Betting",
+	"lbl_ResposibleGaming":"Responsible Gaming",
+	"lbl_ConatctUsHint":"Our 24/7 online support team is always available to listen and answer your questions. We support via online chat, phone and many other popular channels such as: Zalo, Telegram and Skype.",
+	"lbl_CookiePolicy":"Cookie Policy",
+	"lbl_AccountTerms":"Account Terms",
+	"lbl_FAQ":"FAQ",
+	"lbl_AboutUs":"About Us",
+	"lbl_Terms":"Terms of Use"
 }

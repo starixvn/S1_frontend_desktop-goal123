@@ -10,13 +10,13 @@ export const defSportsQuickLinks = {
 		productInfo: productList.soccer,
 		className: "icon icon-soccer",
 		path: path.sports.root,
-		displayKey: "lbl_SoccerBetting"
+		displayKey: "lbl_Soccer"
 	},
 	basketball: {
 		productInfo: productList.basketball,
 		path: path.sports.root,
 		className: "icon icon-basketball",
-		displayKey: "lbl_BasketballBetting"
+		displayKey: "lbl_Basketball"
 	},
 	badminton: {
 		productInfo: productList.badminton,
@@ -28,13 +28,13 @@ export const defSportsQuickLinks = {
 		productInfo: productList.tennis,
 		path: path.sports.root,
 		className: "icon icon-tennis",
-		displayKey: "lbl_TennisBetting"
+		displayKey: "lbl_Tennis"
 	},
 	eSport: {
 		productInfo: productList.eSport,
 		path: path.sports.root,
 		className: "icon icon-esport",
-		displayKey: "lbl_eSportsBetting"
+		displayKey: "lbl_eSports"
 	}
 };
 
