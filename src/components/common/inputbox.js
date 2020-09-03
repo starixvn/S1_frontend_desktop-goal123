@@ -11,7 +11,6 @@ export default props => {
 				<input
 					type={props.inputType ?? "text"}
 					placeholder={props.placeholder}
-					onFocus={props.onFocus}
 					onBlur={props.onBlur}
 					onChange={props.onChange}
 					value={
@@ -20,12 +19,22 @@ export default props => {
 							: props.value
 					}
 					max={props.max ? props.max : null}
+					readOnly={props.readOnly}
 				/>
-				{props.warning ? (
+				{props.checked !== undefined ? (
 					<div className="iconModule">
-						<i className={`icon ${props.warningIcon}`}></i>
+						{props.checked === null ? (
+							<i
+								className={`icon icon-information-solid`}
+								onClick={props.clickInfo}></i>
+						) : props.checked ? (
+							<i className={`icon icon-checkmark`}></i>
+						) : !props.checked && props.checked !== null ? (
+							<i className={`icon icon-cross`}></i>
+						) : null}
 					</div>
-				) : props.checkIcon ? (
+				) : null}
+				{props.checkIcon ? (
 					<div className="iconModule">
 						<i className={`icon ${props.checkIcon}`}></i>
 					</div>

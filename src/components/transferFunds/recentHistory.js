@@ -54,7 +54,7 @@ export default props => {
 		<>
 			<div className="list">
 				<div className="listHeader">
-					<div>{t("NO")}</div>
+					<div>{t("lbl_NO")}</div>
 					<div>
 						{t("lbl_Date")} ({moment().format("Z")})
 					</div>

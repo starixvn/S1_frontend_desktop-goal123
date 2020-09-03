@@ -22,9 +22,12 @@ export default props => {
 				</div>
 				<Inputbox
 					title={props.i18n("lbl_Amount")}
-					checkIcon="icon-information-solid"
 					value={props.amount}
 					onChange={props.onChange}
+					onBlur={props.onBlur}
+					clickInfo={props.clickInfo}
+					checked={props.checked}
+					tip={props.tip}
 				/>
 				<div className="btnGroup">
 					<button className="btn-check" onClick={props.clickSubmit}>

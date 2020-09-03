@@ -18,7 +18,16 @@ export default ({
 }) => {
 	const { t } = useTranslation();
 	const { setPopBox } = useContext(popBoxContext);
-	const [tip, setTip] = useState({ accountName: "", accountNumber: "" });
+	const [status, setStatus] = useState({
+		accountName: {
+			checked: null,
+			tip: ""
+		},
+		accountNumber: {
+			checked: null,
+			tip: ""
+		}
+	});
 	const [loading, setLoading] = useState(false);
 	const isMountedRef = useRef(null);
 
@@ -33,6 +42,25 @@ export default ({
 
 	const toLastStep = () => {
 		dispatch({ type: defActionType.TO_LAST_STEP });
+	};
+
+	const clickInfo = col => {
+		let _msg =
+			col === "accountName"
+				? t("lbl_BankAccountNameHint")
+				: t("lbl_BankNumber");
+
+		if (status[col].tip === _msg) {
+			_msg = "";
+		}
+
+		setStatus(prev => ({
+			...prev,
+			[col]: {
+				checked: status[col].checked,
+				tip: _msg
+			}
+		}));
 	};
 
 	const checkAccount = (val, col) => {
@@ -53,6 +81,14 @@ export default ({
 				checked = false;
 			}
 		}
+
+		setStatus(prev => ({
+			...prev,
+			[col]: {
+				checked: checked,
+				tip: message
+			}
+		}));
 
 		return { checked, message };
 	};
@@ -121,11 +157,6 @@ export default ({
 					}
 				}
 			);
-		} else {
-			setTip({
-				accountName: _accountName.message,
-				accountNumber: _accountNumber.message
-			});
 		}
 	};
 
@@ -160,16 +191,33 @@ export default ({
 							<Inputbox
 								value={accountName}
 								onChange={editField.bind(this, "accountName")}
+								onBlur={checkAccount.bind(
+									this,
+									accountName,
+									"accountName"
+								)}
 								title={t("lbl_RealName")}
-								tip={tip.accountName}
+								clickInfo={clickInfo.bind(this, "accountName")}
+								checked={status.accountName.checked}
+								tip={status.accountName.tip}
 							/>
 						) : null}
 						<div className="inputModuleRow">
 							<Inputbox
 								value={accountNumber}
 								onChange={editField.bind(this, "accountNumber")}
+								onBlur={checkAccount.bind(
+									this,
+									accountNumber,
+									"accountNumber"
+								)}
+								clickInfo={clickInfo.bind(
+									this,
+									"accountNumber"
+								)}
 								title={t("lbl_BankNumber")}
-								tip={tip.accountNumber}
+								checked={status.accountNumber.checked}
+								tip={status.accountNumber.tip}
 							/>
 							<div className="btnGroup">
 								<button className="btn-check" type="submit">

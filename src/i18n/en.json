@@ -278,5 +278,9 @@
 	"lbl_AccountTerms":"Account Terms",
 	"lbl_FAQ":"FAQ",
 	"lbl_AboutUs":"About Us",
-	"lbl_Terms":"Terms of Use"
+	"lbl_Terms":"Terms of Use",
+	"lbl_Favourite":"Favourite",
+	"lbl_AllGames":"All",
+	"lbl_Promo":"Promo",
+	"lbl_Feature":"Feature"
 }

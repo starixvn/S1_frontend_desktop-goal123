@@ -31,9 +31,9 @@ const initPsw = {
 	newPsw: ""
 };
 
-const initWarning = {
-	oldPsw: { status: false, msg: "" },
-	newPsw: { status: false, msg: "" }
+const initStatus = {
+	oldPsw: { checked: null, msg: "" },
+	newPsw: { checked: null, msg: "" }
 };
 
 const initShowPsw = {
@@ -45,7 +45,7 @@ const Content = () => {
 	const { t } = useTranslation();
 	const { setPopBox } = useContext(popBoxContext);
 	const [userPsw, setUserPsw] = useState(initPsw);
-	const [warning, setWarning] = useState(initWarning);
+	const [status, setStatus] = useState(initStatus);
 	const [showPsw, setShowPsw] = useState(initShowPsw);
 	const [loading, setLoading] = useState(false);
 	const isMountedRef = useRef(null);
@@ -80,9 +80,18 @@ const Content = () => {
 		let val = e.target.value;
 		let result = pswCheck(val);
 
-		setWarning(prev => ({
+		setStatus(prev => ({
 			...prev,
-			[col]: { status: !result.checked, msg: result.message }
+			[col]: { checked: result.checked, msg: result.message }
+		}));
+	};
+
+	const clickInfo = col => {
+		let _msg = status[col].msg === "" ? t("lbl_PasswordTooltip") : "";
+
+		setStatus(prev => ({
+			...prev,
+			[col]: { checked: null, msg: _msg }
 		}));
 	};
 
@@ -169,9 +178,9 @@ const Content = () => {
 				}
 			);
 		} else {
-			setWarning({
-				oldPsw: { status: !_oldPsw.checked, msg: _oldPsw.message },
-				newPsw: { status: !_newPsw.checked, msg: _newPsw.message }
+			setStatus({
+				oldPsw: { checked: _oldPsw.checked, msg: _oldPsw.message },
+				newPsw: { checked: _newPsw.checked, msg: _newPsw.message }
 			});
 		}
 	};
@@ -193,8 +202,9 @@ const Content = () => {
 					onBlur={checkPswHandler.bind(this, "oldPsw")}
 					showPsw={showPsw.oldPsw}
 					showPswHandler={showPswHandler.bind(this, "oldPsw")}
-					warning={warning.oldPsw.status}
-					tip={warning.oldPsw.msg}
+					checked={status.oldPsw.checked}
+					clickInfo={clickInfo.bind(this, "oldPsw")}
+					tip={status.oldPsw.msg}
 				/>
 				<Inputbox
 					inputType={showPsw.newPsw ? "text" : "password"}
@@ -204,8 +214,9 @@ const Content = () => {
 					onBlur={checkPswHandler.bind(this, "newPsw")}
 					showPsw={showPsw.newPsw}
 					showPswHandler={showPswHandler.bind(this, "newPsw")}
-					warning={warning.newPsw.status}
-					tip={warning.newPsw.msg}
+					checked={status.newPsw.checked}
+					clickInfo={clickInfo.bind(this, "newPsw")}
+					tip={status.newPsw.msg}
 				/>
 				<div className="btnGroup">
 					<button
