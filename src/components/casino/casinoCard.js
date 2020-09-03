@@ -13,7 +13,7 @@ export default props => {
 
 	return (
 		<div>
-			{/* {console.log("props:", props)} */}
+			{/* {console.log("props:", props.imgName)} */}
 			<div className="brand">
 				<span>{props.provider}</span>
 			</div>
@@ -21,10 +21,16 @@ export default props => {
 				className={`icon icon-star-full ${
 					props.isFavorite ? "active" : ""
 				}`}
-				onClick={props.saveFavorite}></div>
+				onClick={
+					props.isLogin
+						? props.saveFavorite
+						: props.addFavoriteToState
+				}></div>
 			<img
 				src={`${config.imgUrl}/common/images/Casino/${props.provider}/${
-					props.imgName[props.userLanguage]
+					props.imgName.hasOwnProperty(props.userLanguage)
+						? props.imgName[props.userLanguage]
+						: props.imgName.en
 				}`}
 				alt={`game-${props.gameId}`}
 			/>

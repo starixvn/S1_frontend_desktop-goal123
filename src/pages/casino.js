@@ -6,7 +6,7 @@ import Casino from "../components/casino/casino";
 
 export default () => {
 	return (
-		<Wrapper afterLogin={true}>
+		<Wrapper>
 			<Layout>
 				<main>
 					<section className="inside">
