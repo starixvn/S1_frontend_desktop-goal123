@@ -31,6 +31,12 @@ export default props => {
 		GetWithdrawalInfoRecent();
 	}, []);
 
+	useEffect(() => {
+		if (props.shouldRefresh === true) {
+			GetWithdrawalInfoRecent();
+		}
+	}, [props.shouldRefresh]);
+
 	const ClickClose = () => {
 		setPopBox({ isOpen: false });
 	};
@@ -148,8 +154,8 @@ export default props => {
 
 		setPopBox({
 			isOpen: true,
-			defPopBoxType: defPopBoxType.Cancel,
-			btn: (
+			popBoxType: defPopBoxType.Cancel,
+			btnBar: (
 				<div className="btnGroup">
 					<button className="btn-cancel" onClick={ClosePopBox}>
 						{t("lbl_No")}
