@@ -3,11 +3,21 @@ import React, { Component, createRef } from "react";
 export class Dropdown extends Component {
 	constructor(props) {
 		super(props);
+
+		this.state = { isOpen: false };
+		this.wrapper = createRef(null);
+	}
+
+	componentDidMount() {
 		if (typeof document !== `undefined`) {
 			document.addEventListener("mousedown", this.handleClickOutside);
 		}
-		this.state = { isOpen: false };
-		this.wrapper = createRef(null);
+	}
+
+	componentWillMount() {
+		if (typeof document !== `undefined`) {
+			document.removeEventListener("mousedown", this.handleClickOutside);
+		}
 	}
 
 	handleClickOutside = e => {
@@ -90,6 +100,8 @@ const Item = props => {
 					</div>
 					<div>{props.displayText}</div>
 				</>
+			) : props.displayText ? (
+				props.displayText
 			) : (
 				props.i18n(props.displayKey)
 			)}

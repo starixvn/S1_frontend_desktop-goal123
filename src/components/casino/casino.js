@@ -1,52 +1,44 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
-import { api_site_GetGamelist } from "../../service/api/site";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import CasinoFilter from "./casinoFilter";
-import CasinoCard from "./casinoCard";
-import { Pagination } from "../common/pagination";
-import { userInfoContext } from "../common/context";
-import { SET_CASINO_ENTER_PAGE } from "../../service/enterPage";
-import { popBoxContext } from "../common/context";
-import { defPopBoxType } from "../common/popBox";
+import Nav from "./casino.nav";
 import {
 	api_account_SetFavoriteGame,
 	api_account_GetFavoriteGame
 } from "../../service/api/account";
-
+import { api_site_GetGamelist } from "../../service/api/site";
+import { userInfoContext } from "../common/context";
+import { defNav, defRowsPerPage, defSearchColumn } from "./casino.def";
+import GameList from "./casino.gamelist";
+import { Pagination } from "../common/pagination";
 import { getUrlParameter } from "../common/common";
+import SearchBox from "./casino.searchBox";
+
+const matchKeyword = (name, _keyword) => {
+	let keyword = _keyword.toLowerCase();
+	return (
+		Object.keys(name)?.filter(key => {
+			return name[key].toLowerCase().indexOf(keyword) !== -1;
+		}).length > 0
+	);
+};
 
 export default () => {
 	const { t } = useTranslation();
-	const isMountedRef = useRef(null);
 	const { userInfo } = useContext(userInfoContext);
-	const userIsLogin = userInfo.isLogin;
-	const { setPopBox } = useContext(popBoxContext);
-	const path_tpid = Number(getUrlParameter("tpId"));
-	const [userLanguage, setUserLanguage] = useState("en");
-	const [allData, setAllData] = useState([]);
-	const [pagination, setPagination] = useState({
-		totalPages: 0,
-		currentPage: 1
+	const [selNav, setSelNav] = useState(defNav.ALLGAMES.key);
+	const [favorite, setFavorite] = useState([]);
+	const [tpList, setTpList] = useState({});
+	const [tpOptions, setTpOptions] = useState([]);
+	const [gameDatas, setGameDatas] = useState(null);
+	const [pageInfo, setPageInfo] = useState({ currentPage: 1, totalPages: 1 });
+	const [displayGames, setDisplayGames] = useState([]);
+	const [searchInfo, setSearchInfo] = useState({
+		[defSearchColumn.searchText]: "",
+		[defSearchColumn.provider]: { idx: 0, value: null }
 	});
-	const firstPage = 1;
-	const perPageCardItem = 20;
-	const [perPageData, setPerPageData] = useState([]);
-	const [btnActive, setBtnActive] = useState("All");
-	const [selectedIdx, setSelectedIdx] = useState(0);
-	const [favoriteList, setFavoriteList] = useState([]);
-	const [stateFavoriteList, setStateFavoriteList] = useState([]);
-	const [searchValue, setSearchValue] = useState("");
-	const [providerList, setProviderList] = useState([]);
-	const [providerItem, setProviderItem] = useState("ALL");
 
-	//  providerList =
-	// 	0: {id: 0, displayKey: "ALL", tpId: ""}
-	//  1: {id: 1, displayKey: "GPI", tpId: 6}
-	//  2: {id: 2, displayKey: "YGG", tpId: 8}
-	//  3: {id: 3, displayKey: "Joker", tpId: 9}
-	//  4: {id: 4, displayKey: "SG", tpId: 10}
-	//  5: {id: 5, displayKey: "PP", tpId: 5}
-	//  6: {id: 6, displayKey: "PG", tpId: 14}
+	const isMountedRef = useRef(null);
+	const urlTpId = getUrlParameter("tpId");
 
 	useEffect(() => {
 		isMountedRef.current = true;
@@ -54,372 +46,242 @@ export default () => {
 	});
 
 	useEffect(() => {
-		getGameList();
-		getLangId();
-	}, []);
+		setDisplayGames([]);
+		api_site_GetGamelist().then(res => {
+			if (res.data.errorCode === 0) {
+				let _tpList = {};
+				let _tpOptions = [{ displayText: "All", id: null }];
+				let games = [];
 
-	useEffect(() => {
-		getFavoriteStatus();
-		onChangeDropdownByPathTpId();
-	}, [allData]);
+				let hasPromo = false;
+				let hasFeature = false;
+				res.data.data.forEach(t => {
+					_tpList[t.value] = { ...t };
+					_tpOptions.push({
+						displayText: t.displayText,
+						id: t.value
+					});
 
-	const getLangId = () => {
-		let langId = userInfo.langId;
-		if (langId === "en") {
-			setUserLanguage("en");
-		} else if (langId === "cs") {
-			setUserLanguage("cs");
-		} else if (langId === "ch") {
-			setUserLanguage("ch");
-		} else {
-			setUserLanguage("en");
-		}
-	};
+					if (t.gameList.data) {
+						t.gameList.data.forEach(g => {
+							hasPromo =
+								hasPromo === false
+									? g.promotion === 1
+									: hasPromo;
+							hasFeature =
+								hasFeature === false
+									? g.featured === true
+									: hasFeature;
 
-	const getGameList = () => {
-		api_site_GetGamelist().then(
-			res => {
-				if (isMountedRef.current) {
-					if (res.data.errorCode === 0) {
-						let providerOptions = [
-							{
-								id: 0,
-								displayKey: "ALL",
-								tpId: ""
-							}
-						];
+							games.push({
+								tpId: t.value,
+								...g
+							});
+						});
+					}
+				});
 
-						for (let i = 0; i < res.data.data.length; i++) {
-							let addObj = {
-								id: i + 1,
-								displayKey: res.data.data[i].name,
-								tpId: res.data.data[i].value
-							};
+				if (games.length) {
+					for (let i = 0; i < games.length; i++) {
+						let idx = Math.floor(Math.random() * games.length);
+						let tempEle1 = games[i];
+						let tempEle2 = games[idx];
 
-							providerOptions.push(addObj);
-						}
-						setProviderList(providerOptions);
-
-						let originData = [];
-						for (let i = 0; i < res.data.data.length; i++) {
-							let addObj = {
-								provider: res.data.data[i].name,
-								playFree: res.data.data[i].playFree,
-								tpId: res.data.data[i].value
-							};
-
-							for (
-								let j = 0;
-								j < res.data.data[i].gameList.data.length;
-								j++
-							) {
-								let childItem =
-									res.data.data[i].gameList.data[j];
-								let newItem = Object.assign(childItem, addObj);
-
-								originData.push(newItem);
-							}
-						}
-
-						let m = originData.length;
-						while (m > 1) {
-							let index = Math.floor(Math.random() * m--);
-							[originData[m], originData[index]] = [
-								originData[index],
-								originData[m]
-							];
-						}
-						if (path_tpid) {
-							let _filter = originData.filter(
-								i => i.tpId === path_tpid
-							);
-
-							setPerPageData(
-								_filter.slice(
-									firstPage * perPageCardItem -
-										perPageCardItem,
-									firstPage * perPageCardItem
-								)
-							);
-							resetPagination(_filter);
-						} else {
-							resetPagination(originData);
-							setPerPageData(
-								originData.slice(
-									firstPage * perPageCardItem -
-										perPageCardItem,
-									firstPage * perPageCardItem
-								)
-							);
-						}
-						setAllData(originData);
-					} else {
-						alert(res.data.message);
+						games[i] = tempEle2;
+						games[idx] = tempEle1;
 					}
 				}
-			},
-			err => {
+
 				if (isMountedRef.current) {
-					alert(t("msg_ApiServerError"));
+					setTpList(_tpList);
+					setGameDatas(games);
+					setTpOptions(_tpOptions);
+
+					let _searchInfo = searchInfo;
+
+					if (urlTpId) {
+						let idx = _tpOptions.findIndex(
+							x => x.id === Number(urlTpId)
+						);
+
+						if (idx !== -1) {
+							setSearchInfo(prevS => {
+								_searchInfo = {
+									...prevS,
+									provider: {
+										idx: idx,
+										value: _tpOptions[idx].id
+									}
+								};
+								return _searchInfo;
+							});
+						}
+					}
+
+					SetGames({
+						_searchInfo: _searchInfo,
+						_selNav: selNav,
+						_gameDatas: games,
+						_tpList: _tpList
+					});
 				}
 			}
-		);
-	};
+		});
 
-	const onChangeDropdownByPathTpId = () => {
-		if (path_tpid) {
-			let path_tpid_idx = providerList
-				.map(i => i.tpId)
-				.indexOf(path_tpid);
-			setSelectedIdx(path_tpid_idx);
+		if (userInfo.isLogin) {
+			api_account_GetFavoriteGame().then(res => {
+				if (res.data.errorCode === 0 && res.data.data) {
+					let fav = res.data.data.map(f => {
+						return `${f.providerId}_${f.gameId}`;
+					});
+					if (isMountedRef.current) {
+						setFavorite(fav);
+					}
+				}
+			});
 		}
-	};
+	}, [userInfo.isLogin, urlTpId]);
 
-	const onSelectItem = i => {
-		setSelectedIdx(i);
-		let selectItem = providerList[i].displayKey;
-		setProviderItem(selectItem);
-		let _filter = allData.filter(
-			i =>
-				(selectItem === "ALL"
-					? i.provider === i.provider
-					: i.provider === selectItem) &&
-				(i.gameId.toLowerCase().search(searchValue) !== -1 ||
-					i.provider.toLowerCase().search(searchValue) !== -1 ||
-					JSON.stringify(Object.values(i.name))
-						.toLowerCase()
-						.search(searchValue) !== -1) &&
-				(btnActive === "promotion" ? i.promotion === 1 : i) &&
-				(btnActive === "feature" ? i.featured === true : i) &&
-				(btnActive === "favorite" && userIsLogin === true
-					? favoriteList.includes(i.gameId)
-					: i) &&
-				(btnActive === "favorite" && userIsLogin === false
-					? stateFavoriteList.map(o => o.gameId).includes(i.gameId)
-					: i)
-		);
-		setPerPageData(
-			_filter.slice(
-				firstPage * perPageCardItem - perPageCardItem,
-				firstPage * perPageCardItem
-			)
-		);
-		resetPagination(_filter);
-	};
+	const FilterGames = (
+		_searchInfo,
+		_nav,
+		initGameDatas,
+		initTpList,
+		_favorite
+	) => {
+		let _gameDatas = initGameDatas ?? gameDatas;
+		let _tpList = initTpList ?? tpList;
+		let tpId = _searchInfo.provider.value;
+		let searchText = _searchInfo.searchText;
 
-	const clickPageNumber = page => {
-		setPagination(prev => ({ ...prev, currentPage: page }));
-		setPerPageData(
-			allData.slice(
-				page * perPageCardItem - perPageCardItem,
-				page * perPageCardItem
-			)
-		);
-	};
+		const matchFilter = (tpId, g) => {
+			let matchNav =
+				(_nav === defNav.PROMO.key && g.promotion === 1) ||
+				(_nav === defNav.FEATURED.key && g.featured === true) ||
+				(_nav === defNav.FAVOURITE.key &&
+					_favorite.includes(`${tpId}_${g.gameId}`)) ||
+				_nav === defNav.ALLGAMES.key;
+			return (
+				matchNav &&
+				(searchText === "" || matchKeyword(g.name, searchText))
+			);
+		};
 
-	const resetPagination = filter => {
-		setPagination(prev => ({
-			...prev,
-			totalPages: Math.ceil(filter.length / perPageCardItem),
-			currentPage: 1
-		}));
-	};
-
-	const showLoginBox = () => {
-		setPopBox({
-			isOpen: true,
-			popBoxType: defPopBoxType.Login
+		return _gameDatas?.filter(g => {
+			let tp = _tpList[g.tpId];
+			return (
+				(tpId === null || tp.value === tpId) && matchFilter(tp.value, g)
+			);
 		});
 	};
 
-	const getAllGame = e => {
-		setBtnActive(e.target.name);
-		let _filter = allData.filter(
-			i =>
-				(providerItem === "ALL"
-					? i.provider === i.provider
-					: i.provider === providerItem) &&
-				(i.gameId.toLowerCase().search(searchValue) !== -1 ||
-					i.provider.toLowerCase().search(searchValue) !== -1 ||
-					JSON.stringify(Object.values(i.name))
-						.toLowerCase()
-						.search(searchValue) !== -1)
+	const SetGames = ({
+		_searchInfo,
+		_selNav,
+		_gameDatas,
+		_tpList,
+		_favorite = favorite
+	}) => {
+		let _displayGames = FilterGames(
+			_searchInfo,
+			_selNav,
+			_gameDatas,
+			_tpList,
+			_favorite
 		);
-		setPerPageData(
-			_filter.slice(
-				firstPage * perPageCardItem - perPageCardItem,
-				firstPage * perPageCardItem
-			)
-		);
-		resetPagination(_filter);
+
+		let _totalPages =
+			_displayGames.length === 0
+				? 1
+				: Math.ceil(_displayGames.length / defRowsPerPage);
+
+		let _currentPage =
+			pageInfo.currentPage > _totalPages
+				? _totalPages
+				: pageInfo.currentPage;
+		setDisplayGames(_displayGames);
+		setPageInfo(prevS => ({
+			...prevS,
+			currentPage: _currentPage,
+			totalPages: _totalPages
+		}));
 	};
 
-	const showPromoGame = e => {
-		setBtnActive(e.target.name);
-		let _filter = allData.filter(
-			i =>
-				(providerItem === "ALL"
-					? i.provider === i.provider
-					: i.provider === providerItem) &&
-				i.promotion === 1 &&
-				(i.gameId.toLowerCase().search(searchValue) !== -1 ||
-					i.provider.toLowerCase().search(searchValue) !== -1 ||
-					JSON.stringify(Object.values(i.name))
-						.toLowerCase()
-						.search(searchValue) !== -1)
-		);
-		setPerPageData(
-			_filter.slice(
-				firstPage * perPageCardItem - perPageCardItem,
-				firstPage * perPageCardItem
-			)
-		);
-		resetPagination(_filter);
-	};
-
-	const showFetureGame = e => {
-		setBtnActive(e.target.name);
-		let _filter = allData.filter(
-			i =>
-				(providerItem === "ALL"
-					? i.provider === i.provider
-					: i.provider === providerItem) &&
-				i.featured === true &&
-				(i.gameId.toLowerCase().search(searchValue) !== -1 ||
-					i.provider.toLowerCase().search(searchValue) !== -1 ||
-					JSON.stringify(Object.values(i.name))
-						.toLowerCase()
-						.search(searchValue) !== -1)
-		);
-		setPerPageData(
-			_filter.slice(
-				firstPage * perPageCardItem - perPageCardItem,
-				firstPage * perPageCardItem
-			)
-		);
-		resetPagination(_filter);
-	};
-
-	const showFavoriteGame = e => {
-		setBtnActive(e.target.name);
-		let _filter = allData.filter(
-			i =>
-				(providerItem === "ALL"
-					? i.provider === i.provider
-					: i.provider === providerItem) &&
-				favoriteList.includes(i.gameId) &&
-				(i.gameId.toLowerCase().search(searchValue) !== -1 ||
-					i.provider.toLowerCase().search(searchValue) !== -1 ||
-					JSON.stringify(Object.values(i.name))
-						.toLowerCase()
-						.search(searchValue) !== -1)
-		);
-		setPerPageData(
-			_filter.slice(
-				firstPage * perPageCardItem - perPageCardItem,
-				firstPage * perPageCardItem
-			)
-		);
-		resetPagination(_filter);
-	};
-
-	const getFavoriteStatus = () => {
-		if (userIsLogin) {
-			api_account_GetFavoriteGame().then(
-				res => {
-					if (isMountedRef.current) {
-						if (res.data.errorCode === 0) {
-							if (res.data.data && res.data.data.length > 0) {
-								let pickFavorite = res.data.data.map(
-									item => item.gameId
-								);
-								setFavoriteList(pickFavorite);
-							}
-						} else {
-							alert(res.data.message);
-						}
-					}
-				},
-				err => {
-					if (isMountedRef.current) {
-						alert(t("msg_ApiServerError"));
-					}
-				}
-			);
+	const onSelectNav = navKey => {
+		if (navKey !== selNav) {
+			setSelNav(navKey);
+			SetGames({
+				_searchInfo: searchInfo,
+				_selNav: navKey,
+				_gameDatas: gameDatas,
+				_tpList: tpList
+			});
 		}
 	};
 
-	const saveFavorite = (key_tpId, key_gameId) => {
-		let nowIsFavorite = favoriteList.includes(key_gameId);
-		let ProviderId = key_tpId;
-		let GameId = key_gameId;
-		let IsRemove = nowIsFavorite ? true : false;
-		api_account_SetFavoriteGame(ProviderId, GameId, IsRemove).then(
-			res => {
-				if (isMountedRef.current) {
-					getFavoriteStatus();
-				}
-			},
-			err => {
-				if (isMountedRef.current) {
-					alert(t("msg_ApiServerError"));
-				}
+	const clickPageNumber = page => {
+		setPageInfo(prevS => ({
+			...prevS,
+			currentPage: page
+		}));
+	};
+
+	const onSetFavorite = (tpId, gameId) => {
+		let key = `${tpId}_${gameId}`;
+		let isRemove = favorite?.includes(key);
+		let newFav = isRemove
+			? favorite?.filter(f => f !== key)
+			: [...favorite, key];
+
+		setFavorite(newFav);
+		SetGames({
+			_searchInfo: searchInfo,
+			_selNav: selNav,
+			_gameDatas: gameDatas,
+			_tpList: tpList,
+			_favorite: newFav
+		});
+		if (userInfo.isLogin) {
+			api_account_SetFavoriteGame(tpId, gameId, isRemove);
+		}
+	};
+
+	const EditSearchField = (column, value, pressEnter) => {
+		let _searchInfo = searchInfo;
+
+		if (column === defSearchColumn.searchText) {
+			setSearchInfo(prevS => {
+				_searchInfo = { ...prevS, [column]: value };
+				return _searchInfo;
+			});
+			if (pressEnter) {
+				SubmitSearch(_searchInfo);
 			}
-		);
-	};
-
-	const addFavoriteToState = item => {
-		if (!stateFavoriteList.includes(item)) {
-			setStateFavoriteList([...stateFavoriteList, item]);
 		} else {
-			setStateFavoriteList(stateFavoriteList.filter(j => j !== item));
+			setSearchInfo(prevS => {
+				_searchInfo = {
+					...prevS,
+					[column]: { idx: value, value: tpOptions[value].id }
+				};
+				return _searchInfo;
+			});
+
+			SetGames({
+				_searchInfo: _searchInfo,
+				_selNav: selNav,
+				_gameDatas: gameDatas,
+				_tpList: tpList
+			});
 		}
 	};
 
-	const showStateFavoriteGame = e => {
-		setBtnActive(e.target.name);
-		let _filter = stateFavoriteList.filter(i =>
-			providerItem === "ALL"
-				? i.provider === i.provider
-				: i.provider === providerItem
-		);
-		setPerPageData(
-			_filter.slice(
-				firstPage * perPageCardItem - perPageCardItem,
-				firstPage * perPageCardItem
-			)
-		);
-		resetPagination(_filter);
-	};
-
-	const onChangeSearch = e => {
-		setSearchValue(e.target.value.toLowerCase());
-	};
-
-	const onClickSearch = () => {
-		let _filter = allData.filter(
-			i =>
-				(providerItem === "ALL"
-					? i.provider === i.provider
-					: i.provider === providerItem) &&
-				(i.gameId.toLowerCase().search(searchValue) !== -1 ||
-					i.provider.toLowerCase().search(searchValue) !== -1 ||
-					JSON.stringify(Object.values(i.name))
-						.toLowerCase()
-						.search(searchValue) !== -1) &&
-				(btnActive === "favorite"
-					? favoriteList.includes(i.gameId)
-					: i) &&
-				(btnActive === "promotion" ? i.promotion === 1 : i) &&
-				(btnActive === "feature" ? i.featured === true : i)
-		);
-		setPerPageData(
-			_filter.slice(
-				firstPage * perPageCardItem - perPageCardItem,
-				firstPage * perPageCardItem
-			)
-		);
-		resetPagination(_filter);
+	const SubmitSearch = _searchInfo => {
+		SetGames({
+			_searchInfo: searchInfo,
+			_selNav: selNav,
+			_gameDatas: gameDatas,
+			_tpList: tpList
+		});
 	};
 
 	return (
@@ -427,66 +289,31 @@ export default () => {
 			<div className="inside-title icon icon-ow-casino">
 				<span>{t("lbl_Casino")}</span>
 			</div>
-			<CasinoFilter
-				getAllGame={getAllGame}
-				showPromoGame={showPromoGame}
-				showFetureGame={showFetureGame}
-				showFavoriteGame={showFavoriteGame}
-				showStateFavoriteGame={showStateFavoriteGame}
-				btnActive={btnActive}
-				providerList={providerList}
-				onSelectItem={onSelectItem}
-				selectedIdx={selectedIdx}
-				isLogin={userIsLogin}
-				onChangeSearch={onChangeSearch}
-				searchValue={searchValue}
-				onClickSearch={onClickSearch}
-			/>
-			<div className="slotList">
-				{perPageData?.map((item, i) => {
-					return (
-						<CasinoCard
-							key={`casino-card-${item}`}
-							{...item}
-							userLanguage={userLanguage}
-							playLink={
-								userIsLogin
-									? SET_CASINO_ENTER_PAGE.bind(
-											this,
-											item.tpId,
-											item.gameId,
-											item.playFree,
-											userLanguage
-									  )
-									: showLoginBox
-							}
-							saveFavorite={saveFavorite.bind(
-								this,
-								item.tpId,
-								item.gameId
-							)}
-							isFavorite={
-								userIsLogin
-									? favoriteList.includes(item.gameId)
-									: stateFavoriteList.includes(item)
-							}
-							addFavoriteToState={addFavoriteToState.bind(
-								this,
-								item
-							)}
-							isLogin={userIsLogin}
-						/>
-					);
-				})}
-			</div>
-
-			{pagination.totalPages !== 0 ? (
-				<Pagination
-					totalPages={pagination.totalPages}
-					currentPage={pagination.currentPage}
-					clickPageNumber={clickPageNumber}
+			<div className="casinoSelect">
+				<Nav selNav={selNav} onSelectNav={onSelectNav} t={t} />
+				<SearchBox
+					t={t}
+					tpOptions={tpOptions}
+					EditSearchField={EditSearchField}
+					searchInfo={searchInfo}
+					submitSearch={SubmitSearch.bind(this, searchInfo)}
 				/>
-			) : null}
+			</div>
+			<GameList
+				t={t}
+				displayGames={displayGames}
+				tpList={tpList}
+				langId={userInfo.langId}
+				isLogin={userInfo.isLogin}
+				currentPage={pageInfo.currentPage}
+				favorite={favorite}
+				onSetFavorite={onSetFavorite}
+			/>
+			<Pagination
+				totalPages={pageInfo.totalPages}
+				currentPage={pageInfo.currentPage}
+				clickPageNumber={clickPageNumber}
+			/>
 		</div>
 	);
 };

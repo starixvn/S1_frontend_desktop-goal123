@@ -3,7 +3,7 @@
   "lbl_eSports":"Thể thao điện tử",
   "lbl_NumberGame":"Number Game",
   "lbl_VirtualSport":"Thể Thao Ảo",
-  "lbl_Casino":"Casino",
+  "lbl_Casino":"CASINO",
   "lbl_LiveCasino":"Casino trực tiếp",
   "lbl_KenoAndLottery":"Keno & Xổ Số",
   "lbl_Fishing":"Bắn Cá",
@@ -232,6 +232,9 @@
   "lbl_AccountTerms":"Điều khoản về Tài khoản",
 	"lbl_FAQ":"Hỏi đáp",
 	"lbl_AboutUs":"Giới thiệu",
-	"lbl_Terms":"Điều khoản sử dụng"
-  
+  "lbl_Terms":"Điều khoản sử dụng",
+  "lbl_Favourite":"Ưa chuộng",
+  "lbl_AllGames":"Tất cả trò chơi",
+  "lbl_Promo":"khuyến mãi ",
+  "lbl_Feature":"Đặc điểm"
 }
