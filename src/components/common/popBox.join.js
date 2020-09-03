@@ -22,7 +22,7 @@ import joinBanner from "../../styles/img/joinBanner.jpg";
 const initValue = {
 	username: "",
 	password: "",
-	email: "",
+	// email: "",
 	currency: 0,
 	termsCheck: false,
 	ageCheck: false
@@ -31,7 +31,7 @@ const initValue = {
 const initTip = {
 	username: { checked: null, msg: "" },
 	password: { checked: null, msg: "" },
-	email: { checked: null, msg: "" },
+	// email: { checked: null, msg: "" },
 	currency: { checked: null, msg: "" },
 	checkbox: { checked: null, msg: "" }
 };
@@ -138,9 +138,10 @@ const JoinPanel = () => {
 			msg = t("lbl_UsernameTooltip");
 		} else if (col === "password") {
 			msg = t("lbl_PasswordTooltip");
-		} else if (col === "email") {
-			msg = t("lbl_EmailToolTip");
 		}
+		// else if (col === "email") {
+		// 	msg = t("lbl_EmailToolTip");
+		// }
 
 		if (tip[col].msg === msg) {
 			msg = "";
@@ -178,11 +179,12 @@ const JoinPanel = () => {
 			let result = passwordCheck(val);
 			checked = result.checked;
 			msg = result.msg;
-		} else if (col === "email") {
-			let result = emailCheck(val);
-			checked = result.checked;
-			msg = result.msg;
 		}
+		// else if (col === "email") {
+		// 	let result = emailCheck(val);
+		// 	checked = result.checked;
+		// 	msg = result.msg;
+		// }
 
 		setTip(prev => {
 			return {
@@ -264,75 +266,75 @@ const JoinPanel = () => {
 		return { checked, msg };
 	};
 
-	const emailCheck = val => {
-		let checked = false;
-		let msg = "";
-		const regx = /^\w+((-\w+)|(\.\w+))*@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
+	// const emailCheck = val => {
+	// 	let checked = false;
+	// 	let msg = "";
+	// 	const regx = /^\w+((-\w+)|(\.\w+))*@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
 
-		if (val === "") {
-			checked = false;
-			msg = "msg_MailWrongFormat";
-		} else if (val !== "") {
-			if (!regx.test(val)) {
-				checked = false;
-				msg = "msg_MailWrongFormat";
-			} else {
-				checked = true;
-			}
-		}
+	// 	if (val === "") {
+	// 		checked = false;
+	// 		msg = "msg_MailWrongFormat";
+	// 	} else if (val !== "") {
+	// 		if (!regx.test(val)) {
+	// 			checked = false;
+	// 			msg = "msg_MailWrongFormat";
+	// 		} else {
+	// 			checked = true;
+	// 		}
+	// 	}
 
-		if (checked === true) {
-			api_site_ExistsEmail({ Email: val }).then(
-				res => {
-					if (isMountedRef.current) {
-						if (res.data.errorCode === 0) {
-							if (res.data.data === true) {
-								setTip(prev => {
-									return {
-										...prev,
-										email: {
-											checked: false,
-											msg: t("msg_MailExisted")
-										}
-									};
-								});
-							} else {
-								setTip(prev => {
-									return {
-										...prev,
-										email: {
-											checked: true,
-											msg: ""
-										}
-									};
-								});
-							}
-						}
-					}
-				},
-				err => {
-					if (isMountedRef.current) {
-						setPopBox({
-							isOpen: true,
-							popBoxType: defPopBoxType.ErrorMsg,
-							message: t("msg_ApiServerError"),
-							btnBar: (
-								<div className="btnGroup">
-									<button
-										className="btn-cancel"
-										onClick={ClickClose}>
-										{t("lbl_Close")}
-									</button>
-								</div>
-							)
-						});
-					}
-				}
-			);
-		}
+	// 	if (checked === true) {
+	// 		api_site_ExistsEmail({ Email: val }).then(
+	// 			res => {
+	// 				if (isMountedRef.current) {
+	// 					if (res.data.errorCode === 0) {
+	// 						if (res.data.data === true) {
+	// 							setTip(prev => {
+	// 								return {
+	// 									...prev,
+	// 									email: {
+	// 										checked: false,
+	// 										msg: t("msg_MailExisted")
+	// 									}
+	// 								};
+	// 							});
+	// 						} else {
+	// 							setTip(prev => {
+	// 								return {
+	// 									...prev,
+	// 									email: {
+	// 										checked: true,
+	// 										msg: ""
+	// 									}
+	// 								};
+	// 							});
+	// 						}
+	// 					}
+	// 				}
+	// 			},
+	// 			err => {
+	// 				if (isMountedRef.current) {
+	// 					setPopBox({
+	// 						isOpen: true,
+	// 						popBoxType: defPopBoxType.ErrorMsg,
+	// 						message: t("msg_ApiServerError"),
+	// 						btnBar: (
+	// 							<div className="btnGroup">
+	// 								<button
+	// 									className="btn-cancel"
+	// 									onClick={ClickClose}>
+	// 									{t("lbl_Close")}
+	// 								</button>
+	// 							</div>
+	// 						)
+	// 					});
+	// 				}
+	// 			}
+	// 		);
+	// 	}
 
-		return { checked, msg };
-	};
+	// 	return { checked, msg };
+	// };
 
 	const clickDropdown = () => {
 		setTip(prev => {
@@ -365,14 +367,14 @@ const JoinPanel = () => {
 	const checkAll = () => {
 		let _usernameCheck = usernameCheck(userValue.username);
 		let _passwordCheck = passwordCheck(userValue.password);
-		let _emailCheck = emailCheck(userValue.email);
+		// let _emailCheck = emailCheck(userValue.email);
 		let _termsCheck = userValue.termsCheck;
 		let _ageCheck = userValue.ageCheck;
 
 		let checked =
 			_usernameCheck.checked &&
 			_passwordCheck.checked &&
-			_emailCheck.checked &&
+			// _emailCheck.checked &&
 			_termsCheck &&
 			_ageCheck;
 
@@ -392,10 +394,10 @@ const JoinPanel = () => {
 						checked: _passwordCheck.checked,
 						msg: t(_passwordCheck.msg)
 					},
-					email: {
-						checked: _emailCheck.checked,
-						msg: t(_emailCheck.msg)
-					},
+					// email: {
+					// 	checked: _emailCheck.checked,
+					// 	msg: t(_emailCheck.msg)
+					// },
 					checkbox: {
 						checked: true,
 						msg: t(checkboxMsg)
@@ -414,7 +416,7 @@ const JoinPanel = () => {
 			let regData = {
 				UserName: userValue.username,
 				Userpwd: userValue.password,
-				Email: userValue.email,
+				// Email: userValue.email,
 				CurrencyId: siteCurrency[userValue.currency].id,
 				UserLang: defaultLangId
 			};
@@ -597,7 +599,7 @@ const JoinPanel = () => {
 							clickInfo={clickInfo.bind(this, "password")}
 						/>
 
-						<Inputbox
+						{/* <Inputbox
 							icon="icon-email txt-blue12"
 							placeholder={t("lbl_Email")}
 							value={userValue.email}
@@ -606,7 +608,7 @@ const JoinPanel = () => {
 							clickInfo={clickInfo.bind(this, "email")}
 							onChange={EditField.bind(null, "email")}
 							onBlur={checkValue.bind(null, "email")}
-						/>
+						/> */}
 
 						<div className="inputBox">
 							<Dropdown
