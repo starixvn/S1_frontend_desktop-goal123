@@ -26,6 +26,7 @@ export default ({ showSubMenu }) => {
 				langId={userInfo.langId}
 				isLogin={userInfo.isLogin}
 				checkMatchPage={true}
+				toUpperCase={true}
 			/>
 		</>
 	);

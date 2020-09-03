@@ -8,8 +8,8 @@ const SetReplaceChar = (str, idx, newChar) => {
 };
 
 const defLangDisplayText = {
-	en: "English",
-	vn: "Tiếng Việt"
+	vn: "Tiếng Việt",
+	en: "English"
 };
 
 const defLangList = () =>
@@ -43,7 +43,9 @@ export class Dropdown extends Component {
 
 	selectItem = value => {
 		this.setState({ isOpen: false });
-		api_account_SetLanguage(value);
+		if (this.props.isLogin) {
+			api_account_SetLanguage(value);
+		}
 	};
 
 	render() {

@@ -77,7 +77,7 @@ const Panel = ({ ImgFolder, withBtn, clickPrev, clickNext }) => {
 		let actionLink = actionLinkByLang
 			? actionLinkByLang.link
 			: b.actionLink;
-		let imgSRC = b.fromDB
+		let imgSRC = b.imgURL
 			? b.imgURL
 			: `${config.imgUrl}/CMS/${config.siteName}/${_imgFolder}/${lang}/${b.img}`;
 
