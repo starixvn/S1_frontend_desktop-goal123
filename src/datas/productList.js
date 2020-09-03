@@ -57,5 +57,9 @@ export default {
 	hockey: {
 		gameId: 4,
 		tpId: 1
+	},
+	baseball: {
+		gameId: 8,
+		tpId: 1
 	}
 };

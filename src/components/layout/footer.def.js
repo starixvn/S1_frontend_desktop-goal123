@@ -12,10 +12,10 @@ export const defSportsBetting = {
 		path: path.sports.root,
 		displayKey: "lbl_BasketballBetting"
 	},
-	badminton: {
-		productInfo: productList.badminton,
+	baseball: {
+		productInfo: productList.baseball,
 		path: path.sports.root,
-		displayKey: "lbl_badminton"
+		displayKey: "lbl_BaseballBetting"
 	},
 	football: {
 		productInfo: productList.football,

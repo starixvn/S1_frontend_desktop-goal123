@@ -221,5 +221,17 @@
   "lbl_Req":"Yêu cầu",
   "lbl_Expired":"Expired",
   "lbl_FreeBet":"FreeBet",
-	"lbl_PromotionsDesc":"Promotions Description"
+  "lbl_PromotionsDesc":"Promotions Description",
+  "lbl_OurPolicies":"Chính sách của chúng tôi",
+  "lbl_HelpSupport":"Hỗ trợ",
+	"lbl_ContactUs":"Liên hệ",
+  "lbl_BaseballBetting":"Cược Bóng Chày",
+  "lbl_ResposibleGaming":"Chơi có trách nhiệm",
+  "lbl_ConatctUsHint":"Bộ phận hỗ trợ trực tuyến 24/7 luôn sẵn sàng lắng nghe và giải đáp những thắc mắc của thành viên. Chúng tôi hỗ trợ thông qua chat hỗ trợ trực tuyến, điện thoại và nhiều kênh thông dụng khác như : Zalo, Telegram và Skype.",
+	"lbl_CookiePolicy":"Chính sách Cookie",
+  "lbl_AccountTerms":"Điều khoản về Tài khoản",
+	"lbl_FAQ":"Hỏi đáp",
+	"lbl_AboutUs":"Giới thiệu",
+	"lbl_Terms":"Điều khoản sử dụng"
+  
 }
