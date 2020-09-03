@@ -105,7 +105,6 @@ const defPlatform = [
 	"ab",
 	"yl",
 	"ag",
-	"jk",
 	"gp",
 	"dg",
 	"sa",
