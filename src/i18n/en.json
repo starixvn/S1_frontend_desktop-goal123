@@ -230,5 +230,12 @@
   "lbl_Passport":"Passport",
   "lbl_DrivingLicense":"Driving License",
   "lbl_BirthCertificate":"Birth Certificate",
+  "lbl_PlayNow":"Play Now",
+  "lbl_Free":"Free Play",
+  "lbl_Promo":"Promo",
+  "lbl_Feature":"Feature",
+  "lbl_Favourite":"Favourite",
+  "lbl_Provider":"Provider",
+  "lbl_AllGames":"All Games",
   "xx":"xxx"
 }
