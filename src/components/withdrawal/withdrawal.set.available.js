@@ -6,16 +6,22 @@ export default props => {
 	const { t } = useTranslation();
 
 	return (
-		<div className="walletBalanceModule">
-			<span className="icon icon-balance">
-				{t("lbl_EligibleWithdrawalAmount")}
-			</span>
-			<span>
-				{number_format(props.availableBalance, props._isConvert)}
-			</span>
-			<i
-				className="icon icon-spinner11"
-				onClick={props.refreshAvailableBalance}></i>
-		</div>
+		<>
+			<div className="walletBalanceModule">
+				<span className="icon icon-balance">{props.accountName}</span>
+				<i className="icon icon-error"></i>
+			</div>
+			<div className="walletBalanceModule">
+				<span className="icon icon-balance">
+					{t("lbl_EligibleWithdrawalAmount")}
+				</span>
+				<span>
+					{number_format(props.availableBalance, props._isConvert)}
+				</span>
+				<i
+					className="icon icon-spinner11"
+					onClick={props.refreshAvailableBalance}></i>
+			</div>
+		</>
 	);
 };
