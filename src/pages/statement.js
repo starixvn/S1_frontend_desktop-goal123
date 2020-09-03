@@ -169,7 +169,7 @@ const Content = () => {
 				getHistory.length > 0 ? (
 					<div className="list history">
 						<div className="listHeader">
-							<div>{t("lbl_NO")}.</div>
+							<div>{t("lbl_NO")}</div>
 							<div>
 								{t("lbl_Date")} {moment().format("Z")}
 							</div>
