@@ -22,7 +22,7 @@ import defStep from "../withdrawal/defStep";
 import { checkWithdrawalAmount } from "../common/common";
 import Loading from "../common/loading";
 
-export default step => {
+export default (props,step) => {
 	const { t } = useTranslation();
 	const { setPopBox } = useContext(popBoxContext);
 	const isMountedRef = useRef(null);
@@ -227,6 +227,7 @@ export default step => {
 								</div>
 							)
 						});
+						props.refreshHitory("refresh");
 					} else if (res.data.errorCode === -1) {
 						setPopBox({
 							isOpen: true,
@@ -336,6 +337,7 @@ export default step => {
 				<>
 					<div className="inside-title icon icon-transfer">
 						<span>{t("lbl_Withdrawal")}</span>
+						<div>{t("lbl_UpdateBankInfo")}</div>
 					</div>
 					<StepBar step={step} t={t} defStep={defStep} />
 					<div className="walletModule">
@@ -343,6 +345,7 @@ export default step => {
 							availableBalance={balanceData.availableBalance}
 							refreshAvailableBalance={refreshAvailableBalance}
 							_isConvert={_isConvert}
+							accountName={userInfo.accountName}
 						/>
 					</div>
 					<div className="walletModule">
