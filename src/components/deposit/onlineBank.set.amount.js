@@ -6,7 +6,14 @@ import { defActionType } from "./onlineBank.reducer";
 import { checkAmount } from "../common/common";
 import Inputbox, { defValueType } from "../common/inputbox";
 
-export default ({ bankInfo, _isConvert, amount, dispatch }) => {
+export default ({
+	bankInfo,
+	_isConvert,
+	amount,
+	dispatch,
+	minAmount,
+	maxAmount
+}) => {
 	const { t } = useTranslation();
 	const [warning, setWarning] = useState({
 		status: null,
@@ -20,13 +27,7 @@ export default ({ bankInfo, _isConvert, amount, dispatch }) => {
 	};
 
 	const VaildAmount = _amount => {
-		let result = checkAmount(
-			_amount,
-			bankInfo.minAmount,
-			bankInfo.maxAmount,
-			_isConvert,
-			t
-		);
+		let result = checkAmount(_amount, minAmount, maxAmount, _isConvert, t);
 		if (result.status !== 0) {
 			setWarning({
 				status: true,
@@ -60,8 +61,8 @@ export default ({ bankInfo, _isConvert, amount, dispatch }) => {
 							/>
 						</div>
 						<LimitTip
-							minAmount={bankInfo.minAmount}
-							maxAmount={bankInfo.maxAmount}
+							minAmount={minAmount}
+							maxAmount={maxAmount}
 							displayTextLimit={"Limit"}
 							displayTextUnLimit={"Unlimit"}
 							_isConvert={_isConvert}
