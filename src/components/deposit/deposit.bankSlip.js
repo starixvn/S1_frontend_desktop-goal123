@@ -19,6 +19,7 @@ import style from "../../styles/css/datePicker.css";
 import config from "../../config";
 import Loading from "../common/loading";
 import { defPopBoxType } from "../common/popBox";
+import Inputbox from "../common/inputbox";
 
 export class Module extends Component {
 	state = {
@@ -27,7 +28,8 @@ export class Module extends Component {
 		depositTime: this.props.depositTime ? this.props.depositTime : null,
 		refId: this.props.refId ? this.props.refId : "",
 		picFileName: this.props.picFileName ? this.props.picFileName : null,
-		fileImg: null
+		fileImg: null,
+		refIdTip: { checked: null, tip: "" }
 	};
 	isMountedRef = false;
 	filebox = createRef();
@@ -116,6 +118,25 @@ export class Module extends Component {
 		this.setState({ [col]: value === null ? e.target.value : value });
 	};
 
+	checkTip = e => {
+		let val = e.target.value;
+		let _tip = "";
+		let _checked = true;
+
+		if (!val) {
+			_tip = this.props.i18n("lbl_RemindForRefNum");
+			_checked = false;
+		}
+
+		this.setState({ refIdTip: { checked: _checked, tip: _tip } });
+	};
+
+	clickInfo = () => {
+		let _msg =
+			this.state.refIdTip.tip !== "" ? "" : this.props.i18n("lbl_Refno");
+		this.setState({ refIdTip: { checked: null, tip: _msg } });
+	};
+
 	clickSubmit = e => {
 		e.preventDefault();
 		if (!this.state.processing) {
@@ -161,7 +182,12 @@ export class Module extends Component {
 				);
 			} else {
 				if (this.isMountedRef) {
-					alert(this.props.i18n("lbl_RemindForRefNum"));
+					this.setState({
+						refIdTip: {
+							checked: false,
+							tip: this.props.i18n("lbl_RemindForRefNum")
+						}
+					});
 					this.setState({ processing: false });
 				}
 			}
@@ -223,21 +249,17 @@ export class Module extends Component {
 						/>
 						<div className="iconModule">
 							<i className="icon icon-calendar"></i>
-							<i className="icon icon-information-solid"></i>
 						</div>
 					</div>
-					<div className="inputBox">
-						<i className="txt-blue12">
-							{this.props.i18n("lbl_Refno")}
-						</i>
-						<input
-							value={this.state.refId}
-							onChange={this.editField.bind(this, "refId", null)}
-						/>
-						<div className="iconModule">
-							<i className="icon icon-information-solid"></i>
-						</div>
-					</div>
+					<Inputbox
+						title={this.props.i18n("lbl_Refno")}
+						value={this.state.refId}
+						onChange={this.editField.bind(this, "refId", null)}
+						onBlur={this.checkTip.bind(this)}
+						clickInfo={this.clickInfo}
+						checked={this.state.refIdTip.checked}
+						tip={this.state.refIdTip.tip}
+					/>
 					<div className="btnGroup">
 						<button
 							type="button"

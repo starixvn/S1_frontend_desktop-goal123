@@ -15,11 +15,10 @@ export default ({
 	maxAmount
 }) => {
 	const { t } = useTranslation();
-	const [warning, setWarning] = useState({
-		status: null,
-		msg: ""
+	const [status, setStatus] = useState({
+		checked: null,
+		tip: ""
 	});
-
 	const EditAmount = e => {
 		let value = e.target.value;
 		VaildAmount(value);
@@ -29,14 +28,14 @@ export default ({
 	const VaildAmount = _amount => {
 		let result = checkAmount(_amount, minAmount, maxAmount, _isConvert, t);
 		if (result.status !== 0) {
-			setWarning({
-				status: true,
-				msg: result.msg
+			setStatus({
+				checked: false,
+				tip: result.msg
 			});
 		} else {
-			setWarning({
-				status: false,
-				msg: ""
+			setStatus({
+				checked: true,
+				tip: ""
 			});
 		}
 		return result.status === 0;
@@ -47,6 +46,14 @@ export default ({
 		if (result) {
 			dispatch({ type: defActionType.SUBMIT_AMOUNT });
 		}
+	};
+
+	const clickInfo = () => {
+		let _msg = status.tip === "" ? t("lbl_AmountTooltip") : "";
+		setStatus({
+			checked: null,
+			tip: _msg
+		});
 	};
 
 	return (
@@ -72,17 +79,15 @@ export default ({
 						placeholder={t("lbl_DepositAmountReq")}
 						value={amount}
 						onChange={EditAmount}
-						warning={warning.status}
-						warningIcon="icon-cross"
-						checkIcon={`${
-							warning.status === false ? "icon-checkmark" : null
-						}`}
-						tip={warning.status ? warning.msg : null}
+						onBlur={VaildAmount.bind(this, amount)}
+						clickInfo={clickInfo}
+						checked={status.checked}
+						tip={status.tip}
 					/>
 					<div className="btnGroup">
 						<button
 							className={`${
-								warning.status === false
+								status.checked === true
 									? "btn-check"
 									: "btn-cancel"
 							}`}
