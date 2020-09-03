@@ -237,5 +237,7 @@
   "lbl_Favourite":"Favourite",
   "lbl_Provider":"Provider",
   "lbl_AllGames":"All Games",
-  "xx":"xxx"
+  "lbl_RolloverOver":"Insufficient rollover turnover",
+  "lbl_DepositOver":"Your required withdrawal amount had exceeded your current available balance.",
+  "lbl_WithdrawalOver":"Your required withdrawal amount had exceeded your elegible withdrawal amount."
 }

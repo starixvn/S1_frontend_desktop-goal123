@@ -69,6 +69,32 @@ export const checkAmount = (amount, minAmount, maxAmount, _isConvert, i18n) => {
 	return { status: status, msg: msg };
 };
 
+export const checkWithdrawalAmount = (amount, maxAmount, _isConvert, i18n) => {
+	let status = 0;
+	let msg = "";
+	if (amount !== null && amount !== undefined) {
+		let num_Amount = isNaN(amount) ? 0 : Number(amount);
+		if (_isConvert) {
+			num_Amount *= 1000;
+		}
+		if (num_Amount <= 0) {
+			status = 2;
+			msg = i18n("lbl_AmountTooltip");
+		} else if (maxAmount !== 0 && num_Amount > maxAmount) {
+			status = 2;
+			msg =
+				number_format(num_Amount, _isConvert) +
+				" " +
+				i18n("lbl_NotinLimit");
+		}
+	} else {
+		status = 3;
+		msg = i18n("lbl_NotinLimit");
+	}
+
+	return { status: status, msg: msg };
+};
+
 export const setCookie = (cookieName, cookieValue, exdays) => {
 	let d = new Date();
 	d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);

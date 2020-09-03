@@ -237,5 +237,7 @@
   "lbl_Favourite":"我的最爱",
   "lbl_Provider":"供应商",
   "lbl_AllGames":"所有游戏",
-  "xx":"xxx"
+  "lbl_RolloverOver":"您的优惠回馈流水未达最低金额",
+  "lbl_DepositOver":"您的提款申请超过您的馀额",
+  "lbl_WithdrawalOver":"您的提款申请超过您可提款金额"
 }

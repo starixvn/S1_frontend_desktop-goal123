@@ -19,6 +19,7 @@ import { defPopBoxType } from "../common/popBox";
 import { isConvert } from "../common/common";
 import StepBar from "../common/stepBar";
 import defStep from "../withdrawal/defStep";
+import { checkWithdrawalAmount } from "../common/common";
 
 export default step => {
 	const { t } = useTranslation();
@@ -34,6 +35,10 @@ export default step => {
 	const { userInfo } = useContext(userInfoContext);
 	const _isConvert = isConvert(userInfo.currencyId);
 	const [kycStatus, setKycStatus] = useState("");
+	const [warning, setWarning] = useState({
+		status: null,
+		msg: ""
+	});
 
 	useEffect(() => {
 		isMountedRef.current = true;
@@ -100,48 +105,44 @@ export default step => {
 	};
 
 	const onChangeAmount = e => {
-		let value = e.target.value;
+		let value = Number(e.target.value);
+		ValidAmount(value);
 		setAmountValue(value);
 	};
 
-	const ClickClose = () => {
-		setPopBox({ isOpen: false });
+	const ValidAmount = _amount => {
+		let result = checkWithdrawalAmount(
+			_amount,
+			balanceData.availableBalance,
+			_isConvert,
+			t
+		);
+		if (result.status !== 0) {
+			setWarning({
+				status: true,
+				msg: result.msg
+			});
+		} else {
+			setWarning({
+				status: false,
+				msg: ""
+			});
+		}
+		return result.status === 0;
 	};
 
 	const toConfirmPage = () => {
-		if (amountValue < 1 || amountValue === "") {
-			setPopBox({
-				isOpen: true,
-				popBoxType: defPopBoxType.ErrorMsg,
-				message: t("lbl_AmountTooltip"),
-				btnBar: (
-					<div className="btnGroup">
-						<button className="btn-cancel" onClick={ClickClose}>
-							{t("lbl_Close")}
-						</button>
-					</div>
-				)
-			});
-		} else if (accountNoValue === "" || sysIdValue === 0) {
-			setPopBox({
-				isOpen: true,
-				popBoxType: defPopBoxType.ErrorMsg,
-				message: t("lbl_SelectBank_Required"),
-				btnBar: (
-					<div className="btnGroup">
-						<button className="btn-cancel" onClick={ClickClose}>
-							{t("lbl_Close")}
-						</button>
-					</div>
-				)
-			});
-		} else {
+		if (warning.status === false) {
 			setShowConfirmPage(true);
 		}
 	};
 
 	const cancelSubmit = () => {
 		setShowConfirmPage(false);
+	};
+
+	const ClickClose = () => {
+		setPopBox({ isOpen: false });
 	};
 
 	const confirmSubmit = () => {
@@ -163,7 +164,7 @@ export default step => {
 		api_payment_WithdrawalReq(AccountNo, amount, sysId).then(
 			res => {
 				if (isMountedRef.current) {
-					if (res.data.errorCode === 2) {
+					if (res.data.errorCode === 2 || res.data.errorCode === 0) {
 						setPopBox({
 							isOpen: true,
 							popBoxType: defPopBoxType.Success,
@@ -177,8 +178,71 @@ export default step => {
 								</div>
 							)
 						});
+					} else if (res.data.errorCode === -1) {
+						setPopBox({
+							isOpen: true,
+							popBoxType: defPopBoxType.ErrorMsg,
+							message:
+								t("lbl_RolloverOver") + ":" + res.data.message,
+							btnBar: (
+								<div className="btnGroup">
+									<button
+										className="btn-cancel"
+										onClick={ClickClose}>
+										{t("lbl_Close")}
+									</button>
+								</div>
+							)
+						});
+					} else if (res.data.errorCode === -2) {
+						setPopBox({
+							isOpen: true,
+							popBoxType: defPopBoxType.ErrorMsg,
+							message:
+								t("lbl_DepositOver") + ":" + res.data.message,
+							btnBar: (
+								<div className="btnGroup">
+									<button
+										className="btn-cancel"
+										onClick={ClickClose}>
+										{t("lbl_Close")}
+									</button>
+								</div>
+							)
+						});
+					} else if (res.data.errorCode === -3) {
+						setPopBox({
+							isOpen: true,
+							popBoxType: defPopBoxType.ErrorMsg,
+							message:
+								t("lbl_WithdrawalOver") +
+								":" +
+								res.data.message,
+							btnBar: (
+								<div className="btnGroup">
+									<button
+										className="btn-cancel"
+										onClick={ClickClose}>
+										{t("lbl_Close")}
+									</button>
+								</div>
+							)
+						});
 					} else {
-						alert(res.data.message);
+						setPopBox({
+							isOpen: true,
+							popBoxType: defPopBoxType.ErrorMsg,
+							message: res.data.message,
+							btnBar: (
+								<div className="btnGroup">
+									<button
+										className="btn-cancel"
+										onClick={ClickClose}>
+										{t("lbl_Close")}
+									</button>
+								</div>
+							)
+						});
 					}
 				}
 			},
@@ -254,6 +318,7 @@ export default step => {
 											accountNoValue={accountNoValue}
 											toConfirmPage={toConfirmPage}
 											_isConvert={_isConvert}
+											warning={warning}
 										/>
 									</div>
 								) : (
