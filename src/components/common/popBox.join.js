@@ -160,6 +160,8 @@ const JoinPanel = () => {
 
 	const EditField = (col, e) => {
 		let val = e.target.value;
+		val = val.replace(/[\W]/g, "");
+
 		setUserValue(prev => ({
 			...prev,
 			[col]: val
