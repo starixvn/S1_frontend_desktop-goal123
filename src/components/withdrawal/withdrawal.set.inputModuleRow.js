@@ -1,24 +1,21 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+import Inputbox from "../common/inputbox";
 
 export default props => {
 	const { t } = useTranslation();
 	return (
 		<div className="inputModuleRow">
-			<div className="inputBox">
-				<i className="txt-blue12">{t("lbl_Amount")}</i>
-				<input
-					onChange={props.onChangeAmount}
-					value={props.amountValue}
-				/>
-				<div className="iconModule">
-					<i className="">{props._isConvert ? "('000)" : ""}</i>
-					<i className="icon icon-information-solid"></i>
-				</div>
-			</div>
-			<div className="tip active">
-				{props.warning.status ? props.warning.msg : null}
-			</div>
+			<Inputbox
+				value={props.amountValue}
+				onChange={props.onChangeAmount}
+				onBlur={props.onBlur}
+				title={t("lbl_Amount")}
+				clickInfo={props.clickInfo}
+				checked={props.checked}
+				tip={props.tip}
+				_isConvert={props._isConvert}
+			/>
 			<div className="btnGroup">
 				<button className="btn-check" onClick={props.toConfirmPage}>
 					{t("lbl_Submit")}

@@ -22,7 +22,7 @@ import defStep from "../withdrawal/defStep";
 import { checkWithdrawalAmount } from "../common/common";
 import Loading from "../common/loading";
 
-export default (props,step) => {
+export default (props, step) => {
 	const { t } = useTranslation();
 	const { setPopBox } = useContext(popBoxContext);
 	const isMountedRef = useRef(null);
@@ -36,9 +36,9 @@ export default (props,step) => {
 	const { userInfo } = useContext(userInfoContext);
 	const _isConvert = isConvert(userInfo.currencyId);
 	const [kycStatus, setKycStatus] = useState("");
-	const [warning, setWarning] = useState({
-		status: null,
-		msg: ""
+	const [status, setStatus] = useState({
+		checked: null,
+		tip: ""
 	});
 	const [loading, setLoading] = useState(true);
 
@@ -167,21 +167,29 @@ export default (props,step) => {
 			t
 		);
 		if (result.status !== 0) {
-			setWarning({
-				status: true,
-				msg: result.msg
+			setStatus({
+				checked: false,
+				tip: result.msg
 			});
 		} else {
-			setWarning({
-				status: false,
-				msg: ""
+			setStatus({
+				checked: true,
+				tip: ""
 			});
 		}
 		return result.status === 0;
 	};
 
+	const clickInfo = () => {
+		let _msg = status.tip === "" ? t("lbl_AmountTooltip") : "";
+		setStatus({
+			checked: null,
+			tip: _msg
+		});
+	};
+
 	const toConfirmPage = () => {
-		if (warning.status === false) {
+		if (status.checked === true) {
 			setShowConfirmPage(true);
 		}
 	};
@@ -200,6 +208,10 @@ export default (props,step) => {
 			getApiBalance();
 			setPopBox({
 				isOpen: false
+			});
+			setStatus({
+				checked: null,
+				tip: ""
 			});
 			setShowConfirmPage(false);
 			getKycStatus();
@@ -385,7 +397,14 @@ export default (props,step) => {
 											accountNoValue={accountNoValue}
 											toConfirmPage={toConfirmPage}
 											_isConvert={_isConvert}
-											warning={warning}
+											status={status}
+											onBlur={ValidAmount.bind(
+												this,
+												amountValue
+											)}
+											clickInfo={clickInfo}
+											checked={status.checked}
+											tip={status.tip}
 										/>
 									</div>
 								) : (
