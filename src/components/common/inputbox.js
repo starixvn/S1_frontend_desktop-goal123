@@ -20,6 +20,7 @@ export default props => {
 							: props.value
 					}
 					max={props.max ? props.max : null}
+					readOnly={props.readOnly}
 				/>
 				{props.warning ? (
 					<div className="iconModule">
