@@ -319,7 +319,22 @@ const Content = () => {
 				? defDirection.MainToTp
 				: defDirection.TpToMain;
 
-		Transfer(_wallet.id, _wallet.balance, _direction);
+		if (_wallet.balance === 0) {
+			setPopBox({
+				isOpen: true,
+				popBoxType: defPopBoxType.ErrorMsg,
+				message: t("msg_InsufficientFund"),
+				btnBar: (
+					<div className="btnGroup">
+						<button className="btn-cancel" onClick={ClickClose}>
+							{t("lbl_Close")}
+						</button>
+					</div>
+				)
+			});
+		} else {
+			Transfer(_wallet.id, _wallet.balance, _direction);
+		}
 	};
 
 	return loading ? (

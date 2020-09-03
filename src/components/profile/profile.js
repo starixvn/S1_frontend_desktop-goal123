@@ -23,10 +23,12 @@ export default () => {
 	const [nameValue, setNameValue] = useState("");
 	const [birthValue, setBirthValue] = useState("");
 	const [phoneValue, setPhoneValue] = useState("");
+	const [emailValue, setEmailValue] = useState("");
 
 	const [nameErr, setNameErr] = useState("");
 	const [birthErr, setBirthErr] = useState("");
 	const [phoneErr, setPhoneErr] = useState("");
+	const [emailErr, setEmailErr] = useState("");
 
 	useEffect(() => {
 		isMountedRef.current = true;
@@ -71,6 +73,11 @@ export default () => {
 	const onChangePhone = e => {
 		let value = e.target.value;
 		setPhoneValue(value);
+	};
+
+	const onChangeEmail = e => {
+		let value = e.target.value;
+		setEmailValue(value);
 	};
 
 	const ClickClose = () => {
@@ -120,11 +127,31 @@ export default () => {
 		return checkResult;
 	};
 
+	const checkEmail = () => {
+		let checkResult = false;
+		let emailRegex = /^\w+((-\w+)|(\.\w+))*@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
+		if (userInfo.email) {
+			checkResult = true;
+		}
+		if (!userInfo.email && emailValue === "") {
+			checkResult = false;
+			setEmailErr(t("lbl_EmailRequired"));
+		} else if (!emailRegex.test(emailValue)) {
+			checkResult = false;
+			setEmailErr(t("lbl_EmailFormatError"));
+		} else if (!userInfo.email && emailValue !== "") {
+			checkResult = true;
+			setEmailErr("");
+		}
+		return checkResult;
+	};
+
 	const submitCheck = () => {
 		if (
 			checkName() === true &&
 			checkBirth() === true &&
-			checkPhone() === true
+			checkPhone() === true &&
+			checkEmail() === true
 		) {
 			if (!userInfo.accountName) {
 				setPopBox({
@@ -175,7 +202,8 @@ export default () => {
 				: userInfo.birth_y,
 			CountryCode: userInfo.country,
 			AreaCode: userInfo.AreaCode,
-			PhoneNo: !userInfo.phoneNo ? phoneValue : userInfo.phoneNo
+			PhoneNo: !userInfo.phoneNo ? phoneValue : userInfo.phoneNo,
+			Email: !userInfo.email ? emailValue : userInfo.email
 		}).then(
 			res => {
 				if (isMountedRef.current) {
@@ -194,11 +222,13 @@ export default () => {
 							birth_y: !userInfo.birth_d
 								? birthValue.slice(0, 4)
 								: userInfo.birth_y,
-							phoneNo: phoneValue
+							phoneNo: phoneValue,
+							email: emailValue
 						}));
 						setNameValue("");
 						setBirthValue("");
 						setPhoneValue("");
+						setEmailValue("");
 						setPopBox({
 							isOpen: true,
 							popBoxType: defPopBoxType.ProfileCompelete,
@@ -255,6 +285,7 @@ export default () => {
 				className={
 					!userInfo.accountName ||
 					!userInfo.birth_d ||
+					!userInfo.email ||
 					!userInfo.phoneNo
 						? "profileEdit"
 						: ""
@@ -262,22 +293,27 @@ export default () => {
 				<ProfileRead userInfo={userInfo} />
 				{!userInfo.accountName ||
 				!userInfo.birth_d ||
-				!userInfo.phoneNo ? (
+				!userInfo.phoneNo ||
+				!userInfo.email ? (
 					<ProfileEdit
 						userInfo={userInfo}
 						submitProfile={submitCheck}
 						onChangeName={onChangeName}
 						onChangeBirth={onChangeBirth}
 						onChangePhone={onChangePhone}
+						onChangeEmail={onChangeEmail}
 						nameValue={nameValue}
 						birthValue={birthValue}
 						phoneValue={phoneValue}
+						emailValue={emailValue}
 						nameErr={nameErr}
 						birthErr={birthErr}
 						phoneErr={phoneErr}
+						emailErr={emailErr}
 						checkName={checkName}
 						checkBirth={checkBirth}
 						checkPhone={checkPhone}
+						checkEmail={checkEmail}
 					/>
 				) : null}
 			</div>

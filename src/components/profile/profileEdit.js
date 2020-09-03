@@ -38,6 +38,7 @@ export default props => {
 						timeFormat={false}
 						dateFormat={"YYYY-MM-DD"}
 						onBlur={props.checkBirth}
+						viewDate={moment(legalDate).format("YYYY-MM-DD")}
 						isValidDate={valid}
 					/>
 				</div>
@@ -59,6 +60,20 @@ export default props => {
 
 			{props.phoneErr ? (
 				<div className="tip active">{props.phoneErr}</div>
+			) : null}
+
+			{!props.userInfo.email ? (
+				<Inputbox
+					title={t("lbl_Email")}
+					checkIcon="icon icon-error"
+					onChange={props.onChangeEmail}
+					value={props.emailValue}
+					onBlur={props.checkEmail}
+				/>
+			) : null}
+
+			{props.emailErr ? (
+				<div className="tip active">{props.emailErr}</div>
 			) : null}
 
 			<div className="btnGroup">

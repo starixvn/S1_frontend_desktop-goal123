@@ -236,5 +236,6 @@
   "lbl_Favourite":"Ưa chuộng",
   "lbl_AllGames":"Tất cả trò chơi",
   "lbl_Promo":"khuyến mãi ",
-  "lbl_Feature":"Đặc điểm"
+  "lbl_Feature":"Đặc điểm",
+	"msg_InsufficientFund":"Không đủ tiền!"
 }
