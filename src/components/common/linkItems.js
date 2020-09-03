@@ -24,7 +24,8 @@ export default ({
 	showSubMenu,
 	langId,
 	isLogin,
-	checkMatchPage
+	checkMatchPage,
+	toUpperCase = false
 }) => {
 	const { setPopBox } = useContext(popBoxContext);
 	const showLogin = () => {
@@ -45,6 +46,9 @@ export default ({
 	let rows = Object.keys(defMenuLinks).map(key => {
 		let m = defMenuLinks[key];
 		let _className = m.className ? m.className : "";
+		let displayText = toUpperCase
+			? t(m.displayKey)?.toUpperCase()
+			: t(m.displayKey);
 		if (m.productInfo) {
 			let rule = GET_OPEN_RULE(
 				langId,
@@ -61,7 +65,7 @@ export default ({
 						onClick={showLogin}
 						className={_className}
 						onMouseOver={_showSubMenu.bind(this, key)}>
-						{t(m.displayKey)}
+						{displayText}
 					</button>
 				);
 			} else if (isBlank) {
@@ -75,7 +79,7 @@ export default ({
 							rule.entPageUrl,
 							rule.windowKey
 						)}>
-						{t(m.displayKey)}
+						{displayText}
 					</a>
 				);
 			} else {
@@ -93,7 +97,7 @@ export default ({
 						to={_url}
 						className={_className}
 						onMouseOver={_showSubMenu.bind(this, key)}>
-						{t(m.displayKey)}
+						{displayText}
 					</Link>
 				);
 			}
@@ -110,7 +114,7 @@ export default ({
 					to={`${langId}/${m.path}`}
 					onMouseOver={_showSubMenu.bind(this, key)}
 					className={_className}>
-					{t(m.displayKey)}
+					{displayText}
 				</Link>
 			);
 		}
