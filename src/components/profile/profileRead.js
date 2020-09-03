@@ -53,7 +53,7 @@ export default props => {
 		{
 			label: t("lbl_Email"),
 			value: props.userInfo.email,
-			show: true
+			show: props.userInfo.email ? true : false
 		},
 		{
 			label: t("lbl_RegisterTime"),

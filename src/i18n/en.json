@@ -282,5 +282,6 @@
 	"lbl_Favourite":"Favourite",
 	"lbl_AllGames":"All",
 	"lbl_Promo":"Promo",
-	"lbl_Feature":"Feature"
+	"lbl_Feature":"Feature",
+	"msg_InsufficientFund":"Insufficient Fund!"
 }
