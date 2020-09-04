@@ -33,6 +33,7 @@ export default props => {
 						if (res.data.errorCode === 0) {
 							setShowContent(true);
 							setMsgContentData(res.data.data.content);
+							props.getMsgList();
 						} else {
 							setPopBox({
 								isOpen: true,
@@ -82,15 +83,26 @@ export default props => {
 		"day"
 	);
 
-	let displayTime =
-		compareDay < 1
-			? props.createTime.slice(11, 19)
-			: props.createTime.split("T", 1);
+	const dateTimeFormat = () => {
+		if (compareDay < 1) {
+			if (!props.flag) {
+				return props.createTime.slice(11, 19);
+			} else {
+				return (
+					props.createTime.split("T", 1) +
+					"" +
+					props.createTime.slice(11, 19)
+				);
+			}
+		} else {
+			return props.createTime.split("T", 1);
+		}
+	};
 
 	return loading ? (
 		<Loading />
 	) : (
-		<div>
+		<div className={props.flag ? "haveRead" : ""}>
 			<div className="listHeader">
 				<div className="checkbox">
 					<input
@@ -105,7 +117,7 @@ export default props => {
 				</div>
 				<div>{props.title}</div>
 				<div className="txt-blue2">
-					{displayTime}
+					{dateTimeFormat()}
 					<button
 						className="icon icon-keyboard_arrow_down"
 						onClick={getMsgContent.bind(

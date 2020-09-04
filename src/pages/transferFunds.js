@@ -259,6 +259,8 @@ const Content = () => {
 
 	const EditAmount = e => {
 		let value = e.target.value;
+
+		value = value.replace(/^(0+)|[^\d]+/g, "");
 		ValidAmount(value);
 		setAmount(value);
 	};

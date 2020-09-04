@@ -46,6 +46,11 @@ export default ({ bankInfoSysList = [] }) => {
 
 	const editField = (col, e) => {
 		let val = e.target.value;
+
+		val =
+			col === "realName"
+				? val.replace(/[\W]/g, "")
+				: val.replace(/^(0+)|[^\d]+/g, "");
 		setUserValue(prev => ({ ...prev, [col]: val }));
 	};
 

@@ -97,11 +97,17 @@ export default () => {
 
 		case defPopBoxType.ChangePsw:
 			content = (
-				<ChangePsw btnBar={popBox.btnBar} message={popBox.message} />
+				<ChangePsw
+					btnBar={popBox.btnBar}
+					message={popBox.message}
+					ClickClose={popBox.ClickClose}
+				/>
 			);
+			break;
 
 		case defPopBoxType.LogoutHint:
 			content = <LogoutHint btnBar={popBox.btnBar} />;
+			break;
 
 		case defPopBoxType.default:
 			break;
