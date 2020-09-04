@@ -199,7 +199,7 @@ export default () => {
 	) : (
 		<div className="infoModule">
 			<div className="inside-title icon icon-icon32px_openmail">
-				<span>{t("lbl_Message")}</span>
+				<span>{t("lbl_PersonalMsg")}</span>
 			</div>
 			<div className="personal">
 				<div className="list">
@@ -232,7 +232,10 @@ export default () => {
 							onChangeCheck={onChildChanged.bind(this, item.id)}
 							parentIsCheckAll={isCheckAll}
 							selectItems={selectItems}
-							getMsgList={getMsgList}
+							getMsgList={getMsgList.bind(
+								this,
+								pagination.currentPage
+							)}
 							page={pagination.currentPage}
 						/>
 					))}
