@@ -281,5 +281,6 @@
 	"lbl_AllGames":"All",
 	"lbl_Promo":"Promo",
 	"lbl_Feature":"Feature",
-	"msg_InsufficientFund":"Insufficient Fund!"
+	"msg_InsufficientFund":"Insufficient Fund!",
+	"msg_changePswSuccess":"The update is successful! You can use the new password when you login in next time."
 }

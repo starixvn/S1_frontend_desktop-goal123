@@ -127,17 +127,21 @@ const Content = () => {
 							setPopBox({
 								isOpen: true,
 								popBoxType: defPopBoxType.ChangePsw,
-								message: t("msg_Updatesuccessful"),
+								message: t("msg_changePswSuccess"),
 								btnBar: (
 									<div className="btnGroup">
 										<button
 											className="btn-cancel"
 											onClick={ClickClose}>
-											{t("lbl_Close")}
+											OK
 										</button>
 									</div>
-								)
+								),
+								ClickClose: ClickClose
 							});
+							setUserPsw(initPsw);
+							setStatus(initStatus);
+							setShowPsw(initShowPsw);
 						} else {
 							setPopBox({
 								isOpen: true,

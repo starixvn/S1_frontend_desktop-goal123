@@ -237,5 +237,7 @@
   "lbl_AllGames":"Tất cả trò chơi",
   "lbl_Promo":"khuyến mãi ",
   "lbl_Feature":"Đặc điểm",
-	"msg_InsufficientFund":"Không đủ tiền!"
+  "msg_InsufficientFund":"Không đủ tiền!",
+	"msg_changePswSuccess":"The update is successful! You can use the new password when you login in next time."
+
 }
