@@ -30,7 +30,11 @@ export default props => {
 					tip={props.tip}
 				/>
 				<div className="btnGroup">
-					<button className="btn-check" onClick={props.clickSubmit}>
+					<button
+						className={`${
+							props.checked ? "btn-check" : "btn-cancel"
+						}`}
+						onClick={props.clickSubmit}>
 						{props.i18n("lbl_Submit")}
 					</button>
 				</div>

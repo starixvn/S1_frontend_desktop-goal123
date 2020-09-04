@@ -40,7 +40,11 @@ export default props => {
 					</div>
 				) : null}
 			</div>
-			{props.tip ? <div className="tip active">{props.tip}</div> : null}
+			{props.inputType !== "date" ? (
+				<div className={`tip${props.tip ? " active" : ""}`}>
+					{props.tip}
+				</div>
+			) : null}
 		</>
 	);
 };

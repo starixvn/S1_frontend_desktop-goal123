@@ -21,6 +21,8 @@ export default ({
 	});
 	const EditAmount = e => {
 		let value = e.target.value;
+		value = value.replace(/^(0+)|[^\d]+/g, "");
+
 		VaildAmount(value);
 		dispatch({ type: defActionType.EDIT_AMOUNT, amount: value });
 	};

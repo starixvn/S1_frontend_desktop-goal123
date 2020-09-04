@@ -15,6 +15,8 @@ export default ({ channelInfo, _isConvert, amount, dispatch }) => {
 
 	const EditAmount = e => {
 		let value = e.target.value;
+		value = value.replace(/^(0+)|[^\d]+/g, "");
+
 		VaildAmount(value);
 		dispatch({ type: defActionType.EDIT_AMOUNT, amount: value });
 	};

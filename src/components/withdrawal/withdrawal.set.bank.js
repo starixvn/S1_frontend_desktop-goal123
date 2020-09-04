@@ -22,7 +22,7 @@ import defStep from "../withdrawal/defStep";
 import { checkWithdrawalAmount } from "../common/common";
 import Loading from "../common/loading";
 
-export default (props,step) => {
+export default (props, step) => {
 	const { t } = useTranslation();
 	const { setPopBox } = useContext(popBoxContext);
 	const isMountedRef = useRef(null);
@@ -154,7 +154,9 @@ export default (props,step) => {
 	};
 
 	const onChangeAmount = e => {
-		let value = Number(e.target.value);
+		let value = e.target.value;
+		value = value.replace(/^(0+)|[^\d]+/g, "");
+
 		ValidAmount(value);
 		setAmountValue(value);
 	};

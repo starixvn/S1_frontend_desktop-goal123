@@ -91,7 +91,6 @@ export class Module extends Component {
 									</div>
 								)
 							}));
-							// alert(this.props.i18n("lbl_UploadSuccess"));
 							if (this.props.refreshDatas) {
 								this.props.refreshDatas();
 							}
@@ -115,6 +114,10 @@ export class Module extends Component {
 		e.preventDefault();
 	};
 	editField = (col, value, e) => {
+		value =
+			value === null
+				? e.target.value.replace(/^(0+)|[^\d]+/g, "")
+				: value;
 		this.setState({ [col]: value === null ? e.target.value : value });
 	};
 
