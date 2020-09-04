@@ -107,7 +107,7 @@ export default () => {
 	return (
 		<div className="infoModule">
 			<div className="inside-title icon icon-gift">
-				<span>{t("lbl_PromotionsList")}</span>
+				<span>{t("lbl_Promotions")}</span>
 			</div>
 			<PromotionNavBar
 				t={t}

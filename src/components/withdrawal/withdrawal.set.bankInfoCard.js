@@ -152,13 +152,11 @@ export default props => {
 		);
 	};
 
-	let bankCard = bankInfoList.map(item => {
+	let bankCardArr = bankInfoList.map(item => {
 		let key = `withdrawal-banklist-${item.accountNo}`;
 		let checkKey = `${key}-check`;
 
-		return loading ? (
-			<Loading />
-		) : (
+		return (
 			<div className="addBankName" key={key}>
 				<div className="addBankInfo">
 					<div className="bankName">
@@ -203,5 +201,5 @@ export default props => {
 		);
 	});
 
-	return <>{bankCard}</>;
+	return loading ? <Loading /> : bankCardArr;
 };

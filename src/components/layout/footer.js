@@ -84,10 +84,10 @@ export default () => {
 					</div>
 				</div>
 				<div>
-					<span className="title">{t("lbl_Promotion")}</span>
+					<span className="title">{t("lbl_Promotions")}</span>
 					<div>
 						<Link to={path.promotion.root}>
-							{t("lbl_Promotion")}
+							{t("lbl_Promotions")}
 						</Link>
 					</div>
 				</div>

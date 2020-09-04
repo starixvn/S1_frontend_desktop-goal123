@@ -246,7 +246,7 @@ const Content = () => {
 						<div className="listHeader">
 							<div>{t("lbl_NO")}</div>
 							<div>
-								{t("lbl_Date")} {moment().format("Z")}
+								{t("lbl_Date")} ({moment().format("Z")})
 							</div>
 							<div>{t("lbl_ID")}</div>
 							<div>{t("lbl_Amount")}</div>

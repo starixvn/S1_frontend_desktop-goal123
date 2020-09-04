@@ -61,6 +61,14 @@ const defCashierLinks = [
 	{
 		displayKey: "lbl_Withdrawal",
 		href: path.withdrawal.root
+	},
+	{
+		displayKey: "lbl_TransferHistory",
+		href: path.transferHistory.root
+	},
+	{
+		displayKey: "lbl_Statement",
+		href: path.statement.root
 	}
 ];
 

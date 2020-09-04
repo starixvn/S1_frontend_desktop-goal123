@@ -42,7 +42,7 @@ export class Dropdown extends Component {
 					{item.displayKey ? this.props.i18n(item.displayKey) : null}
 				</button>
 			) : (
-				<Link key={key} to={`${this.props.langId}/${item.href}`}>
+				<Link key={key} to={`/${this.props.langId}/${item.href}`}>
 					{item.displayKey ? this.props.i18n(item.displayKey) : null}
 				</Link>
 			);
