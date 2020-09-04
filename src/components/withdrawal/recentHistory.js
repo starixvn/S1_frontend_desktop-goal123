@@ -183,7 +183,7 @@ export default props => {
 
 	return loading ? (
 		<Loading />
-	) : (
+	) : getHistory ? (
 		<>
 			<div className="list">
 				<div className="listHeader">
@@ -207,5 +207,7 @@ export default props => {
 				to={`/${userInfo.langId}/${path.withdrawalHistory.root}`}
 				className="icon icon-books"></Link>
 		</>
+	) : (
+		<div className="nodata">{t("msg_NoData")}</div>
 	);
 };

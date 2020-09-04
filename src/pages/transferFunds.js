@@ -339,7 +339,7 @@ const Content = () => {
 		}
 	};
 
-	return loading ? (
+	return getWalletInfo === [] || loading ? (
 		<Loading />
 	) : (
 		<div className="rightModule">

@@ -192,7 +192,7 @@ export default () => {
 
 	return loading ? (
 		<Loading />
-	) : (
+	) : getHistory ? (
 		<>
 			<div className="list">
 				<div className="listHeader">
@@ -217,5 +217,7 @@ export default () => {
 				to={`/${userInfo.langId}/${path.depositHistory.root}`}
 				className="icon icon-books"></Link>
 		</>
+	) : (
+		<div className="nodata">{t("msg_NoData")}</div>
 	);
 };
