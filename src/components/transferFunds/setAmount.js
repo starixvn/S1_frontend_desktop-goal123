@@ -20,23 +20,23 @@ export default props => {
 						</span>
 					</div>
 				</div>
-				<div className="inputModuleRow">
-					<Inputbox
-						title={props.i18n("lbl_Amount")}
-						value={props.amount}
-						onChange={props.onChange}
-						onBlur={props.onBlur}
-						clickInfo={props.clickInfo}
-						checked={props.checked}
-						tip={props.tip}
-					/>
-					<div className="btnGroup">
-						<button
-							className="btn-check"
-							onClick={props.clickSubmit}>
-							{props.i18n("lbl_Submit")}
-						</button>
-					</div>
+				<Inputbox
+					title={props.i18n("lbl_Amount")}
+					value={props.amount}
+					onChange={props.onChange}
+					onBlur={props.onBlur}
+					clickInfo={props.clickInfo}
+					checked={props.checked}
+					tip={props.tip}
+				/>
+				<div className="btnGroup">
+					<button
+						className={`${
+							props.checked ? "btn-check" : "btn-cancel"
+						}`}
+						onClick={props.clickSubmit}>
+						{props.i18n("lbl_Submit")}
+					</button>
 				</div>
 			</div>
 		</div>

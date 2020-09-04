@@ -154,7 +154,9 @@ export default (props, step) => {
 	};
 
 	const onChangeAmount = e => {
-		let value = Number(e.target.value);
+		let value = e.target.value;
+		value = value.replace(/^(0+)|[^\d]+/g, "");
+
 		ValidAmount(value);
 		setAmountValue(value);
 	};

@@ -95,6 +95,12 @@ export default ({
 
 	const editField = (_col, e) => {
 		let val = e.target.value;
+
+		val =
+			_col === "accountName"
+				? val.replace(/[\W]/g, "")
+				: val.replace(/^(0+)|[^\d]+/g, "");
+
 		dispatch({
 			type: defActionType.EDIT_FIELD,
 			col: _col,
