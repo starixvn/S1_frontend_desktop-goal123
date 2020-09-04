@@ -29,7 +29,7 @@ export default ({ children, afterLogin = false }) => {
 	const [userInfo, setUserInfo] = useState({
 		isLogin: null,
 		userName: null,
-		langId: GET_LANG_ID()
+		langId: "vn"
 	});
 
 	const [currentPath] = useState(

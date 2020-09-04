@@ -141,7 +141,7 @@ export const defMenuLinks = {
 	},
 	promotion: {
 		path: path.promotion.root,
-		displayKey: "lbl_Promotion"
+		displayKey: "lbl_Promotions"
 	}
 	// lottery: {
 	// 	productInfo: productList.lottery,
