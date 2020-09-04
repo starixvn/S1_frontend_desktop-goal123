@@ -23,6 +23,7 @@ export default props => {
 				/>
 				{props.checked !== undefined ? (
 					<div className="iconModule">
+						{props._isConvert ? "('000)" : null}
 						{props.checked === null ? (
 							<i
 								className={`icon icon-information-solid`}
