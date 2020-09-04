@@ -102,36 +102,48 @@ export const defMenuLinks = {
 		displayKey: "lbl_LiveCasino",
 		subMenu: [
 			{
+				gameId: 4,
+				tpId: 4,
 				className: "liveDG",
 				icon: "icon icon-DG",
 				displayText: "DG",
 				menuType: defMenuType.entPage
 			},
 			{
+				gameId: 12,
+				tpId: 12,
 				className: "liveALL",
 				icon: "icon icon-AB",
 				displayText: "ALL",
 				menuType: defMenuType.entPage
 			},
 			{
+				gameId: 3,
+				tpId: 3,
 				className: "liveAG",
 				icon: "icon icon-AG",
 				displayText: "AG",
 				menuType: defMenuType.entPage
 			},
 			{
+				gameId: 101,
+				tpId: 5,
 				className: "livePP",
 				icon: "icon icon-PP",
 				displayText: "PP",
 				menuType: defMenuType.entPage
 			},
 			{
+				gameId: 2,
+				tpId: 2,
 				className: "liveSA",
 				icon: "icon icon-SA",
 				displayText: "SA",
 				menuType: defMenuType.entPage
 			},
 			{
+				gameId: 15,
+				tpId: 15,
 				className: "liveAE",
 				icon: "icon icon-AE",
 				displayText: "AE",
