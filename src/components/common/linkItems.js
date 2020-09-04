@@ -82,6 +82,15 @@ export default ({
 						{displayText}
 					</a>
 				);
+			} else if (!m.path) {
+				return (
+					<button
+						key={key}
+						className={_className}
+						onMouseOver={_showSubMenu.bind(this, key)}>
+						{displayText}
+					</button>
+				);
 			} else {
 				let _url = getUrl(`${langId}/${m.path}`, m.productInfo);
 
@@ -102,21 +111,32 @@ export default ({
 				);
 			}
 		} else {
-			_className =
-				checkMatchPage && `${langId}/${m.path}` === currentPage
-					? _className
-						? `${_className} active`
-						: "active"
-					: _className;
-			return (
-				<Link
-					key={key}
-					to={`${langId}/${m.path}`}
-					onMouseOver={_showSubMenu.bind(this, key)}
-					className={_className}>
-					{displayText}
-				</Link>
-			);
+			if (m.path) {
+				_className =
+					checkMatchPage && `${langId}/${m.path}` === currentPage
+						? _className
+							? `${_className} active`
+							: "active"
+						: _className;
+				return (
+					<Link
+						key={key}
+						to={`${langId}/${m.path}`}
+						onMouseOver={_showSubMenu.bind(this, key)}
+						className={_className}>
+						{displayText}
+					</Link>
+				);
+			} else {
+				return (
+					<button
+						key={key}
+						onMouseOver={_showSubMenu.bind(this, key)}
+						className={_className}>
+						{displayText}
+					</button>
+				);
+			}
 		}
 	});
 

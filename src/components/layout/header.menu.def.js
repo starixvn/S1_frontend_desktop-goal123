@@ -98,7 +98,6 @@ export const defMenuLinks = {
 		]
 	},
 	liveCasino: {
-		path: path.liveCasino.root,
 		displayKey: "lbl_LiveCasino",
 		subMenu: [
 			{
