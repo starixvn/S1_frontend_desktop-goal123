@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
 import { api_accountStrict_SetProfile } from "../../service/api/accountStrict";
+import { api_site_ExistsEmail } from "../../service/api/site";
 import { useTranslation } from "react-i18next";
 import areaCode from "../../datas/areaCode";
 import ProfileRead from "./profileRead";
@@ -127,19 +128,64 @@ export default () => {
 		return checkResult;
 	};
 
+	const checkEmailIsUnique = () => {
+		if (!userInfo.email && emailValue && emailValue.length > 0) {
+			api_site_ExistsEmail({ Email: emailValue }).then(
+				res => {
+					if (isMountedRef.current) {
+						if (res.data.errorCode === 0) {
+							if (res.data.data === true) {
+								setEmailErr(t("msg_MailExisted"));
+							} else if (res.data.data === false) {
+								setEmailErr("");
+							}
+						}
+					}
+				},
+				err => {
+					if (isMountedRef.current) {
+						setPopBox({
+							isOpen: true,
+							popBoxType: defPopBoxType.ErrorMsg,
+							message: t("msg_ApiServerError"),
+							btnBar: (
+								<div className="btnGroup">
+									<button
+										className="btn-cancel"
+										onClick={ClickClose}>
+										{t("lbl_Close")}
+									</button>
+								</div>
+							)
+						});
+					}
+				}
+			);
+		}
+	};
+
 	const checkEmail = () => {
 		let checkResult = false;
 		let emailRegex = /^\w+((-\w+)|(\.\w+))*@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
+		checkEmailIsUnique();
+
 		if (userInfo.email) {
 			checkResult = true;
 		}
 		if (!userInfo.email && emailValue === "") {
 			checkResult = false;
 			setEmailErr(t("lbl_EmailRequired"));
-		} else if (!emailRegex.test(emailValue)) {
+		} else if (
+			!userInfo.email &&
+			emailValue.length > 0 &&
+			!emailRegex.test(emailValue)
+		) {
 			checkResult = false;
 			setEmailErr(t("lbl_EmailFormatError"));
-		} else if (!userInfo.email && emailValue !== "") {
+		} else if (emailErr === t("email_repeat")) {
+			checkResult = false;
+			setEmailErr(t("msg_MailExisted"));
+		} else if (!userInfo.email && emailValue !== ""&&emailErr==="") {
 			checkResult = true;
 			setEmailErr("");
 		}
@@ -153,6 +199,7 @@ export default () => {
 			checkPhone() === true &&
 			checkEmail() === true
 		) {
+			setEmailErr("");
 			if (!userInfo.accountName) {
 				setPopBox({
 					isOpen: true,
@@ -223,7 +270,7 @@ export default () => {
 								? birthValue.slice(0, 4)
 								: userInfo.birth_y,
 							phoneNo: phoneValue,
-							email: emailValue
+							email: !userInfo.email ? emailValue : userInfo.email
 						}));
 						setNameValue("");
 						setBirthValue("");
