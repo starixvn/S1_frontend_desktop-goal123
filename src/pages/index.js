@@ -25,7 +25,7 @@ const IndexPage = () => {
 	const { t } = useTranslation();
 	return (
 		<Wrapper>
-			<Layout>
+			<Layout showFooter={true}>
 				<main>
 					<div className="swiper-container">
 						<div className="swiper-wrapper">

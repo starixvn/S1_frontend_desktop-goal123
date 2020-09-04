@@ -8,13 +8,13 @@ import "../../styles/css/swiper.css";
 import "../../styles/css/style.css";
 import "../../styles/css/font.css";
 
-const Layout = ({ children }) => {
+const Layout = ({ children, showFooter = false }) => {
 	return (
 		<>
 			<SEO />
 			<Header />
 			{children}
-			<Footer />
+			{showFooter ? <Footer /> : null}
 			<PopBox />
 		</>
 	);
