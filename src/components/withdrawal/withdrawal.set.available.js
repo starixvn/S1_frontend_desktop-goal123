@@ -21,7 +21,7 @@ export default props => {
 						className="icon icon-error"
 						onClick={onHandleRealNameHint}></i>
 					<div className={`tip${showRealNameHint ? " active" : ""}`}>
-						{t("lbl_RealName")}
+						{t("lbl_BankAccountName")}
 					</div>
 				</div>
 			) : null}
