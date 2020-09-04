@@ -189,8 +189,24 @@ export default (props, step) => {
 	};
 
 	const toConfirmPage = () => {
+		ValidAmount(amountValue)
 		if (status.checked === true) {
-			setShowConfirmPage(true);
+			if (accountNoValue === "" || sysIdValue === 0) {
+				setPopBox({
+					isOpen: true,
+					popBoxType: defPopBoxType.ErrorMsg,
+					message: t("lbl_SelectBank_Required"),
+					btnBar: (
+						<div className="btnGroup">
+							<button className="btn-cancel" onClick={ClickClose}>
+								{t("lbl_Close")}
+							</button>
+						</div>
+					)
+				});
+			} else {
+				setShowConfirmPage(true);
+			}
 		}
 	};
 
