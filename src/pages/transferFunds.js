@@ -35,6 +35,11 @@ const defDirection = {
 	TpToMain: 2
 };
 
+const initStatus = {
+	checked: null,
+	tip: ""
+};
+
 const Content = () => {
 	const { t } = useTranslation();
 	const { userInfo } = useContext(userInfoContext);
@@ -48,10 +53,7 @@ const Content = () => {
 	});
 	const [getHistory, setGetHistory] = useState(null);
 	const [loading, setLoading] = useState(true);
-	const [status, setStatus] = useState({
-		checked: null,
-		tip: ""
-	});
+	const [status, setStatus] = useState(initStatus);
 	const isMountedRef = useRef(null);
 
 	useEffect(() => {
@@ -311,6 +313,7 @@ const Content = () => {
 				return item.displayKey === direction.transferFrom;
 			});
 			Transfer(_wallet.id, real_amount, _direction);
+			setStatus(initStatus);
 		}
 	};
 
