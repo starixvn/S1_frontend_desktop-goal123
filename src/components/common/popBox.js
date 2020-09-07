@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { popBoxContext } from "./context";
 import Cancel from "./popBox.cancel";
 import UploadBankSlip from "./popBox.uploadBankSlip";
@@ -14,6 +14,7 @@ import ProfileCompelete from "./popBox.profileCompelete";
 import ChangePsw from "./popBox.changePsw";
 import LogoutHint from "./popBox.logoutHint";
 import Loading from "./loading";
+import DepositHint from "./popBox.depositHint";
 
 export const defPopBoxType = {
 	Cancel: "Cancel",
@@ -28,7 +29,8 @@ export const defPopBoxType = {
 	ProfileConfirmCheck: "ProfileConfirmCheck",
 	ProfileCompelete: "ProfileCompelete",
 	ChangePsw: "ChangePsw",
-	LogoutHint: "LogoutHint"
+	LogoutHint: "LogoutHint",
+	DepositHint: "DepositHint"
 };
 
 export default () => {
@@ -107,6 +109,10 @@ export default () => {
 
 		case defPopBoxType.LogoutHint:
 			content = <LogoutHint btnBar={popBox.btnBar} />;
+			break;
+
+		case defPopBoxType.DepositHint:
+			content = <DepositHint />;
 			break;
 
 		case defPopBoxType.default:

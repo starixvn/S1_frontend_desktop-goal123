@@ -247,5 +247,7 @@
 	"lbl_PaymentMethods":"PHƯƠNG THỨC THANH TOÁN",
 	"lbl_PaymentMethodsDesc":"Đa dạng và Uy tín",
 	"lbl_TransactionSpeed":"THỜI GIAN XỬ LÝ",
-	"lbl_TransactionSpeedDesc":"Gửi tiền siêu tốc. Rút tiền nhanh chóng"
+	"lbl_TransactionSpeedDesc":"Gửi tiền siêu tốc. Rút tiền nhanh chóng",
+	"msg_DepositHint":"Nạp tiền ngay để thưởng thức các trò chơi và dịch vụ của chúng tôi.",
+	"lbl_Later":"Để sau"
 }
