@@ -312,8 +312,25 @@ const Content = () => {
 			let _wallet = getWalletInfo.find(item => {
 				return item.displayKey === direction.transferFrom;
 			});
-			Transfer(_wallet.id, real_amount, _direction);
+
+			if (_wallet.balance < real_amount) {
+				setPopBox({
+					isOpen: true,
+					popBoxType: defPopBoxType.ErrorMsg,
+					message: t("msg_InsufficientFund"),
+					btnBar: (
+						<div className="btnGroup">
+							<button className="btn-cancel" onClick={ClickClose}>
+								{t("lbl_Close")}
+							</button>
+						</div>
+					)
+				});
+			} else {
+				Transfer(_wallet.id, real_amount, _direction);
+			}
 			setStatus(initStatus);
+			setAmount("1");
 		}
 	};
 
