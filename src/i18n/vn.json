@@ -249,5 +249,6 @@
 	"lbl_TransactionSpeed":"THỜI GIAN XỬ LÝ",
 	"lbl_TransactionSpeedDesc":"Gửi tiền siêu tốc. Rút tiền nhanh chóng",
 	"msg_DepositHint":"Nạp tiền ngay để thưởng thức các trò chơi và dịch vụ của chúng tôi.",
-	"lbl_Later":"Để sau"
+  "lbl_Later":"Để sau",
+  "lbl_Lottery":"Xổ số"
 }

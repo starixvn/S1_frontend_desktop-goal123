@@ -1,13 +1,15 @@
 import React, { useContext } from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "@reach/router";
 import { defMenuType } from "./header.menu.def";
-import { userInfoContext, popBoxContext } from "../common/context";
+import { popBoxContext, userInfoContext } from "../common/context";
 import { defPopBoxType } from "../common/popBox";
-import { SET_ENTER_PAGE } from "../../service/enterPage";
+import { SET_ENTER_PAGE, _ACTION_TYPE } from "../../service/enterPage";
 
 export default ({ listClassName, subItems, menuKey, mainUrl }) => {
-	const { userInfo } = useContext(userInfoContext);
+	const { t } = useTranslation();
 	const { setPopBox } = useContext(popBoxContext);
+	const { userInfo } = useContext(userInfoContext);
 
 	const ClickItem = (tpId, gameId) => {
 		const loginCallback = () => {
@@ -27,23 +29,24 @@ export default ({ listClassName, subItems, menuKey, mainUrl }) => {
 	};
 
 	let rows = subItems.map(s => {
-		let key = `${menuKey}-${s.displayText}`;
+		let displayText = s.displayText ? s.displayText : t(s.displayKey);
+		let key = `${menuKey}-${userInfo.isLogin}-${displayText}`;
+
+		let params = null;
+		if (s.parameter) {
+			params = Object.keys(s.parameter).map(key => {
+				return `${key}=${s.parameter[key]}`;
+			});
+		}
+
+		let _urlParams = params !== null ? `?${params.join("&")}` : "";
 		if (s.menuType === defMenuType.Link) {
-			let params = null;
-			if (s.parameter) {
-				params = Object.keys(s.parameter).map(key => {
-					return `${key}=${s.parameter[key]}`;
-				});
-			}
-
-			let _urlParams = params !== null ? `?${params.join("&")}` : "";
-
 			return (
 				<Link
 					key={key}
 					className={s.className}
 					to={`/${userInfo.langId}/${mainUrl}${_urlParams}`}>
-					<span className={s.icon}>{s.displayText}</span>
+					<span className={s.icon}>{displayText}</span>
 				</Link>
 			);
 		} else {
@@ -51,8 +54,8 @@ export default ({ listClassName, subItems, menuKey, mainUrl }) => {
 				<button
 					key={key}
 					className={s.className}
-					onClick={ClickItem.bind(this, s.tpId, s.gameId)}>
-					<span className={s.icon}>{s.displayText}</span>
+					onClick={ClickItem.bind(this, s.tpId, s.gameId, userInfo)}>
+					<span className={s.icon}>{displayText}</span>
 				</button>
 			);
 		}
