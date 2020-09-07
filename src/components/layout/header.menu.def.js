@@ -16,14 +16,47 @@ export const defMenuLinks = {
 		productInfo: productList.cockFighting,
 		displayKey: "lbl_CockFighting"
 	},
-	sabaClub: {
-		productInfo: productList.sabaClub,
-		displayKey: "lbl_SabaClub"
-	},
-	eSport: {
-		productInfo: productList.eSport,
-		path: path.sports.root,
-		displayKey: "lbl_eSports"
+	// sabaClub: {
+	// 	productInfo: productList.sabaClub,
+	// 	displayKey: "lbl_SabaClub"
+	// },
+	games: {
+		displayKey: "lbl_Games",
+		subMenu: [
+			{
+				className: "GPI",
+				icon: "icon icon-GPI",
+				displayText: "Saba Club",
+				menuType: defMenuType.Link,
+				tpId: productList.sabaClub.tpId,
+				tpId: productList.sabaClub.gameId,
+				parameter: { tpId: 6 }
+			},
+			{
+				className: "GPI",
+				icon: "icon icon-GPI",
+				displayText: "Fishing",
+				menuType: defMenuType.Link,
+				tpId: 6,
+				parameter: { tpId: 6 }
+			},
+			{
+				className: "GPI",
+				icon: "icon icon-GPI",
+				displayText: "Keno",
+				menuType: defMenuType.Link,
+				tpId: 6,
+				parameter: { tpId: 6 }
+			},
+			{
+				className: "GPI",
+				icon: "icon icon-GPI",
+				displayText: "Lottery",
+				menuType: defMenuType.Link,
+				tpId: 6,
+				parameter: { tpId: 6 }
+			}
+		]
 	},
 	// numberGame: {
 	// 	productInfo: productList.numberGame,
@@ -35,6 +68,11 @@ export const defMenuLinks = {
 	// 	path: path.sports.root,
 	// 	displayKey: "lbl_VirtualSport"
 	// },
+	eSport: {
+		productInfo: productList.eSport,
+		path: path.sports.root,
+		displayKey: "lbl_eSports"
+	},
 	casino: {
 		path: path.casino.root,
 		displayKey: "lbl_Slots",

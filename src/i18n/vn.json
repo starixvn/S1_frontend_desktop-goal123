@@ -238,6 +238,14 @@
   "lbl_Promo":"khuyến mãi ",
   "lbl_Feature":"Đặc điểm",
   "msg_InsufficientFund":"Không đủ tiền!",
-	"msg_changePswSuccess":"The update is successful! You can use the new password when you login in next time."
-
+  "msg_changePswSuccess":"The update is successful! You can use the new password when you login in next time.",
+  "lbl_Games":"Games",
+  "lbl_ExtensiveGames":"TRÒ CHƠI ĐA DẠNG",
+	"lbl_ExtensiveGamesDesc":"Trải nghiệm đỉnh cao",
+	"lbl_ExcellentCustomerCare":"ĐỘI NGŨ CHUYÊN NGHIỆP",
+	"lbl_ExcellentCustomerCareDesc":"Chăm sóc khách hàng 24/7",
+	"lbl_PaymentMethods":"PHƯƠNG THỨC THANH TOÁN",
+	"lbl_PaymentMethodsDesc":"Đa dạng và Uy tín",
+	"lbl_TransactionSpeed":"THỜI GIAN XỬ LÝ",
+	"lbl_TransactionSpeedDesc":"Gửi tiền siêu tốc. Rút tiền nhanh chóng"
 }

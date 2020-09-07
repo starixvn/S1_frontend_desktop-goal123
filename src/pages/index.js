@@ -66,29 +66,39 @@ const IndexPage = () => {
 							<div>
 								<img src={specialImg1} />
 								<ul>
-									<li className="title">Reputable Brand</li>
-									<li>Official Partners of Spurs and NUFC</li>
+									<li className="title">
+										{t("lbl_ExtensiveGames")}
+									</li>
+									<li>{t("lbl_ExtensiveGamesDesc")}</li>
 								</ul>
 							</div>
 							<div>
 								<img src={specialImg2} />
 								<ul>
-									<li className="title">More game type</li>
-									<li>Official Partners of Spurs and NUFC</li>
+									<li className="title">
+										{t("lbl_ExcellentCustomerCare")}
+									</li>
+									<li>
+										{t("lbl_ExcellentCustomerCareDesc")}
+									</li>
 								</ul>
 							</div>
 							<div>
 								<img src={specialImg3} />
 								<ul>
-									<li className="title">Payment Method</li>
-									<li>Official Partners of Spurs and NUFC</li>
+									<li className="title">
+										{t("lbl_PaymentMethods")}
+									</li>
+									<li>{t("lbl_PaymentMethodsDesc")}</li>
 								</ul>
 							</div>
 							<div>
 								<img src={specialImg4} />
 								<ul>
-									<li className="title">Transaction Speed</li>
-									<li>Official Partners of Spurs and NUFC</li>
+									<li className="title">
+										{t("lbl_TransactionSpeed")}
+									</li>
+									<li>{t("lbl_TransactionSpeedDesc")}</li>
 								</ul>
 							</div>
 						</div>
