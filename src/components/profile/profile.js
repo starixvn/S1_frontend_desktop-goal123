@@ -128,16 +128,17 @@ export default () => {
 		return checkResult;
 	};
 
-	const checkEmailIsUnique = () => {
+	const checkEmailIsUnique = async () => {
 		if (!userInfo.email && emailValue && emailValue.length > 0) {
-			api_site_ExistsEmail({ Email: emailValue }).then(
+			let result = await api_site_ExistsEmail({ Email: emailValue }).then(
 				res => {
 					if (isMountedRef.current) {
 						if (res.data.errorCode === 0) {
 							if (res.data.data === true) {
 								setEmailErr(t("msg_MailExisted"));
+								return false;
 							} else if (res.data.data === false) {
-								setEmailErr("");
+								return true;
 							}
 						}
 					}
@@ -161,7 +162,9 @@ export default () => {
 					}
 				}
 			);
+			return result;
 		}
+		return false;
 	};
 
 	const checkEmail = () => {
@@ -182,10 +185,7 @@ export default () => {
 		) {
 			checkResult = false;
 			setEmailErr(t("lbl_EmailFormatError"));
-		} else if (emailErr === t("email_repeat")) {
-			checkResult = false;
-			setEmailErr(t("msg_MailExisted"));
-		} else if (!userInfo.email && emailValue !== ""&&emailErr==="") {
+		} else if (!userInfo.email && emailValue !== "") {
 			checkResult = true;
 			setEmailErr("");
 		}
@@ -197,7 +197,9 @@ export default () => {
 			checkName() === true &&
 			checkBirth() === true &&
 			checkPhone() === true &&
-			checkEmail() === true
+			checkEmail() === true &&
+			checkEmailIsUnique()?.then(res => console.log(res === true)) &&
+			emailErr === ""
 		) {
 			setEmailErr("");
 			if (!userInfo.accountName) {
