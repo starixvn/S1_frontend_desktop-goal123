@@ -57,3 +57,6 @@ export const api_accountStrict_UploadCustPhotoId = formData =>
 			"Content-Type": "multipart/form-data"
 		}
 	});
+
+export const api_accountStrict_SendVerifySMS = () =>
+	accountStrictRequest.post("/SendVerifySMS");

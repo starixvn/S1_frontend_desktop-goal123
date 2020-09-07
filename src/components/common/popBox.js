@@ -14,6 +14,7 @@ import ProfileCompelete from "./popBox.profileCompelete";
 import ChangePsw from "./popBox.changePsw";
 import LogoutHint from "./popBox.logoutHint";
 import Loading from "./loading";
+import VerifyPhoneForm from "./popBox.verifyPhoneForm";
 
 export const defPopBoxType = {
 	Cancel: "Cancel",
@@ -28,7 +29,8 @@ export const defPopBoxType = {
 	ProfileConfirmCheck: "ProfileConfirmCheck",
 	ProfileCompelete: "ProfileCompelete",
 	ChangePsw: "ChangePsw",
-	LogoutHint: "LogoutHint"
+	LogoutHint: "LogoutHint",
+	VerifyPhoneForm: "verifyPhoneForm"
 };
 
 export default () => {
@@ -107,6 +109,10 @@ export default () => {
 
 		case defPopBoxType.LogoutHint:
 			content = <LogoutHint btnBar={popBox.btnBar} />;
+			break;
+
+		case defPopBoxType.VerifyPhoneForm:
+			content = <VerifyPhoneForm />;
 			break;
 
 		case defPopBoxType.default:

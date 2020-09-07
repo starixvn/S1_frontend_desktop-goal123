@@ -1,5 +1,8 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
-import { api_accountStrict_SetProfile } from "../../service/api/accountStrict";
+import {
+	api_accountStrict_SetProfile,
+	api_accountStrict_SendVerifySMS
+} from "../../service/api/accountStrict";
 import { useTranslation } from "react-i18next";
 import areaCode from "../../datas/areaCode";
 import ProfileRead from "./profileRead";
@@ -19,6 +22,9 @@ export default () => {
 	const { setPopBox } = useContext(popBoxContext);
 	const [redirectPath, setRedirectPath] = useState(null);
 	const [loading, setLoading] = useState(false);
+	const [mobileVerificationLoading, setMobileVerificationLoading] = useState(
+		false
+	);
 
 	const [nameValue, setNameValue] = useState("");
 	const [birthValue, setBirthValue] = useState("");
@@ -273,6 +279,54 @@ export default () => {
 		);
 	};
 
+	const sendVerifySMS = async () => {
+		setMobileVerificationLoading(true);
+		try {
+			const {
+				data: { errorCode, message }
+			} = await api_accountStrict_SendVerifySMS();
+			if (isMountedRef.current) {
+				const success = errorCode === 0;
+				if (!success) {
+					setPopBox({
+						isOpen: true,
+						popBoxType: defPopBoxType.VerifyPhoneForm
+					});
+				} else {
+					setPopBox({
+						isOpen: true,
+						popBoxType: defPopBoxType.ErrorMsg,
+						message: message || "error",
+						btnBar: (
+							<div className="btnGroup">
+								<button
+									className="btn-cancel"
+									onClick={ClickClose}>
+									{t("lbl_Close")}
+								</button>
+							</div>
+						)
+					});
+				}
+				setMobileVerificationLoading(false);
+			}
+		} catch (e) {
+			setPopBox({
+				isOpen: true,
+				popBoxType: defPopBoxType.ErrorMsg,
+				message: t("msg_ApiServerError"),
+				btnBar: (
+					<div className="btnGroup">
+						<button className="btn-cancel" onClick={ClickClose}>
+							{t("lbl_Close")}
+						</button>
+					</div>
+				)
+			});
+			setMobileVerificationLoading(false);
+		}
+	};
+
 	return loading ? (
 		<Loading />
 	) : redirectPath === null ? (
@@ -290,7 +344,11 @@ export default () => {
 						? "profileEdit"
 						: ""
 				}>
-				<ProfileRead userInfo={userInfo} />
+				<ProfileRead
+					userInfo={userInfo}
+					sendVerifySMS={sendVerifySMS}
+					mobileVerificationLoading={mobileVerificationLoading}
+				/>
 				{!userInfo.accountName ||
 				!userInfo.birth_d ||
 				!userInfo.phoneNo ||
