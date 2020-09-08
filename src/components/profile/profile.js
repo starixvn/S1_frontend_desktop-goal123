@@ -20,18 +20,12 @@ export default () => {
 	const { setPopBox } = useContext(popBoxContext);
 	const [redirectPath, setRedirectPath] = useState(null);
 	const [loading, setLoading] = useState(false);
-
 	const [nameValue, setNameValue] = useState("");
 	const [birthValue, setBirthValue] = useState("");
 	const [phoneValue, setPhoneValue] = useState("");
 	const [emailValue, setEmailValue] = useState("");
-
-	const [nameErr, setNameErr] = useState("");
-	const [birthErr, setBirthErr] = useState("");
-	const [phoneErr, setPhoneErr] = useState("");
-	const [emailErr, setEmailErr] = useState("");
-
 	const [status, setStatus] = useState({
+		col: "",
 		checked: null,
 		tip: ""
 	});
@@ -101,9 +95,17 @@ export default () => {
 			checkResult = true;
 		} else if (!userInfo.accountName && nameValue === "") {
 			checkResult = false;
-			setNameErr(t("lbl_NameRequired"));
+			setStatus(prev => ({
+				...prev,
+				col: "accountName",
+				tip: t("lbl_NameRequired")
+			}));
 		} else if (!userInfo.accountName && nameValue !== "") {
-			setNameErr("");
+			setStatus(prev => ({
+				...prev,
+				col: "accountName",
+				tip: ""
+			}));
 			checkResult = true;
 		}
 		return checkResult;
@@ -115,10 +117,18 @@ export default () => {
 			checkResult = true;
 		} else if (!userInfo.birth_d && birthValue === "") {
 			checkResult = false;
-			setBirthErr(t("lbl_BirthRequired"));
+			setStatus(prev => ({
+				...prev,
+				col: "birth",
+				tip: t("lbl_BirthRequired")
+			}));
 		} else if (!userInfo.birth_d && birthValue !== "") {
 			checkResult = true;
-			setBirthErr("");
+			setStatus(prev => ({
+				...prev,
+				col: "birth",
+				tip: ""
+			}));
 		}
 		return checkResult;
 	};
@@ -128,12 +138,20 @@ export default () => {
 		if (userInfo.phoneNo) {
 			checkResult = true;
 		}
-		if (!userInfo.phoneNo && phoneValue === "") {
+		if (!userInfo.phoneNo && phoneValue.length < 5) {
 			checkResult = false;
-			setPhoneErr(t("lbl_PhoneRequired"));
+			setStatus(prev => ({
+				...prev,
+				col: "phoneNo",
+				tip: t("lbl_PhoneRequired")
+			}));
 		} else if (!userInfo.phoneNo && phoneValue !== "") {
 			checkResult = true;
-			setPhoneErr("");
+			setStatus(prev => ({
+				...prev,
+				col: "phoneNo",
+				tip: ""
+			}));
 		}
 		return checkResult;
 	};
@@ -145,7 +163,11 @@ export default () => {
 					if (isMountedRef.current) {
 						if (res.data.errorCode === 0) {
 							if (res.data.data === true) {
-								setEmailErr(t("msg_MailExisted"));
+								setStatus(prev => ({
+									...prev,
+									col: "email",
+									tip: t("msg_MailExisted")
+								}));
 								return false;
 							} else if (res.data.data === false) {
 								return true;
@@ -187,17 +209,29 @@ export default () => {
 		}
 		if (!userInfo.email && emailValue === "") {
 			checkResult = false;
-			setEmailErr(t("lbl_EmailRequired"));
+			setStatus(prev => ({
+				...prev,
+				col: "email",
+				tip: t("lbl_EmailRequired")
+			}));
 		} else if (
 			!userInfo.email &&
 			emailValue.length > 0 &&
 			!emailRegex.test(emailValue)
 		) {
 			checkResult = false;
-			setEmailErr(t("lbl_EmailFormatError"));
+			setStatus(prev => ({
+				...prev,
+				col: "email",
+				tip: t("lbl_EmailFormatError")
+			}));
 		} else if (!userInfo.email && emailValue !== "") {
 			checkResult = true;
-			setEmailErr("");
+			setStatus(prev => ({
+				...prev,
+				col: "email",
+				tip: ""
+			}));
 		}
 		return checkResult;
 	};
@@ -209,7 +243,7 @@ export default () => {
 			checkPhone() === true &&
 			checkEmail() === true &&
 			checkEmailIsUnique()?.then(res => console.log(res === true)) &&
-			emailErr === ""
+			status.tip === ""
 		) {
 			if (!userInfo.accountName) {
 				setPopBox({
@@ -232,6 +266,28 @@ export default () => {
 			} else {
 				submitProfile();
 			}
+		}
+	};
+
+	const clickInfo = col => {
+		if (col === "accountName") {
+			setStatus(prev => ({
+				...prev,
+				col: "accountName",
+				tip: t("lbl_RemindForName")
+			}));
+		} else if (col === "phoneNo") {
+			setStatus(prev => ({
+				...prev,
+				col: "phoneNo",
+				tip: t("lbl_PhoneTooltip")
+			}));
+		} else if (col === "email") {
+			setStatus(prev => ({
+				...prev,
+				col: "email",
+				tip: t("lbl_EmailToolTip")
+			}));
 		}
 	};
 
@@ -331,16 +387,6 @@ export default () => {
 		);
 	};
 
-	const clickInfo = col => {
-		if (col === "accountName") {
-			setNameErr(t("lbl_RemindForName"));
-		} else if (col === "phoneNo") {
-			setPhoneErr(t("lbl_PhoneTooltip"));
-		} else if (col === "email") {
-			setEmailErr(t("lbl_EmailToolTip"));
-		}
-	};
-
 	return loading ? (
 		<Loading />
 	) : redirectPath === null ? (
@@ -374,16 +420,13 @@ export default () => {
 						birthValue={birthValue}
 						phoneValue={phoneValue}
 						emailValue={emailValue}
-						nameErr={nameErr}
-						birthErr={birthErr}
-						phoneErr={phoneErr}
-						emailErr={emailErr}
 						checkName={checkName}
 						checkBirth={checkBirth}
 						checkPhone={checkPhone}
 						checkEmail={checkEmail}
 						clickInfo={clickInfo.bind(this)}
 						checked={status.checked}
+						col={status.col}
 						tip={status.tip}
 					/>
 				) : null}

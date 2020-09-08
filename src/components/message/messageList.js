@@ -97,7 +97,7 @@ export default props => {
 
 	const dateTimeFormat = () => {
 		if (compareDay < 1) {
-			if (!props.flag) {
+			if (!showContent) {
 				return props.createTime.slice(11, 19);
 			} else {
 				return (
@@ -107,7 +107,15 @@ export default props => {
 				);
 			}
 		} else {
-			return props.createTime.split("T", 1);
+			if (!showContent) {
+				return props.createTime.split("T", 1);
+			} else {
+				return (
+					props.createTime.split("T", 1) +
+					" " +
+					props.createTime.slice(11, 19)
+				);
+			}
 		}
 	};
 
@@ -127,7 +135,9 @@ export default props => {
 						htmlFor={`msgList-checkBox-${props.id}`}
 						className="icon icon-checkbox-checked"></label>
 				</div>
-				<div>{props.title}</div>
+				<div onClick={getMsgContent.bind(this, !showContent)}>
+					{props.title}
+				</div>
 				<div
 					className="txt-blue2"
 					onClick={getMsgContent.bind(this, !showContent)}>
