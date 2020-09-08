@@ -63,38 +63,38 @@ const LoginPanel = () => {
 
 	const checkValue = (col, e) => {
 		let val = e.target.value;
-		let msg = col === "username" ? "msg_UsernameReq" : "msg_PasswordReq";
+
+		let checked = true;
+		let msg = "";
 
 		if (val === "") {
-			setTip(prev => {
-				return {
-					...prev,
-					[col]: {
-						checked: false,
-						msg: t(msg)
-					}
-				};
-			});
-		} else {
-			setTip(prev => {
-				return {
-					...prev,
-					[col]: {
-						checked: true,
-						msg: ""
-					}
-				};
-			});
+			msg =
+				col === "username"
+					? t("msg_UsernameReq")
+					: t("msg_PasswordReq");
+			checked = false;
 		}
+
+		setTip(prev => {
+			return {
+				...prev,
+				[col]: {
+					checked: checked,
+					msg: msg
+				}
+			};
+		});
 	};
 
 	const handleLogin = async e => {
 		e.preventDefault();
+
 		let checked = userValue.username && userValue.password;
 		if (checked) {
 			await LOGIN({
 				userName: userValue.username,
-				password: userValue.password
+				password: userValue.password,
+				langId: userInfo.langId
 			}).then(res => {
 				if (res.errorCode === 0) {
 					if (isMountedRef.current) {
@@ -142,11 +142,11 @@ const LoginPanel = () => {
 
 			setTip({
 				username: {
-					checked: !userValue.username === "",
+					checked: !(userValue.username === ""),
 					msg: t(usernameMsg)
 				},
 				password: {
-					checked: !userValue.password === "",
+					checked: !(userValue.password === ""),
 					msg: t(passwordMsg)
 				}
 			});
