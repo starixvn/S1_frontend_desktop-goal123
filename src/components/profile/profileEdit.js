@@ -23,17 +23,9 @@ export default props => {
 					onBlur={props.checkName}
 					clickInfo={props.clickInfo.bind(this, "accountName")}
 					checked={props.checked}
-					tip={props.tip}
+					tip={props.col === "accountName" ? props.tip : ""}
 				/>
 			) : null}
-
-			{props.nameErr ? (
-				<div className="tip active">{props.nameErr}</div>
-			) : null}
-
-			{/* {props.tip === "accountName!!!!" ? (
-				<div className="tip active">{props.tip}</div>
-			) : null} */}
 
 			{!props.userInfo.birth_d ? (
 				<div className="inputBox">
@@ -51,8 +43,8 @@ export default props => {
 				</div>
 			) : null}
 
-			{props.birthErr ? (
-				<div className="tip active">{props.birthErr}</div>
+			{props.col === "birth" ? (
+				<div className="tip active">{props.tip}</div>
 			) : null}
 
 			{!props.userInfo.phoneNo ? (
@@ -63,12 +55,8 @@ export default props => {
 					onBlur={props.checkPhone}
 					clickInfo={props.clickInfo.bind(this, "phoneNo")}
 					checked={props.checked}
-					tip={props.tip}
+					tip={props.col === "phoneNo" ? props.tip : ""}
 				/>
-			) : null}
-
-			{props.phoneErr ? (
-				<div className="tip active">{props.phoneErr}</div>
 			) : null}
 
 			{!props.userInfo.email ? (
@@ -80,12 +68,8 @@ export default props => {
 					name="email"
 					clickInfo={props.clickInfo.bind(this, "email")}
 					checked={props.checked}
-					tip={props.tip}
+					tip={props.col === "email" ? props.tip : ""}
 				/>
-			) : null}
-
-			{props.emailErr ? (
-				<div className="tip active">{props.emailErr}</div>
 			) : null}
 
 			<div className="btnGroup">
