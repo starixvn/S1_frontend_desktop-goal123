@@ -90,7 +90,7 @@ export default props => {
 			} else {
 				return (
 					props.createTime.split("T", 1) +
-					"" +
+					" " +
 					props.createTime.slice(11, 19)
 				);
 			}
@@ -116,14 +116,11 @@ export default props => {
 						className="icon icon-checkbox-checked"></label>
 				</div>
 				<div>{props.title}</div>
-				<div className="txt-blue2">
+				<div
+					className="txt-blue2"
+					onClick={getMsgContent.bind(this, !showContent)}>
 					{dateTimeFormat()}
-					<button
-						className="icon icon-keyboard_arrow_down"
-						onClick={getMsgContent.bind(
-							this,
-							!showContent
-						)}></button>
+					<button className="icon icon-keyboard_arrow_down"></button>
 				</div>
 			</div>
 			<div className={`listBody ${showContent ? "active" : ""}`}>

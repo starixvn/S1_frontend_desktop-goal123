@@ -238,6 +238,8 @@
   "lbl_Promo":"khuyến mãi ",
   "lbl_Feature":"Đặc điểm",
   "msg_InsufficientFund":"Không đủ tiền!",
+  "lbl_RemindForName":"*Tên đầy đủ của bạn phải đúng với tên trên tài khoản Ngân hàng để thực hiện việc nạp/ rút tiền nhanh",
+  "lbl_PhoneTooltip":"Vui lòng nhập số điện thoại của bạn. Lưu ý: số điện thoại này sẽ không thể thay đổi!",
   "msg_changePswSuccess":"The update is successful! You can use the new password when you login in next time.",
   "lbl_Games":"Games",
   "lbl_ExtensiveGames":"TRÒ CHƠI ĐA DẠNG",

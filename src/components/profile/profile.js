@@ -31,6 +31,11 @@ export default () => {
 	const [phoneErr, setPhoneErr] = useState("");
 	const [emailErr, setEmailErr] = useState("");
 
+	const [status, setStatus] = useState({
+		checked: null,
+		tip: ""
+	});
+
 	useEffect(() => {
 		isMountedRef.current = true;
 		return () => (isMountedRef.current = false);
@@ -73,7 +78,12 @@ export default () => {
 
 	const onChangePhone = e => {
 		let value = e.target.value;
-		setPhoneValue(value);
+		let regex = /^(\(?\+?[0-9]*\?)?[0-9_]*$/;
+		if (!(regex.test(value) || value === "")) {
+			return false;
+		} else {
+			setPhoneValue(value);
+		}
 	};
 
 	const onChangeEmail = e => {
@@ -201,7 +211,6 @@ export default () => {
 			checkEmailIsUnique()?.then(res => console.log(res === true)) &&
 			emailErr === ""
 		) {
-			setEmailErr("");
 			if (!userInfo.accountName) {
 				setPopBox({
 					isOpen: true,
@@ -322,6 +331,16 @@ export default () => {
 		);
 	};
 
+	const clickInfo = col => {
+		if (col === "accountName") {
+			setNameErr(t("lbl_RemindForName"));
+		} else if (col === "phoneNo") {
+			setPhoneErr(t("lbl_PhoneTooltip"));
+		} else if (col === "email") {
+			setEmailErr(t("lbl_EmailToolTip"));
+		}
+	};
+
 	return loading ? (
 		<Loading />
 	) : redirectPath === null ? (
@@ -363,6 +382,9 @@ export default () => {
 						checkBirth={checkBirth}
 						checkPhone={checkPhone}
 						checkEmail={checkEmail}
+						clickInfo={clickInfo.bind(this)}
+						checked={status.checked}
+						tip={status.tip}
 					/>
 				) : null}
 			</div>
