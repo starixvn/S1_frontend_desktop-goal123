@@ -123,7 +123,9 @@ export default props => {
 		<Loading />
 	) : (
 		<div className={props.flag ? "haveRead" : ""}>
-			<div className="listHeader">
+			<div
+				className="listHeader"
+				onClick={getMsgContent.bind(this, !showContent)}>
 				<div className="checkbox">
 					<input
 						type="checkbox"
@@ -136,9 +138,7 @@ export default props => {
 						className="icon icon-checkbox-checked"></label>
 				</div>
 				<div>{props.title}</div>
-				<div
-					className="txt-blue2"
-					onClick={getMsgContent.bind(this, !showContent)}>
+				<div className="txt-blue2">
 					{dateTimeFormat()}
 					<button className="icon icon-keyboard_arrow_down"></button>
 				</div>
