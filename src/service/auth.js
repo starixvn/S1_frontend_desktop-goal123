@@ -7,10 +7,10 @@ import { api_site_CheckSignIn } from "../service/api/site";
 
 const isBrowser = typeof window !== `undefined`;
 
-export const LOGIN = async ({ userName, password }) => {
+export const LOGIN = async ({ userName, password, langId }) => {
 	if (!isBrowser) return false;
 
-	const result = await api_account_UserLogin({
+	const result = await api_account_UserLogin(langId, {
 		UserName: userName,
 		Userpwd: password,
 		isPersistent: true
