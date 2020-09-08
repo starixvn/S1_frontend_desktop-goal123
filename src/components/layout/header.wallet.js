@@ -15,6 +15,7 @@ import {
 	api_account_GetWalletInfo,
 	api_account_SetHideBalance
 } from "../../service/api/account";
+import ReloadSpin from "../common/reloadSpin";
 
 export default props => {
 	const { walletInfo, setWalletInfo } = useContext(walletInfoContext);
@@ -25,8 +26,7 @@ export default props => {
 		return () => (isMountedRef.current = false);
 	});
 
-	const RefreshBalance = e => {
-		e.stopPropagation();
+	const RefreshBalance = () => {
 		api_account_GetWalletInfo().then(res => {
 			if (res.data.errorCode === 0 && isMountedRef.current) {
 				let tpWallets = res.data.data.tpWallets?.map(t => {
@@ -138,9 +138,7 @@ class Dropdown extends Component {
 						)}`}</span>
 						<span>
 							{balance}
-							<button onClick={this.props.RefreshBalance}>
-								<i className="icon icon-spinner11"></i>
-							</button>
+							<ReloadSpin func={this.props.RefreshBalance} />
 						</span>
 					</div>
 					{tpWallets}
