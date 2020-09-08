@@ -85,7 +85,7 @@ export default props => {
 
 	const dateTimeFormat = () => {
 		if (compareDay < 1) {
-			if (!props.flag) {
+			if (!showContent) {
 				return props.createTime.slice(11, 19);
 			} else {
 				return (
@@ -95,7 +95,15 @@ export default props => {
 				);
 			}
 		} else {
-			return props.createTime.split("T", 1);
+			if (!showContent) {
+				return props.createTime.split("T", 1);
+			} else {
+				return (
+					props.createTime.split("T", 1) +
+					" " +
+					props.createTime.slice(11, 19)
+				);
+			}
 		}
 	};
 
