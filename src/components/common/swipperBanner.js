@@ -9,6 +9,11 @@ import {
 } from "../../components/common/context";
 import { SET_ENTER_PAGE } from "../../service/enterPage";
 import path from "../../path";
+import { Link } from "@reach/router";
+
+export const defBannerFolder = {
+	Sports: "Sports"
+};
 
 export const ClickLink = (
 	tpId,
@@ -95,7 +100,15 @@ const Panel = ({
 			? b.imgURL
 			: `${config.imgUrl}/CMS/${config.siteName}/${_imgFolder}/${lang}/${b.img}`;
 
-		return (
+		let key = `${lang}-${b.img}-${idx}`;
+
+		return ImgFolder === defBannerFolder.Sports ? (
+			<Link
+				key={key}
+				to={`${userInfo.langId}/${path.sports.root}?tpId=${b.tpId}&gameId=${b.gameId}&matchid=${b.matchid}`}>
+				<img src={imgSRC} className="banner" alt={b.img ?? ""} />
+			</Link>
+		) : (
 			<button
 				onClick={ClickLink.bind(
 					this,
@@ -110,7 +123,7 @@ const Panel = ({
 					b.matchid,
 					openInBlank
 				)}
-				key={`${lang}-${b.img}-${idx}`}>
+				key={key}>
 				<img src={imgSRC} className="banner" alt={b.img ?? ""} />
 			</button>
 		);

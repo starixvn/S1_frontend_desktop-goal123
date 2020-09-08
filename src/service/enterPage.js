@@ -38,7 +38,6 @@ export const SET_ENTER_PAGE = ({
 	if (!isLogin && result.needLogin) {
 		loginCallback();
 	} else if (result.actionType === _ACTION_TYPE.blank || openInBlank) {
-		console.log(result.entPageUrl);
 		OPEN_IN_BLANK(result.entPageUrl, result.windowKey);
 	} else if (result.actionType === _ACTION_TYPE.redirect) {
 		if (typeof window !== `undefined`) {
