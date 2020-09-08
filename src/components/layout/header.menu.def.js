@@ -27,8 +27,7 @@ export const defMenuLinks = {
 			{
 				...productList.sabaClub,
 				path: path.sports.root,
-				className: "GPI",
-				icon: "icon icon-GPI",
+				className: "sabaclub",
 				displayKey: "lbl_SabaClub",
 				menuType: defMenuType.LinkOrBtn,
 				parameter: { ...productList.sabaClub }
@@ -36,8 +35,7 @@ export const defMenuLinks = {
 			{
 				...productList.fishing,
 				path: path.sports.root,
-				className: "GPI",
-				icon: "icon icon-GPI",
+				className: "fishing",
 				displayKey: "lbl_Fishing",
 				menuType: defMenuType.LinkOrBtn,
 				parameter: { ...productList.fishing }
@@ -45,8 +43,7 @@ export const defMenuLinks = {
 			{
 				...productList.keno,
 				path: path.sports.root,
-				className: "GPI",
-				icon: "icon icon-GPI",
+				className: "keno",
 				displayKey: "lbl_Keno",
 				menuType: defMenuType.LinkOrBtn,
 				parameter: { ...productList.keno }
@@ -54,8 +51,7 @@ export const defMenuLinks = {
 			{
 				...productList.lottery,
 				path: path.sports.root,
-				className: "GPI",
-				icon: "icon icon-GPI",
+				className: "lottery",
 				displayKey: "lbl_Lottery",
 				menuType: defMenuType.LinkOrBtn,
 				parameter: { ...productList.lottery }
@@ -210,5 +206,6 @@ export const defMenuLinks = {
 
 export const defSubListClassName = {
 	casino: "casinoList",
-	liveCasino: "livecasinoList"
+	liveCasino: "livecasinoList",
+	games: "gameList"
 };

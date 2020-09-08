@@ -45,6 +45,11 @@ export default ({
 
 	let rows = Object.keys(defMenuLinks).map(key => {
 		let m = defMenuLinks[key];
+		let arrowIcon =
+			m.subMenu && m.subMenu.length > 0 ? (
+				<i className="icon icon-keyboard_arrow_right"></i>
+			) : null;
+
 		let _className = m.className ? m.className : "";
 		let displayText = toUpperCase
 			? t(m.displayKey)?.toUpperCase()
@@ -66,6 +71,7 @@ export default ({
 						className={_className}
 						onMouseOver={_showSubMenu.bind(this, key)}>
 						{displayText}
+						{arrowIcon}
 					</button>
 				);
 			} else if (isBlank) {
@@ -80,6 +86,7 @@ export default ({
 							rule.windowKey
 						)}>
 						{displayText}
+						{arrowIcon}
 					</a>
 				);
 			} else if (!m.path) {
@@ -89,6 +96,7 @@ export default ({
 						className={_className}
 						onMouseOver={_showSubMenu.bind(this, key)}>
 						{displayText}
+						{arrowIcon}
 					</button>
 				);
 			} else {
@@ -107,6 +115,7 @@ export default ({
 						className={_className}
 						onMouseOver={_showSubMenu.bind(this, key)}>
 						{displayText}
+						{arrowIcon}
 					</Link>
 				);
 			}
@@ -125,6 +134,7 @@ export default ({
 						onMouseOver={_showSubMenu.bind(this, key)}
 						className={_className}>
 						{displayText}
+						{arrowIcon}
 					</Link>
 				);
 			} else {
@@ -134,6 +144,7 @@ export default ({
 						onMouseOver={_showSubMenu.bind(this, key)}
 						className={_className}>
 						{displayText}
+						{arrowIcon}
 					</button>
 				);
 			}

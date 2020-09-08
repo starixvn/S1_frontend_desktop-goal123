@@ -38,6 +38,7 @@ export const SET_ENTER_PAGE = ({
 	if (!isLogin && result.needLogin) {
 		loginCallback();
 	} else if (result.actionType === _ACTION_TYPE.blank || openInBlank) {
+		console.log(result.entPageUrl);
 		OPEN_IN_BLANK(result.entPageUrl, result.windowKey);
 	} else if (result.actionType === _ACTION_TYPE.redirect) {
 		if (typeof window !== `undefined`) {
@@ -86,7 +87,7 @@ export const GET_ENTER_PAGE_URL = (langId, tpId, gameId, matchid) => {
 	let lobbyUrl = ``;
 	let cashierUrl = `${appUrl}${path.deposit.root}`;
 	let _matchid = matchid ? matchid : "";
-	return `${config.openURL}/${langId}/entPage?homeUrl=${homeUrl}&signupUrl=${signupUrl}&LoginUrl=${LoginUrl}&tpId=${tpId}&gameId=${gameId}&CashierUrl=${cashierUrl}&&LobbyUrl=${lobbyUrl}&&matchid=${_matchid}`;
+	return `${config.openURL}/${langId}/entPage?homeUrl=${homeUrl}&signupUrl=${signupUrl}&LoginUrl=${LoginUrl}&tpId=${tpId}&gameId=${gameId}&CashierUrl=${cashierUrl}&LobbyUrl=${lobbyUrl}&matchid=${_matchid}`;
 };
 
 const setResult = (url, needLogin, actionType, tpId, gameId, matchid) => {

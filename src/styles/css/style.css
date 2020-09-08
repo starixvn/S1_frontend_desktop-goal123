@@ -215,25 +215,25 @@ header .header > div.menu .subMenu-Wrapper .icon:before {
   font-size: 30px;
 }
 
-header .header > div.menu .casinoList, header .header > div.menu .livecasinoList {
+header .header > div.menu .gameList, header .header > div.menu .casinoList, header .header > div.menu .livecasinoList {
   max-width: 1600px;
   margin: auto;
   display: none;
 }
 
-header .header > div.menu .casinoList.active, header .header > div.menu .livecasinoList.active {
+header .header > div.menu .gameList.active, header .header > div.menu .casinoList.active, header .header > div.menu .livecasinoList.active {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
 
-header .header > div.menu .casinoList.active div, header .header > div.menu .livecasinoList.active div {
+header .header > div.menu .gameList.active div, header .header > div.menu .casinoList.active div, header .header > div.menu .livecasinoList.active div {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
 
-header .header > div.menu .casinoList a, header .header > div.menu .casinoList button, header .header > div.menu .livecasinoList a, header .header > div.menu .livecasinoList button {
+header .header > div.menu .gameList a, header .header > div.menu .gameList button, header .header > div.menu .casinoList a, header .header > div.menu .casinoList button, header .header > div.menu .livecasinoList a, header .header > div.menu .livecasinoList button {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
@@ -255,21 +255,53 @@ header .header > div.menu .casinoList a, header .header > div.menu .casinoList b
   transition: 0.7s;
 }
 
-header .header > div.menu .casinoList a img, header .header > div.menu .casinoList button img, header .header > div.menu .livecasinoList a img, header .header > div.menu .livecasinoList button img {
+header .header > div.menu .gameList a img, header .header > div.menu .gameList button img, header .header > div.menu .casinoList a img, header .header > div.menu .casinoList button img, header .header > div.menu .livecasinoList a img, header .header > div.menu .livecasinoList button img {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
 }
 
-header .header > div.menu .casinoList a span, header .header > div.menu .casinoList button span, header .header > div.menu .livecasinoList a span, header .header > div.menu .livecasinoList button span {
+header .header > div.menu .gameList a span, header .header > div.menu .gameList button span, header .header > div.menu .casinoList a span, header .header > div.menu .casinoList button span, header .header > div.menu .livecasinoList a span, header .header > div.menu .livecasinoList button span {
   top: 35px;
   position: relative;
   color: white;
 }
 
-header .header > div.menu .casinoList a:hover, header .header > div.menu .casinoList button:hover, header .header > div.menu .livecasinoList a:hover, header .header > div.menu .livecasinoList button:hover {
+header .header > div.menu .gameList a:hover, header .header > div.menu .gameList button:hover, header .header > div.menu .casinoList a:hover, header .header > div.menu .casinoList button:hover, header .header > div.menu .livecasinoList a:hover, header .header > div.menu .livecasinoList button:hover {
   -webkit-transition: 0.7s;
   transition: 0.7s;
+}
+
+header .header > div.menu .gameList .sabaclub {
+  background: url(../img/sabaclub.png) no-repeat center 10px/auto 100%;
+}
+
+header .header > div.menu .gameList .sabaclub:hover {
+  background: url(../img/sabaclub_a.png) no-repeat center 0px/auto 100%;
+}
+
+header .header > div.menu .gameList .fishing {
+  background: url(../img/fishing.png) no-repeat center 10px/auto 100%;
+}
+
+header .header > div.menu .gameList .fishing:hover {
+  background: url(../img/fishing_a.png) no-repeat center 0px/auto 100%;
+}
+
+header .header > div.menu .gameList .keno {
+  background: url(../img/keno.png) no-repeat center 10px/auto 100%;
+}
+
+header .header > div.menu .gameList .keno:hover {
+  background: url(../img/keno_a.png) no-repeat center 0px/auto 100%;
+}
+
+header .header > div.menu .gameList .lottery {
+  background: url(../img/lottery.png) no-repeat center 10px/auto 100%;
+}
+
+header .header > div.menu .gameList .lottery:hover {
+  background: url(../img/lottery_a.png) no-repeat center 0px/auto 100%;
 }
 
 header .header > div.menu .casinoList .GPI {
@@ -419,7 +451,6 @@ header .header > div.function > div, header .header > div.function > button {
       -ms-flex-pack: center;
           justify-content: center;
   margin-right: 3%;
-  min-width: 100px;
 }
 
 header .header > div.function > div:hover, header .header > div.function > button:hover {
@@ -470,14 +501,25 @@ header .header > div.function > div .flag.vn:before, header .header > div.functi
   background: url(../img/flag/vn.png) no-repeat top center/cover;
 }
 
+header .header > div.function .icon-email {
+  font-size: 24px;
+  position: relative;
+}
+
+header .header > div.function .icon-email:after {
+  content: '●';
+  position: absolute;
+  font-size: 14px;
+  color: #fab617;
+  right: 0;
+  top: -2px;
+}
+
 header .header > div.function .country {
   -webkit-box-flex: 0;
       -ms-flex: 0 0 auto;
           flex: 0 0 auto;
   min-width: auto;
-  -webkit-box-ordinal-group: 4;
-      -ms-flex-order: 3;
-          order: 3;
   position: relative;
 }
 
@@ -501,7 +543,7 @@ header .header > div.function .country .countryList {
   padding: 0 10px;
   width: 105px;
   margin-left: -5px;
-  left: 0;
+  right: 0;
 }
 
 header .header > div.function .country .countryList button, header .header > div.function .country .countryList a {
@@ -566,6 +608,9 @@ header .header > div.function .cashier .submenu .icon-exit, header .header > div
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: flex-end;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
 }
 
 header .header > div.function .cashier .submenu .icon-exit:before, header .header > div.function .wallet .submenu .icon-exit:before, header .header > div.function .memberfile .submenu .icon-exit:before {
@@ -614,11 +659,21 @@ header .header > div.function .cashier:before, header .header > div.function .wa
 }
 
 header .header > div.function .cashier {
-  color: #1EECBB;
+  color: #fab617;
 }
 
 header .header > div.function .cashier button, header .header > div.function .cashier:after {
-  color: #1EECBB;
+  color: #fab617;
+}
+
+header .header > div.function .wallet button.icon-eye-blocked, header .header > div.function .wallet button.icon-eye {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-left: 5px;
 }
 
 header .header > div.function .wallet .submenu div {
@@ -634,7 +689,7 @@ header .header > div.function .wallet .submenu div.balance {
   font-weight: bold;
 }
 
-header .header > div.function .wallet .submenu div.balance i {
+header .header > div.function .wallet .submenu div.balance button {
   font-weight: normal;
   color: #fab617;
   margin-left: 5px;
@@ -864,7 +919,6 @@ footer {
 
 footer span.title {
   color: #fab617;
-  padding-left: 20px;
   line-height: 16px;
   float: left;
   font-weight: normal;
@@ -881,12 +935,18 @@ footer .webmap {
   -webkit-box-pack: space-evenly;
       -ms-flex-pack: space-evenly;
           justify-content: space-evenly;
+  font-size: 12px;
+  line-height: 24px;
 }
 
 footer .webmap img {
   width: auto;
   float: left;
   margin-right: 10px;
+}
+
+footer .webmap > div {
+  margin-right: 40px;
 }
 
 footer .webmap > div div {
@@ -899,7 +959,6 @@ footer .webmap > div div {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  padding-left: 20px;
 }
 
 footer .webmap > div div:nth-child(2) {
@@ -907,58 +966,24 @@ footer .webmap > div div:nth-child(2) {
 }
 
 footer .webmap > div div a, footer .webmap > div div button {
-  font-size: 14px;
   line-height: 30px;
 }
 
 footer .webmap > div:last-child {
   margin-right: 0;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  color: #c6c6c6;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
 }
 
-footer .webmap > div:last-child a {
-  border-radius: 30px;
-  font-size: 12px;
-  margin-bottom: 10px;
-  cursor: pointer;
-}
-
-footer .webmap > div:last-child a:hover {
-  background: #f77900;
-}
-
-footer .webmap > div:last-child div {
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-}
-
-footer .webmap > div:last-child div img {
-  width: 40px;
-  height: 40px;
-}
-
-footer .webmap > div:nth-child(-n+4) a, footer .webmap > div:nth-child(-n+4) button {
+footer .webmap > div:nth-child(-n+5) a, footer .webmap > div:nth-child(-n+5) button {
   color: #c6c6c6;
   text-align: left;
 }
 
-footer .webmap > div:nth-child(-n+4) a:hover, footer .webmap > div:nth-child(-n+4) button:hover {
+footer .webmap > div:nth-child(-n+5) a:hover, footer .webmap > div:nth-child(-n+5) button:hover {
   color: #f77900;
-}
-
-footer .webmap > div:nth-last-child(2) div {
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
 }
 
 footer .copyright {
@@ -1026,6 +1051,7 @@ footer .copyright {
   text-decoration: underline;
   font-size: 12px;
   text-align: right;
+  margin-left: 10px;
 }
 
 .joinpop .joinloginModule .joinloginFunction .noAccount, .loginpop .joinloginModule .joinloginFunction .noAccount {
@@ -1107,6 +1133,10 @@ footer .copyright {
   -webkit-transform: translateY(100%);
           transform: translateY(100%);
   bottom: 0;
+}
+
+.inputModuleRow .text {
+  text-align: right;
 }
 
 .inputBox, .inputBox-org, .inputBox-white, .inputBox-blue, .inputBox-gray, .inputBox-yellow {
@@ -1199,6 +1229,10 @@ footer .copyright {
 .inputBox .iconModule .icon, .inputBox-org .iconModule .icon, .inputBox-white .iconModule .icon, .inputBox-blue .iconModule .icon, .inputBox-gray .iconModule .icon, .inputBox-yellow .iconModule .icon {
   margin-left: 5px;
   color: #c6c6c6;
+}
+
+.inputBox .iconModule .icon.icon-checkmark, .inputBox-org .iconModule .icon.icon-checkmark, .inputBox-white .iconModule .icon.icon-checkmark, .inputBox-blue .iconModule .icon.icon-checkmark, .inputBox-gray .iconModule .icon.icon-checkmark, .inputBox-yellow .iconModule .icon.icon-checkmark {
+  margin-right: 0;
 }
 
 .inputBox .dropdown, .inputBox-org .dropdown, .inputBox-white .dropdown, .inputBox-blue .dropdown, .inputBox-gray .dropdown, .inputBox-yellow .dropdown {
@@ -1881,10 +1915,8 @@ main > .swiper-container .swiper-slide {
 .list .listHeader button {
   font-size: 12px;
   position: absolute;
-  right: 0;
+  right: 12px;
   color: #1E85EC;
-  -webkit-transform: translateX(-100%);
-          transform: translateX(-100%);
 }
 
 .list .listHeader div {
@@ -2389,6 +2421,10 @@ main > .swiper-container .swiper-slide {
   font-size: 40px;
 }
 
+.platformName .icon.icon-VNPay {
+  font-size: 18px;
+}
+
 .platformName + div.subModuleList .subModuleBody > div {
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
@@ -2406,6 +2442,7 @@ main > .swiper-container .swiper-slide {
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
+  margin: 10px 0;
 }
 
 .platformName + div.subModuleList .subModuleBody > div > .bankName {
@@ -2462,6 +2499,7 @@ main > .swiper-container .swiper-slide {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  width: auto;
 }
 
 .align-items-center {
@@ -3034,6 +3072,16 @@ main > .swiper-container .swiper-slide {
   display: block;
 }
 
+.walletTransfer .walletModule .icon-arrow-right2:hover {
+  margin: 0 14.7px;
+}
+
+.walletTransfer .walletModule .icon-arrow-right2:hover:before {
+  content: 'Exchange';
+  font-family: "Microsoft YaHei", sans-serif;
+  font-size: 12px;
+}
+
 .walletTransfer .walletModule .walletBalanceModule {
   background: #1D3662;
   font-weight: bold;
@@ -3073,7 +3121,7 @@ main > .swiper-container .swiper-slide {
 
 .walletTransfer .inputBox, .walletTransfer .inputBox-org, .walletTransfer .inputBox-white, .walletTransfer .inputBox-blue, .walletTransfer .inputBox-gray, .walletTransfer .inputBox-yellow {
   float: left;
-  width: calc(100% - 161px);
+  width: calc(100% - 171px);
   margin-right: 10px;
 }
 
@@ -3119,9 +3167,12 @@ main > .swiper-container .swiper-slide {
 .index footer .webmap {
   padding: 0 calc((100% - 1010px) / 2);
   padding-top: 40px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
-.index .casinoList, .index .livecasinoList {
+.index .gameList, .index .casinoList, .index .livecasinoList {
   max-width: 1010px;
 }
 
@@ -3454,16 +3505,17 @@ main > .swiper-container .swiper-slide {
   max-width: none;
 }
 
-.quickSelect > div.inputBox.promoType button.orange, .quickSelect > div.promoType.inputBox-org button.orange, .quickSelect > div.promoType.inputBox-white button.orange, .quickSelect > div.promoType.inputBox-blue button.orange, .quickSelect > div.promoType.inputBox-gray button.orange, .quickSelect > div.promoType.inputBox-yellow button.orange, .quickSelect > div:first-child.promoType button.orange {
+.quickSelect > div.inputBox.promoType button.orange, .quickSelect > div.promoType.inputBox-org button.orange, .quickSelect > div.promoType.inputBox-white button.orange, .quickSelect > div.promoType.inputBox-blue button.orange, .quickSelect > div.promoType.inputBox-gray button.orange, .quickSelect > div.promoType.inputBox-yellow button.orange, .quickSelect > div.inputBox.promoType button.red, .quickSelect > div.promoType.inputBox-org button.red, .quickSelect > div.promoType.inputBox-white button.red, .quickSelect > div.promoType.inputBox-blue button.red, .quickSelect > div.promoType.inputBox-gray button.red, .quickSelect > div.promoType.inputBox-yellow button.red, .quickSelect > div:first-child.promoType button.orange, .quickSelect > div:first-child.promoType button.red {
   position: relative;
   margin-left: 25px;
 }
 
-.quickSelect > div.inputBox.promoType button.orange:before, .quickSelect > div.promoType.inputBox-org button.orange:before, .quickSelect > div.promoType.inputBox-white button.orange:before, .quickSelect > div.promoType.inputBox-blue button.orange:before, .quickSelect > div.promoType.inputBox-gray button.orange:before, .quickSelect > div.promoType.inputBox-yellow button.orange:before, .quickSelect > div:first-child.promoType button.orange:before {
+.quickSelect > div.inputBox.promoType button.orange:before, .quickSelect > div.promoType.inputBox-org button.orange:before, .quickSelect > div.promoType.inputBox-white button.orange:before, .quickSelect > div.promoType.inputBox-blue button.orange:before, .quickSelect > div.promoType.inputBox-gray button.orange:before, .quickSelect > div.promoType.inputBox-yellow button.orange:before, .quickSelect > div.inputBox.promoType button.red:before, .quickSelect > div.promoType.inputBox-org button.red:before, .quickSelect > div.promoType.inputBox-white button.red:before, .quickSelect > div.promoType.inputBox-blue button.red:before, .quickSelect > div.promoType.inputBox-gray button.red:before, .quickSelect > div.promoType.inputBox-yellow button.red:before, .quickSelect > div:first-child.promoType button.orange:before, .quickSelect > div:first-child.promoType button.red:before {
   content: '｜';
   color: #1E85EC;
   position: absolute;
   left: -27.5px;
+  top: -5px;
   font-weight: normal;
   font-size: 24px;
 }
@@ -3591,6 +3643,7 @@ main > .swiper-container .swiper-slide {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
+  min-width: 157px;
 }
 
 .profile > div div > span {
@@ -3643,6 +3696,10 @@ main > .swiper-container .swiper-slide {
   -webkit-box-flex: 1.5;
       -ms-flex: 1.5;
           flex: 1.5;
+}
+
+.profileEdit .editModule .inputBox, .profileEdit .editModule .inputBox-org, .profileEdit .editModule .inputBox-white, .profileEdit .editModule .inputBox-blue, .profileEdit .editModule .inputBox-gray, .profileEdit .editModule .inputBox-yellow {
+  z-index: auto;
 }
 
 .profileEdit .editModule .inputBox:first-child, .profileEdit .editModule .inputBox-org:first-child, .profileEdit .editModule .inputBox-white:first-child, .profileEdit .editModule .inputBox-blue:first-child, .profileEdit .editModule .inputBox-gray:first-child, .profileEdit .editModule .inputBox-yellow:first-child {
@@ -4185,7 +4242,6 @@ form {
 }
 
 .slotList > div .brand span, .newsList > div .brand span {
-  z-index: 1;
   position: absolute;
   top: 7px;
   left: 7px;
@@ -4293,6 +4349,10 @@ article pre {
   -webkit-box-flex: 1;
       -ms-flex: auto;
           flex: auto;
+}
+
+.rdt .inputBox, .rdt .inputBox-org, .rdt .inputBox-white, .rdt .inputBox-blue, .rdt .inputBox-gray, .rdt .inputBox-yellow {
+  width: 100%;
 }
 
 iframe {
@@ -4589,5 +4649,80 @@ input:-webkit-autofill:active {
 
 .mobileAmount span {
   margin-right: 5px;
+}
+
+.otpLoading {
+  -webkit-animation: rotate .7s linear infinite;
+          animation: rotate .7s linear infinite;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 10px;
+}
+
+.otpLoading .icon {
+  font-size: 14px;
+}
+
+button.icon-spinner11.active {
+  -webkit-animation: rotate .7s linear 2;
+          animation: rotate .7s linear 2;
+}
+
+button.icon-books {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+button.icon-books:hover:after {
+  content: 'ALL Transaction';
+  font-size: 12px;
+  margin-left: 10px;
+}
+
+@-webkit-keyframes rotate {
+  from {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes rotate {
+  from {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+.changePassWordpop {
+  position: relative;
+}
+
+.changePassWordpop button.icon-cross {
+  font-size: 12px;
+  position: absolute;
+  right: -20px;
+  top: -20px;
 }
 /*# sourceMappingURL=style.css.map */
