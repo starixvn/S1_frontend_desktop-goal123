@@ -3,7 +3,8 @@ import path from "../../path";
 
 export const defMenuType = {
 	entPage: "entPage",
-	Link: "Link"
+	Link: "Link",
+	LinkOrBtn: "LinkOrBtn"
 };
 
 export const defMenuLinks = {
@@ -16,14 +17,50 @@ export const defMenuLinks = {
 		productInfo: productList.cockFighting,
 		displayKey: "lbl_CockFighting"
 	},
-	sabaClub: {
-		productInfo: productList.sabaClub,
-		displayKey: "lbl_SabaClub"
-	},
-	eSport: {
-		productInfo: productList.eSport,
-		path: path.sports.root,
-		displayKey: "lbl_eSports"
+	// sabaClub: {
+	// 	productInfo: productList.sabaClub,
+	// 	displayKey: "lbl_SabaClub"
+	// },
+	games: {
+		displayKey: "lbl_Games",
+		subMenu: [
+			{
+				...productList.sabaClub,
+				path: path.sports.root,
+				className: "GPI",
+				icon: "icon icon-GPI",
+				displayKey: "lbl_SabaClub",
+				menuType: defMenuType.LinkOrBtn,
+				parameter: { ...productList.sabaClub }
+			},
+			{
+				...productList.fishing,
+				path: path.sports.root,
+				className: "GPI",
+				icon: "icon icon-GPI",
+				displayKey: "lbl_Fishing",
+				menuType: defMenuType.LinkOrBtn,
+				parameter: { ...productList.fishing }
+			},
+			{
+				...productList.keno,
+				path: path.sports.root,
+				className: "GPI",
+				icon: "icon icon-GPI",
+				displayKey: "lbl_Keno",
+				menuType: defMenuType.LinkOrBtn,
+				parameter: { ...productList.keno }
+			},
+			{
+				...productList.lottery,
+				path: path.sports.root,
+				className: "GPI",
+				icon: "icon icon-GPI",
+				displayKey: "lbl_Lottery",
+				menuType: defMenuType.LinkOrBtn,
+				parameter: { ...productList.lottery }
+			}
+		]
 	},
 	// numberGame: {
 	// 	productInfo: productList.numberGame,
@@ -35,6 +72,11 @@ export const defMenuLinks = {
 	// 	path: path.sports.root,
 	// 	displayKey: "lbl_VirtualSport"
 	// },
+	eSport: {
+		productInfo: productList.eSport,
+		path: path.sports.root,
+		displayKey: "lbl_eSports"
+	},
 	casino: {
 		path: path.casino.root,
 		displayKey: "lbl_Slots",

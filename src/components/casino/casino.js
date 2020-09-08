@@ -287,7 +287,7 @@ export default () => {
 	return (
 		<div className="infoModule">
 			<div className="inside-title icon icon-ow-casino">
-				<span>{t("lbl_Casino")}</span>
+				<span>{t("lbl_Slots")}</span>
 			</div>
 			<div className="casinoSelect">
 				<Nav selNav={selNav} onSelectNav={onSelectNav} t={t} />

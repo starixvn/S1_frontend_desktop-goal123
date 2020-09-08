@@ -286,5 +286,16 @@
 	"msg_InsufficientFund":"Insufficient Fund!",
 	"lbl_RemindForName":"*FULL NAME must match name in your bank account for Instant deposit &amp; withdrawal.",
 	"lbl_PhoneTooltip":"Please enter your phone number, it can not change once enter!",
-	"msg_changePswSuccess":"The update is successful! You can use the new password when you login in next time."
+	"msg_changePswSuccess":"The update is successful! You can use the new password when you login in next time.",
+	"lbl_Games":"Games",
+	"lbl_ExtensiveGames":"Extensive games",
+	"lbl_ExtensiveGamesDesc":"Unparalled gaming experience",
+	"lbl_ExcellentCustomerCare":"Excellence in Customer Care",
+	"lbl_ExcellentCustomerCareDesc":"24/7 customer care service",
+	"lbl_PaymentMethods":"Payment methods",
+	"lbl_PaymentMethodsDesc":"Multiple fast and reliable payment methods",
+	"lbl_TransactionSpeed":"Transaction speed",
+	"lbl_TransactionSpeedDesc":"Instant or 2-3 mins for deposits. 10 mins for withdrawals",
+	"msg_DepositHint":"Deposit now to enjoy our games and services.",
+	"lbl_Lottery":"Lottery"
 }

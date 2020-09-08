@@ -50,7 +50,7 @@ export default props => {
 		);
 	});
 
-	return (
+	return props.getHistory !== null || props.getHistory !== [] ? (
 		<>
 			<div className="list">
 				<div className="listHeader">
@@ -74,5 +74,7 @@ export default props => {
 				to={`/${userInfo.langId}/${path.transferHistory.root}`}
 				className="icon icon-books"></Link>
 		</>
+	) : (
+		<div className="nodata">{t("msg_NoData")}</div>
 	);
 };

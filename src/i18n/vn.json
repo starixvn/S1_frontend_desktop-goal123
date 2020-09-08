@@ -240,6 +240,17 @@
   "msg_InsufficientFund":"Không đủ tiền!",
   "lbl_RemindForName":"*Tên đầy đủ của bạn phải đúng với tên trên tài khoản Ngân hàng để thực hiện việc nạp/ rút tiền nhanh",
   "lbl_PhoneTooltip":"Vui lòng nhập số điện thoại của bạn. Lưu ý: số điện thoại này sẽ không thể thay đổi!",
-  "msg_changePswSuccess":"The update is successful! You can use the new password when you login in next time."
-
+  "msg_changePswSuccess":"The update is successful! You can use the new password when you login in next time.",
+  "lbl_Games":"Games",
+  "lbl_ExtensiveGames":"TRÒ CHƠI ĐA DẠNG",
+	"lbl_ExtensiveGamesDesc":"Trải nghiệm đỉnh cao",
+	"lbl_ExcellentCustomerCare":"ĐỘI NGŨ CHUYÊN NGHIỆP",
+	"lbl_ExcellentCustomerCareDesc":"Chăm sóc khách hàng 24/7",
+	"lbl_PaymentMethods":"PHƯƠNG THỨC THANH TOÁN",
+	"lbl_PaymentMethodsDesc":"Đa dạng và Uy tín",
+	"lbl_TransactionSpeed":"THỜI GIAN XỬ LÝ",
+	"lbl_TransactionSpeedDesc":"Gửi tiền siêu tốc. Rút tiền nhanh chóng",
+	"msg_DepositHint":"Nạp tiền ngay để thưởng thức các trò chơi và dịch vụ của chúng tôi.",
+  "lbl_Later":"Để sau",
+  "lbl_Lottery":"Xổ số"
 }

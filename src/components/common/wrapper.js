@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Redirect } from "@reach/router";
 import * as ct from "../common/context";
-import { GET_LANG_ID } from "../../service/language";
 import { defaultLang } from "../../i18n/config";
 import { useTranslation } from "react-i18next";
 import { getUrlParameter, setCookie, deleteCookie } from "../common/common";
@@ -114,7 +113,7 @@ export default ({ children, afterLogin = false }) => {
 						});
 						setWalletInfo(prevState => ({
 							...prevState,
-							main: res.data.data.balance,
+							main: res.data.data?.balance,
 							tpWallets: tpWallets,
 							lastTransaction: res.data.data.lastTransaction
 						}));
