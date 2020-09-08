@@ -80,11 +80,7 @@ export default ({ request_id }) => {
 			{/* <!--輸入OTP--> */}
 			<div className="icon icon-icon32px_notification"></div>
 			<div className="title">Important Note</div>
-			<div className="txt-lightgray">
-				We have sent the verification code to your registered mobile.
-				<br />
-				Please enter the verification number you received below.
-			</div>
+			<div className="txt-lightgray">{t("msg_OTPSendCode")}</div>
 			<div className="inputModuleRow">
 				<div className="inputBox">
 					<input
