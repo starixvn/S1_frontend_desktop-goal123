@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
-import { api_account_GetMsgContent } from "../../service/api/account";
-import { popBoxContext } from "../common/context";
+import {
+	api_account_GetMsgContent,
+	api_account_GetMsgCount
+} from "../../service/api/account";
+import { popBoxContext, msgCountContext } from "../common/context";
 import { useTranslation } from "react-i18next";
 import { defPopBoxType } from "../common/popBox";
 import moment from "moment";
@@ -9,6 +12,7 @@ import Loading from "../common/loading";
 export default props => {
 	const { t } = useTranslation();
 	const { setPopBox } = useContext(popBoxContext);
+	const { setMsgCount } = useContext(msgCountContext);
 	const isMountedRef = useRef(null);
 	const [msgContentData, setMsgContentData] = useState("");
 	const [showContent, setShowContent] = useState(false);
@@ -34,6 +38,14 @@ export default props => {
 							setShowContent(true);
 							setMsgContentData(res.data.data.content);
 							props.getMsgList();
+
+							api_account_GetMsgCount().then(res => {
+								if (isMountedRef.current) {
+									if (res.data.errorCode === 0) {
+										setMsgCount(res.data.data);
+									}
+								}
+							});
 						} else {
 							setPopBox({
 								isOpen: true,

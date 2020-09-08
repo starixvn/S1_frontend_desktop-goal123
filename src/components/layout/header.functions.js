@@ -1,6 +1,10 @@
 import React, { useContext } from "react";
 import { Link } from "@reach/router";
-import { userInfoContext, popBoxContext } from "../common/context";
+import {
+	userInfoContext,
+	popBoxContext,
+	msgCountContext
+} from "../common/context";
 import { useTranslation } from "react-i18next";
 import path from "../../path";
 import DropdownHeader, { defElemType } from "../common/dropdown.headerLink";
@@ -10,7 +14,6 @@ import { defPopBoxType } from "../common/popBox";
 
 export default () => {
 	const { userInfo } = useContext(userInfoContext);
-	const { setPopBox } = useContext(popBoxContext);
 
 	return userInfo.isLogin === true ? (
 		<AfterLogin />
@@ -96,6 +99,7 @@ const defSettingLinks = ({ logoutFunc }) => {
 };
 
 const AfterLogin = () => {
+	const { msgCount } = useContext(msgCountContext);
 	const { userInfo, setUserInfo } = useContext(userInfoContext);
 	const { t } = useTranslation();
 
@@ -129,6 +133,9 @@ const AfterLogin = () => {
 				options={defSettingLinks({ logoutFunc: handleLogout })}
 				placeholder={userInfo.userName}
 			/>
+			<Link
+				className={`icon icon-email${msgCount > 0 ? " active" : ""}`}
+				to={`/${userInfo.langId}/${path.message.root}`}></Link>
 		</>
 	);
 };
