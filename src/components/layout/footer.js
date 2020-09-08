@@ -109,11 +109,11 @@ export default () => {
 						</a>
 					</div>
 				</div>
-			</div>
-			<div>
-				<span className="title">{t("lbl_ContactUs")}</span>
-				<div>{t("lbl_ConatctUsHint")}</div>
-				{/* <div>
+
+				<div>
+					<span className="title">{t("lbl_ContactUs")}</span>
+					<div>{t("lbl_ConatctUsHint")}</div>
+					{/* <div>
 					<span className="title">Social Media</span>
 					<div>
 						<a href="">
@@ -135,8 +135,8 @@ export default () => {
 						</a>
 					</div>
 				</div> */}
+				</div>
 			</div>
-
 			<div className="copyright">
 				© Copyright 2020. Goal123. All Rights Reserved.
 			</div>
