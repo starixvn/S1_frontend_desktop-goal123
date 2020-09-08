@@ -141,6 +141,7 @@ const Panel = ({
 const defSwipperConfig = {
 	spaceBetween: 30,
 	centeredSlides: true,
+	loop: true,
 	autoplay: {
 		delay: 2500,
 		disableOnInteraction: false
@@ -159,7 +160,19 @@ const Autoplay = props => {
 };
 
 const AutoPlayWithBtn = ({ Rows }) => {
-	const params = defSwipperConfig;
+	const params = {
+		...defSwipperConfig,
+		navigation: {
+			nextEl: ".swiper-button-next",
+			prevEl: ".swiper-button-prev"
+		},
+		renderPrevButton: () => (
+			<div className="swiper-button-prev" onClick={goPrev}></div>
+		),
+		renderNextButton: () => (
+			<div className="swiper-button-next" onClick={goNext}></div>
+		)
+	};
 	const ref = useRef(null);
 
 	const goNext = () => {
@@ -183,12 +196,6 @@ const AutoPlayWithBtn = ({ Rows }) => {
 					</Swiper>
 				</div>
 			</div>
-			{Rows && Rows.length > 0 ? (
-				<>
-					<div className="swiper-button-next" onClick={goNext}></div>
-					<div className="swiper-button-prev" onClick={goPrev}></div>
-				</>
-			) : null}
 		</>
 	) : (
 		<></>
