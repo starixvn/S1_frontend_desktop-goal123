@@ -1135,7 +1135,7 @@ footer .copyright {
   bottom: 0;
 }
 
-.inputModuleRow .text {
+.inputModuleRow input.text-right {
   text-align: right;
 }
 
@@ -2357,15 +2357,12 @@ main > .swiper-container .swiper-slide {
           justify-content: center;
   width: calc(100% - 10px);
   overflow: hidden;
+  background: white;
 }
 
-.subModuleList .subModule .subModuleBody ul li a.icon-VNPay:before {
-  font-size: 16px;
-}
-
-.subModuleList .subModule .subModuleBody ul li a:before {
-  font-size: 32px;
-  margin-right: 0;
+.subModuleList .subModule .subModuleBody ul li a.icon-library {
+  color: #1E85EC;
+  font-size: 44px;
 }
 
 .subModuleList .subModule .subModuleBody ul li span {
@@ -2489,7 +2486,6 @@ main > .swiper-container .swiper-slide {
 }
 
 .platformName + div.subModuleList .subModuleBody ul li a {
-  background: white;
   padding: 5px 10px;
   width: calc(100% - 20px);
 }
@@ -3064,19 +3060,27 @@ main > .swiper-container .swiper-slide {
   margin-bottom: 15px;
 }
 
-.walletTransfer .walletModule button {
-  display: none;
-}
-
-.walletTransfer .walletModule button.active {
-  display: block;
+.walletTransfer .walletModule .icon-arrow-right2 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .walletTransfer .walletModule .icon-arrow-right2:hover {
   margin: 0 14.7px;
 }
 
-.walletTransfer .walletModule .icon-arrow-right2:hover:before {
+.walletTransfer .walletModule .icon-arrow-right2:hover:after {
   content: 'Exchange';
   font-family: "Microsoft YaHei", sans-serif;
   font-size: 12px;
@@ -3132,7 +3136,7 @@ main > .swiper-container .swiper-slide {
 
 .walletTransfer .icon.icon-information-solid {
   font-size: 14px;
-  margin: 0;
+  margin-right: 0;
 }
 
 .walletTransfer .icon.icon-information-solid:before {
@@ -3338,7 +3342,6 @@ main > .swiper-container .swiper-slide {
 }
 
 .addBank + div.subModuleList .subModuleBody ul li a {
-  background: white;
   padding: 5px 10px;
   width: calc(100% - 20px);
 }
@@ -3714,6 +3717,25 @@ main > .swiper-container .swiper-slide {
   width: 100%;
 }
 
+.profileEdit .editModule .rdt {
+  -webkit-box-flex: 1;
+      -ms-flex: auto;
+          flex: auto;
+}
+
+.profileEdit .editModule .rdt > input {
+  width: calc(100% + 9px);
+}
+
+.profileEdit .editModule .rdt + .icon-calendar {
+  margin-right: 0;
+  color: #c6c6c6;
+}
+
+.profileEdit .editModule .rdt .inputBox, .profileEdit .editModule .rdt .inputBox-org, .profileEdit .editModule .rdt .inputBox-white, .profileEdit .editModule .rdt .inputBox-blue, .profileEdit .editModule .rdt .inputBox-gray, .profileEdit .editModule .rdt .inputBox-yellow {
+  width: 100%;
+}
+
 .haveBank {
   width: 100%;
   display: -webkit-box;
@@ -3809,7 +3831,15 @@ main > .swiper-container .swiper-slide {
   font-weight: bold;
 }
 
-.personal .list .haveRead .listHeader div {
+.personal .list > div div.listHeader button {
+  right: -12px;
+}
+
+.personal .list .year {
+  margin-right: 5px;
+}
+
+.personal .list .haveRead div {
   font-weight: normal;
 }
 
@@ -3879,6 +3909,10 @@ main > .swiper-container .swiper-slide {
   color: #1E85EC;
 }
 
+.personal .list .listHeader > div:nth-child(2), .personal .list .listHeader > div:nth-child(3) {
+  cursor: pointer;
+}
+
 .personal .list .functionMenu {
   background: #1E85EC;
   display: -webkit-box;
@@ -3910,15 +3944,21 @@ main > .swiper-container .swiper-slide {
 }
 
 .personal .list .functionMenu button.icon-spinner11 {
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: flex-end;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+}
+
+.personal .list .functionMenu div:nth-child(3) {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
 }
 
 .otp {
@@ -4348,6 +4388,15 @@ article pre {
           flex: auto;
 }
 
+.rdt > input {
+  width: calc(100% + 9px);
+}
+
+.rdt + .icon-calendar {
+  margin-right: 0;
+  color: #c6c6c6;
+}
+
 .rdt .inputBox, .rdt .inputBox-org, .rdt .inputBox-white, .rdt .inputBox-blue, .rdt .inputBox-gray, .rdt .inputBox-yellow {
   width: 100%;
 }
@@ -4357,7 +4406,6 @@ iframe {
   margin: auto;
   height: 100%;
   min-height: 860px;
-  max-width: 1366px;
 }
 
 .loading {
@@ -4721,5 +4769,9 @@ button.icon-books:hover:after {
   position: absolute;
   right: -20px;
   top: -20px;
+}
+
+.promoType .icon-icon32px_ALL:before {
+  margin-right: 5px;
 }
 /*# sourceMappingURL=style.css.map */
