@@ -15,6 +15,10 @@ export const defBannerFolder = {
 	Sports: "Sports"
 };
 
+export const defSpecialActionLink = {
+	SportsIndex: "Sports/Index"
+};
+
 export const ClickLink = (
 	tpId,
 	gameId,
@@ -28,10 +32,12 @@ export const ClickLink = (
 	openInBlank
 ) => {
 	if (href === "Casino/Lobby") {
-		window.location.href = `/${path.casino.root}${tpId ? `/${tpId}` : ""}`;
+		window.location.href = `/${lang}/${path.casino.root}${
+			tpId ? `/${tpId}` : ""
+		}`;
 	} else if (tpId === null) {
 		if (href === "Promotion/Index") {
-			window.location.href = `/${path.promotion.root}`;
+			window.location.href = `/${lang}/${path.promotion.root}`;
 		} else if (href === "Home/Register") {
 		} else {
 			window.open(
@@ -102,7 +108,7 @@ const Panel = ({
 
 		let key = `${lang}-${b.img}-${idx}`;
 
-		return ImgFolder === defBannerFolder.Sports ? (
+		return actionLink === defSpecialActionLink.SportsIndex ? (
 			<Link
 				key={key}
 				to={`${userInfo.langId}/${path.sports.root}?tpId=${b.tpId}&gameId=${b.gameId}&matchid=${b.matchid}`}>
