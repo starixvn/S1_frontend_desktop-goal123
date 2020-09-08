@@ -18,16 +18,22 @@ export default props => {
 			{!props.userInfo.accountName ? (
 				<Inputbox
 					title={t("lbl_RealName")}
-					checkIcon="icon icon-error"
 					onChange={props.onChangeName}
 					value={props.nameValue}
 					onBlur={props.checkName}
+					clickInfo={props.clickInfo.bind(this, "accountName")}
+					checked={props.checked}
+					tip={props.tip}
 				/>
 			) : null}
 
 			{props.nameErr ? (
 				<div className="tip active">{props.nameErr}</div>
 			) : null}
+
+			{/* {props.tip === "accountName!!!!" ? (
+				<div className="tip active">{props.tip}</div>
+			) : null} */}
 
 			{!props.userInfo.birth_d ? (
 				<div className="inputBox">
@@ -41,6 +47,7 @@ export default props => {
 						viewDate={moment(legalDate).format("YYYY-MM-DD")}
 						isValidDate={valid}
 					/>
+					<i className="icon icon-calendar"></i>
 				</div>
 			) : null}
 
@@ -51,10 +58,12 @@ export default props => {
 			{!props.userInfo.phoneNo ? (
 				<Inputbox
 					title={t("lbl_Phone")}
-					checkIcon="icon icon-error"
 					onChange={props.onChangePhone}
 					value={props.phoneValue}
 					onBlur={props.checkPhone}
+					clickInfo={props.clickInfo.bind(this, "phoneNo")}
+					checked={props.checked}
+					tip={props.tip}
 				/>
 			) : null}
 
@@ -65,10 +74,13 @@ export default props => {
 			{!props.userInfo.email ? (
 				<Inputbox
 					title={t("lbl_Email")}
-					checkIcon="icon icon-error"
 					onChange={props.onChangeEmail}
 					value={props.emailValue}
 					onBlur={props.checkEmail}
+					name="email"
+					clickInfo={props.clickInfo.bind(this, "email")}
+					checked={props.checked}
+					tip={props.tip}
 				/>
 			) : null}
 
