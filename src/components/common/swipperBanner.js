@@ -19,7 +19,8 @@ export const ClickLink = (
 	urlWithLang,
 	isLogin,
 	setNav,
-	matchid
+	matchid,
+	openInBlank
 ) => {
 	if (href === "Casino/Lobby") {
 		window.location.href = `/${path.casino.root}${tpId ? `/${tpId}` : ""}`;
@@ -47,12 +48,12 @@ export const ClickLink = (
 			loginCallback: () => {
 				setNav(defNavPanel.login);
 			},
-			openInBlank: matchid !== null && matchid !== undefined
+			openInBlank: openInBlank
 		});
 	}
 };
 
-const Panel = ({ ImgFolder, withBtn, clickPrev, clickNext }) => {
+const Panel = ({ ImgFolder, withBtn, openInBlank }) => {
 	const [banner, setBanner] = useState([]);
 	const { userInfo } = useContext(userInfoContext);
 	const { setNav } = useContext(navContext);
@@ -96,7 +97,8 @@ const Panel = ({ ImgFolder, withBtn, clickPrev, clickNext }) => {
 					b.urlWithLang,
 					userInfo.isLogin,
 					setNav,
-					b.matchid
+					b.matchid,
+					openInBlank
 				)}
 				key={`${lang}-${b.img}`}>
 				<img src={imgSRC} className="banner" alt={b.img ?? ""} />
@@ -104,15 +106,7 @@ const Panel = ({ ImgFolder, withBtn, clickPrev, clickNext }) => {
 		);
 	});
 
-	return withBtn ? (
-		<Autoplay Rows={rows} />
-	) : (
-		<AutoPlayWithBtn
-			Rows={rows}
-			clickNext={clickNext}
-			clickPrev={clickPrev}
-		/>
-	);
+	return withBtn ? <AutoPlayWithBtn Rows={rows} /> : <Autoplay Rows={rows} />;
 };
 
 const defSwipperConfig = {
