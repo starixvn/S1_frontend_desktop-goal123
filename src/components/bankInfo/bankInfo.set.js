@@ -112,7 +112,9 @@ export default () => {
 			displayModule = (
 				<InitPanel
 					dispatch={dispatch}
-					numberOfAccount={state.custBankList?.length}
+					numberOfAccount={
+						state.custBankList ? state.custBankList?.length : 0
+					}
 				/>
 			);
 			break;
