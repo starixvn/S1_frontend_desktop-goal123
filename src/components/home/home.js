@@ -20,6 +20,7 @@ import News from "./news";
 import EventSwipper from "./eventSwipper";
 import config from "../../config";
 import GameQuickLinks from "./gameQuickLinks";
+import SwipperBanner from "../common/swipperBanner";
 
 export default () => {
 	const { t } = useTranslation();
@@ -71,19 +72,7 @@ export default () => {
 
 	return (
 		<main>
-			<div className="swiper-container">
-				<div className="swiper-wrapper">
-					<div className="swiper-slide">
-						<img src={IndexBanner} alt="banner" />
-					</div>
-					<div className="swiper-slide">
-						<img src={IndexBanner} alt="banner" />
-					</div>
-					<div className="swiper-slide">
-						<img src={IndexBanner} alt="banner" />
-					</div>
-				</div>
-			</div>
+			<SwipperBanner ImgFolder="Promotion" filterHideInHome={true} />
 			<Marquee />
 			<GameQuickLinks t={t} />
 			<section>

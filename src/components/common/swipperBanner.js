@@ -53,21 +53,31 @@ export const ClickLink = (
 	}
 };
 
-const Panel = ({ ImgFolder, withBtn, openInBlank }) => {
+const Panel = ({
+	ImgFolder,
+	withBtn,
+	openInBlank,
+	filterHideInHome = false
+}) => {
 	const [banner, setBanner] = useState([]);
 	const { userInfo } = useContext(userInfoContext);
 	const { setNav } = useContext(navContext);
 
 	useEffect(() => {
 		let mounted = true;
-		api_site_GetBanner(ImgFolder, "", userInfo.langId).then(res => {
+		api_site_GetBanner(
+			ImgFolder,
+			"",
+			userInfo.langId,
+			filterHideInHome
+		).then(res => {
 			if (res.data.errorCode === 0 && mounted) {
 				setBanner(res.data.data);
 			}
 		});
 
 		return () => (mounted = false);
-	}, [userInfo, ImgFolder]);
+	}, [userInfo, ImgFolder, filterHideInHome]);
 
 	let rows = banner?.map(b => {
 		let _imgFolder = b.imgFolder ?? ImgFolder;
