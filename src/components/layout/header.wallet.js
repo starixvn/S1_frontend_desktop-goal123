@@ -11,7 +11,10 @@ import path from "../../path";
 import { walletInfoContext, userInfoContext } from "../common/context";
 import moment from "moment";
 import { isConvert, number_format } from "../common/common";
-import { api_account_GetWalletInfo } from "../../service/api/account";
+import {
+	api_account_GetWalletInfo,
+	api_account_SetHideBalance
+} from "../../service/api/account";
 
 export default props => {
 	const { walletInfo, setWalletInfo } = useContext(walletInfoContext);
@@ -42,6 +45,11 @@ export default props => {
 		});
 	};
 
+	const HandleDisplayBalance = value => {
+		setWalletInfo(prevS => ({ ...prevS, isHideBalance: value }));
+		api_account_SetHideBalance({ value });
+	};
+
 	return userInfo.isLogin && userInfo.currencyId !== undefined ? (
 		<Dropdown
 			{...props}
@@ -51,6 +59,7 @@ export default props => {
 			walletInfo={walletInfo}
 			_isConvert={isConvert(userInfo.currencyId)}
 			RefreshBalance={RefreshBalance}
+			HandleDisplayBalance={HandleDisplayBalance}
 		/>
 	) : (
 		<></>
@@ -79,10 +88,11 @@ class Dropdown extends Component {
 	};
 
 	render() {
-		const balance = number_format(
-			this.props.walletInfo.main,
-			this.props._isConvert
-		);
+		let isHideBalance = this.props.walletInfo?.isHideBalance;
+
+		let balance = isHideBalance
+			? "*****"
+			: number_format(this.props.walletInfo.main, this.props._isConvert);
 
 		const tpWallets =
 			this.props.walletInfo.tpWallets &&
@@ -93,7 +103,12 @@ class Dropdown extends Component {
 						key={`header-tpwallet-${t.tpId}`}>
 						<span>{this.props.i18n(`lbl_TpWallet_${t.tpId}`)}</span>
 						<span>
-							{number_format(t.balance, this.props._isConvert)}
+							{isHideBalance
+								? "*****"
+								: number_format(
+										t.balance,
+										this.props._isConvert
+								  )}
 						</span>
 					</div>
 				);
@@ -107,6 +122,14 @@ class Dropdown extends Component {
 				ref={this.wrapper}
 				onClick={this.clickDropdown}>
 				<button>${balance}</button>
+				<button
+					onClick={this.props.HandleDisplayBalance.bind(
+						this,
+						!isHideBalance
+					)}
+					className={`icon icon-eye${
+						isHideBalance ? "-blocked" : ""
+					}`}></button>
 				<div className="submenu">
 					<div className="balance">
 						<span>{`${this.props.i18n(

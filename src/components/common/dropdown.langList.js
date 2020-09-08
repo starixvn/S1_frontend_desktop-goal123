@@ -81,6 +81,7 @@ export class Dropdown extends Component {
 				ref={this.wrapper}
 				onClick={this.clickDropdown}>
 				{selected}
+				<i className="icon icon-keyboard_arrow_right"></i>
 				<div className={this.props.subClassName}>{arr}</div>
 			</div>
 		);

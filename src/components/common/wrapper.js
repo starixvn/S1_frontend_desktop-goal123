@@ -113,6 +113,7 @@ export default ({ children, afterLogin = false }) => {
 						});
 						setWalletInfo(prevState => ({
 							...prevState,
+							isHideBalance: res.data.data.isHideBalance,
 							main: res.data.data?.balance,
 							tpWallets: tpWallets,
 							lastTransaction: res.data.data.lastTransaction
