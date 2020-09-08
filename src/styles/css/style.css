@@ -506,7 +506,7 @@ header .header > div.function .icon-email {
   position: relative;
 }
 
-header .header > div.function .icon-email:after {
+header .header > div.function .icon-email.active:after {
   content: '●';
   position: absolute;
   font-size: 14px;
@@ -3086,9 +3086,6 @@ main > .swiper-container .swiper-slide {
   background: #1D3662;
   font-weight: bold;
   margin-right: 0;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
   padding: 30px;
 }
 
