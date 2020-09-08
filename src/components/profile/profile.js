@@ -287,9 +287,10 @@ export default () => {
 			} = await api_accountStrict_SendVerifySMS();
 			if (isMountedRef.current) {
 				const success = errorCode === 0;
-				if (!success) {
+				if (success) {
 					setPopBox({
 						isOpen: true,
+						request_id: message,
 						popBoxType: defPopBoxType.VerifyPhoneForm
 					});
 				} else {

@@ -71,12 +71,11 @@ export default props => {
 
 	const MobileVerificationLoading = () => {
 		return (
-			<div class="otpLoading">
-				<i class="icon icon-spinner11"></i>
+			<div className="otpLoading">
+				<i className="icon icon-spinner11"></i>
 			</div>
 		);
 	};
-
 	const layout = showColumn?.map(item => {
 		return (
 			<div key={`profileRead-${item.label}`}>
@@ -86,11 +85,11 @@ export default props => {
 					{item.format === "phone" ? (
 						props.mobileVerificationLoading ? (
 							<MobileVerificationLoading />
-						) : props.userInfo.PhoneVerified ? (
-							<span class="icon icon-checkmark"></span>
+						) : props.userInfo.phoneVerified ? (
+							<span className="icon icon-checkmark"></span>
 						) : (
 							<button onClick={props.sendVerifySMS}>
-								<span class="icon icon-error otp"></span>
+								<span className="icon icon-error otp"></span>
 								<span>Mobile verification</span>
 							</button>
 						)
