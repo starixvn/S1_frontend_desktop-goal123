@@ -45,7 +45,8 @@ export default props => {
 		});
 	};
 
-	const HandleDisplayBalance = value => {
+	const HandleDisplayBalance = (value, e) => {
+		e.stopPropagation();
 		setWalletInfo(prevS => ({ ...prevS, isHideBalance: value }));
 		api_account_SetHideBalance({ value });
 	};
