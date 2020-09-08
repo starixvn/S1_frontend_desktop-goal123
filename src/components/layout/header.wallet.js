@@ -106,7 +106,7 @@ class Dropdown extends Component {
 				}`}
 				ref={this.wrapper}
 				onClick={this.clickDropdown}>
-				<button>${balance}</button>
+				<button>{this.props.langId==="en"?"$":"VNĐ"}{balance}</button>
 				<div className="submenu">
 					<div className="balance">
 						<span>{`${this.props.i18n(
