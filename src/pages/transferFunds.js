@@ -40,6 +40,11 @@ const initStatus = {
 	tip: ""
 };
 
+const initDirection = {
+	transferFrom: "lbl_MainWallet",
+	transferTo: "lbl_TpWallet_1"
+};
+
 const Content = () => {
 	const { t } = useTranslation();
 	const { userInfo } = useContext(userInfoContext);
@@ -47,10 +52,7 @@ const Content = () => {
 	const _isConvert = isConvert(userInfo.currencyId);
 	const [getWalletInfo, setGetWalletInfo] = useState([]);
 	const [amount, setAmount] = useState("1");
-	const [direction, setDirection] = useState({
-		transferFrom: "lbl_MainWallet",
-		transferTo: "lbl_TpWallet_1"
-	});
+	const [direction, setDirection] = useState(initDirection);
 	const [getHistory, setGetHistory] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const [status, setStatus] = useState(initStatus);
@@ -331,6 +333,7 @@ const Content = () => {
 			}
 			setStatus(initStatus);
 			setAmount("1");
+			setDirection(initDirection);
 		}
 	};
 
@@ -338,10 +341,13 @@ const Content = () => {
 		let _wallet = getWalletInfo[idx];
 		let _direction =
 			getWalletInfo[idx].id === 0
-				? defDirection.MainToTp
-				: defDirection.TpToMain;
+				? defDirection.TpToMain
+				: defDirection.MainToTp;
 
-		if (_wallet.balance === 0) {
+		let startId = idx === 0 ? 1 : 0;
+		let startWallet = getWalletInfo[startId];
+
+		if (startWallet.balance === 0) {
 			setPopBox({
 				isOpen: true,
 				popBoxType: defPopBoxType.ErrorMsg,
@@ -355,7 +361,7 @@ const Content = () => {
 				)
 			});
 		} else {
-			Transfer(_wallet.id, _wallet.balance, _direction);
+			Transfer(startWallet.id, startWallet.balance, _direction);
 		}
 	};
 
