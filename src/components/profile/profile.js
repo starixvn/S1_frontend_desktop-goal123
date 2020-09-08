@@ -298,6 +298,7 @@ export default () => {
 						isOpen: true,
 						popBoxType: defPopBoxType.ErrorMsg,
 						message: message || "error",
+						errorCode,
 						btnBar: (
 							<div className="btnGroup">
 								<button

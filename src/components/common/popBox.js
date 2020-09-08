@@ -53,7 +53,11 @@ export default () => {
 
 		case defPopBoxType.ErrorMsg:
 			content = (
-				<ErrorMsg btnBar={popBox.btnBar} message={popBox.message} />
+				<ErrorMsg
+					btnBar={popBox.btnBar}
+					message={popBox.message}
+					errorCode={popBox.errorCode}
+				/>
 			);
 			break;
 
@@ -112,7 +116,7 @@ export default () => {
 			break;
 
 		case defPopBoxType.VerifyPhoneForm:
-			content = <VerifyPhoneForm />;
+			content = <VerifyPhoneForm request_id={popBox.request_id} />;
 			break;
 
 		case defPopBoxType.default:
