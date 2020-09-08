@@ -7,7 +7,7 @@ import {
 	navContext,
 	defNavPanel
 } from "../../components/common/context";
-import { GET_ENTER_PAGE } from "../../service/enterPage";
+import { SET_ENTER_PAGE } from "../../service/enterPage";
 import path from "../../path";
 
 export const ClickLink = (
@@ -18,7 +18,8 @@ export const ClickLink = (
 	isOuterLink,
 	urlWithLang,
 	isLogin,
-	setNav
+	setNav,
+	matchid
 ) => {
 	if (href === "Casino/Lobby") {
 		window.location.href = `/${path.casino.root}${tpId ? `/${tpId}` : ""}`;
@@ -37,14 +38,16 @@ export const ClickLink = (
 			);
 		}
 	} else {
-		GET_ENTER_PAGE({
+		SET_ENTER_PAGE({
 			langId: lang,
 			tpId,
 			gameId,
+			matchid,
 			isLogin: isLogin === true,
 			loginCallback: () => {
 				setNav(defNavPanel.login);
-			}
+			},
+			openInBlank: matchid !== null && matchid !== undefined
 		});
 	}
 };
@@ -92,7 +95,8 @@ const Panel = ({ ImgFolder, withBtn, clickPrev, clickNext }) => {
 					b.outerLink === true,
 					b.urlWithLang,
 					userInfo.isLogin,
-					setNav
+					setNav,
+					b.matchid
 				)}
 				key={`${lang}-${b.img}`}>
 				<img src={imgSRC} className="banner" alt={b.img ?? ""} />
@@ -156,8 +160,12 @@ const AutoPlayWithBtn = ({ Rows }) => {
 					</Swiper>
 				</div>
 			</div>
-			<div className="swiper-button-next" onClick={goNext}></div>
-			<div className="swiper-button-prev" onClick={goPrev}></div>
+			{Rows && Rows.length > 0 ? (
+				<>
+					<div className="swiper-button-next" onClick={goNext}></div>
+					<div className="swiper-button-prev" onClick={goPrev}></div>
+				</>
+			) : null}
 		</>
 	) : (
 		<></>

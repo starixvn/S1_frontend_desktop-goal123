@@ -29,13 +29,15 @@ export const SET_ENTER_PAGE = ({
 	langId,
 	tpId,
 	gameId,
+	matchid,
 	isLogin,
-	loginCallback
+	loginCallback,
+	openInBlank = false
 }) => {
-	let result = GET_OPEN_RULE(langId, tpId, gameId);
+	let result = GET_OPEN_RULE(langId, tpId, gameId, matchid);
 	if (!isLogin && result.needLogin) {
 		loginCallback();
-	} else if (result.actionType === _ACTION_TYPE.blank) {
+	} else if (result.actionType === _ACTION_TYPE.blank || openInBlank) {
 		OPEN_IN_BLANK(result.entPageUrl, result.windowKey);
 	} else if (result.actionType === _ACTION_TYPE.redirect) {
 		if (typeof window !== `undefined`) {
@@ -54,7 +56,7 @@ export const OPEN_IN_BLANK = (url, windowKey) => {
 	}
 };
 
-export const GET_OPEN_RULE = (langId, tpId, gameId) => {
+export const GET_OPEN_RULE = (langId, tpId, gameId, matchid) => {
 	let result = setResult("", true, _ACTION_TYPE.blank);
 	if (tpId === 1) {
 		if (gameId === 43 || gameId === 220 || gameId === 202) {
@@ -72,21 +74,22 @@ export const GET_OPEN_RULE = (langId, tpId, gameId) => {
 
 	return {
 		...result,
-		entPageUrl: GET_ENTER_PAGE_URL(langId, tpId, gameId)
+		entPageUrl: GET_ENTER_PAGE_URL(langId, tpId, gameId, matchid)
 	};
 };
 
-export const GET_ENTER_PAGE_URL = (langId, tpId, gameId) => {
+export const GET_ENTER_PAGE_URL = (langId, tpId, gameId, matchid) => {
 	const appUrl = typeof window !== `undefined` ? window.location.href : null;
 	let homeUrl = `${appUrl}`;
 	let signupUrl = `${appUrl}${path.join.root}`;
 	let LoginUrl = `${appUrl}${path.login.root}`;
 	let lobbyUrl = ``;
 	let cashierUrl = `${appUrl}${path.deposit.root}`;
-	return `${config.openURL}/${langId}/entPage?homeUrl=${homeUrl}&signupUrl=${signupUrl}&LoginUrl=${LoginUrl}&tpId=${tpId}&gameId=${gameId}&CashierUrl=${cashierUrl}&&LobbyUrl=${lobbyUrl}`;
+	let _matchid = matchid ? matchid : "";
+	return `${config.openURL}/${langId}/entPage?homeUrl=${homeUrl}&signupUrl=${signupUrl}&LoginUrl=${LoginUrl}&tpId=${tpId}&gameId=${gameId}&CashierUrl=${cashierUrl}&&LobbyUrl=${lobbyUrl}&&matchid=${_matchid}`;
 };
 
-const setResult = (url, needLogin, actionType, tpId, gameId) => {
+const setResult = (url, needLogin, actionType, tpId, gameId, matchid) => {
 	return {
 		url: url,
 		needLogin: needLogin,
