@@ -79,7 +79,7 @@ const Panel = ({
 		return () => (mounted = false);
 	}, [userInfo, ImgFolder, filterHideInHome]);
 
-	let rows = banner?.map(b => {
+	let rows = banner?.map((b, idx) => {
 		let _imgFolder = b.imgFolder ?? ImgFolder;
 		let lang =
 			b.fromDB || b.lang?.includes(userInfo.langId)
@@ -110,7 +110,7 @@ const Panel = ({
 					b.matchid,
 					openInBlank
 				)}
-				key={`${lang}-${b.img}`}>
+				key={`${lang}-${b.img}-${idx}`}>
 				<img src={imgSRC} className="banner" alt={b.img ?? ""} />
 			</button>
 		);
