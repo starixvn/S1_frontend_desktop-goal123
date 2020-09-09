@@ -81,7 +81,7 @@ export default () => {
 				<News />
 				<div className="edge">
 					<div>
-						<div className="title">The Edge Of Goal123</div>
+						<div className="title">{t("lbl_EdgeOfGoal123")}</div>
 						<span></span>
 					</div>
 					<div className="articleModule">

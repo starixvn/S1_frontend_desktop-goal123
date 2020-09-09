@@ -209,7 +209,7 @@
 	"lbl_MyAccount":"Tài khoản của tôi",
 	"lbl_Message":"Thông tin",
 	"lbl_PersonalMsg":"Tin nhắn khách hàng",
-	"lbl_News":"News",
+	"lbl_News":"Tin Tức",
 	"lbl_Details":"Chi tiết",
 	"lbl_ViewAll":"Xem Thêm",
 	"lbl_BackToNews":"Back To NEWS",
@@ -305,5 +305,7 @@
 	"msg_EnterOTPCode": "Please enter OTP code.",
 	"lbl_SelDepositAmount":"Xin lựa chọn số tiền cần nạp",
 	"lbl_PoweredBy":"Một sản phẩm của",
-	"msg_loggedout":"Bạn đã đăng xuất thành công!"
+	"msg_loggedout":"Bạn đã đăng xuất thành công!",
+	"lbl_Goal123News":"Điểm báo Goal123",
+	"lbl_EdgeOfGoal123":"Ưu điểm của sản phẩm"
 }
