@@ -76,7 +76,18 @@ export default props => {
 				<div>
 					{item.value}
 					{item.format === "phone" ? (
-						<button className="icon icon-mobile otp"></button>
+						props.mobileVerificationLoading ? (
+							<div className="otpLoading">
+								<i className="icon icon-spinner11"></i>
+							</div>
+						) : props.userInfo.phoneVerified ? (
+							<span className="icon icon-checkmark"></span>
+						) : (
+							<button onClick={props.sendVerifySMS}>
+								<span className="icon icon-error otp"></span>
+								<span>Mobile verification</span>
+							</button>
+						)
 					) : null}
 				</div>
 			</div>

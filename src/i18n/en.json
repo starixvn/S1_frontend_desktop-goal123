@@ -120,7 +120,7 @@
 	"lbl_OnlineBanking": "Online Banking",
 	"lbl_CreditTime": "Credit Time",
 	"lbl_Instant": "Instant",
-	"lbl_AmountTooltip": "Amount can not be less than 0.",
+	"lbl_AmountTooltip": "Amount can not be less than {0}.",
 	"lbl_NotinLimit": "Not in Limit.",
 	"lbl_MobileDeposit": "Mobile Deposit",
 	"lbl_Limit": "Limit",
@@ -184,8 +184,8 @@
 	"lbl_NameRequired": "Please fill in the name field",
 	"lbl_BirthRequired": "Please fill in the birthday field",
 	"lbl_PhoneRequired": "Please fill in the phone field",
-	"lbl_EmailRequired":"Please fill in the email field",
-	"lbl_EmailFormatError":"Mail Format is wrong.",
+	"lbl_EmailRequired": "Please fill in the email field",
+	"lbl_EmailFormatError": "Mail Format is wrong.",
 	"lbl_Age21Warning": "Be at least 21 years old",
 	"lbl_EnsureTransactionsCorrect": "To ensure all transactions correct,",
 	"lbl_ReModify": "Modify Again",
@@ -299,5 +299,8 @@
 	"lbl_WithdrawalSuccess":"Your withdrawal request was successful.",
 	"lbl_WithdrawalSuccessNotify":"We will notify you once it is done.",
 	"msg_OTPHint":"Please complete your profile and verify your phone to enjoy our promotions.",
-  	"lbl_GoNow":"Go Now!"
+  	"lbl_GoNow":"Go Now!",
+	"msg_OTPSendCode": "We have sent the verification code to your registered mobile. Please enter your code.",
+	"msg_EnterOTPCode": "Please enter OTP code.",
+	"lbl_SelDepositAmount":"Please select the deposit amount"
 }

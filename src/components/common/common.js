@@ -39,6 +39,15 @@ export const getCountryCode = currencyId => {
 	return countryCode[currencyId];
 };
 
+export const getAmountTip = (minAmount, _isConvert, i18n) => {
+	return isNaN(minAmount)
+		? i18n("lbl_AmountTooltip")?.replace("{0}", 0)
+		: i18n("lbl_AmountTooltip")?.replace(
+				"{0}",
+				number_format(minAmount, _isConvert)
+		  );
+};
+
 export const checkAmount = (amount, minAmount, maxAmount, _isConvert, i18n) => {
 	let status = 0;
 	let msg = "";
@@ -49,7 +58,7 @@ export const checkAmount = (amount, minAmount, maxAmount, _isConvert, i18n) => {
 		}
 		if (num_Amount <= 0) {
 			status = 2;
-			msg = i18n("lbl_AmountTooltip");
+			msg = getAmountTip(minAmount, _isConvert, i18n);
 		} else if (
 			minAmount !== 0 &&
 			maxAmount !== 0 &&
@@ -63,7 +72,7 @@ export const checkAmount = (amount, minAmount, maxAmount, _isConvert, i18n) => {
 		}
 	} else {
 		status = 3;
-		msg = i18n("lbl_NotinLimit");
+		msg = getAmountTip(minAmount, _isConvert, i18n);
 	}
 
 	return { status: status, msg: msg };
@@ -79,7 +88,7 @@ export const checkWithdrawalAmount = (amount, maxAmount, _isConvert, i18n) => {
 		}
 		if (num_Amount <= 0) {
 			status = 2;
-			msg = i18n("lbl_AmountTooltip");
+			msg = getAmountTip(0, _isConvert, i18n);
 		} else if (maxAmount !== 0 && num_Amount > maxAmount) {
 			status = 2;
 			msg =
@@ -89,7 +98,7 @@ export const checkWithdrawalAmount = (amount, maxAmount, _isConvert, i18n) => {
 		}
 	} else {
 		status = 3;
-		msg = i18n("lbl_NotinLimit");
+		msg = getAmountTip(0, _isConvert, i18n);
 	}
 
 	return { status: status, msg: msg };

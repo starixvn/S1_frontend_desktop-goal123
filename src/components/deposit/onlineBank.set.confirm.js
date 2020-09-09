@@ -31,11 +31,11 @@ export default ({ bankInfo, amount, _isConvert }) => {
 			popBoxType: defPopBoxType.Cancel,
 			btnBar: (
 				<div className="btnGroup">
-					<button className="btn-cancel" onClick={ClickNo}>
-						{t("lbl_No")}
-					</button>
-					<button className="btn-check" onClick={ClickYes}>
+					<button className="btn-cancel" onClick={ClickYes}>
 						{t("lbl_Yes")}
+					</button>
+					<button className="btn-check" onClick={ClickNo}>
+						{t("lbl_No")}
 					</button>
 				</div>
 			)
