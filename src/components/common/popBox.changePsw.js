@@ -6,7 +6,9 @@ export default ({ btnBar, message, ClickClose }) => {
 
 	return (
 		<div className="Success active">
-			<button onClick={ClickClose}>X</button>
+			<button className="icon icon-cross" onClick={ClickClose}>
+				X
+			</button>
 			<div className="icon icon-icon32px_password"></div>
 			<div className="title">{t("lbl_ChangePassword")}</div>
 			<div className="txt-lightgray">{message}</div>
