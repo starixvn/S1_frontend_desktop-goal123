@@ -12,6 +12,7 @@ import { defPopBoxType } from "../common/popBox";
 import path from "../../path";
 import { Link } from "@reach/router";
 import Loading from "../common/loading";
+import ReloadSpin from "../common/reloadSpin";
 
 export default () => {
 	const { t } = useTranslation();
@@ -32,8 +33,6 @@ export default () => {
 	}, []);
 
 	const GetRecentDatas = () => {
-		setLoading(true);
-
 		api_payment_GetDepositInfoRecent().then(
 			res => {
 				if (isMountedRef.current) {
@@ -55,7 +54,6 @@ export default () => {
 							)
 						});
 					}
-					setLoading(false);
 				}
 			},
 			err => {
@@ -74,7 +72,6 @@ export default () => {
 							</div>
 						)
 					});
-					setLoading(false);
 				}
 			}
 		);
@@ -206,18 +203,18 @@ export default () => {
 					<div>{t("lbl_Status")}</div>
 					<div>
 						{t("lbl_Action")}
-						<button
-							className="icon icon-spinner11"
-							onClick={GetRecentDatas}></button>
+						<ReloadSpin func={GetRecentDatas} />
 					</div>
 				</div>
-				<div className="listBody">{arr}</div>
+				{getHistory?.length > 0 ? (
+					<div className="listBody">{arr}</div>
+				) : (
+					<div className="nodata">{t("msg_NoData")}</div>
+				)}
 			</div>
 			<Link
 				to={`/${userInfo.langId}/${path.depositHistory.root}`}
 				className="icon icon-books"></Link>
 		</>
-	) : (
-		<div className="nodata">{t("msg_NoData")}</div>
-	);
+	) : null;
 };

@@ -22,7 +22,7 @@ export default props => {
 						</span>
 					</div>
 				</div>
-				<div className="inputModuleRow">
+				<form className="inputModuleRow" onSubmit={props.clickSubmit}>
 					<Inputbox
 						title={props.i18n("lbl_Amount")}
 						value={props.amount}
@@ -33,13 +33,11 @@ export default props => {
 						tip={props.tip}
 					/>
 					<div className="btnGroup">
-						<button
-							className="btn-check"
-							onClick={props.clickSubmit}>
+						<button className="btn-check" type="submit">
 							{props.i18n("lbl_Submit")}
 						</button>
 					</div>
-				</div>
+				</form>
 			</div>
 		</div>
 	);

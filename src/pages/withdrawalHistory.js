@@ -15,6 +15,7 @@ import moment from "moment";
 import Filter from "../components/common/historyFilter";
 import LeftMenu from "../components/common/leftMenu";
 import Loading from "../components/common/loading";
+import ReloadSpin from "../components/common/reloadSpin";
 
 export default () => {
 	return (
@@ -45,6 +46,7 @@ const Content = () => {
 	const [getHistory, setGetHistory] = useState(null);
 	const [processing, setProcessing] = useState(false);
 	const [filterData, setFilterData] = useState(null);
+	const [keepData, setKeepData] = useState(null);
 	const [pagination, setPagination] = useState(initPagination);
 	const [loading, setLoading] = useState(false);
 	const _isConvert = isConvert(userInfo.currencyId);
@@ -60,8 +62,6 @@ const Content = () => {
 	};
 
 	const GetWithdrawalInfoHistory = (transactionData, pageNumber) => {
-		setLoading(true);
-
 		api_payment_GetWithdrawalInfoHistory({
 			...transactionData,
 			PageNumber: pageNumber
@@ -91,7 +91,6 @@ const Content = () => {
 						});
 					}
 					setProcessing(false);
-					setLoading(false);
 				}
 			},
 			err => {
@@ -111,13 +110,12 @@ const Content = () => {
 						)
 					});
 					setProcessing(false);
-					setLoading(false);
 				}
 			}
 		);
 	};
 
-	const clickDateSubmit = (startDate, endDate, isUnix) => {
+	const clickDateSubmit = (startDate, endDate, isUnix, quickPick) => {
 		if (!processing) {
 			setProcessing(true);
 			let transactionData = filterData;
@@ -128,7 +126,14 @@ const Content = () => {
 					EndDate: moment(endDate).endOf("day").unix()
 				};
 				setFilterData(transactionData);
+
+				setKeepData({
+					startDate: startDate,
+					endDate: endDate,
+					quickPick: quickPick
+				});
 			}
+
 			setPagination(prev => ({ ...prev, currentPage: 1 }));
 			GetWithdrawalInfoHistory(transactionData, 1);
 		}
@@ -239,7 +244,7 @@ const Content = () => {
 			<div className="inside-title icon icon-icon32px_History">
 				<span>{t("lbl_WithdrawalHistory")}</span>
 			</div>
-			<Filter submitHandler={clickDateSubmit} />
+			<Filter submitHandler={clickDateSubmit} keepData={keepData} />
 			{getHistory ? (
 				getHistory.length > 0 ? (
 					<div className="list history">
@@ -253,13 +258,13 @@ const Content = () => {
 							<div>{t("lbl_Status")}</div>
 							<div>
 								{t("lbl_Action")}
-								<button
-									className="icon icon-spinner11"
-									onClick={clickDateSubmit.bind(
+								<ReloadSpin
+									func={clickDateSubmit.bind(
 										this,
-										filterData.StartDate,
-										filterData.EndDate
-									)}></button>
+										filterData?.StartDate,
+										filterData?.EndDate
+									)}
+								/>
 							</div>
 						</div>
 						<div className="listBody">{arr}</div>

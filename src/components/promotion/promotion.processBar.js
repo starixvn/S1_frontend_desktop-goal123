@@ -1,5 +1,6 @@
 import React from "react";
 import { number_format } from "../common/common";
+import ReloadSpin from "../common/reloadSpin";
 
 export default ({
 	custRollOver,
@@ -28,9 +29,7 @@ export default ({
 					/ ({t("lbl_Req")} {t(`Currency_${currency}`)}{" "}
 					{number_format(custRollOver, _isConvert)})
 					{hideReloadBtn ? null : (
-						<button
-							className="icon icon-spinner11"
-							onClick={RefreshProcessBar}></button>
+						<ReloadSpin func={RefreshProcessBar} />
 					)}
 				</div>
 				<div className="progressBar">

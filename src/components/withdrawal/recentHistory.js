@@ -12,6 +12,7 @@ import { defPopBoxType } from "../common/popBox";
 import path from "../../path";
 import { Link } from "@reach/router";
 import Loading from "../common/loading";
+import ReloadSpin from "../common/reloadSpin";
 
 export default props => {
 	const { t } = useTranslation();
@@ -19,7 +20,7 @@ export default props => {
 	const { setPopBox } = useContext(popBoxContext);
 	const _isConvert = isConvert(userInfo.currencyId);
 	const [getHistory, setGetHistory] = useState(null);
-	const [loading, setLoading] = useState(true);
+	const [loading, setLoading] = useState(false);
 	const isMountedRef = useRef(null);
 
 	useEffect(() => {
@@ -42,8 +43,6 @@ export default props => {
 	};
 
 	const GetWithdrawalInfoRecent = () => {
-		setLoading(true);
-
 		api_payment_GetWithdrawalInfoRecent().then(
 			res => {
 				if (isMountedRef.current) {
@@ -65,7 +64,6 @@ export default props => {
 							)
 						});
 					}
-					setLoading(false);
 				}
 			},
 			err => {
@@ -84,7 +82,6 @@ export default props => {
 							</div>
 						)
 					});
-					setLoading(false);
 				}
 			}
 		);
@@ -196,18 +193,18 @@ export default props => {
 					<div>{t("lbl_Status")}</div>
 					<div>
 						{t("lbl_Action")}
-						<button
-							className="icon icon-spinner11"
-							onClick={GetWithdrawalInfoRecent}></button>
+						<ReloadSpin func={GetWithdrawalInfoRecent} />
 					</div>
 				</div>
-				<div className="listBody">{arr}</div>
+				{getHistory?.length > 0 ? (
+					<div className="listBody">{arr}</div>
+				) : (
+					<div className="nodata">{t("msg_NoData")}</div>
+				)}
 			</div>
 			<Link
 				to={`/${userInfo.langId}/${path.withdrawalHistory.root}`}
 				className="icon icon-books"></Link>
 		</>
-	) : (
-		<div className="nodata">{t("msg_NoData")}</div>
-	);
+	) : null;
 };

@@ -10,6 +10,7 @@ import { Pagination } from "../common/pagination";
 import { popBoxContext, msgCountContext } from "../common/context";
 import { defPopBoxType } from "../common/popBox";
 import Loading from "../common/loading";
+import ReloadSpin from "../common/reloadSpin";
 
 export default () => {
 	const { t } = useTranslation();
@@ -229,11 +230,9 @@ export default () => {
 						<button
 							className="icon icon-bin"
 							onClick={popDelete}></button>
-						<button
-							className="icon icon-spinner11"
-							onClick={() =>
-								getMsgList(pagination.currentPage)
-							}></button>
+						<ReloadSpin
+							func={getMsgList.bind(this, pagination.currentPage)}
+						/>
 					</div>
 
 					{msgListData.map(item => (

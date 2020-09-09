@@ -11,6 +11,7 @@ import moment from "moment";
 import LeftMenu from "../components/common/leftMenu";
 import Loading from "../components/common/loading";
 import { defPopBoxType } from "../components/common/popBox";
+import ReloadSpin from "../components/common/reloadSpin";
 
 export default () => {
 	return (
@@ -42,6 +43,7 @@ const Content = () => {
 	const [getHistory, setGetHistory] = useState(null);
 	const [processing, setProcessing] = useState(false);
 	const [filterData, setFilterData] = useState(null);
+	const [keepData, setKeepData] = useState(null);
 	const [pagination, setPagination] = useState(initPagination);
 	const [loading, setLoading] = useState(false);
 	const isMountedRef = useRef(null);
@@ -52,8 +54,6 @@ const Content = () => {
 	});
 
 	const GetStatement = (transactionData, pageNumber) => {
-		setLoading(true);
-
 		const ClickClose = () => {
 			setPopBox({ isOpen: false });
 		};
@@ -87,7 +87,6 @@ const Content = () => {
 						});
 					}
 					setProcessing(false);
-					setLoading(false);
 				}
 			},
 			err => {
@@ -107,13 +106,12 @@ const Content = () => {
 						)
 					});
 					setProcessing(false);
-					setLoading(false);
 				}
 			}
 		);
 	};
 
-	const clickDateSubmit = (startDate, endDate, isUnix) => {
+	const clickDateSubmit = (startDate, endDate, isUnix, quickPick) => {
 		if (!processing) {
 			setProcessing(true);
 			let transactionData = filterData;
@@ -124,7 +122,14 @@ const Content = () => {
 					EndDate: moment(endDate).endOf("day").unix()
 				};
 				setFilterData(transactionData);
+
+				setKeepData({
+					startDate: startDate,
+					endDate: endDate,
+					quickPick: quickPick
+				});
 			}
+
 			setPagination(prev => ({ ...prev, currentPage: 1 }));
 			GetStatement(transactionData, 1);
 		}
@@ -143,7 +148,7 @@ const Content = () => {
 	let arr = getHistory?.map((item, i) => {
 		return (
 			<TansactionHistory
-				key={`statement-${item.refTransId}`}
+				key={`statement-${item.refTransId}-${item.typeName}`}
 				idx={i + 1}
 				createTime={item.createTime}
 				refTransId={item.refTransId}
@@ -163,7 +168,7 @@ const Content = () => {
 			<div className="inside-title icon icon-icon32px_History">
 				<span>{t("lbl_Statement")}</span>
 			</div>
-			<Filter submitHandler={clickDateSubmit} />
+			<Filter submitHandler={clickDateSubmit} keepData={keepData} />
 
 			{getHistory ? (
 				getHistory.length > 0 ? (
@@ -179,13 +184,13 @@ const Content = () => {
 							<div>{t("lbl_BeforeAmount")}</div>
 							<div>
 								{t("lbl_AfterAmount")}
-								<button
-									className="icon icon-spinner11"
-									onClick={clickDateSubmit.bind(
+								<ReloadSpin
+									func={clickDateSubmit.bind(
 										this,
 										filterData?.StartDate,
 										filterData?.EndDate
-									)}></button>
+									)}
+								/>
 							</div>
 						</div>
 						<div className="listBody">{arr}</div>
