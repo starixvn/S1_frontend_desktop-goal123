@@ -184,10 +184,10 @@ export default props => {
 				</div>
 				<div className="addBankInfo">
 					<div className="txt-blue2">
-						<span>{item.accountNo.slice(0, 4)}</span>
-						<span>{item.accountNo.slice(4, 8)}</span>
-						<span>{item.accountNo.slice(8, 12)}</span>
-						<span>{item.accountNo.slice(12, 16)}</span>
+						<span>{item.accountNo?.slice(0, 4)}</span>
+						<span>{item.accountNo?.slice(4, 8)}</span>
+						<span>{item.accountNo?.slice(8, 12)}</span>
+						<span>{item.accountNo?.slice(12, 16)}</span>
 					</div>
 					<div
 						className="icon icon-bin"

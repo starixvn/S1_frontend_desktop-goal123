@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import AddBankAccount from "./addBankAccount";
 import Available from "./withdrawal.set.available";
 import Calculation from "./withdrawal.set.calculation";
-import CashBar from "./withdrawal.set.cashBar";
+// import CashBar from "./withdrawal.set.cashBar";
 import InputModuleRow from "./withdrawal.set.inputModuleRow";
 import BankInfoCard from "./withdrawal.set.bankInfoCard";
 import KycUpload from "./withdrawal.set.kycUpload";
@@ -329,8 +329,8 @@ export default props => {
 							popBoxType: defPopBoxType.ErrorMsg,
 							message:
 								t("lbl_WithdrawalOver") +
-								":" +
-								res.data.message,
+								": " +
+								parseInt(res.data.message, 10).toString(),
 							btnBar: (
 								<div className="btnGroup">
 									<button

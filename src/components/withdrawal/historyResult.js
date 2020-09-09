@@ -5,7 +5,7 @@ import { number_format } from "../common/common";
 
 const statusClassName = {
 	1: "pending",
-	2: "paid",
+	2: "pending",
 	3: "approved",
 	4: "reject",
 	5: "cancel"
@@ -34,7 +34,7 @@ export const TransactionHistory = props => {
 			<div>{props.transId}</div>
 			<div>{number_format(props.amount, props._isConvert)}</div>
 			<div className={statusClassName[props.status]}>
-				{t(`lbl_DepositStatus${props.status}`)}
+				{t(`lbl_WithdrawalStatus${props.status}`)}
 			</div>
 			<div className="btnGroup">{btnGroup}</div>
 		</div>
