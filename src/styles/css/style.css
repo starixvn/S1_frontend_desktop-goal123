@@ -922,7 +922,7 @@ main section .btnGroup {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  padding-bottom: 60px;
+  padding-bottom: 20px;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
 }
@@ -931,6 +931,19 @@ main section .btnGroup {
   width: auto;
   padding: 0 5px;
   max-width: 100px;
+}
+
+.powered {
+  padding: 15px 0 50px 0;
+}
+
+.powered div {
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.powered img {
+  width: auto;
 }
 
 footer {

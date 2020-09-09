@@ -299,5 +299,6 @@
   	"lbl_GoNow":"Go Now!",
 	"msg_OTPSendCode": "We have sent the verification code to your registered mobile. Please enter your code.",
 	"msg_EnterOTPCode": "Please enter OTP code.",
-	"lbl_SelDepositAmount":"Please select the deposit amount"
+	"lbl_SelDepositAmount":"Please select the deposit amount",
+	"lbl_PoweredBy":"Powered by"
 }
