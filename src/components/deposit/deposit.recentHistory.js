@@ -211,7 +211,11 @@ export default () => {
 							onClick={GetRecentDatas}></button>
 					</div>
 				</div>
-				<div className="listBody">{arr}</div>
+				{getHistory?.length > 0 ? (
+					<div className="listBody">{arr}</div>
+				) : (
+					<div className="nodata">{t("msg_NoData")}</div>
+				)}
 			</div>
 			<Link
 				to={`/${userInfo.langId}/${path.depositHistory.root}`}

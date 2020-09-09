@@ -50,7 +50,7 @@ export default props => {
 		);
 	});
 
-	return props.getHistory !== null || props.getHistory !== [] ? (
+	return (
 		<>
 			<div className="list">
 				<div className="listHeader">
@@ -68,13 +68,15 @@ export default props => {
 							onClick={props.GetTransferRecent}></button>
 					</div>
 				</div>
-				<div className="listBody">{arr}</div>
+				{props.getHistory?.length > 0 ? (
+					<div className="listBody">{arr}</div>
+				) : (
+					<div className="nodata">{t("msg_NoData")}</div>
+				)}
 			</div>
 			<Link
 				to={`/${userInfo.langId}/${path.transferHistory.root}`}
 				className="icon icon-books"></Link>
 		</>
-	) : (
-		<div className="nodata">{t("msg_NoData")}</div>
 	);
 };
