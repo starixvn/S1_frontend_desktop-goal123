@@ -132,17 +132,23 @@ export default props => {
 						checked={props.selectItems.includes(props.id)}
 					/>
 					<label
+						aria-label="msgList-checkBox"
 						htmlFor={`msgList-checkBox-${props.id}`}
 						className="icon icon-checkbox-checked"></label>
 				</div>
-				<div onClick={getMsgContent.bind(this, !showContent)}>
+				<div
+					onClick={getMsgContent.bind(this, !showContent)}
+					role="button"
+					onKeyDown={getMsgContent.bind(this, !showContent)}>
 					{props.title}
 				</div>
 				<div
 					className="txt-blue2"
 					onClick={getMsgContent.bind(this, !showContent)}>
 					{dateTimeFormat()}
-					<button className="icon icon-keyboard_arrow_down"></button>
+					<button
+						aria-label="getMsgContent"
+						className="icon icon-keyboard_arrow_down"></button>
 				</div>
 			</div>
 			<div className={`listBody ${showContent ? "active" : ""}`}>

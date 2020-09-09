@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { popBoxContext } from "../common/context";
 import { useTranslation } from "react-i18next";
 import { Module } from "../deposit/deposit.bankSlip";
 
 export default props => {
 	const { t } = useTranslation();
-	const { popBox, setPopBox } = useContext(popBoxContext);
+	const { setPopBox } = useContext(popBoxContext);
 	const isMountedRef = useRef(null);
 
 	useEffect(() => {

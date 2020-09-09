@@ -155,7 +155,6 @@ const Content = () => {
 			transId: transId,
 			accountNo: accountNo,
 			accountName: accountName,
-			isOpen: true,
 			amount: number_format(amount, _isConvert),
 			picFileName: picFileName,
 			refId: refId

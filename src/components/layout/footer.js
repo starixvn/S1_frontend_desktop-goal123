@@ -5,12 +5,11 @@ import { defSportsBetting } from "./footer.def";
 import LinkItems from "../common/linkItems";
 import { Link } from "gatsby";
 import path from "../../path";
-
-import SocialMedia1 from "../../styles/img/te.png";
-import SocialMedia2 from "../../styles/img/tw.png";
-import SocialMedia3 from "../../styles/img/fb.png";
-import SocialMedia4 from "../../styles/img/yb.png";
-import SocialMedia5 from "../../styles/img/ig.png";
+// import SocialMedia1 from "../../styles/img/te.png";
+// import SocialMedia2 from "../../styles/img/tw.png";
+// import SocialMedia3 from "../../styles/img/fb.png";
+// import SocialMedia4 from "../../styles/img/yb.png";
+// import SocialMedia5 from "../../styles/img/ig.png";
 import TandC from "../../service/t_and_c";
 
 const Bettings = ({ t, langId, isLogin }) => {
@@ -47,20 +46,26 @@ export default () => {
 					<div>
 						<a
 							href={TandC(userInfo.langId).ResposibleGaming}
-							target="_blank">
+							target="_blank"
+							rel="noreferrer">
 							{t("lbl_ResposibleGaming")}
 						</a>
-						<a href={TandC(userInfo.langId).terms} target="_blank">
+						<a
+							href={TandC(userInfo.langId).terms}
+							target="_blank"
+							rel="noreferrer">
 							{t("lbl_TermsConditions")}
 						</a>
 						<a
 							href={TandC(userInfo.langId).PrivacyPolicy}
-							target="_blank">
+							target="_blank"
+							rel="noreferrer">
 							{t("lbl_PrivacyPolicy")}
 						</a>
 						<a
 							href={TandC(userInfo.langId).CookiePolicy}
-							target="_blank">
+							target="_blank"
+							rel="noreferrer">
 							{t("lbl_CookiePolicy")}
 						</a>
 					</div>
@@ -70,15 +75,20 @@ export default () => {
 					<div>
 						<a
 							href={TandC(userInfo.langId).RuleRegulations}
-							target="_blank">
+							target="_blank"
+							rel="noreferrer">
 							{t("lbl_RuleRegulations")}
 						</a>
 						<a
 							href={TandC(userInfo.langId).AccountTerms}
-							target="_blank">
+							target="_blank"
+							rel="noreferrer">
 							{t("lbl_AccountTerms")}
 						</a>
-						<a href={TandC(userInfo.langId).FAQ} target="_blank">
+						<a
+							href={TandC(userInfo.langId).FAQ}
+							target="_blank"
+							rel="noreferrer">
 							{t("lbl_FAQ")}
 						</a>
 						<a
@@ -106,15 +116,20 @@ export default () => {
 					<div>
 						<a
 							href={TandC(userInfo.langId).AboutUs}
-							target="_blank">
+							target="_blank"
+							rel="noreferrer">
 							{t("lbl_AboutUs")}
 						</a>
-						<a href={TandC(userInfo.langId).Terms} target="_blank">
+						<a
+							href={TandC(userInfo.langId).Terms}
+							target="_blank"
+							rel="noreferrer">
 							{t("lbl_Terms")}
 						</a>
 						<a
 							href={TandC(userInfo.langId).ContactUs}
-							target="_blank">
+							target="_blank"
+							rel="noreferrer">
 							{t("lbl_ContactUs")}
 						</a>
 					</div>

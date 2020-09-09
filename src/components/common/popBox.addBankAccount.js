@@ -15,7 +15,7 @@ const initValue = {
 
 export default ({ bankInfoSysList = [] }) => {
 	const { t } = useTranslation();
-	const { popBox, setPopBox } = useContext(popBoxContext);
+	const { setPopBox } = useContext(popBoxContext);
 	const { userInfo, setUserInfo } = useContext(userInfoContext);
 	const [userValue, setUserValue] = useState(initValue);
 	const [status, setStatus] = useState({

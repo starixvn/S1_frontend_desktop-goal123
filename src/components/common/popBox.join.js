@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef, useContext } from "react";
 import { useTranslation } from "react-i18next";
 import {
 	api_site_ExistsUserName,
-	api_site_ExistsEmail,
 	api_site_GetSiteCurrencyList,
 	api_site_Register
 } from "../../service/api/site";
@@ -62,7 +61,7 @@ const passwordCheck = val => {
 
 const JoinPanel = () => {
 	const { t } = useTranslation();
-	const { userInfo, setUserInfo } = useContext(userInfoContext);
+	const { setUserInfo } = useContext(userInfoContext);
 	const { setPopBox } = useContext(popBoxContext);
 	const [userValue, setUserValue] = useState(initValue);
 	const [tip, setTip] = useState(initTip);
@@ -563,7 +562,7 @@ const JoinPanel = () => {
 	return (
 		<div className="joinpop active">
 			<div className="joinloginModule">
-				<img src={joinBanner} />
+				<img src={joinBanner} alt="joinBanner"/>
 				<form className="joinloginFunction" onSubmit={clickSubmit}>
 					<span className="title txt-yellow">{t("lbl_JoinNow")}</span>
 					<div>
@@ -637,12 +636,16 @@ const JoinPanel = () => {
 							{t("lbl_Check18TC1")}&nbsp;
 							<a
 								target="_blank"
+								rel="noreferrer"
 								href={TandC(defaultLangId).terms}>
 								{t("lbl_TermsConditions")}
 							</a>
 							&nbsp;
 							{t("lbl_Check18TC2")}&nbsp;
-							<a target="_blank" href={TandC(defaultLangId).rule}>
+							<a
+								target="_blank"
+								rel="noreferrer"
+								href={TandC(defaultLangId).rule}>
 								{t("lbl_RuleRegulations")}
 							</a>
 							&nbsp;
