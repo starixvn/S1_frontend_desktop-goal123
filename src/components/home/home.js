@@ -3,7 +3,6 @@ import { userInfoContext, popBoxContext } from "../common/context";
 import { defPopBoxType } from "../common/popBox";
 import { useTranslation } from "react-i18next";
 import { setCookie, readCookie } from "../common/common";
-import IndexBanner from "../../styles/img/indexBanner.jpg";
 import { api_account_GetWalletInfo } from "../../service/api/account";
 
 import edgeImg1 from "../../styles/img/EDGE1.jpg";
@@ -68,7 +67,7 @@ export default () => {
 				});
 			}
 		}
-	}, [userInfo.isLogin, userInfo.userName]);
+	}, [userInfo.isLogin, userInfo.userName, setPopBox]);
 
 	return (
 		<main>
@@ -85,26 +84,26 @@ export default () => {
 					</div>
 					<div className="articleModule">
 						<div>
-							<img src={edgeImg1} />
+							<img src={edgeImg1} alt="edgeImg" />
 						</div>
 						<div>
-							<img src={edgeImg2} />
+							<img src={edgeImg2} alt="edgeImg" />
 						</div>
 						<div>
-							<img src={edgeImg3} />
+							<img src={edgeImg3} alt="edgeImg" />
 						</div>
 					</div>
 				</div>
 				<div className="special">
 					<div>
-						<img src={specialImg1} />
+						<img src={specialImg1} alt="specialImg1" />
 						<ul>
 							<li className="title">{t("lbl_ExtensiveGames")}</li>
 							<li>{t("lbl_ExtensiveGamesDesc")}</li>
 						</ul>
 					</div>
 					<div>
-						<img src={specialImg2} />
+						<img src={specialImg2} alt="specialImg2" />
 						<ul>
 							<li className="title">
 								{t("lbl_ExcellentCustomerCare")}
@@ -113,14 +112,14 @@ export default () => {
 						</ul>
 					</div>
 					<div>
-						<img src={specialImg3} />
+						<img src={specialImg3} alt="specialImg3" />
 						<ul>
 							<li className="title">{t("lbl_PaymentMethods")}</li>
 							<li>{t("lbl_PaymentMethodsDesc")}</li>
 						</ul>
 					</div>
 					<div>
-						<img src={specialImg4} />
+						<img src={specialImg4} alt="specialImg4" />
 						<ul>
 							<li className="title">
 								{t("lbl_TransactionSpeed")}
@@ -153,7 +152,10 @@ const Platforms = () => {
 	const platformRows = defPlatform.map(item => {
 		return (
 			<button key={`platform-${item}`}>
-				<img src={`${config.imgUrl}/common/images/logo/${item}.png`} />
+				<img
+					alt="logo"
+					src={`${config.imgUrl}/common/images/logo/${item}.png`}
+				/>
 			</button>
 		);
 	});

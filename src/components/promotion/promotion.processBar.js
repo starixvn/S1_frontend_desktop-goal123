@@ -29,6 +29,7 @@ export default ({
 					{number_format(custRollOver, _isConvert)})
 					{hideReloadBtn ? null : (
 						<button
+							aria-label="RefreshProcessBar"
 							className="icon icon-spinner11"
 							onClick={RefreshProcessBar}></button>
 					)}

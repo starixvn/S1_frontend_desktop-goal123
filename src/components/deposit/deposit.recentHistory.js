@@ -102,7 +102,6 @@ export default () => {
 			transId: transId,
 			accountNo: accountNo,
 			accountName: accountName,
-			isOpen: true,
 			amount: number_format(amount, _isConvert),
 			picFileName: picFileName,
 			refId: refId,
@@ -207,6 +206,7 @@ export default () => {
 					<div>
 						{t("lbl_Action")}
 						<button
+							aria-label="GetRecentDatas"
 							className="icon icon-spinner11"
 							onClick={GetRecentDatas}></button>
 					</div>

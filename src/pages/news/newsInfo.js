@@ -9,7 +9,6 @@ import {
 import { getUrlParameter } from "../../components/common/common";
 import { api_news_GetNewsById } from "../../service/api/news";
 import { defPopBoxType } from "../../components/common/popBox";
-import Loading from "../../components/common/loading";
 
 export default () => {
 	return (
@@ -31,7 +30,6 @@ const Content = () => {
 	const { t } = useTranslation();
 	const { userInfo } = useContext(userInfoContext);
 	const { setPopBox } = useContext(popBoxContext);
-	const [loading, setLoading] = useState(true);
 	const [newsInfo, setNewsInfo] = useState({
 		title: "",
 		content: "",
@@ -84,7 +82,6 @@ const Content = () => {
 							)
 						});
 					}
-					setLoading(false);
 				}
 			},
 			err => {
@@ -103,7 +100,6 @@ const Content = () => {
 							</div>
 						)
 					});
-					setLoading(false);
 				}
 			}
 		);
@@ -112,7 +108,7 @@ const Content = () => {
 	return (
 		<div className="infoModule">
 			<article>
-				<img src={newsInfo.imageURL} />
+				<img src={newsInfo.imageURL} alt="newsInfo" />
 				<h1>{newsInfo.title}</h1>
 				<pre>{newsInfo.content}</pre>
 			</article>

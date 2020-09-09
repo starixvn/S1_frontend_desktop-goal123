@@ -1,7 +1,7 @@
 import React from "react";
 import moment from "moment";
 import { useTranslation } from "react-i18next";
-import { number_format, isConvert } from "../common/common";
+import { number_format } from "../common/common";
 
 const statusClassName = {
 	1: "pending",

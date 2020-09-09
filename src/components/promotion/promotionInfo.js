@@ -188,7 +188,7 @@ export default () => {
 		<div className="infoModule">
 			<div className={`promotionsInfo${wrapperClass}`}>
 				{_isClaimed ? <div className="claimed"></div> : null}
-				<img src={promotionInfo.banner} />
+				<img src={promotionInfo.banner} alt="promotionInfo_banner" />
 				<div className="proData">
 					<div className="proDataTitle">
 						<div className="txt-darkBlue">

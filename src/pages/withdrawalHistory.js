@@ -254,6 +254,7 @@ const Content = () => {
 							<div>
 								{t("lbl_Action")}
 								<button
+									aria-label="clickDateSubmit"
 									className="icon icon-spinner11"
 									onClick={clickDateSubmit.bind(
 										this,

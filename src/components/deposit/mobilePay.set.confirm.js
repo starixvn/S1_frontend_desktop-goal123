@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { number_format, getUrlParameter } from "../common/common";
+import { number_format } from "../common/common";
 import { userInfoContext, popBoxContext } from "../common/context";
 import { useTranslation } from "react-i18next";
 import { Redirect } from "@reach/router";

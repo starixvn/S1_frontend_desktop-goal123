@@ -122,8 +122,12 @@ class Dropdown extends Component {
 				}`}
 				ref={this.wrapper}
 				onClick={this.clickDropdown}>
-				<button>{this.props.langId==="en"?"$":"VNĐ"}{balance}</button>
+				<button>
+					{this.props.langId === "en" ? "$" : "VNĐ"}
+					{balance}
+				</button>
 				<button
+					aria-label="HandleDisplayBalance"
 					onClick={this.props.HandleDisplayBalance.bind(
 						this,
 						!isHideBalance

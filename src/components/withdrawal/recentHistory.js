@@ -197,6 +197,7 @@ export default props => {
 					<div>
 						{t("lbl_Action")}
 						<button
+							aria-label="GetWithdrawalInfoRecent"
 							className="icon icon-spinner11"
 							onClick={GetWithdrawalInfoRecent}></button>
 					</div>

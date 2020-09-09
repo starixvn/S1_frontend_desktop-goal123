@@ -180,6 +180,7 @@ const Content = () => {
 							<div>
 								{t("lbl_AfterAmount")}
 								<button
+									aria-label="clickDateSubmit"
 									className="icon icon-spinner11"
 									onClick={clickDateSubmit.bind(
 										this,

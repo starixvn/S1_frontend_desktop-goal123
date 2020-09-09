@@ -1,6 +1,5 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
-import { userInfoContext } from "../common/context";
 
 export default props => {
 	const { t } = useTranslation();

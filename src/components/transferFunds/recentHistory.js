@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, useRef } from "react";
+import React, { useContext } from "react";
 import moment from "moment";
 import { useTranslation } from "react-i18next";
 import { userInfoContext } from "../common/context";
@@ -64,6 +64,7 @@ export default props => {
 					<div>
 						{t("lbl_Status")}
 						<button
+							aria-label="GetTransferRecent"
 							className="icon icon-spinner11"
 							onClick={props.GetTransferRecent}></button>
 					</div>

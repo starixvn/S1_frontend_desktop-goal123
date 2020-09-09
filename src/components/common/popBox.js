@@ -138,6 +138,8 @@ export default () => {
 
 		case defPopBoxType.default:
 			break;
+		default:
+			break;
 	}
 
 	return popBox.isOpen ? (

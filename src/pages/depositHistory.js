@@ -150,7 +150,6 @@ const Content = () => {
 			transId: transId,
 			accountNo: accountNo,
 			accountName: accountName,
-			isOpen: true,
 			amount: number_format(amount, _isConvert),
 			picFileName: picFileName,
 			refId: refId
@@ -278,6 +277,7 @@ const Content = () => {
 							<div>
 								{t("lbl_Action")}
 								<button
+									aria-label="clickDateSubmit"
 									className="icon icon-spinner11"
 									onClick={clickDateSubmit.bind(
 										this,
