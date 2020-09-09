@@ -290,6 +290,7 @@ export default props => {
 							)
 						});
 						props.refreshHitory("refresh");
+						getKycStatus();
 					} else if (res.data.errorCode === -1) {
 						setPopBox({
 							isOpen: true,

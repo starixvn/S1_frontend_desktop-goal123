@@ -120,7 +120,8 @@ export default () => {
 
 		case defPopBoxType.WithdrawalSuccess:
 			content = <WithdrawalSuccess btnBar={popBox.btnBar} />;
-			
+			break;
+
 		case defPopBoxType.OTPHint:
 			content = <OTPHint btnBar={popBox.btnBar} />;
 			break;
