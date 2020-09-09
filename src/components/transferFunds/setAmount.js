@@ -7,6 +7,7 @@ export default props => {
 			<div className="walletTransfer">
 				<div className="walletModule">
 					<div className="walletBalanceModule from">
+						<span>{props.i18n("lbl_From")}</span>
 						<span className="active">
 							{props.i18n(props.transferFrom)}
 						</span>
@@ -15,6 +16,7 @@ export default props => {
 						className="icon icon-arrow-right2 active"
 						onClick={props.changeDirection}></button>
 					<div className="walletBalanceModule to">
+						<span>{props.i18n("lbl_To")}</span>
 						<span className="active">
 							{props.i18n(props.transferTo)}
 						</span>
