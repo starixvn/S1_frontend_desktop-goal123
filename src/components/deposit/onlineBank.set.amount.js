@@ -3,8 +3,8 @@ import { useTranslation } from "react-i18next";
 import config from "../../config";
 import LimitTip from "./limitTip";
 import { defActionType } from "./onlineBank.reducer";
-import { checkAmount } from "../common/common";
-import Inputbox, { defValueType } from "../common/inputbox";
+import { checkAmount, getAmountTip } from "../common/common";
+import Inputbox from "../common/inputbox";
 
 export default ({
 	bankInfo,
@@ -51,7 +51,8 @@ export default ({
 	};
 
 	const clickInfo = () => {
-		let _msg = status.tip === "" ? t("lbl_AmountTooltip") : "";
+		let _msg =
+			status.tip === "" ? getAmountTip(minAmount, _isConvert, t) : "";
 		setStatus({
 			checked: null,
 			tip: _msg

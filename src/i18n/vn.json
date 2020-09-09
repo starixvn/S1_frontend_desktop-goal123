@@ -119,7 +119,7 @@
 	"lbl_OnlineBanking":"Ngân hàng trực tuyến",
 	"lbl_CreditTime":"Thời gian thực hiện",
 	"lbl_Instant":"Ngay lập tức",
-	"lbl_AmountTooltip":"Số tiền không thể nhỏ hơn 0.",
+	"lbl_AmountTooltip":"Số tiền không thể nhỏ hơn {0}.",
 	"lbl_NotinLimit":"ngoài hạn mức.",
 	"lbl_MobileDeposit": "Nạp tiền qua ĐT",
 	"lbl_Limit":"Hạn mức giá trị",
@@ -301,5 +301,6 @@
 	"lbl_Expried": "Expried",
 	"msg_OTPSendCode": "Mã xác nhận đã được gửi đến số điện thoại đăng ký. Vui lòng nhập mã. ",
 	"msg_EnterOTPCode": "Please enter OTP code.",
-	"msg_loggedout":"Bạn đã đăng xuất thành công!"
+	"msg_loggedout":"Bạn đã đăng xuất thành công!",
+	"lbl_SelDepositAmount":"Xin lựa chọn số tiền cần nạp"
 }

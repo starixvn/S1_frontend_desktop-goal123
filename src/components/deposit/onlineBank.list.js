@@ -7,6 +7,7 @@ import { userInfoContext } from "../common/context";
 import path from "../../path";
 import { useTranslation } from "react-i18next";
 import Loading from "../common/loading";
+import config from "../../config";
 
 const _path = path.deposit.sub.onlineBank.root;
 
@@ -36,8 +37,10 @@ export default () => {
 		return (
 			<li key={`deposit-onlineBank-${p.payId}-${p.channelId}`}>
 				<Link
-					to={`${_path}?name=${p.payName}&pId=${p.payId}&cId=${p.channelId}&max=${p.maxAmount}&min=${p.minAmount}`}
-					className={`icon icon-${p.payName}`}></Link>
+					to={`${_path}?name=${p.payName}&pId=${p.payId}&cId=${p.channelId}&max=${p.maxAmount}&min=${p.minAmount}`}>
+					<img
+						src={`${config.imgUrl}/common/images/Payment/${p.payName}.png`}></img>
+				</Link>
 				<LimitTip
 					minAmount={p.minAmount}
 					maxAmount={p.maxAmount}
