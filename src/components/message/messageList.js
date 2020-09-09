@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
-import { api_account_GetMsgContent } from "../../service/api/account";
-import { popBoxContext } from "../common/context";
+import {
+	api_account_GetMsgContent,
+	api_account_GetMsgCount
+} from "../../service/api/account";
+import { popBoxContext, msgCountContext } from "../common/context";
 import { useTranslation } from "react-i18next";
 import { defPopBoxType } from "../common/popBox";
 import moment from "moment";
@@ -9,6 +12,7 @@ import Loading from "../common/loading";
 export default props => {
 	const { t } = useTranslation();
 	const { setPopBox } = useContext(popBoxContext);
+	const { setMsgCount } = useContext(msgCountContext);
 	const isMountedRef = useRef(null);
 	const [msgContentData, setMsgContentData] = useState("");
 	const [showContent, setShowContent] = useState(false);
@@ -34,6 +38,14 @@ export default props => {
 							setShowContent(true);
 							setMsgContentData(res.data.data.content);
 							props.getMsgList();
+
+							api_account_GetMsgCount().then(res => {
+								if (isMountedRef.current) {
+									if (res.data.errorCode === 0) {
+										setMsgCount(res.data.data);
+									}
+								}
+							});
 						} else {
 							setPopBox({
 								isOpen: true,
@@ -85,17 +97,25 @@ export default props => {
 
 	const dateTimeFormat = () => {
 		if (compareDay < 1) {
-			if (!props.flag) {
+			if (!showContent) {
 				return props.createTime.slice(11, 19);
 			} else {
 				return (
 					props.createTime.split("T", 1) +
-					"" +
+					" " +
 					props.createTime.slice(11, 19)
 				);
 			}
 		} else {
-			return props.createTime.split("T", 1);
+			if (!showContent) {
+				return props.createTime.split("T", 1);
+			} else {
+				return (
+					props.createTime.split("T", 1) +
+					" " +
+					props.createTime.slice(11, 19)
+				);
+			}
 		}
 	};
 
@@ -115,15 +135,14 @@ export default props => {
 						htmlFor={`msgList-checkBox-${props.id}`}
 						className="icon icon-checkbox-checked"></label>
 				</div>
-				<div>{props.title}</div>
-				<div className="txt-blue2">
+				<div onClick={getMsgContent.bind(this, !showContent)}>
+					{props.title}
+				</div>
+				<div
+					className="txt-blue2"
+					onClick={getMsgContent.bind(this, !showContent)}>
 					{dateTimeFormat()}
-					<button
-						className="icon icon-keyboard_arrow_down"
-						onClick={getMsgContent.bind(
-							this,
-							!showContent
-						)}></button>
+					<button className="icon icon-keyboard_arrow_down"></button>
 				</div>
 			</div>
 			<div className={`listBody ${showContent ? "active" : ""}`}>

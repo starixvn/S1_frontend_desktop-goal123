@@ -82,6 +82,7 @@ function SEO({ description, lang, meta, title }) {
 						content: metaDescription
 					}
 				].concat(meta)}></Helmet>
+			<GATag gaCode={"UA-163812389-1"} />
 			<Helmet>
 				<script>
 					{`window.__lc = window.__lc || {};
@@ -108,6 +109,25 @@ function SEO({ description, lang, meta, title }) {
 		</>
 	);
 }
+
+const GATag = ({ gaCode }) => {
+	return (
+		<Helmet>
+			<script
+				async
+				src={
+					"https://www.googletagmanager.com/gtag/js?id=" + gaCode
+				}></script>
+			<script>
+				{`window.dataLayer = window.dataLayer || [];
+					function gtag(){dataLayer.push(arguments);}
+					gtag('js', new Date());
+
+					gtag('config', '${gaCode}');`}
+			</script>
+		</Helmet>
+	);
+};
 
 SEO.defaultProps = {
 	lang: `en`,

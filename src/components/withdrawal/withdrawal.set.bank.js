@@ -22,7 +22,7 @@ import defStep from "../withdrawal/defStep";
 import { checkWithdrawalAmount } from "../common/common";
 import Loading from "../common/loading";
 
-export default (props, step) => {
+export default props => {
 	const { t } = useTranslation();
 	const { setPopBox } = useContext(popBoxContext);
 	const isMountedRef = useRef(null);
@@ -41,6 +41,7 @@ export default (props, step) => {
 		tip: ""
 	});
 	const [loading, setLoading] = useState(true);
+	const [step, setStep] = useState(1);
 
 	useEffect(() => {
 		isMountedRef.current = true;
@@ -51,6 +52,35 @@ export default (props, step) => {
 		getKycStatus();
 		getApiBalance();
 	}, []);
+
+	useEffect(() => {
+		updateStep();
+	}, [sysIdValue, amountValue, showConfirmPage]);
+
+	const updateStep = () => {
+		if (sysIdValue === 0 || !sysIdValue) {
+			setStep(0);
+		} else if (
+			sysIdValue > 0 &&
+			(amountValue === 0 ||
+				amountValue === "" ||
+				status.checked === false)
+		) {
+			setStep(1);
+		} else if (
+			sysIdValue > 0 &&
+			status.checked === true &&
+			showConfirmPage === false
+		) {
+			setStep(2);
+		} else if (
+			sysIdValue > 0 &&
+			status.checked === true &&
+			showConfirmPage === true
+		) {
+			setStep(3);
+		}
+	};
 
 	const getKycStatus = () => {
 		setLoading(true);
@@ -191,7 +221,7 @@ export default (props, step) => {
 	};
 
 	const toConfirmPage = () => {
-		ValidAmount(amountValue)
+		ValidAmount(amountValue);
 		if (status.checked === true) {
 			if (accountNoValue === "" || sysIdValue === 0) {
 				setPopBox({
@@ -208,6 +238,7 @@ export default (props, step) => {
 				});
 			} else {
 				setShowConfirmPage(true);
+				setStep(3);
 			}
 		}
 	};
@@ -233,6 +264,7 @@ export default (props, step) => {
 			});
 			setShowConfirmPage(false);
 			getKycStatus();
+			setSysIdValue(0);
 		};
 
 		let AccountNo = accountNoValue;

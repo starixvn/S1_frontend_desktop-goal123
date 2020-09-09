@@ -15,6 +15,8 @@ import ChangePsw from "./popBox.changePsw";
 import LogoutHint from "./popBox.logoutHint";
 import Loading from "./loading";
 import DepositHint from "./popBox.depositHint";
+import OTPHint from "./popBox.otpHint";
+import VerifyPhoneForm from "./popBox.verifyPhoneForm";
 
 export const defPopBoxType = {
 	Cancel: "Cancel",
@@ -30,7 +32,9 @@ export const defPopBoxType = {
 	ProfileCompelete: "ProfileCompelete",
 	ChangePsw: "ChangePsw",
 	LogoutHint: "LogoutHint",
-	DepositHint: "DepositHint"
+	DepositHint: "DepositHint",
+	OTPHint: "OTPHint",
+	VerifyPhoneForm: "verifyPhoneForm"
 };
 
 export default () => {
@@ -53,7 +57,11 @@ export default () => {
 
 		case defPopBoxType.ErrorMsg:
 			content = (
-				<ErrorMsg btnBar={popBox.btnBar} message={popBox.message} />
+				<ErrorMsg
+					btnBar={popBox.btnBar}
+					message={popBox.message}
+					errorCode={popBox.errorCode}
+				/>
 			);
 			break;
 
@@ -113,6 +121,14 @@ export default () => {
 
 		case defPopBoxType.DepositHint:
 			content = <DepositHint />;
+			break;
+
+		case defPopBoxType.OTPHint:
+			content = <OTPHint btnBar={popBox.btnBar} />;
+			break;
+
+		case defPopBoxType.VerifyPhoneForm:
+			content = <VerifyPhoneForm request_id={popBox.request_id} />;
 			break;
 
 		case defPopBoxType.default:

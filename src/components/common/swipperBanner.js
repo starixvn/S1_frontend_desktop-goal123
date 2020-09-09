@@ -7,8 +7,17 @@ import {
 	navContext,
 	defNavPanel
 } from "../../components/common/context";
-import { GET_ENTER_PAGE } from "../../service/enterPage";
+import { SET_ENTER_PAGE } from "../../service/enterPage";
 import path from "../../path";
+import { Link } from "@reach/router";
+
+export const defBannerFolder = {
+	Sports: "Sports"
+};
+
+export const defSpecialActionLink = {
+	SportsIndex: "Sports/Index"
+};
 
 export const ClickLink = (
 	tpId,
@@ -18,13 +27,17 @@ export const ClickLink = (
 	isOuterLink,
 	urlWithLang,
 	isLogin,
-	setNav
+	setNav,
+	matchid,
+	openInBlank
 ) => {
 	if (href === "Casino/Lobby") {
-		window.location.href = `/${path.casino.root}${tpId ? `/${tpId}` : ""}`;
+		window.location.href = `/${lang}/${path.casino.root}${
+			tpId ? `/${tpId}` : ""
+		}`;
 	} else if (tpId === null) {
 		if (href === "Promotion/Index") {
-			window.location.href = `/${path.promotion.root}`;
+			window.location.href = `/${lang}/${path.promotion.root}`;
 		} else if (href === "Home/Register") {
 		} else {
 			window.open(
@@ -37,35 +50,47 @@ export const ClickLink = (
 			);
 		}
 	} else {
-		GET_ENTER_PAGE({
+		SET_ENTER_PAGE({
 			langId: lang,
 			tpId,
 			gameId,
+			matchid,
 			isLogin: isLogin === true,
 			loginCallback: () => {
 				setNav(defNavPanel.login);
-			}
+			},
+			openInBlank: openInBlank
 		});
 	}
 };
 
-const Panel = ({ ImgFolder, withBtn, clickPrev, clickNext }) => {
+const Panel = ({
+	ImgFolder,
+	withBtn,
+	openInBlank,
+	filterHideInHome = false
+}) => {
 	const [banner, setBanner] = useState([]);
 	const { userInfo } = useContext(userInfoContext);
 	const { setNav } = useContext(navContext);
 
 	useEffect(() => {
 		let mounted = true;
-		api_site_GetBanner(ImgFolder, "", userInfo.langId).then(res => {
+		api_site_GetBanner(
+			ImgFolder,
+			"",
+			userInfo.langId,
+			filterHideInHome
+		).then(res => {
 			if (res.data.errorCode === 0 && mounted) {
 				setBanner(res.data.data);
 			}
 		});
 
 		return () => (mounted = false);
-	}, [userInfo, ImgFolder]);
+	}, [userInfo, ImgFolder, filterHideInHome]);
 
-	let rows = banner?.map(b => {
+	let rows = banner?.map((b, idx) => {
 		let _imgFolder = b.imgFolder ?? ImgFolder;
 		let lang =
 			b.fromDB || b.lang?.includes(userInfo.langId)
@@ -81,7 +106,15 @@ const Panel = ({ ImgFolder, withBtn, clickPrev, clickNext }) => {
 			? b.imgURL
 			: `${config.imgUrl}/CMS/${config.siteName}/${_imgFolder}/${lang}/${b.img}`;
 
-		return (
+		let key = `${lang}-${b.img}-${idx}`;
+
+		return actionLink === defSpecialActionLink.SportsIndex ? (
+			<Link
+				key={key}
+				to={`${userInfo.langId}/${path.sports.root}?tpId=${b.tpId}&gameId=${b.gameId}&matchid=${b.matchid}`}>
+				<img src={imgSRC} className="banner" alt={b.img ?? ""} />
+			</Link>
+		) : (
 			<button
 				onClick={ClickLink.bind(
 					this,
@@ -92,28 +125,23 @@ const Panel = ({ ImgFolder, withBtn, clickPrev, clickNext }) => {
 					b.outerLink === true,
 					b.urlWithLang,
 					userInfo.isLogin,
-					setNav
+					setNav,
+					b.matchid,
+					openInBlank
 				)}
-				key={`${lang}-${b.img}`}>
+				key={key}>
 				<img src={imgSRC} className="banner" alt={b.img ?? ""} />
 			</button>
 		);
 	});
 
-	return withBtn ? (
-		<Autoplay Rows={rows} />
-	) : (
-		<AutoPlayWithBtn
-			Rows={rows}
-			clickNext={clickNext}
-			clickPrev={clickPrev}
-		/>
-	);
+	return withBtn ? <AutoPlayWithBtn Rows={rows} /> : <Autoplay Rows={rows} />;
 };
 
 const defSwipperConfig = {
 	spaceBetween: 30,
 	centeredSlides: true,
+	loop: true,
 	autoplay: {
 		delay: 2500,
 		disableOnInteraction: false
@@ -132,7 +160,19 @@ const Autoplay = props => {
 };
 
 const AutoPlayWithBtn = ({ Rows }) => {
-	const params = defSwipperConfig;
+	const params = {
+		...defSwipperConfig,
+		navigation: {
+			nextEl: ".swiper-button-next",
+			prevEl: ".swiper-button-prev"
+		},
+		renderPrevButton: () => (
+			<div className="swiper-button-prev" onClick={goPrev}></div>
+		),
+		renderNextButton: () => (
+			<div className="swiper-button-next" onClick={goNext}></div>
+		)
+	};
 	const ref = useRef(null);
 
 	const goNext = () => {
@@ -156,8 +196,6 @@ const AutoPlayWithBtn = ({ Rows }) => {
 					</Swiper>
 				</div>
 			</div>
-			<div className="swiper-button-next" onClick={goNext}></div>
-			<div className="swiper-button-prev" onClick={goPrev}></div>
 		</>
 	) : (
 		<></>

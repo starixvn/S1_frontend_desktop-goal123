@@ -18,15 +18,13 @@ export default props => {
 			{!props.userInfo.accountName ? (
 				<Inputbox
 					title={t("lbl_RealName")}
-					checkIcon="icon icon-error"
 					onChange={props.onChangeName}
 					value={props.nameValue}
 					onBlur={props.checkName}
+					clickInfo={props.clickInfo.bind(this, "accountName")}
+					checked={props.checked}
+					tip={props.col === "accountName" ? props.tip : ""}
 				/>
-			) : null}
-
-			{props.nameErr ? (
-				<div className="tip active">{props.nameErr}</div>
 			) : null}
 
 			{!props.userInfo.birth_d ? (
@@ -41,39 +39,37 @@ export default props => {
 						viewDate={moment(legalDate).format("YYYY-MM-DD")}
 						isValidDate={valid}
 					/>
+					<i className="icon icon-calendar"></i>
 				</div>
 			) : null}
 
-			{props.birthErr ? (
-				<div className="tip active">{props.birthErr}</div>
+			{props.col === "birth" ? (
+				<div className="tip active">{props.tip}</div>
 			) : null}
 
 			{!props.userInfo.phoneNo ? (
 				<Inputbox
 					title={t("lbl_Phone")}
-					checkIcon="icon icon-error"
 					onChange={props.onChangePhone}
 					value={props.phoneValue}
 					onBlur={props.checkPhone}
+					clickInfo={props.clickInfo.bind(this, "phoneNo")}
+					checked={props.checked}
+					tip={props.col === "phoneNo" ? props.tip : ""}
 				/>
-			) : null}
-
-			{props.phoneErr ? (
-				<div className="tip active">{props.phoneErr}</div>
 			) : null}
 
 			{!props.userInfo.email ? (
 				<Inputbox
 					title={t("lbl_Email")}
-					checkIcon="icon icon-error"
 					onChange={props.onChangeEmail}
 					value={props.emailValue}
 					onBlur={props.checkEmail}
+					name="email"
+					clickInfo={props.clickInfo.bind(this, "email")}
+					checked={props.checked}
+					tip={props.col === "email" ? props.tip : ""}
 				/>
-			) : null}
-
-			{props.emailErr ? (
-				<div className="tip active">{props.emailErr}</div>
 			) : null}
 
 			<div className="btnGroup">

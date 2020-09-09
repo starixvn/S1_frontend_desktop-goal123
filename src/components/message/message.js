@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import {
 	api_account_GetMsgList,
-	api_account_DelMsg
+	api_account_DelMsg,
+	api_account_GetMsgCount
 } from "../../service/api/account";
 import { useTranslation } from "react-i18next";
 import MessageList from "./messageList";
 import { Pagination } from "../common/pagination";
-import { popBoxContext } from "../common/context";
+import { popBoxContext, msgCountContext } from "../common/context";
 import { defPopBoxType } from "../common/popBox";
 import Loading from "../common/loading";
 
@@ -18,6 +19,7 @@ export default () => {
 		totalPages: 0,
 		currentPage: 1
 	});
+	const { setMsgCount } = useContext(msgCountContext);
 	const { setPopBox } = useContext(popBoxContext);
 	const [selectItems, setSelectItems] = useState([]);
 	const [isCheckAll, setIsCheckAll] = useState(false);
@@ -123,6 +125,67 @@ export default () => {
 		const ClickCancel = () => {
 			setPopBox({ isOpen: false });
 		};
+
+		const deleteMessage = () => {
+			setPopBox({ isOpen: false });
+			setLoading(true);
+
+			api_account_DelMsg(selectItems).then(
+				res => {
+					if (isMountedRef.current) {
+						if (res.data.errorCode === 0) {
+							getMsgList(pagination.currentPage);
+							setSelectItems([]);
+							setIsCheckAll(false);
+
+							api_account_GetMsgCount().then(res => {
+								if (isMountedRef.current) {
+									if (res.data.errorCode === 0) {
+										setMsgCount(res.data.data);
+									}
+								}
+							});
+						} else {
+							setPopBox({
+								isOpen: true,
+								popBoxType: defPopBoxType.ErrorMsg,
+								message: res.data.message,
+								btnBar: (
+									<div className="btnGroup">
+										<button
+											className="btn-cancel"
+											onClick={ClickClose}>
+											{t("lbl_Close")}
+										</button>
+									</div>
+								)
+							});
+						}
+						setLoading(false);
+					}
+				},
+				err => {
+					if (isMountedRef.current) {
+						setPopBox({
+							isOpen: true,
+							popBoxType: defPopBoxType.ErrorMsg,
+							message: t("msg_ApiServerError"),
+							btnBar: (
+								<div className="btnGroup">
+									<button
+										className="btn-cancel"
+										onClick={ClickClose}>
+										{t("lbl_Close")}
+									</button>
+								</div>
+							)
+						});
+						setLoading(false);
+					}
+				}
+			);
+		};
+
 		if (selectItems.length > 0) {
 			setPopBox({
 				isOpen: true,
@@ -140,58 +203,6 @@ export default () => {
 				)
 			});
 		}
-	};
-
-	const deleteMessage = () => {
-		setPopBox({ isOpen: false });
-		setLoading(true);
-
-		api_account_DelMsg(selectItems).then(
-			res => {
-				if (isMountedRef.current) {
-					if (res.data.errorCode === 0) {
-						getMsgList(pagination.currentPage);
-						setSelectItems([]);
-						setIsCheckAll(false);
-					} else {
-						setPopBox({
-							isOpen: true,
-							popBoxType: defPopBoxType.ErrorMsg,
-							message: res.data.message,
-							btnBar: (
-								<div className="btnGroup">
-									<button
-										className="btn-cancel"
-										onClick={ClickClose}>
-										{t("lbl_Close")}
-									</button>
-								</div>
-							)
-						});
-					}
-					setLoading(false);
-				}
-			},
-			err => {
-				if (isMountedRef.current) {
-					setPopBox({
-						isOpen: true,
-						popBoxType: defPopBoxType.ErrorMsg,
-						message: t("msg_ApiServerError"),
-						btnBar: (
-							<div className="btnGroup">
-								<button
-									className="btn-cancel"
-									onClick={ClickClose}>
-									{t("lbl_Close")}
-								</button>
-							</div>
-						)
-					});
-					setLoading(false);
-				}
-			}
-		);
 	};
 
 	return loading ? (

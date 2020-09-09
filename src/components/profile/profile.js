@@ -1,5 +1,9 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
-import { api_accountStrict_SetProfile } from "../../service/api/accountStrict";
+import { api_site_ExistsEmail } from "../../service/api/site";
+import {
+	api_accountStrict_SetProfile,
+	api_accountStrict_SendVerifySMS
+} from "../../service/api/accountStrict";
 import { useTranslation } from "react-i18next";
 import areaCode from "../../datas/areaCode";
 import ProfileRead from "./profileRead";
@@ -19,16 +23,19 @@ export default () => {
 	const { setPopBox } = useContext(popBoxContext);
 	const [redirectPath, setRedirectPath] = useState(null);
 	const [loading, setLoading] = useState(false);
+	const [mobileVerificationLoading, setMobileVerificationLoading] = useState(
+		false
+	);
 
 	const [nameValue, setNameValue] = useState("");
 	const [birthValue, setBirthValue] = useState("");
 	const [phoneValue, setPhoneValue] = useState("");
 	const [emailValue, setEmailValue] = useState("");
-
-	const [nameErr, setNameErr] = useState("");
-	const [birthErr, setBirthErr] = useState("");
-	const [phoneErr, setPhoneErr] = useState("");
-	const [emailErr, setEmailErr] = useState("");
+	const [status, setStatus] = useState({
+		col: "",
+		checked: null,
+		tip: ""
+	});
 
 	useEffect(() => {
 		isMountedRef.current = true;
@@ -72,7 +79,12 @@ export default () => {
 
 	const onChangePhone = e => {
 		let value = e.target.value;
-		setPhoneValue(value);
+		let regex = /^(\(?\+?[0-9]*\?)?[0-9_]*$/;
+		if (!(regex.test(value) || value === "")) {
+			return false;
+		} else {
+			setPhoneValue(value);
+		}
 	};
 
 	const onChangeEmail = e => {
@@ -90,9 +102,17 @@ export default () => {
 			checkResult = true;
 		} else if (!userInfo.accountName && nameValue === "") {
 			checkResult = false;
-			setNameErr(t("lbl_NameRequired"));
+			setStatus(prev => ({
+				...prev,
+				col: "accountName",
+				tip: t("lbl_NameRequired")
+			}));
 		} else if (!userInfo.accountName && nameValue !== "") {
-			setNameErr("");
+			setStatus(prev => ({
+				...prev,
+				col: "accountName",
+				tip: ""
+			}));
 			checkResult = true;
 		}
 		return checkResult;
@@ -104,10 +124,18 @@ export default () => {
 			checkResult = true;
 		} else if (!userInfo.birth_d && birthValue === "") {
 			checkResult = false;
-			setBirthErr(t("lbl_BirthRequired"));
+			setStatus(prev => ({
+				...prev,
+				col: "birth",
+				tip: t("lbl_BirthRequired")
+			}));
 		} else if (!userInfo.birth_d && birthValue !== "") {
 			checkResult = true;
-			setBirthErr("");
+			setStatus(prev => ({
+				...prev,
+				col: "birth",
+				tip: ""
+			}));
 		}
 		return checkResult;
 	};
@@ -117,31 +145,100 @@ export default () => {
 		if (userInfo.phoneNo) {
 			checkResult = true;
 		}
-		if (!userInfo.phoneNo && phoneValue === "") {
+		if (!userInfo.phoneNo && phoneValue.length < 5) {
 			checkResult = false;
-			setPhoneErr(t("lbl_PhoneRequired"));
+			setStatus(prev => ({
+				...prev,
+				col: "phoneNo",
+				tip: t("lbl_PhoneRequired")
+			}));
 		} else if (!userInfo.phoneNo && phoneValue !== "") {
 			checkResult = true;
-			setPhoneErr("");
+			setStatus(prev => ({
+				...prev,
+				col: "phoneNo",
+				tip: ""
+			}));
 		}
 		return checkResult;
+	};
+
+	const checkEmailIsUnique = async () => {
+		if (!userInfo.email && emailValue && emailValue.length > 0) {
+			let result = await api_site_ExistsEmail({ Email: emailValue }).then(
+				res => {
+					if (isMountedRef.current) {
+						if (res.data.errorCode === 0) {
+							if (res.data.data === true) {
+								setStatus(prev => ({
+									...prev,
+									col: "email",
+									tip: t("msg_MailExisted")
+								}));
+								return false;
+							} else if (res.data.data === false) {
+								return true;
+							}
+						}
+					}
+				},
+				err => {
+					if (isMountedRef.current) {
+						setPopBox({
+							isOpen: true,
+							popBoxType: defPopBoxType.ErrorMsg,
+							message: t("msg_ApiServerError"),
+							btnBar: (
+								<div className="btnGroup">
+									<button
+										className="btn-cancel"
+										onClick={ClickClose}>
+										{t("lbl_Close")}
+									</button>
+								</div>
+							)
+						});
+					}
+				}
+			);
+			return result;
+		}
+		return false;
 	};
 
 	const checkEmail = () => {
 		let checkResult = false;
 		let emailRegex = /^\w+((-\w+)|(\.\w+))*@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
+		checkEmailIsUnique();
+
 		if (userInfo.email) {
 			checkResult = true;
 		}
 		if (!userInfo.email && emailValue === "") {
 			checkResult = false;
-			setEmailErr(t("lbl_EmailRequired"));
-		} else if (!emailRegex.test(emailValue)) {
+			setStatus(prev => ({
+				...prev,
+				col: "email",
+				tip: t("lbl_EmailRequired")
+			}));
+		} else if (
+			!userInfo.email &&
+			emailValue.length > 0 &&
+			!emailRegex.test(emailValue)
+		) {
 			checkResult = false;
-			setEmailErr(t("lbl_EmailFormatError"));
+			setStatus(prev => ({
+				...prev,
+				col: "email",
+				tip: t("lbl_EmailFormatError")
+			}));
 		} else if (!userInfo.email && emailValue !== "") {
 			checkResult = true;
-			setEmailErr("");
+			setStatus(prev => ({
+				...prev,
+				col: "email",
+				tip: ""
+			}));
 		}
 		return checkResult;
 	};
@@ -151,7 +248,9 @@ export default () => {
 			checkName() === true &&
 			checkBirth() === true &&
 			checkPhone() === true &&
-			checkEmail() === true
+			checkEmail() === true &&
+			checkEmailIsUnique()?.then(res => console.log(res === true)) &&
+			status.tip === ""
 		) {
 			if (!userInfo.accountName) {
 				setPopBox({
@@ -174,6 +273,28 @@ export default () => {
 			} else {
 				submitProfile();
 			}
+		}
+	};
+
+	const clickInfo = col => {
+		if (col === "accountName") {
+			setStatus(prev => ({
+				...prev,
+				col: "accountName",
+				tip: t("lbl_RemindForName")
+			}));
+		} else if (col === "phoneNo") {
+			setStatus(prev => ({
+				...prev,
+				col: "phoneNo",
+				tip: t("lbl_PhoneTooltip")
+			}));
+		} else if (col === "email") {
+			setStatus(prev => ({
+				...prev,
+				col: "email",
+				tip: t("lbl_EmailToolTip")
+			}));
 		}
 	};
 
@@ -223,7 +344,7 @@ export default () => {
 								? birthValue.slice(0, 4)
 								: userInfo.birth_y,
 							phoneNo: phoneValue,
-							email: emailValue
+							email: !userInfo.email ? emailValue : userInfo.email
 						}));
 						setNameValue("");
 						setBirthValue("");
@@ -273,6 +394,64 @@ export default () => {
 		);
 	};
 
+	const sendVerifySMS = () => {
+		setMobileVerificationLoading(true);
+
+		api_accountStrict_SendVerifySMS().then(
+			res => {
+				if (isMountedRef.current) {
+					const {
+						data: { errorCode, message }
+					} = res;
+					const success = errorCode === 0;
+					if (success) {
+						setPopBox({
+							isOpen: true,
+							request_id: message,
+							popBoxType: defPopBoxType.VerifyPhoneForm
+						});
+					} else {
+						setPopBox({
+							isOpen: true,
+							popBoxType: defPopBoxType.ErrorMsg,
+							message: message || "error",
+							errorCode,
+							btnBar: (
+								<div className="btnGroup">
+									<button
+										className="btn-cancel"
+										onClick={ClickClose}>
+										{t("lbl_Close")}
+									</button>
+								</div>
+							)
+						});
+					}
+					setMobileVerificationLoading(false);
+				}
+			},
+			err => {
+				if (isMountedRef.current) {
+					setPopBox({
+						isOpen: true,
+						popBoxType: defPopBoxType.ErrorMsg,
+						message: t("msg_ApiServerError"),
+						btnBar: (
+							<div className="btnGroup">
+								<button
+									className="btn-cancel"
+									onClick={ClickClose}>
+									{t("lbl_Close")}
+								</button>
+							</div>
+						)
+					});
+					setMobileVerificationLoading(false);
+				}
+			}
+		);
+	};
+
 	return loading ? (
 		<Loading />
 	) : redirectPath === null ? (
@@ -290,7 +469,11 @@ export default () => {
 						? "profileEdit"
 						: ""
 				}>
-				<ProfileRead userInfo={userInfo} />
+				<ProfileRead
+					userInfo={userInfo}
+					sendVerifySMS={sendVerifySMS}
+					mobileVerificationLoading={mobileVerificationLoading}
+				/>
 				{!userInfo.accountName ||
 				!userInfo.birth_d ||
 				!userInfo.phoneNo ||
@@ -306,14 +489,14 @@ export default () => {
 						birthValue={birthValue}
 						phoneValue={phoneValue}
 						emailValue={emailValue}
-						nameErr={nameErr}
-						birthErr={birthErr}
-						phoneErr={phoneErr}
-						emailErr={emailErr}
 						checkName={checkName}
 						checkBirth={checkBirth}
 						checkPhone={checkPhone}
 						checkEmail={checkEmail}
+						clickInfo={clickInfo.bind(this)}
+						checked={status.checked}
+						col={status.col}
+						tip={status.tip}
 					/>
 				) : null}
 			</div>

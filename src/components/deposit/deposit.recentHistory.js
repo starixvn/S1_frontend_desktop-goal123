@@ -158,11 +158,11 @@ export default () => {
 			popBoxType: defPopBoxType.Cancel,
 			btnBar: (
 				<div className="btnGroup">
-					<button className="btn-cancel" onClick={ClosePopBox}>
-						{t("lbl_No")}
-					</button>
-					<button className="btn-check" onClick={ClickConfirm}>
+					<button className="btn-cancel" onClick={ClickConfirm}>
 						{t("lbl_Yes")}
+					</button>
+					<button className="btn-check" onClick={ClosePopBox}>
+						{t("lbl_No")}
 					</button>
 				</div>
 			)
