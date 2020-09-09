@@ -279,26 +279,48 @@ export default () => {
 		);
 	};
 
-	const sendVerifySMS = async () => {
+	const sendVerifySMS = () => {
 		setMobileVerificationLoading(true);
-		try {
-			const {
-				data: { errorCode, message }
-			} = await api_accountStrict_SendVerifySMS();
-			if (isMountedRef.current) {
-				const success = errorCode === 0;
-				if (success) {
-					setPopBox({
-						isOpen: true,
-						request_id: message,
-						popBoxType: defPopBoxType.VerifyPhoneForm
-					});
-				} else {
+
+		api_accountStrict_SendVerifySMS().then(
+			res => {
+				if (isMountedRef.current) {
+					const {
+						data: { errorCode, message }
+					} = res;
+					const success = errorCode === 0;
+					if (success) {
+						setPopBox({
+							isOpen: true,
+							request_id: message,
+							popBoxType: defPopBoxType.VerifyPhoneForm
+						});
+					} else {
+						setPopBox({
+							isOpen: true,
+							popBoxType: defPopBoxType.ErrorMsg,
+							message: message || "error",
+							errorCode,
+							btnBar: (
+								<div className="btnGroup">
+									<button
+										className="btn-cancel"
+										onClick={ClickClose}>
+										{t("lbl_Close")}
+									</button>
+								</div>
+							)
+						});
+					}
+					setMobileVerificationLoading(false);
+				}
+			},
+			err => {
+				if (isMountedRef.current) {
 					setPopBox({
 						isOpen: true,
 						popBoxType: defPopBoxType.ErrorMsg,
-						message: message || "error",
-						errorCode,
+						message: t("msg_ApiServerError"),
 						btnBar: (
 							<div className="btnGroup">
 								<button
@@ -309,24 +331,10 @@ export default () => {
 							</div>
 						)
 					});
+					setMobileVerificationLoading(false);
 				}
-				setMobileVerificationLoading(false);
 			}
-		} catch (e) {
-			setPopBox({
-				isOpen: true,
-				popBoxType: defPopBoxType.ErrorMsg,
-				message: t("msg_ApiServerError"),
-				btnBar: (
-					<div className="btnGroup">
-						<button className="btn-cancel" onClick={ClickClose}>
-							{t("lbl_Close")}
-						</button>
-					</div>
-				)
-			});
-			setMobileVerificationLoading(false);
-		}
+		);
 	};
 
 	return loading ? (

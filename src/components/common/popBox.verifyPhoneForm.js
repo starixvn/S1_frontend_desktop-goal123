@@ -8,7 +8,7 @@ import {
 } from "../../service/api/accountStrict";
 
 export default ({ request_id }) => {
-	const { userInfo, setUserInfo } = useContext(userInfoContext);
+	const { setUserInfo } = useContext(userInfoContext);
 	const { setPopBox } = useContext(popBoxContext);
 	const isMountedRef = useRef(null);
 	const { t } = useTranslation();
@@ -35,17 +35,14 @@ export default ({ request_id }) => {
 		};
 	}, []);
 
-	const MobileVerificationLoading = () => {
-		return (
-			<div className="otpLoading">
-				<i className="icon icon-spinner11"></i>
-			</div>
-		);
+	const onChanheCode = e => {
+		setCode(e.target.value);
 	};
 
 	const clickClose = () => {
 		setPopBox({ isOpen: false });
 	};
+
 	const startTimer = () => {
 		const countDownSecond = 300;
 		const startTime = Date.now();
@@ -62,24 +59,100 @@ export default ({ request_id }) => {
 		timerRef.current = countDownTimerID;
 	};
 
-	const sendVerifySMS = async () => {
+	const sendVerifySMS = () => {
 		setMobileVerificationLoading(true);
-		try {
-			const {
-				data: { errorCode, message }
-			} = await api_accountStrict_SendVerifySMS();
-			if (isMountedRef.current) {
-				const success = errorCode === 0;
-				if (success) {
-					startTimer();
-					setRequestId(message);
-				} else {
+
+		api_accountStrict_SendVerifySMS().then(
+			res => {
+				if (isMountedRef.current) {
+					const {
+						data: { errorCode, message }
+					} = res;
+					const success = errorCode === 0;
+					if (success) {
+						startTimer();
+						setRequestId(message);
+					} else {
+						clickClose();
+						setPopBox({
+							isOpen: true,
+							popBoxType: defPopBoxType.ErrorMsg,
+							message: message || "error",
+							errorCode,
+							btnBar: (
+								<div className="btnGroup">
+									<button
+										className="btn-cancel"
+										onClick={clickClose}>
+										{t("lbl_Close")}
+									</button>
+								</div>
+							)
+						});
+					}
+					setMobileVerificationLoading(false);
+				}
+			},
+			err => {
+				if (isMountedRef.current) {
 					clickClose();
 					setPopBox({
 						isOpen: true,
 						popBoxType: defPopBoxType.ErrorMsg,
-						message: message || "error",
-						errorCode,
+						message: t("msg_ApiServerError"),
+						btnBar: (
+							<div className="btnGroup">
+								<button
+									className="btn-cancel"
+									onClick={clickClose}>
+									{t("lbl_Close")}
+								</button>
+							</div>
+						)
+					});
+					setMobileVerificationLoading(false);
+				}
+			}
+		);
+	};
+
+	const verifyPone = () => {
+		if (!code) return setVerifyPhoneError(t("msg_EnterOTPCode"));
+
+		setVerifyPhoneloading(true);
+		setCode("");
+		setVerifyPhoneError("");
+
+		api_accountStrict_VerifyPhone({
+			request_id: requestId,
+			code
+		}).then(
+			res => {
+				if (isMountedRef.current) {
+					setVerifyPhoneloading(false);
+					const {
+						data: { errorCode, message }
+					} = res;
+					const success = errorCode === 0;
+					if (success) {
+						setUserInfo(prev => ({
+							...prev,
+							phoneVerified: true
+						}));
+						clickClose();
+					} else {
+						setVerifyPhoneError(message);
+					}
+				}
+			},
+			err => {
+				if (isMountedRef.current) {
+					setVerifyPhoneloading(false);
+					clickClose();
+					setPopBox({
+						isOpen: true,
+						popBoxType: defPopBoxType.ErrorMsg,
+						message: t("msg_ApiServerError"),
 						btnBar: (
 							<div className="btnGroup">
 								<button
@@ -91,102 +164,34 @@ export default ({ request_id }) => {
 						)
 					});
 				}
-				setMobileVerificationLoading(false);
 			}
-		} catch (e) {
-			clickClose();
-			setPopBox({
-				isOpen: true,
-				popBoxType: defPopBoxType.ErrorMsg,
-				message: t("msg_ApiServerError"),
-				btnBar: (
-					<div className="btnGroup">
-						<button className="btn-cancel" onClick={clickClose}>
-							{t("lbl_Close")}
-						</button>
-					</div>
-				)
-			});
-			setMobileVerificationLoading(false);
-		}
-	};
-
-	const verifyPone = async () => {
-		if (!code) return;
-
-		setVerifyPhoneloading(true);
-		setCode("");
-		setVerifyPhoneError("");
-		console.log(requestId, code);
-		try {
-			const {
-				data: { errorCode, message }
-			} = await api_accountStrict_VerifyPhone({
-				request_id: requestId,
-				code
-			});
-			if (isMountedRef.current) {
-				setVerifyPhoneloading(false);
-				const success = errorCode === 0;
-				if (success) {
-					setUserInfo(prev => ({
-						...prev,
-						phoneVerified: true
-					}));
-					clickClose();
-				} else {
-					setVerifyPhoneError(message);
-				}
-			}
-		} catch (e) {
-			if (isMountedRef.current) {
-				setVerifyPhoneloading(false);
-				clickClose();
-				setPopBox({
-					isOpen: true,
-					popBoxType: defPopBoxType.ErrorMsg,
-					message: t("msg_ApiServerError"),
-					btnBar: (
-						<div className="btnGroup">
-							<button className="btn-cancel" onClick={clickClose}>
-								{t("lbl_Close")}
-							</button>
-						</div>
-					)
-				});
-			}
-		}
+		);
 	};
 
 	return (
 		<div className="editSuccess active" style={{ display: "flex" }}>
 			{/* <!--輸入OTP--> */}
 			<div className="icon icon-icon32px_notification"></div>
-			<div className="title">Important Note</div>
+			<div className="title">{t("lbl_ImportantNote")}</div>
 			<div className="txt-lightgray">{t("msg_OTPSendCode")}</div>
 			<div className="inputModuleRow">
 				<div className="inputBox">
-					<input
-						value={code}
-						onChange={e => setCode(e.target.value)}
-					/>
+					<input value={code} onChange={e => onChanheCode(e)} />
 				</div>
 				<div className="btnGroup otpBtn">
 					{verifyPhoneloading ? (
-						<div style={{ minWidth: "128px" }}>
-							<MobileVerificationLoading />
-						</div>
+						<MobileVerificationLoading />
 					) : (
 						<button onClick={verifyPone} className="btn-check">
-							Submit
+							{t("lbl_Submit")}
 						</button>
 					)}
 				</div>
 			</div>
 
-			{verifyPhoneError ? (
-				<div className="tip active">{verifyPhoneError}</div>
-			) : null}
+			<div className={`tip ${verifyPhoneError ? "active" : ""}`}>
+				{verifyPhoneError}
+			</div>
 
 			<div className="btnGroup">
 				<button className="btn-cancel" onClick={clickClose}>
@@ -194,9 +199,7 @@ export default ({ request_id }) => {
 				</button>
 
 				{mobileVerificationLoading ? (
-					<div style={{ minWidth: "128px" }}>
-						<MobileVerificationLoading />
-					</div>
+					<MobileVerificationLoading />
 				) : (
 					<button
 						disabled={retransmitSeconds > 0}
@@ -207,6 +210,16 @@ export default ({ request_id }) => {
 							: retransmitSeconds}
 					</button>
 				)}
+			</div>
+		</div>
+	);
+};
+
+const MobileVerificationLoading = () => {
+	return (
+		<div style={{ minWidth: "128px" }}>
+			<div className="otpLoading">
+				<i className="icon icon-spinner11"></i>
 			</div>
 		</div>
 	);

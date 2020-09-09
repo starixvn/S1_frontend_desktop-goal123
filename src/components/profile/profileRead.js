@@ -69,13 +69,6 @@ export default props => {
 
 	const showColumn = dataList?.filter(item => item.show === true);
 
-	const MobileVerificationLoading = () => {
-		return (
-			<div className="otpLoading">
-				<i className="icon icon-spinner11"></i>
-			</div>
-		);
-	};
 	const layout = showColumn?.map(item => {
 		return (
 			<div key={`profileRead-${item.label}`}>
@@ -84,7 +77,9 @@ export default props => {
 					{item.value}
 					{item.format === "phone" ? (
 						props.mobileVerificationLoading ? (
-							<MobileVerificationLoading />
+							<div className="otpLoading">
+								<i className="icon icon-spinner11"></i>
+							</div>
 						) : props.userInfo.phoneVerified ? (
 							<span className="icon icon-checkmark"></span>
 						) : (

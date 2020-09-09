@@ -239,5 +239,6 @@
 	"lbl_Feature": "Đặc điểm",
 	"msg_InsufficientFund": "Không đủ tiền!",
 	"msg_changePswSuccess": "The update is successful! You can use the new password when you login in next time.",
-	"msg_OTPSendCode": "Mã xác nhận đã được gửi đến số điện thoại đăng ký. Vui lòng nhập mã. "
+	"msg_OTPSendCode": "Mã xác nhận đã được gửi đến số điện thoại đăng ký. Vui lòng nhập mã. ",
+	"msg_EnterOTPCode": "Please enter OTP code."
 }

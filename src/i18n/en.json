@@ -285,5 +285,6 @@
 	"lbl_Feature": "Feature",
 	"msg_InsufficientFund": "Insufficient Fund!",
 	"msg_changePswSuccess": "The update is successful! You can use the new password when you login in next time.",
-	"msg_OTPSendCode": "We have sent the verification code to your registered mobile. Please enter your code."
+	"msg_OTPSendCode": "We have sent the verification code to your registered mobile. Please enter your code.",
+	"msg_EnterOTPCode": "Please enter OTP code."
 }
