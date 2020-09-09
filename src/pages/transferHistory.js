@@ -55,6 +55,7 @@ const Content = () => {
 	const { setPopBox } = useContext(popBoxContext);
 	const [getHistory, setGetHistory] = useState(null);
 	const [filterData, setFilterData] = useState(null);
+	const [keepData, setKeepData] = useState(null);
 	const [processing, setProcessing] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const [pagination, setPagination] = useState(initPagination);
@@ -85,6 +86,7 @@ const Content = () => {
 							...prev,
 							totalPages: res.data.totalPages
 						}));
+						setLoading(false);
 					} else {
 						setPopBox({
 							isOpen: true,
@@ -100,9 +102,9 @@ const Content = () => {
 								</div>
 							)
 						});
+						setLoading(false);
 					}
 					setProcessing(false);
-					setLoading(false);
 				}
 			},
 			err => {
@@ -128,7 +130,7 @@ const Content = () => {
 		);
 	};
 
-	const clickDateSubmit = (startDate, endDate, isUnix) => {
+	const clickDateSubmit = (startDate, endDate, isUnix, quickPick) => {
 		if (!processing) {
 			setProcessing(true);
 			let transactionData = filterData;
@@ -139,7 +141,14 @@ const Content = () => {
 					EndDate: moment(endDate).endOf("day").unix()
 				};
 				setFilterData(transactionData);
+
+				setKeepData({
+					startDate: startDate,
+					endDate: endDate,
+					quickPick: quickPick
+				});
 			}
+
 			setPagination(prev => ({ ...prev, currentPage: 1 }));
 			GetTransferHistory(transactionData, 1);
 		}
@@ -186,7 +195,7 @@ const Content = () => {
 			<div className="inside-title icon icon-icon32px_History">
 				<span>{t("lbl_TransferHistory")}</span>
 			</div>
-			<Filter submitHandler={clickDateSubmit} />
+			<Filter submitHandler={clickDateSubmit} keepData={keepData} />
 
 			{getHistory ? (
 				getHistory.length > 0 ? (
