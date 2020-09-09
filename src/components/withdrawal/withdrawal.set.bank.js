@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import AddBankAccount from "./addBankAccount";
 import Available from "./withdrawal.set.available";
 import Calculation from "./withdrawal.set.calculation";
-import CashBar from "./withdrawal.set.cashBar";
+// import CashBar from "./withdrawal.set.cashBar";
 import InputModuleRow from "./withdrawal.set.inputModuleRow";
 import BankInfoCard from "./withdrawal.set.bankInfoCard";
 import KycUpload from "./withdrawal.set.kycUpload";
@@ -278,7 +278,7 @@ export default props => {
 					if (res.data.errorCode === 2 || res.data.errorCode === 0) {
 						setPopBox({
 							isOpen: true,
-							popBoxType: defPopBoxType.Success,
+							popBoxType: defPopBoxType.WithdrawalSuccess,
 							btnBar: (
 								<div className="btnGroup">
 									<button
@@ -290,6 +290,7 @@ export default props => {
 							)
 						});
 						props.refreshHitory("refresh");
+						getKycStatus();
 					} else if (res.data.errorCode === -1) {
 						setPopBox({
 							isOpen: true,
@@ -328,8 +329,8 @@ export default props => {
 							popBoxType: defPopBoxType.ErrorMsg,
 							message:
 								t("lbl_WithdrawalOver") +
-								":" +
-								res.data.message,
+								": " +
+								parseInt(res.data.message, 10).toString(),
 							btnBar: (
 								<div className="btnGroup">
 									<button
