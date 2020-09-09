@@ -121,8 +121,6 @@ export default props => {
 	};
 
 	const getApiBalance = () => {
-		setLoading(true);
-
 		api_account_GetWithdrawalAvailableBalance().then(
 			res => {
 				if (isMountedRef.current) {

@@ -15,6 +15,7 @@ import moment from "moment";
 import Filter from "../components/common/historyFilter";
 import LeftMenu from "../components/common/leftMenu";
 import Loading from "../components/common/loading";
+import ReloadSpin from "../components/common/reloadSpin";
 
 export default () => {
 	return (
@@ -61,8 +62,6 @@ const Content = () => {
 	};
 
 	const GetWithdrawalInfoHistory = (transactionData, pageNumber) => {
-		setLoading(true);
-
 		api_payment_GetWithdrawalInfoHistory({
 			...transactionData,
 			PageNumber: pageNumber
@@ -92,7 +91,6 @@ const Content = () => {
 						});
 					}
 					setProcessing(false);
-					setLoading(false);
 				}
 			},
 			err => {
@@ -112,7 +110,6 @@ const Content = () => {
 						)
 					});
 					setProcessing(false);
-					setLoading(false);
 				}
 			}
 		);
@@ -261,13 +258,13 @@ const Content = () => {
 							<div>{t("lbl_Status")}</div>
 							<div>
 								{t("lbl_Action")}
-								<button
-									className="icon icon-spinner11"
-									onClick={clickDateSubmit.bind(
+								<ReloadSpin
+									func={clickDateSubmit.bind(
 										this,
-										filterData.StartDate,
-										filterData.EndDate
-									)}></button>
+										filterData?.StartDate,
+										filterData?.EndDate
+									)}
+								/>
 							</div>
 						</div>
 						<div className="listBody">{arr}</div>

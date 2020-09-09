@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { number_format } from "../common/common";
 import { useTranslation } from "react-i18next";
+import ReloadSpin from "../common/reloadSpin";
 
 export default props => {
 	const { t } = useTranslation();
@@ -32,9 +33,7 @@ export default props => {
 				<span>
 					{number_format(props.availableBalance, props._isConvert)}
 				</span>
-				<i
-					className="icon icon-spinner11"
-					onClick={props.refreshAvailableBalance}></i>
+				<ReloadSpin func={props.refreshAvailableBalance} />
 			</div>
 		</>
 	);

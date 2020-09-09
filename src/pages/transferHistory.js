@@ -12,6 +12,7 @@ import Filter from "../components/common/historyFilter";
 import LeftMenu from "../components/common/leftMenu";
 import Loading from "../components/common/loading";
 import { defPopBoxType } from "../components/common/popBox";
+import ReloadSpin from "../components/common/reloadSpin";
 
 export default () => {
 	return (
@@ -68,8 +69,6 @@ const Content = () => {
 	});
 
 	const GetTransferHistory = (transactionData, pageNumber) => {
-		setLoading(true);
-
 		const ClickClose = () => {
 			setPopBox({ isOpen: false });
 		};
@@ -86,7 +85,6 @@ const Content = () => {
 							...prev,
 							totalPages: res.data.totalPages
 						}));
-						setLoading(false);
 					} else {
 						setPopBox({
 							isOpen: true,
@@ -102,7 +100,6 @@ const Content = () => {
 								</div>
 							)
 						});
-						setLoading(false);
 					}
 					setProcessing(false);
 				}
@@ -124,7 +121,6 @@ const Content = () => {
 						)
 					});
 					setProcessing(false);
-					setLoading(false);
 				}
 			}
 		);
@@ -210,13 +206,13 @@ const Content = () => {
 							<div>{t("lbl_Amount")}</div>
 							<div>
 								{t("lbl_Status")}
-								<button
-									className="icon icon-spinner11"
-									onClick={clickDateSubmit.bind(
+								<ReloadSpin
+									func={clickDateSubmit.bind(
 										this,
 										filterData?.StartDate,
 										filterData?.EndDate
-									)}></button>
+									)}
+								/>
 							</div>
 						</div>
 						<div className="listBody">{arr}</div>

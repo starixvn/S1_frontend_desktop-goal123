@@ -11,6 +11,7 @@ import moment from "moment";
 import LeftMenu from "../components/common/leftMenu";
 import Loading from "../components/common/loading";
 import { defPopBoxType } from "../components/common/popBox";
+import ReloadSpin from "../components/common/reloadSpin";
 
 export default () => {
 	return (
@@ -53,8 +54,6 @@ const Content = () => {
 	});
 
 	const GetStatement = (transactionData, pageNumber) => {
-		setLoading(true);
-
 		const ClickClose = () => {
 			setPopBox({ isOpen: false });
 		};
@@ -88,7 +87,6 @@ const Content = () => {
 						});
 					}
 					setProcessing(false);
-					setLoading(false);
 				}
 			},
 			err => {
@@ -108,7 +106,6 @@ const Content = () => {
 						)
 					});
 					setProcessing(false);
-					setLoading(false);
 				}
 			}
 		);
@@ -187,13 +184,13 @@ const Content = () => {
 							<div>{t("lbl_BeforeAmount")}</div>
 							<div>
 								{t("lbl_AfterAmount")}
-								<button
-									className="icon icon-spinner11"
-									onClick={clickDateSubmit.bind(
+								<ReloadSpin
+									func={clickDateSubmit.bind(
 										this,
 										filterData?.StartDate,
 										filterData?.EndDate
-									)}></button>
+									)}
+								/>
 							</div>
 						</div>
 						<div className="listBody">{arr}</div>

@@ -1,6 +1,7 @@
 import React from "react";
 import { number_format } from "../common/common";
 import PropTypes from "prop-types";
+import ReloadSpin from "../common/reloadSpin";
 
 const ShowWallet = props => {
 	let arr = props.getWalletInfo.map((item, idx) => {
@@ -23,9 +24,7 @@ const ShowWallet = props => {
 	return (
 		<div className="walletModule">
 			{arr}
-			<i
-				className="icon icon-spinner11"
-				onClick={props.GetWalletInfo}></i>
+			<ReloadSpin func={props.GetWalletInfo} />
 		</div>
 	);
 };
