@@ -106,13 +106,14 @@ const AfterLogin = () => {
 
 	const handleLogout = () => {
 		LOGOUT(() => {
-			setUserInfo(prevState => ({
-				isLogin: false,
-				langId: prevState.langId
-			}));
 			const ClickClose = () => {
 				setPopBox({ isOpen: false });
-				setUserInfo(prevS => ({ ...prevS, kickout: false }));
+				setUserInfo(prevState => ({
+					isLogin: false,
+					langId: prevState.langId,
+					kickout: true,
+					willLogout: true
+				}));
 			};
 			setPopBox({
 				isOpen: true,
