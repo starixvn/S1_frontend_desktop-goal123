@@ -13,6 +13,8 @@ import { api_account_GetCustSpecificBonus } from "../../service/api/account";
 import { defPopBoxType } from "../common/popBox";
 import ProcessBar from "./promotion.processBar";
 import { isExpiry, isClaimed } from "./promotion.common";
+import { Link } from "@reach/router";
+import path from "../../path";
 
 export default () => {
 	const { t } = useTranslation();
@@ -62,38 +64,80 @@ export default () => {
 				popBoxType: defPopBoxType.Login
 			});
 		} else {
-			api_promotion_SetClaimPromotion({
-				langId: userInfo.langId,
-				BonusCode: _promo.bonusCode
-			}).then(
-				res => {
-					if (isMountedRef.current && res.data.errorCode === 0) {
-						GetPromotionDetail(userInfo.langId, _promo.bonusCode);
-						const ClosePopBox = () => {
-							setPopBox({
-								isOpen: false
-							});
-						};
+			const ClosePopBox = () => {
+				setPopBox({
+					isOpen: false
+				});
+			};
 
-						setPopBox({
-							isOpen: true,
-							popBoxType: defPopBoxType.Success,
-							btnBar: (
-								<div className="btnGroup">
-									<button
-										className="btn-check"
-										onClick={ClosePopBox}>
-										OK
-									</button>
-								</div>
-							)
-						});
+			if (userInfo.phoneVerified) {
+				api_promotion_SetClaimPromotion({
+					langId: userInfo.langId,
+					BonusCode: _promo.bonusCode
+				}).then(
+					res => {
+						if (isMountedRef.current && res.data.errorCode === 0) {
+							GetPromotionDetail(
+								userInfo.langId,
+								_promo.bonusCode
+							);
+
+							setPopBox({
+								isOpen: true,
+								popBoxType: defPopBoxType.Success,
+								btnBar: (
+									<div className="btnGroup">
+										<button
+											className="btn-check"
+											onClick={ClosePopBox}>
+											OK
+										</button>
+									</div>
+								)
+							});
+						} else {
+							setPopBox({
+								isOpen: true,
+								popBoxType: defPopBoxType.ErrorMsg,
+								message: res.data.message
+									? res.data.message
+									: `[${res.data.errorCode}] Something went wrong...`,
+								btnBar: (
+									<div className="btnGroup">
+										<button
+											className="btn-cancel"
+											onClick={ClosePopBox}>
+											{t("lbl_Close")}
+										</button>
+									</div>
+								)
+							});
+						}
+					},
+					err => {
+						alert(t("msg_ApiServerError"));
 					}
-				},
-				err => {
-					alert(t("msg_ApiServerError"));
-				}
-			);
+				);
+			} else {
+				setPopBox({
+					isOpen: true,
+					popBoxType: defPopBoxType.OTPHint,
+					btnBar: (
+						<div className="btnGroup">
+							<button
+								className="btn-cancel"
+								onClick={ClosePopBox}>
+								{t("lbl_Cancel")}
+							</button>
+							<Link
+								to={`/${userInfo.langId}/${path.profile.root}`}
+								className="btn-check">
+								{t("lbl_GoNow")}
+							</Link>
+						</div>
+					)
+				});
+			}
 		}
 	};
 

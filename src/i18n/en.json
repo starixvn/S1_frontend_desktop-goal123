@@ -295,5 +295,7 @@
 	"lbl_TransactionSpeedDesc":"Instant or 2-3 mins for deposits. 10 mins for withdrawals",
 	"msg_DepositHint":"Deposit now to enjoy our games and services.",
 	"lbl_Lottery":"Lottery",
-	"lbl_WithdrawalSuccess":"Your withdrawal request was successful. We will notify you once it is done."
+	"lbl_WithdrawalSuccess":"Your withdrawal request was successful. We will notify you once it is done.",
+	"msg_OTPHint":"Please complete your profile and verify your phone to enjoy our promotions.",
+  	"lbl_GoNow":"Go Now!"
 }

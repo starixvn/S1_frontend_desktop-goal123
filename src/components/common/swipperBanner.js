@@ -9,6 +9,15 @@ import {
 } from "../../components/common/context";
 import { SET_ENTER_PAGE } from "../../service/enterPage";
 import path from "../../path";
+import { Link } from "@reach/router";
+
+export const defBannerFolder = {
+	Sports: "Sports"
+};
+
+export const defSpecialActionLink = {
+	SportsIndex: "Sports/Index"
+};
 
 export const ClickLink = (
 	tpId,
@@ -23,10 +32,12 @@ export const ClickLink = (
 	openInBlank
 ) => {
 	if (href === "Casino/Lobby") {
-		window.location.href = `/${path.casino.root}${tpId ? `/${tpId}` : ""}`;
+		window.location.href = `/${lang}/${path.casino.root}${
+			tpId ? `/${tpId}` : ""
+		}`;
 	} else if (tpId === null) {
 		if (href === "Promotion/Index") {
-			window.location.href = `/${path.promotion.root}`;
+			window.location.href = `/${lang}/${path.promotion.root}`;
 		} else if (href === "Home/Register") {
 		} else {
 			window.open(
@@ -95,7 +106,15 @@ const Panel = ({
 			? b.imgURL
 			: `${config.imgUrl}/CMS/${config.siteName}/${_imgFolder}/${lang}/${b.img}`;
 
-		return (
+		let key = `${lang}-${b.img}-${idx}`;
+
+		return actionLink === defSpecialActionLink.SportsIndex ? (
+			<Link
+				key={key}
+				to={`${userInfo.langId}/${path.sports.root}?tpId=${b.tpId}&gameId=${b.gameId}&matchid=${b.matchid}`}>
+				<img src={imgSRC} className="banner" alt={b.img ?? ""} />
+			</Link>
+		) : (
 			<button
 				onClick={ClickLink.bind(
 					this,
@@ -110,7 +129,7 @@ const Panel = ({
 					b.matchid,
 					openInBlank
 				)}
-				key={`${lang}-${b.img}-${idx}`}>
+				key={key}>
 				<img src={imgSRC} className="banner" alt={b.img ?? ""} />
 			</button>
 		);
@@ -122,6 +141,7 @@ const Panel = ({
 const defSwipperConfig = {
 	spaceBetween: 30,
 	centeredSlides: true,
+	loop: true,
 	autoplay: {
 		delay: 2500,
 		disableOnInteraction: false
@@ -140,7 +160,19 @@ const Autoplay = props => {
 };
 
 const AutoPlayWithBtn = ({ Rows }) => {
-	const params = defSwipperConfig;
+	const params = {
+		...defSwipperConfig,
+		navigation: {
+			nextEl: ".swiper-button-next",
+			prevEl: ".swiper-button-prev"
+		},
+		renderPrevButton: () => (
+			<div className="swiper-button-prev" onClick={goPrev}></div>
+		),
+		renderNextButton: () => (
+			<div className="swiper-button-next" onClick={goNext}></div>
+		)
+	};
 	const ref = useRef(null);
 
 	const goNext = () => {
@@ -164,12 +196,6 @@ const AutoPlayWithBtn = ({ Rows }) => {
 					</Swiper>
 				</div>
 			</div>
-			{Rows && Rows.length > 0 ? (
-				<>
-					<div className="swiper-button-next" onClick={goNext}></div>
-					<div className="swiper-button-prev" onClick={goPrev}></div>
-				</>
-			) : null}
 		</>
 	) : (
 		<></>
