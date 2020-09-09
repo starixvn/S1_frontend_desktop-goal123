@@ -19,10 +19,10 @@ export default props => {
 				<ul>
 					<li>{t("lbl_AccountNumber")}</li>
 					<li className="accountNumber">
-						<span>{props.accountNoValue.slice(0, 4)}</span>
-						<span>{props.accountNoValue.slice(4, 8)}</span>
-						<span>{props.accountNoValue.slice(8, 12)}</span>
-						<span>{props.accountNoValue.slice(12, 16)}</span>
+						{props.accountNoValue?.slice(0, 4) + " "}
+						{props.accountNoValue?.slice(4, 8) + " "}
+						{props.accountNoValue?.slice(8, 12) + " "}
+						{props.accountNoValue?.slice(12, 16)}
 					</li>
 				</ul>
 				<ul>
@@ -41,7 +41,7 @@ export default props => {
 					{t("lbl_Cancel")}
 				</button>
 				<button className="btn-check" onClick={props.confirmSubmit}>
-					{t("lbl_Submit")}
+					{t("lbl_Confirm")}
 				</button>
 			</div>
 		</div>
