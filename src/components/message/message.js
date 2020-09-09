@@ -228,6 +228,7 @@ export default () => {
 								className="icon icon-checkbox-checked"></label>
 						</div>
 						<button
+							aria-label="popDelete"
 							className="icon icon-bin"
 							onClick={popDelete}></button>
 						<ReloadSpin

@@ -336,7 +336,6 @@ const Content = () => {
 	};
 
 	const restoreAll = idx => {
-		let _wallet = getWalletInfo[idx];
 		let _direction =
 			getWalletInfo[idx].id === 0
 				? defDirection.TpToMain

@@ -108,6 +108,7 @@ export default ({ accountName, custBankList, reload }) => {
 				<div className="addBankInfo">
 					<div className="bankName">
 						<img
+							alt="BankLogo"
 							src={`${config.imgUrl}/common/images/BankLogo/${item.bankLogo}`}
 						/>
 					</div>
@@ -115,6 +116,7 @@ export default ({ accountName, custBankList, reload }) => {
 				<div className="addBankInfo">
 					<div className="txt-blue2">{item.accountNo}</div>
 					<button
+						aria-label="delBankAccount"
 						className="icon icon-bin"
 						onClick={delBankAccount.bind(
 							this,

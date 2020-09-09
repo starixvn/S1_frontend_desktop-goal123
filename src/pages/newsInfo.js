@@ -123,7 +123,7 @@ const Content = () => {
 				{t("lbl_BackToNews")}
 			</a>
 			<article>
-				<img src={newsInfo.imageURL} />
+				<img src={newsInfo.imageURL} alt="newsInfo" />
 				<h1>{newsInfo.title}</h1>
 				<pre>{newsInfo.content}</pre>
 			</article>

@@ -127,6 +127,7 @@ class Dropdown extends Component {
 					{balance}
 				</button>
 				<button
+					aria-label="HandleDisplayBalance"
 					onClick={this.props.HandleDisplayBalance.bind(
 						this,
 						!isHideBalance

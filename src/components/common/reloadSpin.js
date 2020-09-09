@@ -24,6 +24,7 @@ export default props => {
 
 	return (
 		<button
+			aria-label="clickSpin"
 			onClick={clickSpin}
 			className={`icon icon-spinner11${spin ? " active" : ""}`}></button>
 	);

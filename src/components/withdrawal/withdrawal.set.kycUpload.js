@@ -131,6 +131,7 @@ export default props => {
 						/>
 						{picFileName ? (
 							<img
+								alt="DepositReceipt"
 								src={
 									fileImg === null
 										? `${config.apiURL}/Cashier/DepositReceip.jpg?transId=${props.transId}&FileName=${picFileName}`

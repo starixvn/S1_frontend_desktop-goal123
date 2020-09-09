@@ -1,25 +1,14 @@
-import React, {
-	useContext,
-	useEffect,
-	useState,
-	useRef,
-	createRef,
-	Component
-} from "react";
+import React, { createRef, Component } from "react";
 import moment from "moment";
 import DateTime from "react-datetime";
-import { useTranslation } from "react-i18next";
-import { userInfoContext, popBoxContext } from "../common/context";
-import { number_format, isConvert } from "../common/common";
-import {
-	api_payment_UploadReceipt,
-	api_payment_SetDepositReceipt
-} from "../../service/api/payment";
-import style from "../../styles/css/datePicker.css";
 import config from "../../config";
 import Loading from "../common/loading";
 import { defPopBoxType } from "../common/popBox";
 import Inputbox from "../common/inputbox";
+import {
+	api_payment_UploadReceipt,
+	api_payment_SetDepositReceipt
+} from "../../service/api/payment";
 
 export class Module extends Component {
 	state = {
@@ -144,7 +133,6 @@ export class Module extends Component {
 		e.preventDefault();
 		if (!this.state.processing) {
 			this.setState({ processing: true });
-			let bankSlip = this.props.bankSlip;
 
 			if (this.state.refId !== "") {
 				this.setState({ loading: true });
@@ -219,6 +207,7 @@ export class Module extends Component {
 					/>
 					{this.state.picFileName ? (
 						<img
+							alt="picFileName"
 							src={
 								this.state.fileImg === null
 									? `${config.apiURL}/Cashier/DepositReceip.jpg?transId=${this.props.transId}&FileName=${this.state.picFileName}`

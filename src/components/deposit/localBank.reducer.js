@@ -49,19 +49,19 @@ export function reducer(state, action) {
 			};
 
 		case defActionType.SUBMIT_AMOUNT:
-			var newStep = state.step + 1;
+			var newStep_SUBMIT_AMOUNT = state.step + 1;
 			return {
 				...state,
-				step: newStep,
-				displayModule: defStepModule[newStep]
+				step: newStep_SUBMIT_AMOUNT,
+				displayModule: defStepModule[newStep_SUBMIT_AMOUNT]
 			};
 
 		case defActionType.CLICK_BACK:
-			var newStep = state.step - 1;
+			var newStep_CLICK_BACK = state.step - 1;
 			return {
 				...state,
-				step: newStep,
-				displayModule: defStepModule[newStep]
+				step: newStep_CLICK_BACK,
+				displayModule: defStepModule[newStep_CLICK_BACK]
 			};
 
 		default:

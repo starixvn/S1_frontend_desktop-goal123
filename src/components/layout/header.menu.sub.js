@@ -4,7 +4,7 @@ import { Link } from "@reach/router";
 import { defMenuType } from "./header.menu.def";
 import { popBoxContext, userInfoContext } from "../common/context";
 import { defPopBoxType } from "../common/popBox";
-import { SET_ENTER_PAGE, _ACTION_TYPE } from "../../service/enterPage";
+import { SET_ENTER_PAGE } from "../../service/enterPage";
 
 export default ({ listClassName, subItems, menuKey, mainUrl }) => {
 	const { t } = useTranslation();
