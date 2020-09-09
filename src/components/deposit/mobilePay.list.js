@@ -4,6 +4,7 @@ import { api_payment_GetMobilePayGroupList } from "../../service/api/payment";
 import path from "../../path";
 import { Link } from "gatsby";
 import Loading from "../common/loading";
+import config from "../../config";
 
 const _path = path.deposit.sub.mobilePay.root;
 
@@ -55,7 +56,10 @@ export default () => {
 			<li key={`deposit-mobilePay-${p.groupName}}`}>
 				<Link
 					to={`${_path}?name=${p.groupName}&gId=${p.groupId}`}
-					className={`icon icon-${p.groupName}`}></Link>
+					className={`icon icon-${p.groupName}`}>
+					<img
+						src={`${config.imgUrl}/common/images/Payment/${p.payName}.png`}></img>
+				</Link>
 			</li>
 		);
 	});
