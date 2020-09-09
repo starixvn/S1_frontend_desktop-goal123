@@ -54,11 +54,9 @@ export default () => {
 	let rows = paymentList?.map(p => {
 		return (
 			<li key={`deposit-mobilePay-${p.groupName}}`}>
-				<Link
-					to={`${_path}?name=${p.groupName}&gId=${p.groupId}`}
-					className={`icon icon-${p.groupName}`}>
+				<Link to={`${_path}?name=${p.groupName}&gId=${p.groupId}`}>
 					<img
-						src={`${config.imgUrl}/common/images/Payment/${p.payName}.png`}></img>
+						src={`${config.imgUrl}/common/images/MobilePay/${p.groupName}.png`}></img>
 				</Link>
 			</li>
 		);
