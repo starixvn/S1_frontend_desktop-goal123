@@ -19,7 +19,7 @@ import { defPopBoxType } from "../common/popBox";
 import { isConvert } from "../common/common";
 import StepBar from "../common/stepBar";
 import defStep from "../withdrawal/defStep";
-import { checkWithdrawalAmount } from "../common/common";
+import { checkWithdrawalAmount, getAmountTip } from "../common/common";
 import Loading from "../common/loading";
 
 export default props => {
@@ -213,7 +213,7 @@ export default props => {
 	};
 
 	const clickInfo = () => {
-		let _msg = status.tip === "" ? t("lbl_AmountTooltip") : "";
+		let _msg = status.tip === "" ? getAmountTip(0, _isConvert, t) : "";
 		setStatus({
 			checked: null,
 			tip: _msg

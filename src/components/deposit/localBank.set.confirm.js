@@ -5,7 +5,6 @@ import { userInfoContext, popBoxContext } from "../common/context";
 import { api_payment_DepositReqWireTransfer } from "../../service/api/payment";
 import { useTranslation } from "react-i18next";
 import { Redirect } from "@reach/router";
-import { defActionType } from "./locaLBank.reducer";
 import { defPopBoxType } from "../common/popBox";
 import config from "../../config";
 import path from "../../path";
@@ -59,8 +58,9 @@ export default ({ bankInfo, amount, _isConvert, dispatch }) => {
 			setPopBox({ isOpen: false });
 		};
 
+		let real_amount = _isConvert ? Number(amount) * 1000 : Number(amount);
 		api_payment_DepositReqWireTransfer({
-			amount: Number(amount),
+			amount: real_amount,
 			sysId: bankInfo.sysId
 		}).then(
 			res => {

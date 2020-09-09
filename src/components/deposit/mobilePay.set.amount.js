@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import config from "../../config";
 import LimitTip from "./limitTip";
 import { defActionType } from "./mobilePay.reducer";
-import { checkAmount, number_format } from "../common/common";
+import { checkAmount, number_format, getAmountTip } from "../common/common";
 import Inputbox from "../common/inputbox";
 
 export default ({ channelInfo, _isConvert, amount, dispatch }) => {
@@ -56,12 +56,17 @@ export default ({ channelInfo, _isConvert, amount, dispatch }) => {
 	};
 
 	const clickInfo = () => {
-		let _msg = status.tip === "" ? t("lbl_AmountTooltip") : "";
+		let _msg =
+			status.tip === ""
+				? getAmountTip(channelInfo.minAmount, _isConvert, t)
+				: "";
 		setStatus({
 			checked: null,
 			tip: _msg
 		});
 	};
+
+	const typeIsSelAmount = channelInfo.amountRule === 3;
 
 	return (
 		<div className="subModuleList">
@@ -82,7 +87,7 @@ export default ({ channelInfo, _isConvert, amount, dispatch }) => {
 							_isConvert={_isConvert}
 						/>
 					</div>
-					{channelInfo.amountRule === 3 ? (
+					{typeIsSelAmount ? (
 						<FixedAmountList
 							{...channelInfo}
 							_isConvert={_isConvert}
@@ -91,10 +96,14 @@ export default ({ channelInfo, _isConvert, amount, dispatch }) => {
 						/>
 					) : null}
 					<Inputbox
-						placeholder={t("lbl_DepositAmountReq")}
+						placeholder={
+							typeIsSelAmount
+								? t("lbl_SelDepositAmount")
+								: t("lbl_DepositAmountReq")
+						}
 						value={amount}
 						onChange={EditAmount}
-						readOnly={channelInfo.amountRule === 3}
+						readOnly={typeIsSelAmount}
 						onBlur={VaildAmount.bind(this, amount)}
 						clickInfo={clickInfo}
 						checked={status.checked}
