@@ -300,5 +300,6 @@
 	"lbl_Freebet": "Free Bet",
 	"lbl_Expried": "Expried",
 	"msg_OTPSendCode": "Mã xác nhận đã được gửi đến số điện thoại đăng ký. Vui lòng nhập mã. ",
-	"msg_EnterOTPCode": "Please enter OTP code."
+	"msg_EnterOTPCode": "Please enter OTP code.",
+	"msg_loggedout":"Bạn đã đăng xuất thành công!"
 }

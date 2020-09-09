@@ -298,5 +298,6 @@
 	"msg_OTPHint":"Please complete your profile and verify your phone to enjoy our promotions.",
   	"lbl_GoNow":"Go Now!",
 	"msg_OTPSendCode": "We have sent the verification code to your registered mobile. Please enter your code.",
-	"msg_EnterOTPCode": "Please enter OTP code."
+	"msg_EnterOTPCode": "Please enter OTP code.",
+	"msg_loggedout":"You have successfully logged out!!"
 }

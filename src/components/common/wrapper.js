@@ -53,6 +53,7 @@ export default ({ children, afterLogin = false }) => {
 				setPopBox({
 					isOpen: true,
 					popBoxType: defPopBoxType.LogoutHint,
+					content: t("msg_ForceLogedout"),
 					btnBar: (
 						<div className="btnGroup">
 							<button className="btn-cancel" onClick={ClickClose}>

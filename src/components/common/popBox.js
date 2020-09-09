@@ -116,7 +116,9 @@ export default () => {
 			break;
 
 		case defPopBoxType.LogoutHint:
-			content = <LogoutHint btnBar={popBox.btnBar} />;
+			content = (
+				<LogoutHint btnBar={popBox.btnBar} content={popBox.content} />
+			);
 			break;
 
 		case defPopBoxType.DepositHint:
