@@ -817,6 +817,12 @@ main section > div .articleModule {
   display: -ms-flexbox;
   display: flex;
   margin-top: 50px;
+  -webkit-box-align: normal;
+      -ms-flex-align: normal;
+          align-items: normal;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 main section > div .articleModule a {
@@ -824,6 +830,16 @@ main section > div .articleModule a {
       -ms-flex: 1;
           flex: 1;
   margin-right: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 main section > div .articleModule a:last-child {
@@ -836,6 +852,12 @@ main section > div .articleModule a .title {
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+}
+
+main section > div .articleModule > div {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 calc(100% / 3 - 10px);
+          flex: 0 0 calc(100% / 3 - 10px);
 }
 
 main section .btnGroup {
@@ -3097,10 +3119,6 @@ main > .swiper-container .swiper-slide {
   margin: 0 10px;
 }
 
-.walletTransfer .walletModule .from, .walletTransfer .walletModule .to {
-  color: #1E85EC;
-}
-
 .walletTransfer .walletModule .from span, .walletTransfer .walletModule .to span {
   color: white;
   display: none;
@@ -3112,12 +3130,9 @@ main > .swiper-container .swiper-slide {
   display: flex;
 }
 
-.walletTransfer .walletModule .from:before {
-  content: 'From';
-}
-
-.walletTransfer .walletModule .to:before {
-  content: 'To';
+.walletTransfer .walletModule .from span:nth-child(1), .walletTransfer .walletModule .to span:nth-child(1) {
+  display: block;
+  color: #1E85EC;
 }
 
 .walletTransfer .inputBox, .walletTransfer .inputBox-org, .walletTransfer .inputBox-white, .walletTransfer .inputBox-blue, .walletTransfer .inputBox-gray, .walletTransfer .inputBox-yellow {
