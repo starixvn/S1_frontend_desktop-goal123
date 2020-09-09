@@ -6,6 +6,7 @@ import { isConvert } from "../common/common";
 import { TransactionHistory } from "./historyResult";
 import { Link } from "@reach/router";
 import path from "../../path";
+import ReloadSpin from "../common/reloadSpin";
 
 const transferDirection = (direction, displayMainWallet, displaySabaWallet) => {
 	let startWallet = "";
@@ -50,7 +51,7 @@ export default props => {
 		);
 	});
 
-	return props.getHistory !== null || props.getHistory !== [] ? (
+	return (
 		<>
 			<div className="list">
 				<div className="listHeader">
@@ -63,19 +64,18 @@ export default props => {
 					<div>{t("lbl_Amount")}</div>
 					<div>
 						{t("lbl_Status")}
-						<button
-							aria-label="GetTransferRecent"
-							className="icon icon-spinner11"
-							onClick={props.GetTransferRecent}></button>
+						<ReloadSpin func={props.GetTransferRecent} />
 					</div>
 				</div>
-				<div className="listBody">{arr}</div>
+				{props.getHistory?.length > 0 ? (
+					<div className="listBody">{arr}</div>
+				) : (
+					<div className="nodata">{t("msg_NoData")}</div>
+				)}
 			</div>
 			<Link
 				to={`/${userInfo.langId}/${path.transferHistory.root}`}
 				className="icon icon-books"></Link>
 		</>
-	) : (
-		<div className="nodata">{t("msg_NoData")}</div>
 	);
 };

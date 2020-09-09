@@ -101,14 +101,32 @@ const defSettingLinks = ({ logoutFunc }) => {
 const AfterLogin = () => {
 	const { msgCount } = useContext(msgCountContext);
 	const { userInfo, setUserInfo } = useContext(userInfoContext);
+	const { setPopBox } = useContext(popBoxContext);
 	const { t } = useTranslation();
 
 	const handleLogout = () => {
 		LOGOUT(() => {
-			setUserInfo(prevState => ({
-				isLogin: false,
-				langId: prevState.langId
-			}));
+			const ClickClose = () => {
+				setPopBox({ isOpen: false });
+				setUserInfo(prevState => ({
+					isLogin: false,
+					langId: prevState.langId,
+					kickout: true,
+					willLogout: true
+				}));
+			};
+			setPopBox({
+				isOpen: true,
+				popBoxType: defPopBoxType.LogoutHint,
+				content: t("msg_loggedout"),
+				btnBar: (
+					<div className="btnGroup">
+						<button className="btn-cancel" onClick={ClickClose}>
+							{t("lbl_Close")}
+						</button>
+					</div>
+				)
+			});
 		});
 	};
 

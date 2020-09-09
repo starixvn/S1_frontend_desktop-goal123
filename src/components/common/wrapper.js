@@ -46,21 +46,35 @@ export default ({ children, afterLogin = false }) => {
 	useEffect(() => {
 		IS_LOGGED_IN().then(isLogin => {
 			if (userInfo.kickout) {
-				const ClickClose = () => {
-					setPopBox({ isOpen: false });
-					setUserInfo(prevS => ({ ...prevS, kickout: false }));
-				};
-				setPopBox({
-					isOpen: true,
-					popBoxType: defPopBoxType.LogoutHint,
-					btnBar: (
-						<div className="btnGroup">
-							<button className="btn-cancel" onClick={ClickClose}>
-								{t("lbl_Close")}
-							</button>
-						</div>
-					)
-				});
+				if (userInfo.willLogout) {
+					setUserInfo(prevS => ({
+						...prevS,
+						kickout: false,
+						willLogout: false
+					}));
+				} else {
+					const ClickClose = () => {
+						setPopBox({ isOpen: false });
+						setUserInfo(prevS => ({
+							...prevS,
+							kickout: false
+						}));
+					};
+					setPopBox({
+						isOpen: true,
+						popBoxType: defPopBoxType.LogoutHint,
+						content: t("msg_ForceLogedout"),
+						btnBar: (
+							<div className="btnGroup">
+								<button
+									className="btn-cancel"
+									onClick={ClickClose}>
+									{t("lbl_Close")}
+								</button>
+							</div>
+						)
+					});
+				}
 			} else if (afterLogin && !isLogin && isMountedRef.current) {
 				setRedirectPath(`/${userInfo.langId}`);
 			}
@@ -74,6 +88,7 @@ export default ({ children, afterLogin = false }) => {
 	}, [
 		userInfo.isLogin,
 		userInfo.kickout,
+		userInfo.willLogout,
 		setUserInfo,
 		setRedirectPath,
 		setPopBox

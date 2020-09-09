@@ -123,7 +123,7 @@ class Dropdown extends Component {
 				ref={this.wrapper}
 				onClick={this.clickDropdown}>
 				<button>
-					{this.props.langId === "en" ? "$" : "VNĐ"}
+					{this.props.currencyId === 51 ? "VNĐ" : "$"}
 					{balance}
 				</button>
 				<button

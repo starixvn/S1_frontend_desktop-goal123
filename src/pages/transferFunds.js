@@ -73,8 +73,6 @@ const Content = () => {
 	};
 
 	const GetWalletInfo = () => {
-		setLoading(true);
-
 		api_account_GetWalletInfo().then(
 			res => {
 				if (isMountedRef.current) {
@@ -94,7 +92,7 @@ const Content = () => {
 								balance: item.balance
 							};
 						});
-
+						setLoading(false);
 						setGetWalletInfo([mainWallet, ...tpWalletArr]);
 					} else {
 						setPopBox({
@@ -111,8 +109,8 @@ const Content = () => {
 								</div>
 							)
 						});
+						setLoading(false);
 					}
-					setLoading(false);
 				}
 			},
 			err => {
@@ -155,10 +153,12 @@ const Content = () => {
 						// 	turnover: res.data.data.turnover,
 						// 	rollover: res.data.data.rollover
 						// });
+						// setLoading(false);
 					} else if (res.data.errorCode === 0) {
 						GetWalletInfo();
 						GetTransferRecent();
 						setAmount("1");
+						setLoading(false);
 					} else {
 						setPopBox({
 							isOpen: true,
@@ -174,8 +174,8 @@ const Content = () => {
 								</div>
 							)
 						});
+						setLoading(false);
 					}
-					setLoading(false);
 				}
 			},
 			err => {
@@ -201,13 +201,12 @@ const Content = () => {
 	};
 
 	const GetTransferRecent = () => {
-		setLoading(true);
-
 		api_tp_GetTransferRecent().then(
 			res => {
 				if (isMountedRef.current) {
 					if (res.data.errorCode === 0) {
 						setGetHistory(res.data.data);
+						setLoading(false);
 					} else {
 						setPopBox({
 							isOpen: true,
@@ -224,7 +223,6 @@ const Content = () => {
 							)
 						});
 					}
-					setLoading(false);
 				}
 			},
 			err => {
@@ -243,7 +241,6 @@ const Content = () => {
 							</div>
 						)
 					});
-					setLoading(false);
 				}
 			}
 		);
@@ -299,7 +296,8 @@ const Content = () => {
 		});
 	};
 
-	const clickSubmit = () => {
+	const clickSubmit = e => {
+		e.preventDefault();
 		let result = ValidAmount(amount);
 		let _direction =
 			direction.transferFrom === "lbl_MainWallet"
@@ -364,7 +362,7 @@ const Content = () => {
 		}
 	};
 
-	return getWalletInfo === [] || loading ? (
+	return loading || getWalletInfo === [] ? (
 		<Loading />
 	) : (
 		<div className="rightModule">

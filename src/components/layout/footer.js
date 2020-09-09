@@ -91,6 +91,16 @@ export default () => {
 							rel="noreferrer">
 							{t("lbl_FAQ")}
 						</a>
+						<a
+							href={TandC(userInfo.langId).Deposit}
+							target="_blank">
+							{t("lbl_Deposit")}
+						</a>
+						<a
+							href={TandC(userInfo.langId).Withdrawal}
+							target="_blank">
+							{t("lbl_Withdrawal")}
+						</a>
 					</div>
 				</div>
 				<div>

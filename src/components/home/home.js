@@ -13,6 +13,7 @@ import specialImg1 from "../../styles/img/verified.png";
 import specialImg2 from "../../styles/img/file.png";
 import specialImg3 from "../../styles/img/bank.png";
 import specialImg4 from "../../styles/img/speed.png";
+import Bong88 from "../../styles/img/bong88.png";
 
 import Marquee from "./marquee";
 import News from "./news";
@@ -129,6 +130,10 @@ export default () => {
 					</div>
 				</div>
 				<Platforms />
+				<div className="powered">
+					<div>{t("lbl_PoweredBy")}</div>
+					<img src={Bong88} alt="Bong88" />
+				</div>
 			</section>
 		</main>
 	);

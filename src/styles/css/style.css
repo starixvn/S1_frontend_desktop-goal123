@@ -922,15 +922,28 @@ main section .btnGroup {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  padding-bottom: 60px;
+  padding-bottom: 20px;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
 .platform a, .platform button {
   width: auto;
   padding: 0 5px;
+  max-width: 100px;
+}
+
+.powered {
+  padding: 15px 0 50px 0;
+}
+
+.powered div {
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.powered img {
+  width: auto;
 }
 
 footer {
@@ -4315,6 +4328,12 @@ form {
   color: #fab617;
 }
 
+.newsList {
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
 .newsList > div {
   -webkit-box-flex: 0;
       -ms-flex: 0 0 calc(100% / 3 - 45px);
@@ -4329,6 +4348,7 @@ form {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  margin-right: 15px;
 }
 
 .newsList > div .btnGroup button {

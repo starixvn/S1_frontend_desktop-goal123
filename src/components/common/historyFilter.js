@@ -15,11 +15,16 @@ const quickPickList = [
 
 export default props => {
 	const { t } = useTranslation();
-	const [selectedIdx, setSelectedIdx] = useState(0);
+
+	const initQuickPick = props.keepData?.quickPick ?? 0;
+	const [selectedIdx, setSelectedIdx] = useState(initQuickPick);
 
 	const today = moment().format("YYYY-MM-DD");
-	const [startDate, setStartDate] = useState(today);
-	const [endDate, setEndtDate] = useState(today);
+	const initStartDate = props.keepData?.startDate ?? today;
+	const initEndDate = props.keepData?.endDate ?? today;
+
+	const [startDate, setStartDate] = useState(initStartDate);
+	const [endDate, setEndtDate] = useState(initEndDate);
 
 	let _startDate = "";
 	let _endDate = "";
@@ -108,7 +113,8 @@ export default props => {
 						this,
 						startDate,
 						endDate,
-						false
+						false,
+						selectedIdx
 					)}>
 					{t("lbl_Submit")}
 				</button>
