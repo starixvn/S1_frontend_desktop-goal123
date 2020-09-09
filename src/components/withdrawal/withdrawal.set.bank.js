@@ -278,7 +278,7 @@ export default props => {
 					if (res.data.errorCode === 2 || res.data.errorCode === 0) {
 						setPopBox({
 							isOpen: true,
-							popBoxType: defPopBoxType.Success,
+							popBoxType: defPopBoxType.WithdrawalSuccess,
 							btnBar: (
 								<div className="btnGroup">
 									<button

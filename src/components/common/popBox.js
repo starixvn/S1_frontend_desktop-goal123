@@ -15,6 +15,7 @@ import ChangePsw from "./popBox.changePsw";
 import LogoutHint from "./popBox.logoutHint";
 import Loading from "./loading";
 import DepositHint from "./popBox.depositHint";
+import WithdrawalSuccess from "./popBox.withdrawalSuccess";
 
 export const defPopBoxType = {
 	Cancel: "Cancel",
@@ -113,6 +114,10 @@ export default () => {
 
 		case defPopBoxType.DepositHint:
 			content = <DepositHint />;
+			break;
+
+		case defPopBoxType.WithdrawalSuccess:
+			content = <WithdrawalSuccess btnBar={popBox.btnBar} />;
 			break;
 
 		case defPopBoxType.default:

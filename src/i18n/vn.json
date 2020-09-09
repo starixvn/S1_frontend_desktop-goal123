@@ -142,7 +142,7 @@
   "lbl_MainWallet":"Ví chính",
   "lbl_Wallet_Saba":"Ví Sportsbook",
   "lbl_Transfer":"Chuyển tiền",
-  "lbl_RestoreAll":"Restore All",
+  "lbl_RestoreAll":"Chuyển Hết",
   "lbl_Success":"Thành công",
   "lbl_Fail":"Thất bại",
   "lbl_Close":"Đóng",
@@ -294,5 +294,6 @@
 	"lbl_TransactionSpeed":"THỜI GIAN XỬ LÝ",
 	"lbl_TransactionSpeedDesc":"Gửi tiền siêu tốc. Rút tiền nhanh chóng",
 	"msg_DepositHint":"Nạp tiền ngay để thưởng thức các trò chơi và dịch vụ của chúng tôi.",
-  "lbl_Lottery":"Xổ số"
+  "lbl_Lottery":"Xổ số",
+  "lbl_WithdrawalSuccess":"Your withdrawal request was successful. We will notify you once it is done."
 }
