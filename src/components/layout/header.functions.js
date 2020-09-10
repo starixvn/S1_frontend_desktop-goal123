@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link } from "@reach/router";
+import { Link, navigate } from "@reach/router";
 import {
 	userInfoContext,
 	popBoxContext,
@@ -107,6 +107,14 @@ const AfterLogin = () => {
 	const handleLogout = () => {
 		LOGOUT(() => {
 			const ClickClose = () => {
+				if (
+					window.location.pathname.includes(
+						`/${userInfo.langId}/${path.resetPassword.root}`
+					)
+				) {
+					navigate(`/${userInfo.langId}`);
+				}
+
 				setPopBox({ isOpen: false });
 				setUserInfo(prevState => ({
 					isLogin: false,
@@ -115,6 +123,7 @@ const AfterLogin = () => {
 					willLogout: true
 				}));
 			};
+
 			setPopBox({
 				isOpen: true,
 				popBoxType: defPopBoxType.LogoutHint,
