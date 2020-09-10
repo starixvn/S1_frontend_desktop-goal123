@@ -31,6 +31,7 @@ export default props => {
 						clickInfo={props.clickInfo}
 						checked={props.checked}
 						tip={props.tip}
+						_isConvert={props._isConvert}
 					/>
 					<div className="btnGroup">
 						<button className="btn-check" type="submit">

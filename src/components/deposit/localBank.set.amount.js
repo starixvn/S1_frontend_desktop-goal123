@@ -80,25 +80,28 @@ export default ({ bankInfo, _isConvert, amount, dispatch }) => {
 							_isConvert={_isConvert}
 						/>
 					</div>
-					<Inputbox
-						placeholder={t("lbl_DepositAmountReq")}
-						value={amount}
-						onChange={EditAmount}
-						onBlur={ValidAmount.bind(this, amount)}
-						clickInfo={clickInfo}
-						checked={status.checked}
-						tip={status.tip}
-					/>
-					<div className="btnGroup">
-						<button
-							className={`${
-								status.checked === true
-									? "btn-check"
-									: "btn-cancel"
-							}`}
-							onClick={SubmitAmount}>
-							{t("lbl_Submit")}
-						</button>
+					<div className="inputModuleRow">
+						<Inputbox
+							title={t("lbl_Amount")}
+							value={amount}
+							onChange={EditAmount}
+							onBlur={ValidAmount.bind(this, amount)}
+							clickInfo={clickInfo}
+							checked={status.checked}
+							tip={status.tip}
+							_isConvert={_isConvert}
+						/>
+						<div className="btnGroup">
+							<button
+								className={`${
+									status.checked === true
+										? "btn-check"
+										: "btn-cancel"
+								}`}
+								onClick={SubmitAmount}>
+								{t("lbl_Submit")}
+							</button>
+						</div>
 					</div>
 				</div>
 			</div>
