@@ -190,8 +190,9 @@ export default () => {
 		if (selectItems.length > 0) {
 			setPopBox({
 				isOpen: true,
-				popBoxType: defPopBoxType.TitleWithButton,
-				message: t("lbl_CheckConfirm"),
+				popBoxType: defPopBoxType.ConfirmDelete,
+				message: t("lbl_AreYouSureDelete"),
+				message2: t("lbl_CantBeRestore"),
 				btnBar: (
 					<div className="btnGroup">
 						<button className="btn-cancel" onClick={ClickCancel}>
