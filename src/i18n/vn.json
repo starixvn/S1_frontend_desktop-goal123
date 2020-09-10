@@ -113,6 +113,7 @@
 	"lbl_BankName":"Tên ngân hàng",
 	"lbl_AttachFile":"Vui lòng đính kèm Biên lai ngân hàng của bạn ở đây. (Không bắt buộc)",
 	"lbl_Refno":"Số tham chiếu",
+	"lbl_RefNoHint":"Please submit your bank slip reference number",
 	"lbl_DepositTime":"Thời gian nạp tiền",
 	"lbl_UploadSuccess":"Tệp tin đã được tải lên thành công.",
 	"lbl_UpdateSuccess":"Cập nhật thành công. Chúng tôi sẽ xử lý yêu cầu của bạn nhanh nhất có thể!",

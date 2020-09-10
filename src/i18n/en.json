@@ -113,6 +113,7 @@
 	"lbl_BankName": "Bank Name",
 	"lbl_AttachFile": "Please attach your bank slip here. (Optional)",
 	"lbl_Refno": "Reference No.",
+	"lbl_RefNoHint":"Please submit your bank slip reference number",
 	"lbl_DepositTime": "Deposit Time",
 	"lbl_UploadSuccess": "Your file was uploaded successfully.",
 	"lbl_UpdateSuccess": "Update Successful. We will process your request ASAP!",

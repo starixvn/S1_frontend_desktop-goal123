@@ -1188,7 +1188,6 @@ footer .copyright {
       -ms-flex-align: center;
           align-items: center;
   padding: 4px 10px;
-  z-index: 1;
 }
 
 .inputBox input[type="date"]::-webkit-inner-spin-button, .inputBox-org input[type="date"]::-webkit-inner-spin-button, .inputBox-white input[type="date"]::-webkit-inner-spin-button, .inputBox-blue input[type="date"]::-webkit-inner-spin-button, .inputBox-gray input[type="date"]::-webkit-inner-spin-button, .inputBox-yellow input[type="date"]::-webkit-inner-spin-button, .inputBox input[type="date"]::-webkit-calendar-picker-indicator, .inputBox-org input[type="date"]::-webkit-calendar-picker-indicator, .inputBox-white input[type="date"]::-webkit-calendar-picker-indicator, .inputBox-blue input[type="date"]::-webkit-calendar-picker-indicator, .inputBox-gray input[type="date"]::-webkit-calendar-picker-indicator, .inputBox-yellow input[type="date"]::-webkit-calendar-picker-indicator {
@@ -1807,7 +1806,7 @@ main > .swiper-container .swiper-slide {
   padding: 10px;
   width: 100%;
   color: #fff;
-  font-size: 16px;
+  font-size: 14px;
   letter-spacing: 1px;
   font-weight: bold;
   text-align: left;
@@ -2331,15 +2330,6 @@ main > .swiper-container .swiper-slide {
           justify-content: center;
 }
 
-.subModuleList .subModule .subModuleBody input + .iconModule .icon-cross:before {
-  color: #f73201;
-  font-size: 14px;
-}
-
-.subModuleList .subModule .subModuleBody input + .iconModule .icon-checkmark:before {
-  color: #259076;
-}
-
 .subModuleList .subModule .subModuleBody ul {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -2453,6 +2443,10 @@ main > .swiper-container .swiper-slide {
 
 .platformName .icon.icon-VNPay {
   font-size: 18px;
+}
+
+.platformName .icon + div {
+  max-width: 200px;
 }
 
 .platformName + div.subModuleList .subModuleBody > div {
@@ -2643,6 +2637,10 @@ main > .swiper-container .swiper-slide {
           transform-origin: bottom;
   -webkit-transform: rotate(20deg);
           transform: rotate(20deg);
+}
+
+.Submit .icon.icon-information-solid, .Cancel .icon.icon-information-solid, .uploadSuccess .icon.icon-information-solid, .updateSuccess .icon.icon-information-solid, .Success .icon.icon-information-solid, .tokyc .icon.icon-information-solid, .addBankpop .icon.icon-information-solid, .changePassWordpop .icon.icon-information-solid, .editSuccess .icon.icon-information-solid {
+  color: #1E85EC;
 }
 
 .Submit .title, .Cancel .title, .uploadSuccess .title, .updateSuccess .title, .Success .title, .tokyc .title, .addBankpop .title, .changePassWordpop .title, .editSuccess .title {
@@ -3156,6 +3154,9 @@ main > .swiper-container .swiper-slide {
   -webkit-box-flex: 0;
       -ms-flex: 0 0 auto;
           flex: 0 0 auto;
+}
+
+.walletTransfer .icon.icon-arrow-right2 {
   margin: 0 30px;
   font-size: 24px;
 }
@@ -3740,25 +3741,6 @@ main > .swiper-container .swiper-slide {
 }
 
 .profileEdit .editModule .tip {
-  width: 100%;
-}
-
-.profileEdit .editModule .rdt {
-  -webkit-box-flex: 1;
-      -ms-flex: auto;
-          flex: auto;
-}
-
-.profileEdit .editModule .rdt > input {
-  width: calc(100% + 9px);
-}
-
-.profileEdit .editModule .rdt + .icon-calendar {
-  margin-right: 0;
-  color: #c6c6c6;
-}
-
-.profileEdit .editModule .rdt .inputBox, .profileEdit .editModule .rdt .inputBox-org, .profileEdit .editModule .rdt .inputBox-white, .profileEdit .editModule .rdt .inputBox-blue, .profileEdit .editModule .rdt .inputBox-gray, .profileEdit .editModule .rdt .inputBox-yellow {
   width: 100%;
 }
 
@@ -4806,5 +4788,14 @@ button.icon-books:hover:after {
 
 .promoType .icon-icon32px_ALL:before {
   margin-right: 5px;
+}
+
+input + .iconModule i.icon.icon-cross:before {
+  color: #f73201;
+  font-size: 12px;
+}
+
+input + .iconModule i.icon.icon-checkmark:before {
+  color: #259076;
 }
 /*# sourceMappingURL=style.css.map */
