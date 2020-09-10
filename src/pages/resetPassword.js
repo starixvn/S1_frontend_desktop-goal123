@@ -3,12 +3,14 @@ import { useTranslation } from "react-i18next";
 import { api_site_CheckResetPwdTokens } from "../service/api/site";
 import { api_accountStrict_ResetPassword } from "../service/api/accountStrict";
 import { popBoxContext, userInfoContext } from "../components/common/context";
-import { Redirect } from "@reach/router";
+import { navigate } from "@reach/router";
 import Wrapper from "../components/common/wrapper";
 import Layout from "../components/common/layout";
 import { defPopBoxType } from "../components/common/popBox";
 import Inputbox from "../components/common/inputbox.password";
 import { getUrlParameter } from "../components/common/common";
+import { LOGOUT } from "../service/auth";
+import path from "../path";
 
 export default () => {
 	return (
@@ -35,7 +37,6 @@ const Content = () => {
 	const [newPsw, setNewPsw] = useState("");
 	const [showPsw, setShowPsw] = useState(false);
 	const [status, setStatus] = useState(initStatus);
-	const [redirectPath, setRedirectPath] = useState(null);
 	const isMountedRef = useRef(null);
 
 	useEffect(() => {
@@ -44,7 +45,7 @@ const Content = () => {
 	});
 
 	useEffect(() => {
-		if (userInfo.isLogin === false && !userInfo.willLogout) {
+		if (userInfo.isLogin === false) {
 			let _key = getUrlParameter("key");
 			api_site_CheckResetPwdTokens({ key: _key }).then(
 				res => {
@@ -52,10 +53,11 @@ const Content = () => {
 						if (res.data.errorCode === 0) {
 							setUserInfo(prev => ({
 								...prev,
-								isLogin: true
+								isLogin: true,
+								loginFromResetPwd: true
 							}));
 						} else {
-							setRedirectPath("/");
+							navigate(`/${userInfo.langId}`);
 						}
 					}
 				},
@@ -78,8 +80,10 @@ const Content = () => {
 					}
 				}
 			);
+		} else if (userInfo.isLogin && !userInfo.loginFromResetPwd) {
+			navigate(`/${userInfo.langId}`);
 		}
-	}, [userInfo.isLogin, userInfo.willLogout]);
+	}, [userInfo.isLogin]);
 
 	const ClickClose = () => {
 		setPopBox({ isOpen: false });
@@ -139,12 +143,41 @@ const Content = () => {
 				res => {
 					if (isMountedRef.current) {
 						if (res.data.errorCode === 0) {
-							const CloseAndLogout = () => {
-								setPopBox({ isOpen: false });
-								setUserInfo(prev => ({
-									...prev,
-									isLogin: false
-								}));
+							const handleLogout = () => {
+								LOGOUT(() => {
+									const ClickClose = () => {
+										if (
+											window.location.pathname.includes(
+												`/${userInfo.langId}/${path.resetPassword.root}`
+											)
+										) {
+											navigate(`/${userInfo.langId}`);
+										}
+
+										setPopBox({ isOpen: false });
+										setUserInfo(prevState => ({
+											isLogin: false,
+											langId: prevState.langId,
+											kickout: true,
+											willLogout: true
+										}));
+									};
+
+									setPopBox({
+										isOpen: true,
+										popBoxType: defPopBoxType.LogoutHint,
+										content: t("msg_loggedout"),
+										btnBar: (
+											<div className="btnGroup">
+												<button
+													className="btn-cancel"
+													onClick={ClickClose}>
+													{t("lbl_Close")}
+												</button>
+											</div>
+										)
+									});
+								});
 							};
 
 							setPopBox({
@@ -161,12 +194,12 @@ const Content = () => {
 									<div className="btnGroup">
 										<button
 											className="btn-cancel"
-											onClick={CloseAndLogout}>
+											onClick={handleLogout}>
 											OK
 										</button>
 									</div>
 								),
-								ClickClose: CloseAndLogout
+								ClickClose: handleLogout
 							});
 						} else {
 							setPopBox({
@@ -208,7 +241,7 @@ const Content = () => {
 		}
 	};
 
-	return redirectPath === null ? (
+	return (
 		<div className="infoModule">
 			<div className="inside-title icon icon-icon32px_password">
 				<span>{t("lbl_ResetPassword")}</span>
@@ -234,7 +267,5 @@ const Content = () => {
 				</form>
 			</div>
 		</div>
-	) : (
-		<Redirect to={redirectPath} noThrow />
 	);
 };

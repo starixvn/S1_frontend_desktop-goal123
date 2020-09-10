@@ -6,6 +6,8 @@ import InputboxPSW from "./inputbox.password";
 import { LOGIN } from "../../service/auth";
 import { userInfoContext, popBoxContext } from "./context";
 import { defPopBoxType } from "../common/popBox";
+import { Link } from "@reach/router";
+import path from "../../path";
 
 const initValue = {
 	username: "",
@@ -206,9 +208,11 @@ const LoginPanel = () => {
 							tip={tip.password.msg}
 						/>
 
-						{/* <a href="" className="txt-blue2">
+						<Link
+							to={`/${userInfo.langId}/${path.forgetPassword.root}`}
+							className="txt-blue2">
 							{t("lbl_ForgetPassword")}
-						</a> */}
+						</Link>
 					</div>
 					<div className="btnGroup">
 						<button

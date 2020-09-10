@@ -933,6 +933,7 @@ main section .btnGroup {
 
 .powered {
   padding: 15px 0 50px 0;
+  text-align: center;
 }
 
 .powered div {
@@ -1973,6 +1974,7 @@ main > .swiper-container .swiper-slide {
 .list .listBody > div:last-child {
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
+  position: static;
 }
 
 .list .listBody > div:hover {
@@ -2844,21 +2846,18 @@ main > .swiper-container .swiper-slide {
 
 .offers {
   background: #1a2e56;
-  padding: 40px 20px 20px;
+  padding: 20px;
   border-radius: 15px;
   position: relative;
 }
 
 .offers .swiper-container {
-  height: 200px;
+  height: 263px;
 }
 
 .offers .swiper-slide {
   text-align: center;
-  background: url(../img/swiper-slideBG.jpg) no-repeat top center/cover;
-  height: 165px;
   font-size: 12px;
-  padding: 10px 0;
 }
 
 .offers .swiper-slide .team, .offers .swiper-slide .odds {
@@ -3105,16 +3104,16 @@ main > .swiper-container .swiper-slide {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  width: 55px;
 }
 
-.walletTransfer .walletModule .icon-arrow-right2:hover {
-  margin: 0 14.7px;
-}
-
-.walletTransfer .walletModule .icon-arrow-right2:hover:after {
-  content: 'Exchange';
-  font-family: "Microsoft YaHei", sans-serif;
+.walletTransfer .walletModule .icon-arrow-right2 span {
+  display: none;
   font-size: 12px;
+}
+
+.walletTransfer .walletModule .icon-arrow-right2:hover span {
+  display: block;
 }
 
 .walletTransfer .walletModule .walletBalanceModule {
@@ -4420,7 +4419,7 @@ iframe {
   width: 100%;
   margin: auto;
   height: 100%;
-  min-height: 860px;
+  min-height: 810px;
 }
 
 .loading {
