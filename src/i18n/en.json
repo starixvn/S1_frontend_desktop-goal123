@@ -311,5 +311,7 @@
 	"lbl_PoweredBy":"Powered by",
 	"msg_loggedout":"You have successfully logged out!!",
 	"lbl_MobileVerifiy":"Mobile Verifiy",
-	"lbl_Retransmit":"Retransmit"
+	"lbl_Retransmit":"Retransmit",
+	"ForgetPwdSuccess":"Your new password has been sent to your registered e-mail address.",
+	"lbl_ResetPassword":"Reset Password"
 }
