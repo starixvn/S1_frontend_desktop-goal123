@@ -97,7 +97,6 @@ const Content = () => {
 
 	const editField = (col, e) => {
 		let val = e.target.value;
-		val = val.replace(/[\W]/g, "");
 
 		setUserPsw(prev => ({ ...prev, [col]: val }));
 	};
