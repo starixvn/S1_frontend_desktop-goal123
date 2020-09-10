@@ -1,16 +1,19 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { useTranslation } from "react-i18next";
-import { api_site_CheckResetPwdTokens } from "../service/api/site";
-import { api_accountStrict_ResetPassword } from "../service/api/accountStrict";
-import { popBoxContext, userInfoContext } from "../components/common/context";
+import { api_site_CheckResetPwdTokens } from "../../service/api/site";
+import { api_accountStrict_ResetPassword } from "../../service/api/accountStrict";
+import {
+	popBoxContext,
+	userInfoContext
+} from "../../components/common/context";
 import { navigate } from "@reach/router";
-import Wrapper from "../components/common/wrapper";
-import Layout from "../components/common/layout";
-import { defPopBoxType } from "../components/common/popBox";
-import Inputbox from "../components/common/inputbox.password";
-import { getUrlParameter } from "../components/common/common";
-import { LOGOUT } from "../service/auth";
-import path from "../path";
+import Wrapper from "../../components/common/wrapper";
+import Layout from "../../components/common/layout";
+import { defPopBoxType } from "../../components/common/popBox";
+import Inputbox from "../../components/common/inputbox.password";
+import { getUrlParameter } from "../../components/common/common";
+import { LOGOUT } from "../../service/auth";
+import path from "../../path";
 
 export default () => {
 	return (
