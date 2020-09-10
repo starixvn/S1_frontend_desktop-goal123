@@ -252,7 +252,7 @@
 	"lbl_Promotion": "Promotion",
 	"lbl_Promotions": "Promotions",
 	"lbl_RolloverOver": "Insufficient rollover turnover",
-	"lbl_DepositOver": "Your required withdrawal amount had exceeded your current available balance.",
+	"lbl_DepositOver": "Your required deposit amount had exceeded your current available balance.",
 	"lbl_WithdrawalOver": "Your required withdrawal amount had exceeded your elegible withdrawal amount",
 	"lbl_AboutGoal123": "Goal123.com",
 	"lbl_PrivacyPolicy": "Privacy Policy",
@@ -311,5 +311,6 @@
 	"lbl_Goal123News":"Goal123 News",
 	"lbl_EdgeOfGoal123":"The Edge Of Goal123",
 	"lbl_MobileVerifiy":"Mobile verification",
-	"lbl_Retransmit":"Retransmit"
+	"lbl_Retransmit":"Retransmit",
+	"lbl_Exchange":"Exchange"
 }

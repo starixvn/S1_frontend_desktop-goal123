@@ -7,7 +7,7 @@
 	"lbl_LiveCasino":"SÒNG BÀI",
 	"lbl_KenoAndLottery":"Keno & Xổ Số",
 	"lbl_Fishing":"Bắn Cá",
-	"lbl_JoinNow":"Tham gia ngay",
+	"lbl_JoinNow":"Đăng Ký",
 	"lbl_Login":"Đăng nhập",
 	"lbl_Soccer":"Bóng đá",
 	"lbl_Basketball":"Bóng rổ",
@@ -124,7 +124,7 @@
 	"lbl_AmountTooltip":"Số tiền không thể nhỏ hơn {0}.",
 	"lbl_NotinLimit":"ngoài hạn mức.",
 	"lbl_MobileDeposit": "Nạp tiền qua ĐT",
-	"lbl_Limit":"Hạn mức giá trị",
+	"lbl_Limit":"Hạn mức",
 	"lbl_Unlimited":"Không giới hạn",
 	"BankSlipHint1":"Maximum file size 4 MB each",
 	"BankSlipHint2":"Maximum number of file:1",
@@ -156,7 +156,7 @@
 	"lbl_EligibleWithdrawalAmount":"Số tiền có thể rút",
 	"lbl_AddNewAccount":"Thêm tài khoản",
 	"lbl_NumberOfBankAccounts":"Số lượng tài khoản",
-	"lbl_SelectBank_Required":"Please select bank accounts",
+	"lbl_SelectBank_Required":"Xin lựa chọn tài khoản ngân hàng",
 	"lbl_Deduction":"khấu trừ doanh số",
 	"lbl_Balance":"Số dư",
 	"lbl_ConfirmWithdrawal":"Vui lòng xác nhận thông tin rút tiền.",
@@ -253,7 +253,7 @@
 	"lbl_Promotions":"Khuyến mãi",
 	"lbl_RolloverOver": "Doanh thu yêu cầu cho khuyến mãi chưa đạt",
 	"lbl_DepositOver": "Số tiền yêu cầu rút ra vượt quá số dư hiện tại.",
-	"lbl_WithdrawalOver": "Your required withdrawal amount had exceeded your elegible withdrawal amount",
+	"lbl_WithdrawalOver": "Số tiền yêu cầu rút ra vượt quá hạn mức cho phép.",
 	"lbl_AboutGoal123": "Goal123.com",
 	"lbl_PrivacyPolicy": "Chính sách quyền riêng tư",
 	"lbl_Affiliates": "Affiliates",
@@ -311,5 +311,6 @@
 	"lbl_Goal123News":"Điểm báo Goal123",
 	"lbl_EdgeOfGoal123":"Ưu điểm của sản phẩm",
 	"lbl_MobileVerifiy":"Mobile verification",
-	"lbl_Retransmit":"Retransmit"
+	"lbl_Retransmit":"Retransmit",
+	"lbl_Exchange":"Đổi"
 }

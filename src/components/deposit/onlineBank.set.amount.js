@@ -73,8 +73,8 @@ export default ({
 						<LimitTip
 							minAmount={minAmount}
 							maxAmount={maxAmount}
-							displayTextLimit={"Limit"}
-							displayTextUnLimit={"Unlimit"}
+							displayTextLimit={t("lbl_Limit")}
+							displayTextUnLimit={t("lbl_Unlimited")}
 							_isConvert={_isConvert}
 						/>
 					</div>
