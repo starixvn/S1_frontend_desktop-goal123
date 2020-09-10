@@ -33,3 +33,6 @@ export const api_site_GetBanner = (
 		`/GetBanner/${lang}`,
 		`FolderName=${FolderName}&refId=${refId}&filterHideInHome=${filterHideInHome}`
 	);
+
+export const api_site_CheckResetPwdTokens = ({ key }) =>
+	siteRequest.post(`/CheckResetPwdToken`, `key=${key}`);
