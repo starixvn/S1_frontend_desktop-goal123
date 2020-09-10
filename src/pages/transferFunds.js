@@ -389,6 +389,7 @@ const Content = () => {
 					clickInfo={clickInfo}
 					checked={status.checked}
 					tip={status.tip}
+					_isConvert={_isConvert}
 				/>
 			</div>
 			<RecentHistory
