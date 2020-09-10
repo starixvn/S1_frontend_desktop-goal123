@@ -314,6 +314,8 @@
 	"lbl_EdgeOfGoal123":"Ưu điểm của sản phẩm",
 	"lbl_MobileVerifiy":"Mobile verification",
 	"lbl_Retransmit":"Retransmit",
-	"ForgetPwdSuccess":"Mật khẩu mới của bạn đã được gửi đến địa chỉ email đã đăng ký của bạn.",
-	"lbl_ResetPassword":"Đổi mật khẩu"
+	"lbl_ForgetPwdSuccess":"Mật khẩu mới của bạn đã được gửi đến địa chỉ email đã đăng ký của bạn.",
+	"lbl_ResetPassword":"Đổi mật khẩu",
+	"lbl_ForgetPsw": "Quên mật khẩu"
+
 }

@@ -314,6 +314,7 @@
 	"lbl_EdgeOfGoal123":"The Edge Of Goal123",
 	"lbl_MobileVerifiy":"Mobile verification",
 	"lbl_Retransmit":"Retransmit",
-	"ForgetPwdSuccess":"Your new password has been sent to your registered e-mail address.",
-	"lbl_ResetPassword":"Reset password"
+	"lbl_ForgetPwdSuccess":"Your new password has been sent to your registered e-mail address.",
+	"lbl_ResetPassword":"Reset password",
+	"lbl_ForgetPsw": "Forget password"
 }

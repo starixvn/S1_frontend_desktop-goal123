@@ -111,6 +111,7 @@ export default () => {
 			content = (
 				<ChangePsw
 					btnBar={popBox.btnBar}
+					title={popBox.title}
 					message={popBox.message}
 					ClickClose={popBox.ClickClose}
 				/>
