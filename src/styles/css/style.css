@@ -425,6 +425,7 @@ header .header > div.function .join, header .header > div.function .login {
   border-radius: 5px;
   padding: 8px 2px;
   color: white;
+  width: 80px;
 }
 
 header .header > div.function .login {
@@ -891,10 +892,7 @@ main section .btnGroup {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
-  margin-right: 30px;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  margin-right: 10px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -915,7 +913,7 @@ main section .btnGroup {
   height: -webkit-min-content;
   height: -moz-min-content;
   height: min-content;
-  margin-right: 20px;
+  margin-right: 10px;
 }
 
 .platform {

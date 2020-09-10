@@ -17,7 +17,7 @@ export default props => {
 		t("lbl_Month9"),
 		t("lbl_Month10"),
 		t("lbl_Month11"),
-		t("lbl_Month12)")
+		t("lbl_Month12")
 	];
 	const monthShortName = monthName[props.userInfo.birth_m - 1];
 	const birth =
