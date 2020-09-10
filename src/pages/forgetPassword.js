@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { api_site_ForgetPwd } from "../service/api/site";
-import { popBoxContext } from "../components/common/context";
+import { popBoxContext, userInfoContext } from "../components/common/context";
 import Wrapper from "../components/common/wrapper";
 import Layout from "../components/common/layout";
 import Inputbox from "../components/common/inputbox";
@@ -27,6 +27,7 @@ const initStatus = { checked: null, msg: "" };
 
 const Content = () => {
 	const { t } = useTranslation();
+	const { userInfo } = useContext(userInfoContext);
 	const { setPopBox } = useContext(popBoxContext);
 	const [userEmail, setUserEmail] = useState("");
 	const [status, setStatus] = useState(initStatus);
@@ -83,7 +84,10 @@ const Content = () => {
 		};
 
 		if (checked) {
-			api_site_ForgetPwd({ Email: userEmail }).then(
+			api_site_ForgetPwd({
+				Email: userEmail,
+				langId: userInfo.langId
+			}).then(
 				res => {
 					if (isMountedRef.current) {
 						if (res.data.errorCode === 0) {

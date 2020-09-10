@@ -317,7 +317,8 @@
 	"lbl_Exchange":"Đổi",
 	"lbl_AddBankAccount":"Thêm Tài Khoản",
 	"lbl_UpdateSuccessful":"Cập nhật thành công!",
-	"ForgetPwdSuccess":"Mật khẩu mới của bạn đã được gửi đến địa chỉ email đã đăng ký của bạn.",
+	"lbl_ForgetPwdSuccess":"Mật khẩu mới của bạn đã được gửi đến địa chỉ email đã đăng ký của bạn.",
 	"lbl_ResetPassword":"Đổi mật khẩu",
-	"lbl_MobileVerify":"Mobile Verify"
+	"lbl_MobileVerify":"Mobile Verify",
+	"lbl_ForgetPsw":"Forget Password"
 }
