@@ -309,5 +309,9 @@
 	"msg_EnterOTPCode": "Please enter OTP code.",
 	"lbl_SelDepositAmount":"Xin lựa chọn số tiền cần nạp",
 	"lbl_PoweredBy":"Một sản phẩm của",
-	"msg_loggedout":"Bạn đã đăng xuất thành công!"
+	"msg_loggedout":"Bạn đã đăng xuất thành công!",
+	"lbl_MobileVerifiy":"Mobile Verifiy",
+	"lbl_Retransmit":"Retransmit",
+	"ForgetPwdSuccess":"Mật khẩu mới của bạn đã được gửi đến địa chỉ email đã đăng ký của bạn.",
+	"lbl_ResetPassword":"Đổi mật khẩu"
 }

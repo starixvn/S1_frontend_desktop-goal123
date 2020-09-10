@@ -309,5 +309,7 @@
 	"msg_EnterOTPCode": "Please enter OTP code.",
 	"lbl_SelDepositAmount":"Please select the deposit amount",
 	"lbl_PoweredBy":"Powered by",
-	"msg_loggedout":"You have successfully logged out!!"
+	"msg_loggedout":"You have successfully logged out!!",
+	"lbl_MobileVerifiy":"Mobile Verifiy",
+	"lbl_Retransmit":"Retransmit"
 }
