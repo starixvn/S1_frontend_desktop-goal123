@@ -156,7 +156,7 @@
 	"lbl_EligibleWithdrawalAmount":"Số tiền có thể rút",
 	"lbl_AddNewAccount":"Thêm tài khoản",
 	"lbl_NumberOfBankAccounts":"Số lượng tài khoản",
-	"lbl_SelectBank_Required":"Please select bank accounts",
+	"lbl_SelectBank_Required":"Xin lựa chọn tài khoản ngân hàng",
 	"lbl_Deduction":"khấu trừ doanh số",
 	"lbl_Balance":"Số dư",
 	"lbl_ConfirmWithdrawal":"Vui lòng xác nhận thông tin rút tiền.",
@@ -310,12 +310,8 @@
 	"lbl_SelDepositAmount":"Xin lựa chọn số tiền cần nạp",
 	"lbl_PoweredBy":"Một sản phẩm của",
 	"msg_loggedout":"Bạn đã đăng xuất thành công!",
-	"lbl_Goal123News":"Điểm báo Goal123",
-	"lbl_EdgeOfGoal123":"Ưu điểm của sản phẩm",
-	"lbl_MobileVerifiy":"Mobile verification",
+	"lbl_MobileVerifiy":"Mobile Verifiy",
 	"lbl_Retransmit":"Retransmit",
-	"lbl_ForgetPwdSuccess":"Mật khẩu mới của bạn đã được gửi đến địa chỉ email đã đăng ký của bạn.",
-	"lbl_ResetPassword":"Đổi mật khẩu",
-	"lbl_ForgetPsw": "Quên mật khẩu"
-
+	"ForgetPwdSuccess":"Mật khẩu mới của bạn đã được gửi đến địa chỉ email đã đăng ký của bạn.",
+	"lbl_ResetPassword":"Đổi mật khẩu"
 }

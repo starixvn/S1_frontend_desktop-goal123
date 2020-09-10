@@ -310,11 +310,6 @@
 	"lbl_SelDepositAmount":"Please select the deposit amount",
 	"lbl_PoweredBy":"Powered by",
 	"msg_loggedout":"You have successfully logged out!!",
-	"lbl_Goal123News":"Goal123 News",
-	"lbl_EdgeOfGoal123":"The Edge Of Goal123",
-	"lbl_MobileVerifiy":"Mobile verification",
-	"lbl_Retransmit":"Retransmit",
-	"lbl_ForgetPwdSuccess":"Your new password has been sent to your registered e-mail address.",
-	"lbl_ResetPassword":"Reset password",
-	"lbl_ForgetPsw": "Forget password"
+	"lbl_MobileVerifiy":"Mobile Verifiy",
+	"lbl_Retransmit":"Retransmit"
 }
