@@ -299,7 +299,7 @@
 	"lbl_TransactionSpeedDesc":"Gửi tiền siêu tốc. Rút tiền nhanh chóng",
 	"msg_DepositHint":"Nạp tiền ngay để thưởng thức các trò chơi và dịch vụ của chúng tôi.",
 	"lbl_Lottery":"Xổ số",
-	"lbl_WithdrawalSuccess":"Your withdrawal request was successful. We will notify you once it is done.",
+	"lbl_WithdrawalSuccess":"Yêu cầu rút tiền của bạn đã được tiếp nhận. Chúng tôi sẽ thông báo khi giao dịch được xử lý xong.",
 	"lbl_WithdrawalSuccessNotify":"We will notify you once it is done.",
 	"msg_OTPHint":"Vui lòng xác nhận hồ sơ và số điện thoại của bạn để tận hưởng các khuyến mãi hấp dẫn.",
 	"lbl_GoNow":"Go Now!",
