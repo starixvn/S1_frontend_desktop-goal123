@@ -10,6 +10,7 @@ export default props => {
 				) : null}
 				<input
 					type={props.inputType ?? "text"}
+					className={props._isConvert ? "text-right" : ""}
 					placeholder={props.placeholder}
 					onBlur={props.onBlur}
 					onChange={props.onChange}

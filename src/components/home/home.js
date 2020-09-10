@@ -9,8 +9,8 @@ import edgeImg1 from "../../styles/img/EDGE1.jpg";
 import edgeImg2 from "../../styles/img/EDGE2.jpg";
 import edgeImg3 from "../../styles/img/EDGE3.jpg";
 
-import specialImg1 from "../../styles/img/verified.png";
-import specialImg2 from "../../styles/img/file.png";
+import specialImg1 from "../../styles/img/slots777.png";
+import specialImg2 from "../../styles/img/service.png";
 import specialImg3 from "../../styles/img/bank.png";
 import specialImg4 from "../../styles/img/speed.png";
 import Bong88 from "../../styles/img/bong88.png";
