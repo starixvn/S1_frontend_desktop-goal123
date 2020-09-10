@@ -79,7 +79,10 @@ export const GET_OPEN_RULE = (langId, tpId, gameId, matchid) => {
 };
 
 export const GET_ENTER_PAGE_URL = (langId, tpId, gameId, matchid) => {
-	const appUrl = typeof window !== `undefined` ? window.location.href : null;
+	const appUrl =
+		typeof window !== `undefined`
+			? `${window.location.origin}${window.location.pathname}`
+			: null;
 	let homeUrl = `${appUrl}`;
 	let signupUrl = `${appUrl}${path.join.root}`;
 	let LoginUrl = `${appUrl}${path.login.root}`;
