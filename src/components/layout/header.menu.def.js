@@ -151,7 +151,7 @@ export const defMenuLinks = {
 				tpId: 12,
 				className: "liveALL",
 				icon: "icon icon-AB",
-				displayText: "ALL",
+				displayText: "Allbet",
 				menuType: defMenuType.entPage
 			},
 			{

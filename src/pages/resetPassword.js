@@ -183,6 +183,7 @@ const Content = () => {
 							setPopBox({
 								isOpen: true,
 								popBoxType: defPopBoxType.ChangePsw,
+								title: t("lbl_ResetPassword"),
 								message: (
 									<>
 										{t("msg_changePswUpdateSuccess")}
