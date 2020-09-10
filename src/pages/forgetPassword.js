@@ -90,7 +90,8 @@ const Content = () => {
 							setPopBox({
 								isOpen: true,
 								popBoxType: defPopBoxType.ChangePsw,
-								message: t("ForgetPwdSuccess"),
+								title: t("lbl_ForgetPsw"),
+								message: t("lbl_ForgetPwdSuccess"),
 								btnBar: (
 									<div className="btnGroup">
 										<button

@@ -318,5 +318,6 @@
 	"lbl_AddBankAccount":"Add Bank Account",
 	"lbl_UpdateSuccessful":"Update Successful",
 	"ForgetPwdSuccess":"Your new password has been sent to your registered e-mail address.",
-	"lbl_ResetPassword":"Reset password"
+	"lbl_ResetPassword":"Reset password",
+	"lbl_MobileVerify":"Mobile Verify"
 }
