@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import moment from "moment";
 import Inputbox from "./inputbox";
 import Dropdown from "./dropdown";
+import DateTime from "react-datetime";
 
 const quickPickList = [
 	{ id: 0, displayKey: "lbl_Today" },
@@ -20,6 +21,8 @@ export default props => {
 	const [selectedIdx, setSelectedIdx] = useState(initQuickPick);
 
 	const today = moment().format("YYYY-MM-DD");
+	const tomorrow = moment().add(1, "days").format("YYYY-MM-DD");
+
 	const initStartDate = props.keepData?.startDate ?? today;
 	const initEndDate = props.keepData?.endDate ?? today;
 
@@ -28,6 +31,10 @@ export default props => {
 
 	let _startDate = "";
 	let _endDate = "";
+
+	const valid = current => {
+		return current.isBefore(tomorrow);
+	};
 
 	const onSelectItem = i => {
 		setSelectedIdx(i);
@@ -68,11 +75,10 @@ export default props => {
 		setEndtDate(_endDate);
 	};
 
-	const selectDate = (col, e) => {
-		let val = e.target.value;
+	const selectDate = (col, val) => {
 		col === "start" ? setStartDate(val) : setEndtDate(val);
 	};
-
+	console.log(startDate, endDate);
 	return (
 		<div className="quickSelect">
 			<div>
@@ -88,23 +94,29 @@ export default props => {
 				</div>
 			</div>
 
-			<Inputbox
-				inputType="date"
-				value={startDate}
-				max={moment().format("YYYY-MM-DD")}
-				title={t("lbl_From")}
-				onChange={selectDate.bind(null, "start")}
-				checkIcon="icon-calendar"
-			/>
+			<div className="inputBox">
+				<DateTime
+					value={moment(startDate).format("YYYY-MM-DD")}
+					onChange={selectDate.bind(this, "start")}
+					timeFormat={false}
+					isValidDate={valid}
+				/>
+				<div className="iconModule">
+					<i className="icon icon-calendar"></i>
+				</div>
+			</div>
 
-			<Inputbox
-				inputType="date"
-				value={endDate}
-				max={moment().format("YYYY-MM-DD")}
-				title={t("lbl_To")}
-				onChange={selectDate.bind(null, "end")}
-				checkIcon="icon-calendar"
-			/>
+			<div className="inputBox">
+				<DateTime
+					value={moment(endDate).format("YYYY-MM-DD")}
+					onChange={selectDate.bind(this, "end")}
+					timeFormat={false}
+					isValidDate={valid}
+				/>
+				<div className="iconModule">
+					<i className="icon icon-calendar"></i>
+				</div>
+			</div>
 
 			<div className="btnGroup">
 				<button
