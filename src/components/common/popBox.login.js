@@ -54,7 +54,10 @@ const LoginPanel = () => {
 
 	const EditField = (col, e) => {
 		let val = e.target.value;
-		val = val.replace(/[\W]/g, "");
+
+		if (col === "username") {
+			val = val.replace(/[\W]/g, "");
+		}
 
 		setUserValue(prev => {
 			return { ...prev, [col]: val };

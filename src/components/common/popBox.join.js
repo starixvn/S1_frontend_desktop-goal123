@@ -159,7 +159,10 @@ const JoinPanel = () => {
 
 	const EditField = (col, e) => {
 		let val = e.target.value;
-		val = val.replace(/[\W]/g, "");
+
+		if (col === "username") {
+			val = val.replace(/[\W]/g, "");
+		}
 
 		setUserValue(prev => ({
 			...prev,
@@ -562,7 +565,7 @@ const JoinPanel = () => {
 	return (
 		<div className="joinpop active">
 			<div className="joinloginModule">
-				<img src={joinBanner} alt="joinBanner"/>
+				<img src={joinBanner} alt="joinBanner" />
 				<form className="joinloginFunction" onSubmit={clickSubmit}>
 					<span className="title txt-yellow">{t("lbl_JoinNow")}</span>
 					<div>
