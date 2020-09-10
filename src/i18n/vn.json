@@ -156,7 +156,7 @@
 	"lbl_EligibleWithdrawalAmount":"Số tiền có thể rút",
 	"lbl_AddNewAccount":"Thêm tài khoản",
 	"lbl_NumberOfBankAccounts":"Số lượng tài khoản",
-	"lbl_SelectBank_Required":"Please select bank accounts",
+	"lbl_SelectBank_Required":"Xin lựa chọn tài khoản ngân hàng",
 	"lbl_Deduction":"khấu trừ doanh số",
 	"lbl_Balance":"Số dư",
 	"lbl_ConfirmWithdrawal":"Vui lòng xác nhận thông tin rút tiền.",
