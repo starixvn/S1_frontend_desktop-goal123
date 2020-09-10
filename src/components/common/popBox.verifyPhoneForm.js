@@ -206,7 +206,7 @@ export default ({ request_id }) => {
 						className="btn-check"
 						onClick={sendVerifySMS}>
 						{retransmitSeconds <= 0
-							? "Retransmit"
+							? t("lbl_Retransmit")
 							: retransmitSeconds}
 					</button>
 				)}

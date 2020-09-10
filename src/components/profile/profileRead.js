@@ -85,7 +85,7 @@ export default props => {
 						) : (
 							<button onClick={props.sendVerifySMS}>
 								<span className="icon icon-error otp"></span>
-								<span>Mobile verification</span>
+								<span>{t("lbl_MobileVerifiy")}</span>
 							</button>
 						)
 					) : null}

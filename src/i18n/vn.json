@@ -301,11 +301,13 @@
 	"lbl_GoNow":"Go Now!",
 	"lbl_Freebet": "Free Bet",
 	"lbl_Expried": "Expried",
-	"msg_OTPSendCode": "Mã xác nhận đã được gửi đến số điện thoại đăng ký. Vui lòng nhập mã. ",
+	"msg_OTPSendCode": "Mã xác nhận đã được gửi đến số điện thoại đăng ký. Vui lòng nhập mã.",
 	"msg_EnterOTPCode": "Please enter OTP code.",
 	"lbl_SelDepositAmount":"Xin lựa chọn số tiền cần nạp",
 	"lbl_PoweredBy":"Một sản phẩm của",
 	"msg_loggedout":"Bạn đã đăng xuất thành công!",
 	"lbl_Goal123News":"Điểm báo Goal123",
-	"lbl_EdgeOfGoal123":"Ưu điểm của sản phẩm"
+	"lbl_EdgeOfGoal123":"Ưu điểm của sản phẩm",
+	"lbl_MobileVerifiy":"Mobile verification",
+	"lbl_Retransmit":"Retransmit"
 }
