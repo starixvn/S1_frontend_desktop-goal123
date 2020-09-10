@@ -286,6 +286,8 @@
 	"lbl_RemindForName":"*FULL NAME must match name in your bank account for Instant deposit & withdrawal.",
 	"lbl_PhoneTooltip":"Please enter your phone number, it can not change once enter!",
 	"msg_changePswSuccess":"The update is successful! You can use the new password when you login in next time.",
+	"msg_changePswUpdateSuccess":"The update is successful!",
+	"msg_changePswSuccessHint":"You can use the new password when you login in next time.",
 	"lbl_Games":"Games",
 	"lbl_ExtensiveGames":"Extensive games",
 	"lbl_ExtensiveGamesDesc":"Unparalled gaming experience",
@@ -314,5 +316,7 @@
 	"lbl_Retransmit":"Retransmit",
 	"lbl_Exchange":"Exchange",
 	"lbl_AddBankAccount":"Add Bank Account",
-	"lbl_UpdateSuccessful":"Update Successful"
+	"lbl_UpdateSuccessful":"Update Successful",
+	"ForgetPwdSuccess":"Your new password has been sent to your registered e-mail address.",
+	"lbl_ResetPassword":"Reset password"
 }

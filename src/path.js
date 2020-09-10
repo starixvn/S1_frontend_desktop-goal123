@@ -82,5 +82,8 @@ export default {
 				root: "promotionInfo"
 			}
 		}
+	},
+	resetPassword: {
+		root: "resetPassword"
 	}
 };

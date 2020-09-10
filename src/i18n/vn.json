@@ -286,6 +286,8 @@
 	"lbl_RemindForName":"*Tên đầy đủ của bạn phải đúng với tên trên tài khoản Ngân hàng để thực hiện việc nạp/ rút tiền nhanh",
 	"lbl_PhoneTooltip":"Vui lòng nhập số điện thoại của bạn. Lưu ý: số điện thoại này sẽ không thể thay đổi!",
 	"msg_changePswSuccess":"The update is successful! You can use the new password when you login in next time.",
+	"msg_changePswUpdateSuccess":"The update is successful!",
+	"msg_changePswSuccessHint":"You can use the new password when you login in next time.",
 	"lbl_Games":"Trò Chơi",
 	"lbl_ExtensiveGames":"TRÒ CHƠI ĐA DẠNG",
 	"lbl_ExtensiveGamesDesc":"Trải nghiệm đỉnh cao",
@@ -314,5 +316,7 @@
 	"lbl_Retransmit":"Retransmit",
 	"lbl_Exchange":"Đổi",
 	"lbl_AddBankAccount":"Thêm Tài Khoản",
-	"lbl_UpdateSuccessful":"Cập nhật thành công!"
+	"lbl_UpdateSuccessful":"Cập nhật thành công!",
+	"ForgetPwdSuccess":"Mật khẩu mới của bạn đã được gửi đến địa chỉ email đã đăng ký của bạn.",
+	"lbl_ResetPassword":"Đổi mật khẩu"
 }

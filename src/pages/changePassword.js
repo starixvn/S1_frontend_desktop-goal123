@@ -129,7 +129,13 @@ const Content = () => {
 							setPopBox({
 								isOpen: true,
 								popBoxType: defPopBoxType.ChangePsw,
-								message: t("msg_changePswSuccess"),
+								message: (
+									<>
+										{t("msg_changePswUpdateSuccess")}
+										<br />
+										{t("msg_changePswSuccessHint")}
+									</>
+								),
 								btnBar: (
 									<div className="btnGroup">
 										<button
