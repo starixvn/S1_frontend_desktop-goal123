@@ -50,6 +50,7 @@ export default ({
 						isFavorite ? " active" : ""
 					}`}></div>
 				<img
+					alt="Casino_tpInfo"
 					src={`${config.imgUrl}/common/images/Casino/${tpInfo.name}/${imgName}`}
 				/>
 				<div className="txt-darkBlue">{gameDisplayName}</div>

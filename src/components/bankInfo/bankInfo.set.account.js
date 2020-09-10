@@ -178,6 +178,7 @@ export default ({
 					</div>
 				</div>
 				<button
+					aria-label="toLastStep"
 					className="icon icon-arrow-left2"
 					onClick={toLastStep}></button>
 			</div>
@@ -189,6 +190,7 @@ export default ({
 						<div>
 							<div className="bankName">
 								<img
+									alt="BankLogo"
 									src={`${config.imgUrl}/common/images/BankLogo/${bankInfo.bankLogo}`}
 								/>
 							</div>

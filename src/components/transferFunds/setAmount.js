@@ -13,6 +13,7 @@ export default props => {
 						</span>
 					</div>
 					<button
+						aria-label="changeDirection"
 						className="icon icon-arrow-right2 active"
 						onClick={props.changeDirection}></button>
 					<div className="walletBalanceModule to">

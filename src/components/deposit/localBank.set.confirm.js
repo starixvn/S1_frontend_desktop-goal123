@@ -77,9 +77,7 @@ export default ({ bankInfo, amount, _isConvert, dispatch }) => {
 						setPopBox({
 							isOpen: true,
 							popBoxType: defPopBoxType.UploadBankSlip,
-							depositTime: `${moment().format(
-								"yyyy-MM-DD "
-							)}${moment().format("HH:mm A")}`,
+							depositTime: moment(),
 							amount: number_format(amount, _isConvert),
 							backDeposit: backDeposit,
 							...datas

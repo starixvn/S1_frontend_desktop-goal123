@@ -76,7 +76,7 @@ export default () => {
 			<Link
 				key={`index-news-${i}`}
 				to={`/${userInfo.langId}/${path.news.root}/${path.news.sub.newsInfo.root}?newsId=${item.newsId}`}>
-				<img src={item.imageURL} />
+				<img src={item.imageURL} alt="news"/>
 				<div className="title">{item.title}</div>
 			</Link>
 		);
@@ -86,7 +86,7 @@ export default () => {
 		<>
 			<div className="news">
 				<div>
-					<div className="title">Goal123 {t("lbl_News")}</div>
+					<div className="title">{t("lbl_Goal123News")}</div>
 					<span></span>
 				</div>
 				<div className="articleModule">{newsRows}</div>

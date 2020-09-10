@@ -85,8 +85,9 @@ export default ({ accountName, custBankList, reload }) => {
 
 		setPopBox({
 			isOpen: true,
-			popBoxType: defPopBoxType.TitleWithButton,
-			message: t("lbl_CheckConfirm"),
+			popBoxType: defPopBoxType.ConfirmDelete,
+			message: t("lbl_AreYouSureDelete"),
+			message2: t("lbl_CantBeRestore"),
 			btnBar: (
 				<div className="btnGroup">
 					<button className="btn-cancel" onClick={ClickCancel}>
@@ -108,6 +109,7 @@ export default ({ accountName, custBankList, reload }) => {
 				<div className="addBankInfo">
 					<div className="bankName">
 						<img
+							alt="BankLogo"
 							src={`${config.imgUrl}/common/images/BankLogo/${item.bankLogo}`}
 						/>
 					</div>
@@ -115,6 +117,7 @@ export default ({ accountName, custBankList, reload }) => {
 				<div className="addBankInfo">
 					<div className="txt-blue2">{item.accountNo}</div>
 					<button
+						aria-label="delBankAccount"
 						className="icon icon-bin"
 						onClick={delBankAccount.bind(
 							this,

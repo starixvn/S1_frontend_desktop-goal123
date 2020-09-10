@@ -1,5 +1,3 @@
-import { func } from "prop-types";
-
 export const defActionType = {
 	TO_NEXT_STEP: "TO_NEXT_STEP",
 	TO_LAST_STEP: "TO_LAST_STEP",

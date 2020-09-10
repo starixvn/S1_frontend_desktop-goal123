@@ -1,7 +1,6 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "@reach/router";
-import path from "../../path";
 import { userInfoContext } from "../common/context";
 import { defLeftMenu } from "./leftMenu.def";
 

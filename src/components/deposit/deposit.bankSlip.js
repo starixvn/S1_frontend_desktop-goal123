@@ -1,31 +1,20 @@
-import React, {
-	useContext,
-	useEffect,
-	useState,
-	useRef,
-	createRef,
-	Component
-} from "react";
+import React, { createRef, Component } from "react";
 import moment from "moment";
 import DateTime from "react-datetime";
-import { useTranslation } from "react-i18next";
-import { userInfoContext, popBoxContext } from "../common/context";
-import { number_format, isConvert } from "../common/common";
-import {
-	api_payment_UploadReceipt,
-	api_payment_SetDepositReceipt
-} from "../../service/api/payment";
-import style from "../../styles/css/datePicker.css";
 import config from "../../config";
 import Loading from "../common/loading";
 import { defPopBoxType } from "../common/popBox";
 import Inputbox from "../common/inputbox";
+import {
+	api_payment_UploadReceipt,
+	api_payment_SetDepositReceipt
+} from "../../service/api/payment";
 
 export class Module extends Component {
 	state = {
 		processing: false,
 		loading: false,
-		depositTime: this.props.depositTime ? this.props.depositTime : null,
+		depositTime: this.props.depositTime ? this.props.depositTime : moment(),
 		refId: this.props.refId ? this.props.refId : "",
 		picFileName: this.props.picFileName ? this.props.picFileName : null,
 		fileImg: null,
@@ -66,13 +55,15 @@ export class Module extends Component {
 			api_payment_UploadReceipt(formData).then(
 				res => {
 					if (this.isMountedRef) {
+						this.setState({ loading: false });
 						if (res.data.errorCode === 0) {
 							const CloseSuccessAlert = () => {
 								this.props.setPopBox(prevS => ({
 									...prevS,
 									isOpen: true,
 									popBoxType: defPopBoxType.UploadBankSlip,
-									btnBar: prevS.prevBtnBar
+									btnBar: prevS.prevBtnBar,
+									picFileName: files[0].name
 								}));
 							};
 
@@ -91,13 +82,9 @@ export class Module extends Component {
 									</div>
 								)
 							}));
-							if (this.props.refreshDatas) {
-								this.props.refreshDatas();
-							}
 						} else {
 							alert(res.data.message);
 						}
-						this.setState({ loading: false });
 					}
 				},
 				err => {
@@ -136,7 +123,9 @@ export class Module extends Component {
 
 	clickInfo = () => {
 		let _msg =
-			this.state.refIdTip.tip !== "" ? "" : this.props.i18n("lbl_Refno");
+			this.state.refIdTip.tip !== ""
+				? ""
+				: this.props.i18n("lbl_RefNoHint");
 		this.setState({ refIdTip: { checked: null, tip: _msg } });
 	};
 
@@ -144,7 +133,6 @@ export class Module extends Component {
 		e.preventDefault();
 		if (!this.state.processing) {
 			this.setState({ processing: true });
-			let bankSlip = this.props.bankSlip;
 
 			if (this.state.refId !== "") {
 				this.setState({ loading: true });
@@ -156,22 +144,35 @@ export class Module extends Component {
 				).then(
 					res => {
 						if (this.isMountedRef) {
-							if (res.data.errorCode === 0) {
-								alert(this.props.i18n("lbl_UpdateSuccess"));
-							} else {
-								alert(res.data.message);
-							}
-							if (this.props.refreshDatas) {
-								this.props.refreshDatas();
-							} else if (this.props.backDeposit) {
-								this.props.backDeposit();
-							}
-
 							this.setState({ processing: false });
 							this.setState({ loading: false });
+							if (res.data.errorCode === 0) {
+								const ClickClose = () => {
+									if (this.props.refreshDatas) {
+										this.props.refreshDatas();
+									} else if (this.props.backDeposit) {
+										this.props.backDeposit();
+									}
 
-							if (this.props.ClosePopBox) {
-								this.props.ClosePopBox();
+									this.props.ClosePopBox();
+								};
+
+								this.props.setPopBox(prevS => ({
+									isOpen: true,
+									popBoxType: defPopBoxType.Success,
+									prevBtnBar: prevS.btnBar,
+									btnBar: (
+										<div className="btnGroup">
+											<button
+												className="btn-cancel"
+												onClick={ClickClose}>
+												{this.props.i18n("lbl_Close")}
+											</button>
+										</div>
+									)
+								}));
+							} else {
+								alert(res.data.message);
 							}
 						}
 					},
@@ -219,6 +220,7 @@ export class Module extends Component {
 					/>
 					{this.state.picFileName ? (
 						<img
+							alt="picFileName"
 							src={
 								this.state.fileImg === null
 									? `${config.apiURL}/Cashier/DepositReceip.jpg?transId=${this.props.transId}&FileName=${this.state.picFileName}`

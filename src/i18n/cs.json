@@ -49,7 +49,7 @@
   "msg_ApiServerError":"API 数据库错误",
   "lbl_Guest":"访客",
   "lbl_SelectAll":"全选",
-  "lbl_CheckConfirm":"确定要删除么？删除后将无法还原！",
+  "lbl_AreYouSureDelete":"确定要删除么？删除后将无法还原！",
   "msg_NoData":"无资料",
   "lbl_Today":"今日",
   "lbl_YesterDay":"昨日",

@@ -1,11 +1,8 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
 import config from "../../config";
 import { defActionType } from "./onlineBank.reducer";
 
 export default ({ bankList, dispatch }) => {
-	const { t } = useTranslation();
-
 	const SelectBank = bankIdx => {
 		dispatch({ type: defActionType.SELECT_BANK, bankIdx });
 	};

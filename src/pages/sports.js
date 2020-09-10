@@ -23,6 +23,8 @@ const Content = () => {
 		<main>
 			<section className="inside">
 				<iframe
+					title="sport"
+					target="sport_iframe"
 					src={GET_ENTER_PAGE_URL(
 						userInfo.langId,
 						tpId,

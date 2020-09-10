@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { defActionType } from "./onlineBank.reducer";
-import { checkAmount, number_format, getAmountTip } from "../common/common";
+import { checkAmount, getAmountTip } from "../common/common";
 import LimitTip from "./limitTip";
 import config from "../../config";
 import Inputbox from "../common/inputbox";

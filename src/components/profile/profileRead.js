@@ -17,7 +17,7 @@ export default props => {
 		t("lbl_Month9"),
 		t("lbl_Month10"),
 		t("lbl_Month11"),
-		t("lbl_Month12)")
+		t("lbl_Month12")
 	];
 	const monthShortName = monthName[props.userInfo.birth_m - 1];
 	const birth =
@@ -85,7 +85,7 @@ export default props => {
 						) : (
 							<button onClick={props.sendVerifySMS}>
 								<span className="icon icon-error otp"></span>
-								<span>Mobile verification</span>
+								<span>{t("lbl_MobileVerifiy")}</span>
 							</button>
 						)
 					) : null}
