@@ -8,7 +8,9 @@ export default ({ btnBar }) => {
 		<div className="Cancel active">
 			<div className="icon icon-library"></div>
 			<div className="title">{t("lbl_Information")}</div>
-			<div className="txt-lightgray">{t("lbl_UpdateSuccess")}</div>
+			<div className="txt-lightgray">
+				{t("lbl_UpdateSuccessWillProcess")}
+			</div>
 			{btnBar}
 		</div>
 	);

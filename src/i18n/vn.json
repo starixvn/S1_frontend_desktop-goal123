@@ -116,7 +116,7 @@
 	"lbl_RefNoHint":"Please submit your bank slip reference number",
 	"lbl_DepositTime":"Thời gian nạp tiền",
 	"lbl_UploadSuccess":"Tệp tin đã được tải lên thành công.",
-	"lbl_UpdateSuccess":"Cập nhật thành công. Chúng tôi sẽ xử lý yêu cầu của bạn nhanh nhất có thể!",
+	"lbl_UpdateSuccessWillProcess":"Cập nhật thành công. Chúng tôi sẽ xử lý yêu cầu của bạn nhanh nhất có thể!",
 	"lbl_RemindForRefNum":"Reference Number is required.",
 	"lbl_OnlineBanking":"Ngân hàng trực tuyến",
 	"lbl_CreditTime":"Thời gian thực hiện",
@@ -297,8 +297,8 @@
 	"lbl_TransactionSpeedDesc":"Gửi tiền siêu tốc. Rút tiền nhanh chóng",
 	"msg_DepositHint":"Nạp tiền ngay để thưởng thức các trò chơi và dịch vụ của chúng tôi.",
 	"lbl_Lottery":"Xổ số",
-	"lbl_WithdrawalSuccess":"Your withdrawal request was successful. We will notify you once it is done.",
-	"lbl_WithdrawalSuccessNotify":"We will notify you once it is done.",
+	"lbl_WithdrawalSuccess":"Yêu cầu rút tiền của bạn đã được tiếp nhận.",
+	"lbl_WithdrawalSuccessNotify":"Chúng tôi sẽ thông báo khi giao dịch được xử lý xong.",
 	"msg_OTPHint":"Vui lòng xác nhận hồ sơ và số điện thoại của bạn để tận hưởng các khuyến mãi hấp dẫn.",
 	"lbl_GoNow":"Go Now!",
 	"lbl_Freebet": "Free Bet",
@@ -312,5 +312,7 @@
 	"lbl_EdgeOfGoal123":"Ưu điểm của sản phẩm",
 	"lbl_MobileVerifiy":"Mobile verification",
 	"lbl_Retransmit":"Retransmit",
-	"lbl_Exchange":"Đổi"
+	"lbl_Exchange":"Đổi",
+	"lbl_AddBankAccount":"Thêm Tài Khoản",
+	"lbl_UpdateSuccessful":"Cập nhật thành công!"
 }
