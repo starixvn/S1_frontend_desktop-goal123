@@ -5,7 +5,7 @@ export default ({ btnBar, message, message2 }) => {
 		<div className="Success active">
 			<div className="icon icon-bell"></div>
 			<div className="title">Oh</div>
-			<div className="title">
+			<div>
 				{message}
 				<br />
 				{message2}

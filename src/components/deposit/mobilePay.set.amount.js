@@ -82,8 +82,8 @@ export default ({ channelInfo, _isConvert, amount, dispatch }) => {
 						<LimitTip
 							minAmount={channelInfo.minAmount}
 							maxAmount={channelInfo.maxAmount}
-							displayTextLimit={"Limit"}
-							displayTextUnLimit={"Unlimit"}
+							displayTextLimit={t("lbl_Limit")}
+							displayTextUnLimit={t("lbl_Unlimited")}
 							_isConvert={_isConvert}
 						/>
 					</div>
