@@ -84,7 +84,14 @@ const PromoRule = ({
 			.diff(new Date())
 	);
 
-	let displayExpiryTime = `${expiryTime.days()} days ${expiryTime.hours()} hours`;
+	let displayExpiryTime =
+		expiryTime.days() +
+		" " +
+		t("lbl_Days") +
+		" " +
+		expiryTime.hours() +
+		" " +
+		t("lbl_Hours");
 
 	return (
 		<div className="rollover">
