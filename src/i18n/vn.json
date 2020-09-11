@@ -103,7 +103,7 @@
 	"lbl_ChangePassword":"Đổi Mật Khẩu",
 	"lbl_Logout":"Thoát",
 	"lbl_SubmitProof":"Gửi biên lai ngân hàng",
-	"lbl_Action":"Action",
+	"lbl_Action":"Thao tác",
 	"lbl_LastTransaction":"Giao dịch gần đây",
 	"lbl_LastLogin":"Truy cập gần nhất",
 	"lbl_TpWallet_1":"Ví Thể thao",
@@ -144,7 +144,7 @@
 	"lbl_MainWallet":"Ví chính",
 	"lbl_Wallet_Saba":"Ví Sportsbook",
 	"lbl_Transfer":"Chuyển tiền",
-	"lbl_RestoreAll":"Restore All",
+	"lbl_RestoreAll":"Chuyển Hết",
 	"lbl_Success":"Thành công",
 	"lbl_Fail":"Thất bại",
 	"lbl_Close":"Đóng",
@@ -319,7 +319,7 @@
 	"lbl_ForgetPwdSuccess":"Mật khẩu mới của bạn đã được gửi đến địa chỉ email đã đăng ký của bạn.",
 	"lbl_ResetPassword":"Đổi mật khẩu",
 	"lbl_MobileVerify":"Mobile Verify",
-	"lbl_ForgetPsw":"Forget Password",
+	"lbl_ForgetPsw":"Quên mật khẩu",
 	"lbl_Days":	"ngày",
 	"lbl_Hours":"giờ"
 }

@@ -19,6 +19,7 @@ const Content = () => {
 	const { userInfo } = useContext(userInfoContext);
 	let tpId = getUrlParameter("tpId");
 	let gameId = getUrlParameter("gameId");
+	let matchid = getUrlParameter("matchid");
 	return (
 		<main>
 			<section className="inside">
@@ -28,7 +29,8 @@ const Content = () => {
 					src={GET_ENTER_PAGE_URL(
 						userInfo.langId,
 						tpId,
-						gameId
+						gameId,
+						matchid
 					)}></iframe>
 			</section>
 		</main>

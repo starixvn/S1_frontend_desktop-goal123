@@ -50,7 +50,7 @@
 	"lbl_Guest": "Guest",
 	"lbl_SelectAll": "Select All",
 	"lbl_AreYouSureDelete": "Are you sure you want to delete?",
-	"lbl_CantBeRestore":"It cannot be restrore after deleted",
+	"lbl_CantBeRestore":"It cannot be restore after deleted",
 	"msg_NoData": "No Data",
 	"lbl_Today": "Today",
 	"lbl_YesterDay": "Yesterday",
