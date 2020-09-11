@@ -166,7 +166,7 @@ header .header > div.menu {
   height: 50px;
 }
 
-header .header > div.menu > a, header .header > div.menu button {
+header .header > div.menu > a, header .header > div.menu > button {
   -webkit-box-flex: 0;
       -ms-flex: 0 0 auto;
           flex: 0 0 auto;
@@ -182,19 +182,19 @@ header .header > div.menu > a, header .header > div.menu button {
   font-family: "Microsoft YaHei", sans-serif;
 }
 
-header .header > div.menu > a:hover, header .header > div.menu > a.active, header .header > div.menu button:hover, header .header > div.menu button.active {
+header .header > div.menu > a:hover, header .header > div.menu > a.active, header .header > div.menu > button:hover, header .header > div.menu > button.active {
   cursor: pointer;
   background: #fab617;
   -webkit-transform: skewX(-10deg);
           transform: skewX(-10deg);
 }
 
-header .header > div.menu > a:first-child, header .header > div.menu button:first-child {
+header .header > div.menu > a:first-child, header .header > div.menu > button:first-child {
   margin-left: 0;
   font-size: 18px;
 }
 
-header .header > div.menu > a .icon-keyboard_arrow_right, header .header > div.menu button .icon-keyboard_arrow_right {
+header .header > div.menu > a .icon-keyboard_arrow_right, header .header > div.menu > button .icon-keyboard_arrow_right {
   -webkit-transform: rotate(90deg);
           transform: rotate(90deg);
 }
@@ -425,7 +425,7 @@ header .header > div.function .join, header .header > div.function .login {
   border-radius: 5px;
   padding: 8px 2px;
   color: white;
-  width: 80px;
+  min-width: 80px;
 }
 
 header .header > div.function .login {
@@ -2737,7 +2737,7 @@ main > .swiper-container .swiper-slide {
   font-weight: normal;
 }
 
-.directions ~ .tip {
+.directions ~ form + .tip {
   width: calc(100% - 22px);
   max-width: 80%;
   min-width: 75%;
@@ -3180,6 +3180,10 @@ main > .swiper-container .swiper-slide {
 .index header .header > div.menu {
   width: calc(100% - (100% - 1010px));
   padding: 0 calc((100% - 1010px) / 2);
+}
+
+.index main section {
+  padding-top: 20px;
 }
 
 .index main section > div, .index footer .copyright {
