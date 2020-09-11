@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import Header from "../layout/header";
 import Footer from "../layout/footer";

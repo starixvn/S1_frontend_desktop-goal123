@@ -20,11 +20,21 @@ const defLangList = () =>
 export class Dropdown extends Component {
 	constructor(props) {
 		super(props);
+
+		this.state = { isOpen: false };
+		this.wrapper = createRef(null);
+	}
+
+	componentDidMount() {
 		if (typeof document !== `undefined`) {
 			document.addEventListener("mousedown", this.handleClickOutside);
 		}
-		this.state = { isOpen: false };
-		this.wrapper = createRef(null);
+	}
+
+	componentWillMount() {
+		if (typeof document !== `undefined`) {
+			document.removeEventListener("mousedown", this.handleClickOutside);
+		}
 	}
 
 	handleClickOutside = e => {
@@ -41,11 +51,15 @@ export class Dropdown extends Component {
 		}
 	};
 
-	selectItem = value => {
+	selectItem = async (value, newPath) => {
 		this.setState({ isOpen: false });
 		if (this.props.isLogin) {
-			api_account_SetLanguage(value);
+			try {
+				api_account_SetLanguage(value);
+			} catch (e) {}
 		}
+
+		window.location.href = newPath;
 	};
 
 	render() {
@@ -57,13 +71,17 @@ export class Dropdown extends Component {
 				window.location.hash;
 			let newPathArr = SetReplaceChar(url, 1, item.value);
 			return (
-				<Link
+				<button
 					key={key}
-					to={newPathArr}
+					// to={newPathArr}
 					className={item.icon}
-					onClick={this.selectItem.bind(this, item.value)}>
+					onClick={this.selectItem.bind(
+						this,
+						item.value,
+						newPathArr
+					)}>
 					{defLangDisplayText[item.value]}
-				</Link>
+				</button>
 			);
 		});
 
