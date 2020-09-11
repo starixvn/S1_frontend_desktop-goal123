@@ -195,11 +195,11 @@ export default () => {
 				message2: t("lbl_CantBeRestore"),
 				btnBar: (
 					<div className="btnGroup">
-						<button className="btn-cancel" onClick={ClickCancel}>
-							{t("lbl_No")}
-						</button>
-						<button className="btn-check" onClick={deleteMessage}>
+						<button className="btn-cancel" onClick={deleteMessage}>
 							{t("lbl_Yes")}
+						</button>
+						<button className="btn-check" onClick={ClickCancel}>
+							{t("lbl_No")}
 						</button>
 					</div>
 				)
