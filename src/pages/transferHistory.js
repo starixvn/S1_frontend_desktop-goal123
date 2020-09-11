@@ -194,32 +194,33 @@ const Content = () => {
 			<Filter submitHandler={clickDateSubmit} keepData={keepData} />
 
 			{getHistory ? (
-				getHistory.length > 0 ? (
-					<div className="list history">
-						<div className="listHeader">
-							<div>{t("lbl_NO")}</div>
-							<div>
-								{t("lbl_Date")} ({moment().format("Z")})
-							</div>
-							<div>{t("lbl_ID")}</div>
-							<div>{t("lbl_Direction")}</div>
-							<div>{t("lbl_Amount")}</div>
-							<div>
-								{t("lbl_Status")}
-								<ReloadSpin
-									func={clickDateSubmit.bind(
-										this,
-										filterData?.StartDate,
-										filterData?.EndDate
-									)}
-								/>
-							</div>
+				<div className="list history">
+					<div className="listHeader">
+						<div>{t("lbl_NO")}</div>
+						<div>
+							{t("lbl_Date")} ({moment().format("Z")})
 						</div>
-						<div className="listBody">{arr}</div>
+						<div>{t("lbl_ID")}</div>
+						<div>{t("lbl_Direction")}</div>
+						<div>{t("lbl_Amount")}</div>
+						<div>
+							{t("lbl_Status")}
+							<ReloadSpin
+								func={clickDateSubmit.bind(
+									this,
+									filterData?.StartDate,
+									filterData?.EndDate
+								)}
+							/>
+						</div>
 					</div>
-				) : (
-					<div className="nodata">{t("msg_NoData")}</div>
-				)
+
+					{getHistory?.length > 0 ? (
+						<div className="listBody">{arr}</div>
+					) : (
+						<div className="nodata">{t("msg_NoData")}</div>
+					)}
+				</div>
 			) : null}
 
 			{pagination.totalPages !== 0 ? (
