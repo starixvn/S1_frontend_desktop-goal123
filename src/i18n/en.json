@@ -82,7 +82,7 @@
 	"lbl_WithdrawalStatus0": "Draft",
 	"lbl_WithdrawalStatus1": "Processing",
 	"lbl_WithdrawalStatus2": "Processing",
-	"lbl_WithdrawalStatus3": "Verify",
+	"lbl_WithdrawalStatus3": "Processing",
 	"lbl_WithdrawalStatus4": "Processing",
 	"lbl_WithdrawalStatus5": "Cancelled",
 	"lbl_WithdrawalStatus6": "Approved",

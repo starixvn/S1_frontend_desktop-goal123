@@ -6,7 +6,7 @@ import React, {
 	useContext
 } from "react";
 import { useTranslation } from "react-i18next";
-import { popBoxContext } from "../common/context";
+import { popBoxContext, userInfoContext } from "../common/context";
 import config from "../../config";
 import { api_accountStrict_UploadCustPhotoId } from "../../service/api/accountStrict";
 import Loading from "../common/loading";
@@ -18,6 +18,7 @@ export default props => {
 	const filebox = createRef();
 	const [loading, setLoading] = useState(false);
 	const { setPopBox } = useContext(popBoxContext);
+	const { userInfo } = useContext(userInfoContext);
 
 	const dragOver = e => {
 		e.preventDefault();
@@ -134,7 +135,7 @@ export default props => {
 								alt="DepositReceipt"
 								src={
 									fileImg === null
-										? `${config.apiURL}/Cashier/DepositReceip.jpg?transId=${props.transId}&FileName=${picFileName}`
+										? `${config.apiURL}/${userInfo.langId}/Cashier/DepositReceip.jpg?transId=${props.transId}&FileName=${picFileName}`
 										: `${fileImg}`
 								}
 							/>

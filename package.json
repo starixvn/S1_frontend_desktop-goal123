@@ -25,8 +25,8 @@
     "react-helmet": "^6.1.0",
     "react-hot-loader": "^4.12.21",
     "react-i18next": "^11.7.0",
-    "react-id-swiper": "^4.0.0",
-    "swiper": "^6.1.2"
+    "react-id-swiper": "3.0.0",
+    "swiper": "5.3.8"
   },
   "devDependencies": {
     "@hot-loader/react-dom": "^16.13.0",

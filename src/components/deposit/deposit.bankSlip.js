@@ -57,31 +57,30 @@ export class Module extends Component {
 					if (this.isMountedRef) {
 						this.setState({ loading: false });
 						if (res.data.errorCode === 0) {
-							const CloseSuccessAlert = () => {
-								this.props.setPopBox(prevS => ({
-									...prevS,
-									isOpen: true,
-									popBoxType: defPopBoxType.UploadBankSlip,
-									btnBar: prevS.prevBtnBar,
-									picFileName: files[0].name
-								}));
-							};
-
-							this.props.setPopBox(prevS => ({
-								...prevS,
-								isOpen: true,
-								popBoxType: defPopBoxType.Success,
-								prevBtnBar: prevS.btnBar,
-								btnBar: (
-									<div className="btnGroup">
-										<button
-											className="btn-cancel"
-											onClick={CloseSuccessAlert}>
-											{this.props.i18n("lbl_Close")}
-										</button>
-									</div>
-								)
-							}));
+							// const CloseSuccessAlert = () => {
+							// 	this.props.setPopBox(prevS => ({
+							// 		...prevS,
+							// 		isOpen: true,
+							// 		popBoxType: defPopBoxType.UploadBankSlip,
+							// 		btnBar: prevS.prevBtnBar,
+							// 		picFileName: files[0].name
+							// 	}));
+							// };
+							// this.props.setPopBox(prevS => ({
+							// 	...prevS,
+							// 	isOpen: true,
+							// 	popBoxType: defPopBoxType.Success,
+							// 	prevBtnBar: prevS.btnBar,
+							// 	btnBar: (
+							// 		<div className="btnGroup">
+							// 			<button
+							// 				className="btn-cancel"
+							// 				onClick={CloseSuccessAlert}>
+							// 				{this.props.i18n("lbl_Close")}
+							// 			</button>
+							// 		</div>
+							// 	)
+							// }));
 						} else {
 							alert(res.data.message);
 						}
@@ -223,7 +222,7 @@ export class Module extends Component {
 							alt="picFileName"
 							src={
 								this.state.fileImg === null
-									? `${config.apiURL}/Cashier/DepositReceip.jpg?transId=${this.props.transId}&FileName=${this.state.picFileName}`
+									? `${config.apiURL}/${this.props.langId}/Cashier/DepositReceip.jpg?transId=${this.props.transId}&FileName=${this.state.picFileName}`
 									: `${this.state.fileImg}`
 							}
 						/>

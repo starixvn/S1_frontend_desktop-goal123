@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useRef } from "react";
-import { popBoxContext } from "../common/context";
+import { popBoxContext, userInfoContext } from "../common/context";
 import { useTranslation } from "react-i18next";
 import { Module } from "../deposit/deposit.bankSlip";
 
 export default props => {
 	const { t } = useTranslation();
 	const { setPopBox } = useContext(popBoxContext);
+	const { userInfo } = useContext(userInfoContext);
 	const isMountedRef = useRef(null);
 
 	useEffect(() => {
@@ -29,6 +30,7 @@ export default props => {
 				{...props}
 				ClosePopBox={ClosePopBox}
 				setPopBox={setPopBox}
+				langId={userInfo.langId}
 			/>
 		</div>
 	);

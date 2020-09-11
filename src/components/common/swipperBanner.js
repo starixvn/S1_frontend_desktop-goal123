@@ -155,7 +155,6 @@ const defSwipperConfig = {
 
 const Autoplay = props => {
 	const params = defSwipperConfig;
-
 	return <Swiper {...params}>{props.Rows}</Swiper>;
 };
 
