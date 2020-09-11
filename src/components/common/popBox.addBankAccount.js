@@ -203,7 +203,7 @@ export default ({ bankInfoSysList = [] }) => {
 				<Inputbox
 					value={userValue.realName}
 					onChange={editField.bind(this, "realName")}
-					placeholder={t("lbl_RealName")}
+					title={t("lbl_RealName")}
 					onBlur={checkAll.bind(this, userValue.realName, "realName")}
 					clickInfo={clickInfo.bind(this, "realName")}
 					checked={status.realName.checked}
@@ -241,7 +241,7 @@ export default ({ bankInfoSysList = [] }) => {
 				value={userValue.accountNo}
 				onChange={editField.bind(this, "accountNo")}
 				onBlur={checkAll.bind(this, userValue.accountNo, "accountNo")}
-				placeholder={t("lbl_BankNumber")}
+				title={t("lbl_BankNumber")}
 				clickInfo={clickInfo.bind(this, "accountNo")}
 				checked={status.accountNo.checked}
 				tip={status.accountNo.tip}
