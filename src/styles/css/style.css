@@ -1821,6 +1821,7 @@ main > .swiper-container .swiper-slide {
 
 #leftMenu .menuModule a.menuSelect span {
   z-index: 1;
+  font-weight: normal;
 }
 
 #leftMenu .menuModule a.menuSelect:before {
@@ -2603,7 +2604,7 @@ main > .swiper-container .swiper-slide {
 }
 
 #popup .pop .title {
-  color: #fab617;
+  color: white;
   margin-bottom: 20px;
 }
 

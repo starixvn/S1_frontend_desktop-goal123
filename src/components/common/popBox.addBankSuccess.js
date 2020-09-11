@@ -7,7 +7,7 @@ export default ({ btnBar }) => {
 		<div className="updateSuccess active">
 			<div className="icon icon-library"></div>
 			<div className="title">{t("lbl_AddBankAccount")}</div>
-			<div className="txt-lightgray">{t("lbl_UpdateSuccessful")}</div>
+			<div>{t("lbl_UpdateSuccessful")}</div>
 			{btnBar}
 		</div>
 	);

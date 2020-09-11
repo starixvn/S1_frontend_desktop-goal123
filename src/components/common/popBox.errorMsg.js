@@ -30,7 +30,7 @@ export default ({ btnBar, message, errorCode }) => {
 		<div className="Success active">
 			<div className="icon icon-library"></div>
 			<div className="title">{t("lbl_Information")}</div>
-			<div className="txt-lightgray">
+			<div>
 				{message}
 				{hasTooManyRequestError ? (
 					<span> {`( ${seconds} )`}</span>

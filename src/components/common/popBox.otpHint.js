@@ -7,7 +7,7 @@ export default ({ btnBar }) => {
 		<div className="editSuccess" style={{ display: "flex" }}>
 			<div className="icon icon-icon32px_notification"></div>
 			<div className="title">{t("lbl_ImportantNote")}</div>
-			<div className="txt-lightgray">{t("msg_OTPHint")}</div>
+			<div>{t("msg_OTPHint")}</div>
 			{btnBar}
 		</div>
 	);

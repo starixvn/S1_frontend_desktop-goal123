@@ -17,7 +17,7 @@ export default () => {
 		<div className="Cancel active">
 			<div className="icon icon-bell"></div>
 			<div className="title">{t("lbl_Information")}</div>
-			<div className="txt-lightgray">{t("msg_DepositHint")}</div>
+			<div>{t("msg_DepositHint")}</div>
 			<div className="btnGroup">
 				<button className="btn-cancel" onClick={closePopBox}>
 					{t("lbl_Later")}

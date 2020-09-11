@@ -8,7 +8,7 @@ export default ({ btnBar, content }) => {
 		<div className="Success active">
 			<div className="icon icon-exit"></div>
 			<div className="title">{t("lbl_Logout")}</div>
-			<div className="txt-lightgray">{content}</div>
+			<div>{content}</div>
 			{btnBar}
 		</div>
 	);

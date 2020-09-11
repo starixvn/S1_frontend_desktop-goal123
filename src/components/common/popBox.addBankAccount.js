@@ -198,7 +198,7 @@ export default ({ bankInfoSysList = [] }) => {
 	return (
 		<div className="addBankpop active" onSubmit={ClickSubmit}>
 			<span className="title">{t("lbl_AddNewAccount")}</span>
-			<div className="txt-lightgray">{t("lbl_UpdateBankInfo")}</div>
+			<div>{t("lbl_UpdateBankInfo")}</div>
 			{!userInfo.accountName ? (
 				<Inputbox
 					value={userValue.realName}
