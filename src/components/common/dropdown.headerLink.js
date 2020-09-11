@@ -5,11 +5,20 @@ import { Link } from "@reach/router";
 export class Dropdown extends Component {
 	constructor(props) {
 		super(props);
+		this.state = { isOpen: false };
+		this.wrapper = createRef(null);
+	}
+
+	componentDidMount() {
 		if (typeof document !== `undefined`) {
 			document.addEventListener("mousedown", this.handleClickOutside);
 		}
-		this.state = { isOpen: false };
-		this.wrapper = createRef(null);
+	}
+
+	componentWillMount() {
+		if (typeof document !== `undefined`) {
+			document.removeEventListener("mousedown", this.handleClickOutside);
+		}
 	}
 
 	handleClickOutside = e => {
