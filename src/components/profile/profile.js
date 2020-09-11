@@ -16,6 +16,25 @@ import path from "../../path";
 import { Redirect } from "@reach/router";
 import Loading from "../common/loading";
 
+const initStatus = {
+	accountName: {
+		checked: null,
+		tip: ""
+	},
+	birth: {
+		checked: null,
+		tip: ""
+	},
+	phoneNo: {
+		checked: null,
+		tip: ""
+	},
+	email: {
+		checked: null,
+		tip: ""
+	}
+};
+
 export default () => {
 	const { userInfo, setUserInfo } = useContext(userInfoContext);
 	const { t } = useTranslation();
@@ -31,11 +50,7 @@ export default () => {
 	const [birthValue, setBirthValue] = useState("");
 	const [phoneValue, setPhoneValue] = useState("");
 	const [emailValue, setEmailValue] = useState("");
-	const [status, setStatus] = useState({
-		col: "",
-		checked: null,
-		tip: ""
-	});
+	const [status, setStatus] = useState(initStatus);
 
 	useEffect(() => {
 		isMountedRef.current = true;
@@ -98,68 +113,75 @@ export default () => {
 
 	const checkName = () => {
 		let checkResult = false;
+		let checkTip = "";
+
 		if (userInfo.accountName) {
 			checkResult = true;
 		} else if (!userInfo.accountName && nameValue === "") {
 			checkResult = false;
-			setStatus(prev => ({
-				...prev,
-				col: "accountName",
-				tip: t("lbl_NameRequired")
-			}));
+			checkTip = t("lbl_NameRequired");
 		} else if (!userInfo.accountName && nameValue !== "") {
-			setStatus(prev => ({
-				...prev,
-				col: "accountName",
-				tip: ""
-			}));
 			checkResult = true;
+			checkTip = "";
 		}
+
+		setStatus(prev => ({
+			...prev,
+			accountName: {
+				tip: checkTip,
+				checked: checkResult
+			}
+		}));
+
 		return checkResult;
 	};
 
 	const checkBirth = () => {
 		let checkResult = false;
+		let checkTip = "";
+
 		if (userInfo.birth_d) {
 			checkResult = true;
 		} else if (!userInfo.birth_d && birthValue === "") {
 			checkResult = false;
-			setStatus(prev => ({
-				...prev,
-				col: "birth",
-				tip: t("lbl_BirthRequired")
-			}));
+			checkTip = t("lbl_BirthRequired");
 		} else if (!userInfo.birth_d && birthValue !== "") {
 			checkResult = true;
-			setStatus(prev => ({
-				...prev,
-				col: "birth",
-				tip: ""
-			}));
+			checkTip = "";
 		}
+
+		setStatus(prev => ({
+			...prev,
+			birth: {
+				tip: checkTip,
+				checked: checkResult
+			}
+		}));
 		return checkResult;
 	};
 
 	const checkPhone = () => {
 		let checkResult = false;
+		let checkTip = "";
+
 		if (userInfo.phoneNo) {
 			checkResult = true;
 		}
 		if (!userInfo.phoneNo && phoneValue.length < 5) {
 			checkResult = false;
-			setStatus(prev => ({
-				...prev,
-				col: "phoneNo",
-				tip: t("lbl_PhoneRequired")
-			}));
+			checkTip = t("lbl_PhoneRequired");
 		} else if (!userInfo.phoneNo && phoneValue !== "") {
 			checkResult = true;
-			setStatus(prev => ({
-				...prev,
-				col: "phoneNo",
-				tip: ""
-			}));
+			checkTip = "";
 		}
+
+		setStatus(prev => ({
+			...prev,
+			phoneNo: {
+				tip: checkTip,
+				checked: checkResult
+			}
+		}));
 		return checkResult;
 	};
 
@@ -172,8 +194,10 @@ export default () => {
 							if (res.data.data === true) {
 								setStatus(prev => ({
 									...prev,
-									col: "email",
-									tip: t("msg_MailExisted")
+									email: {
+										tip: t("msg_MailExisted"),
+										checked: false
+									}
 								}));
 								return false;
 							} else if (res.data.data === false) {
@@ -208,6 +232,7 @@ export default () => {
 
 	const checkEmail = () => {
 		let checkResult = false;
+		let checkTip = "";
 		let emailRegex = /^\w+((-\w+)|(\.\w+))*@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
 		checkEmailIsUnique();
 
@@ -216,30 +241,25 @@ export default () => {
 		}
 		if (!userInfo.email && emailValue === "") {
 			checkResult = false;
-			setStatus(prev => ({
-				...prev,
-				col: "email",
-				tip: t("lbl_EmailRequired")
-			}));
+			checkTip = t("lbl_EmailRequired");
 		} else if (
 			!userInfo.email &&
 			emailValue.length > 0 &&
 			!emailRegex.test(emailValue)
 		) {
 			checkResult = false;
-			setStatus(prev => ({
-				...prev,
-				col: "email",
-				tip: t("lbl_EmailFormatError")
-			}));
+			checkTip = t("lbl_EmailFormatError");
 		} else if (!userInfo.email && emailValue !== "") {
 			checkResult = true;
-			setStatus(prev => ({
-				...prev,
-				col: "email",
-				tip: ""
-			}));
 		}
+
+		setStatus(prev => ({
+			...prev,
+			email: {
+				tip: checkTip,
+				checked: checkResult
+			}
+		}));
 		return checkResult;
 	};
 
@@ -249,8 +269,8 @@ export default () => {
 			checkBirth() === true &&
 			checkPhone() === true &&
 			checkEmail() === true &&
-			checkEmailIsUnique()?.then(res => console.log(res === true)) &&
-			status.tip === ""
+			checkEmailIsUnique()?.then(res => console.log(res === true))
+			// status.tip === ""
 		) {
 			if (!userInfo.accountName) {
 				setPopBox({
@@ -280,20 +300,26 @@ export default () => {
 		if (col === "accountName") {
 			setStatus(prev => ({
 				...prev,
-				col: "accountName",
-				tip: t("lbl_RemindForName")
+				accountName: {
+					tip: t("lbl_RemindForName"),
+					checked: null
+				}
 			}));
 		} else if (col === "phoneNo") {
 			setStatus(prev => ({
 				...prev,
-				col: "phoneNo",
-				tip: t("lbl_PhoneTooltip")
+				phoneNo: {
+					tip: t("lbl_PhoneTooltip"),
+					checked: null
+				}
 			}));
 		} else if (col === "email") {
 			setStatus(prev => ({
 				...prev,
-				col: "email",
-				tip: t("lbl_EmailToolTip")
+				email: {
+					tip: t("lbl_EmailToolTip"),
+					checked: null
+				}
 			}));
 		}
 	};
@@ -497,6 +523,7 @@ export default () => {
 						checked={status.checked}
 						col={status.col}
 						tip={status.tip}
+						status={status}
 					/>
 				) : null}
 			</div>

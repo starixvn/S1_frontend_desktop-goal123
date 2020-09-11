@@ -22,8 +22,8 @@ export default props => {
 					value={props.nameValue}
 					onBlur={props.checkName}
 					clickInfo={props.clickInfo.bind(this, "accountName")}
-					checked={props.checked}
-					tip={props.col === "accountName" ? props.tip : ""}
+					checked={props.status.accountName.checked}
+					tip={props.status.accountName.tip}
 				/>
 			) : null}
 
@@ -43,8 +43,8 @@ export default props => {
 				</div>
 			) : null}
 
-			{props.col === "birth" ? (
-				<div className="tip active">{props.tip}</div>
+			{props.status.birth.tip ? (
+				<div className="tip active">{props.status.birth.tip}</div>
 			) : null}
 
 			{!props.userInfo.phoneNo ? (
@@ -54,8 +54,8 @@ export default props => {
 					value={props.phoneValue}
 					onBlur={props.checkPhone}
 					clickInfo={props.clickInfo.bind(this, "phoneNo")}
-					checked={props.checked}
-					tip={props.col === "phoneNo" ? props.tip : ""}
+					checked={props.status.phoneNo.checked}
+					tip={props.status.phoneNo.tip}
 				/>
 			) : null}
 
@@ -67,8 +67,8 @@ export default props => {
 					onBlur={props.checkEmail}
 					name="email"
 					clickInfo={props.clickInfo.bind(this, "email")}
-					checked={props.checked}
-					tip={props.col === "email" ? props.tip : ""}
+					checked={props.status.email.checked}
+					tip={props.status.email.tip}
 				/>
 			) : null}
 
