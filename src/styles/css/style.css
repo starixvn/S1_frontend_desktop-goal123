@@ -1195,6 +1195,7 @@ footer .copyright {
       -ms-flex-align: center;
           align-items: center;
   padding: 4px 10px;
+  z-index: 1;
 }
 
 .inputBox input[type="date"]::-webkit-inner-spin-button, .inputBox-org input[type="date"]::-webkit-inner-spin-button, .inputBox-white input[type="date"]::-webkit-inner-spin-button, .inputBox-blue input[type="date"]::-webkit-inner-spin-button, .inputBox-gray input[type="date"]::-webkit-inner-spin-button, .inputBox-yellow input[type="date"]::-webkit-inner-spin-button, .inputBox input[type="date"]::-webkit-calendar-picker-indicator, .inputBox-org input[type="date"]::-webkit-calendar-picker-indicator, .inputBox-white input[type="date"]::-webkit-calendar-picker-indicator, .inputBox-blue input[type="date"]::-webkit-calendar-picker-indicator, .inputBox-gray input[type="date"]::-webkit-calendar-picker-indicator, .inputBox-yellow input[type="date"]::-webkit-calendar-picker-indicator {
@@ -2608,6 +2609,10 @@ main > .swiper-container .swiper-slide {
   margin-bottom: 20px;
 }
 
+#popup .pop .title + div {
+  text-align: center;
+}
+
 #popup .pop > div {
   display: none;
   -webkit-box-orient: vertical;
@@ -2744,7 +2749,7 @@ main > .swiper-container .swiper-slide {
   font-weight: normal;
 }
 
-.directions ~ form + .tip {
+.directions ~ form .inputBox + .tip, .directions ~ form .inputBox-org + .tip, .directions ~ form .inputBox-white + .tip, .directions ~ form .inputBox-blue + .tip, .directions ~ form .inputBox-gray + .tip, .directions ~ form .inputBox-yellow + .tip {
   width: calc(100% - 22px);
   max-width: 80%;
   min-width: 75%;
@@ -4811,5 +4816,59 @@ input + .iconModule i.icon.icon-cross:before {
 
 input + .iconModule i.icon.icon-checkmark:before {
   color: #259076;
+}
+
+.checkBankSlip {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 20px 0;
+  max-width: 80%;
+  min-width: 75%;
+}
+
+.checkBankSlip.smallList {
+  display: block;
+}
+
+.checkBankSlip.smallList > .txt-lightgray {
+  margin: 10px 0;
+}
+
+.checkBankSlip.smallList ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.checkBankSlip.smallList ul li {
+  width: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.checkBankSlip.smallList ul li .bankName {
+  margin: 0;
+}
+
+.checkBankSlip.smallList ul li:nth-child(1) {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.checkBankSlip.smallList ul li .icon {
+  color: #1E85EC;
+  margin-left: 10px;
 }
 /*# sourceMappingURL=style.css.map */

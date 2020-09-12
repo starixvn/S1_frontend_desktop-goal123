@@ -9,6 +9,8 @@ import {
 	api_payment_UploadReceipt,
 	api_payment_SetDepositReceipt
 } from "../../service/api/payment";
+import ClipboardJS from "../../lib/clipboard.min";
+import { number_format } from "../common/common";
 
 export class Module extends Component {
 	state = {
@@ -25,10 +27,17 @@ export class Module extends Component {
 
 	componentDidMount() {
 		this.isMountedRef = true;
+
+		/* eslint-disable */
+		this._clipboard = new ClipboardJS(".copyBtn");
+		this._clipboard.on("success", e => {});
+		this._clipboard.on("error", e => {});
+		/* eslint-enable */
 	}
 
 	componentWillUnmount() {
 		this.isMountedRef = false;
+		this._clipboard.destroy();
 	}
 
 	onUploadFile = (action, e) => {
@@ -57,30 +66,6 @@ export class Module extends Component {
 					if (this.isMountedRef) {
 						this.setState({ loading: false });
 						if (res.data.errorCode === 0) {
-							// const CloseSuccessAlert = () => {
-							// 	this.props.setPopBox(prevS => ({
-							// 		...prevS,
-							// 		isOpen: true,
-							// 		popBoxType: defPopBoxType.UploadBankSlip,
-							// 		btnBar: prevS.prevBtnBar,
-							// 		picFileName: files[0].name
-							// 	}));
-							// };
-							// this.props.setPopBox(prevS => ({
-							// 	...prevS,
-							// 	isOpen: true,
-							// 	popBoxType: defPopBoxType.Success,
-							// 	prevBtnBar: prevS.btnBar,
-							// 	btnBar: (
-							// 		<div className="btnGroup">
-							// 			<button
-							// 				className="btn-cancel"
-							// 				onClick={CloseSuccessAlert}>
-							// 				{this.props.i18n("lbl_Close")}
-							// 			</button>
-							// 		</div>
-							// 	)
-							// }));
 						} else {
 							alert(res.data.message);
 						}
@@ -240,6 +225,68 @@ export class Module extends Component {
 						<li>{this.props.i18n("BankSlipHint3")}</li>
 					</ul>
 				</div>
+
+				<div className="smallList checkBankSlip">
+					<div className="txt-lightgray">
+						{this.props.i18n("lbl_TransactionHint")}
+					</div>
+					<ul>
+						<li>
+							<div className="bankName">
+								<img
+									src={`${config.imgUrl}/common/images/BankLogo/${this.props.bankLogo}`}
+									alt={this.props.bankName}
+								/>
+							</div>
+						</li>
+						<li>{this.props.bankName}</li>
+						<li>
+							<a
+								href={this.props.bankSite}
+								className="icon icon-new-tab"
+								target="_blank"></a>
+						</li>
+					</ul>
+					<ul>
+						<li>{this.props.i18n("lbl_BankAccountName")}</li>
+						<li>{this.props.accountName}</li>
+						<li>
+							<button
+								className="icon icon-files-empty copyBtn"
+								data-clipboard-text={
+									this.props.accountName
+								}></button>
+						</li>
+					</ul>
+					<ul>
+						<li>{this.props.i18n("lbl_BankNumber")}</li>
+						<li>{this.props.accountNo}</li>
+						<li>
+							<button
+								className="icon icon-files-empty copyBtn"
+								data-clipboard-text={
+									this.props.accountNo
+								}></button>
+						</li>
+					</ul>
+					<ul>
+						<li>{this.props.i18n("lbl_DepositAmount")}</li>
+						<li>
+							{number_format(
+								this.props.amount,
+								this.props._isConvert
+							)}
+						</li>
+						<li>
+							<button
+								className="icon icon-files-empty copyBtn"
+								data-clipboard-text={
+									this.props.amount
+								}></button>
+						</li>
+					</ul>
+				</div>
+
 				<form onSubmit={this.clickSubmit}>
 					<div className="inputBox">
 						<i className="txt-blue12">

@@ -99,7 +99,7 @@ export default () => {
 			transId: transId,
 			accountNo: accountNo,
 			accountName: accountName,
-			amount: number_format(amount, _isConvert),
+			amount: amount,
 			picFileName: picFileName,
 			refId: refId,
 			refreshDatas: GetRecentDatas

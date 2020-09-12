@@ -78,7 +78,7 @@ export default ({ bankInfo, amount, _isConvert, dispatch }) => {
 							isOpen: true,
 							popBoxType: defPopBoxType.UploadBankSlip,
 							depositTime: moment(),
-							amount: number_format(amount, _isConvert),
+							amount: real_amount,
 							backDeposit: backDeposit,
 							...datas
 						});
