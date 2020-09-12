@@ -322,5 +322,6 @@
 	"lbl_ForgetPsw": "Forget Password",
 	"lbl_Days": "days",
 	"lbl_Hours": "hours",
-	"lbl_TransactionHint": "Please transfer the amount to the account."
+	"lbl_TransactionHint": "Please transfer the amount to the account.",
+	"lbl_PromoJoinNow": "Join Now"
 }

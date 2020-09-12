@@ -207,7 +207,7 @@ export default () => {
 										this,
 										promotionInfo
 									)}>
-									{t("lbl_JoinNow")}
+									{t("lbl_PromoJoinNow")}
 								</button>
 							</div>
 						) : null}
