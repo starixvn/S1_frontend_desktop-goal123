@@ -10,6 +10,7 @@ export default props => {
 				value={props.amountValue}
 				onChange={props.onChangeAmount}
 				onBlur={props.onBlur}
+				onFocus={props.onFocus}
 				title={t("lbl_Amount")}
 				clickInfo={props.clickInfo}
 				checked={props.checked}

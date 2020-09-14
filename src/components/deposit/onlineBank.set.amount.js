@@ -59,6 +59,10 @@ export default ({
 		});
 	};
 
+	const focusInput = e => {
+		e.target.select();
+	};
+
 	return (
 		<div className="subModuleList">
 			<div className="subModule">
@@ -83,6 +87,7 @@ export default ({
 							title={t("lbl_Amount")}
 							value={amount}
 							onChange={EditAmount}
+							onFocus={focusInput.bind(this)}
 							onBlur={VaildAmount.bind(this, amount)}
 							clickInfo={clickInfo}
 							checked={status.checked}

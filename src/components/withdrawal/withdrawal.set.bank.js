@@ -377,6 +377,10 @@ export default props => {
 		);
 	};
 
+	const focusInput = e => {
+		e.target.select();
+	};
+
 	return loading ? (
 		<Loading />
 	) : (
@@ -450,6 +454,7 @@ export default props => {
 												this,
 												amountValue
 											)}
+											onFocus={focusInput.bind(this)}
 											clickInfo={clickInfo}
 											checked={status.checked}
 											tip={status.tip}

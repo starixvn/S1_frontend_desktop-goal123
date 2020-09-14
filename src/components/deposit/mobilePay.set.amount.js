@@ -66,6 +66,10 @@ export default ({ channelInfo, _isConvert, amount, dispatch }) => {
 		});
 	};
 
+	const focusInput = e => {
+		e.target.select();
+	};
+
 	const typeIsSelAmount = channelInfo.amountRule === 3;
 
 	return (
@@ -99,6 +103,7 @@ export default ({ channelInfo, _isConvert, amount, dispatch }) => {
 						<Inputbox
 							title={t("lbl_Amount")}
 							value={amount}
+							onFocus={focusInput.bind(this)}
 							onChange={EditAmount}
 							readOnly={typeIsSelAmount}
 							onBlur={VaildAmount.bind(this, amount)}

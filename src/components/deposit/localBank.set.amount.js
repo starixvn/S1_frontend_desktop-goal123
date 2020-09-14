@@ -61,6 +61,10 @@ export default ({ bankInfo, _isConvert, amount, dispatch }) => {
 		}
 	};
 
+	const focusInput = e => {
+		e.target.select();
+	};
+
 	return (
 		<div className="subModuleList">
 			<div className="subModule">
@@ -85,6 +89,7 @@ export default ({ bankInfo, _isConvert, amount, dispatch }) => {
 							title={t("lbl_Amount")}
 							value={amount}
 							onChange={EditAmount}
+							onFocus={focusInput.bind(this)}
 							onBlur={ValidAmount.bind(this, amount)}
 							clickInfo={clickInfo}
 							checked={status.checked}
