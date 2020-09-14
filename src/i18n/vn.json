@@ -324,5 +324,6 @@
 	"lbl_PoweredBy":"Một sản phẩm của",
 	"msg_loggedout":"Bạn đã đăng xuất thành công!",
 	"lbl_Goal123News":"Điểm báo Goal123",
-	"lbl_EdgeOfGoal123":"Ưu điểm của sản phẩm"
+	"lbl_EdgeOfGoal123":"Ưu điểm của sản phẩm",
+	"msg_PhoneExisted":"Phone number already exists."
 }

@@ -2602,11 +2602,7 @@ main > .swiper-container .swiper-slide {
   background: rgba(15, 35, 70, 0.95);
   padding: 40px;
   border-radius: 15px;
-<<<<<<< HEAD
-  max-height: 700px;
-=======
   max-height: calc(100% - 160px);
->>>>>>> 0b611cb5cd8c40fba66ebdbde38078237096a022
   overflow-y: auto;
 }
 

@@ -1,8 +1,6 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
-import {
-	api_site_ExistsEmail,
-	api_site_ExistsPhone
-} from "../../service/api/site";
+import { api_site_ExistsEmail } from "../../service/api/site";
+import { api_account_ExistsPhone } from "../../service/api/account";
 import {
 	api_accountStrict_SetProfile,
 	api_accountStrict_SendVerifySMS
@@ -166,192 +164,151 @@ export default () => {
 	};
 
 	const checkPhoneIsUnique = async () => {
-		console.log("userInfo.AreaCode",userInfo.AreaCode)
-		setStatus(prev => ({
-			...prev,
-			phone: {
-				tip: "",
-				checked: "loading"
-			}
-		}));
-		if (!userInfo.phoneNo && phoneValue && phoneValue.length > 0) {
-			let result = await api_site_ExistsPhone({
-				AreaCode:userInfo.AreaCode,
-				phone: phoneValue
-			}).then(
-				res => {
-					if (isMountedRef.current) {
-						if (res.data.errorCode === 0) {
-							if (res.data.data === 1) {
-								setStatus(prev => ({
-									...prev,
-									phone: {
-										tip: "phone existed",
-										checked: false
-									}
-								}));
-								return false;
-							} else if (res.data.data === 0) {
-								setStatus(prev => ({
-									...prev,
-									phone: {
-										tip: "",
-										checked: true
-									}
-								}));
-								return true;
-							}
+		try {
+			if (!userInfo.phoneNo && phoneValue && phoneValue.length > 0) {
+				const { data } = await api_account_ExistsPhone({
+					AreaCode: userInfo.AreaCode,
+					Phone: phoneValue
+				});
+
+				if (isMountedRef.current) {
+					if (data.errorCode === 0) {
+						if (data.data) {
+							setStatus(prev => ({
+								...prev,
+								phoneNo: {
+									tip: t("msg_PhoneExisted"),
+									checked: false
+								}
+							}));
+							return false;
+						} else {
+							setStatus(prev => ({
+								...prev,
+								phoneNo: {
+									tip: "",
+									checked: true
+								}
+							}));
+							return true;
 						}
 					}
-				},
-				err => {
-					if (isMountedRef.current) {
-						setPopBox({
-							isOpen: true,
-							popBoxType: defPopBoxType.ErrorMsg,
-							message: t("msg_ApiServerError"),
-							btnBar: (
-								<div className="btnGroup">
-									<button
-										className="btn-cancel"
-										onClick={ClickClose}>
-										{t("lbl_Close")}
-									</button>
-								</div>
-							)
-						});
-					}
 				}
-			);
-			return result;
+			}
+		} catch (e) {
+			if (isMountedRef.current) {
+				setPopBox({
+					isOpen: true,
+					popBoxType: defPopBoxType.ErrorMsg,
+					message: t("msg_ApiServerError"),
+					btnBar: (
+						<div className="btnGroup">
+							<button className="btn-cancel" onClick={ClickClose}>
+								{t("lbl_Close")}
+							</button>
+						</div>
+					)
+				});
+			}
 		}
-		return false;
 	};
 
 	const checkPhone = async () => {
 		let checkResult = false;
-		let checkTip = "";
 
 		if (userInfo.phoneNo) {
 			checkResult = true;
 		}
-		if (!userInfo.phoneNo && phoneValue.length >0) {
+
+		if (!userInfo.phoneNo && phoneValue.length < 0) {
 			setStatus(prev => ({
 				...prev,
-				phone: {
+				phoneNo: {
 					tip: t("lbl_PhoneRequired"),
 					checked: false
 				}
 			}));
-		} else if (!userInfo.phoneNo && phoneValue !== ""
-		&& phoneValue.length >0) {
-			await checkPhoneIsUnique();
-		}
-
-		if (checkPhoneIsUnique()?.then(res => console.log(res === true))) {
+		} else if (
+			!userInfo.phoneNo &&
+			phoneValue !== "" &&
+			phoneValue.length > 0
+		) {
 			setStatus(prev => ({
 				...prev,
-				phone: {
-					tip: checkTip,
-					checked: checkResult
+				phoneNo: {
+					tip: "",
+					checked: "loading"
 				}
 			}));
-			checkResult = true;
+
+			checkResult = await checkPhoneIsUnique();
 		}
 
 		return checkResult;
 	};
 
 	const checkEmailIsUnique = async () => {
-		setStatus(prev => ({
-			...prev,
-			email: {
-				tip: "",
-				checked: "loading"
-			}
-		}));
-		if (!userInfo.email && emailValue && emailValue.length > 0) {
-			let result = await api_site_ExistsEmail({
-				Email: emailValue
-			}).then(
-				res => {
-					if (isMountedRef.current) {
-						if (res.data.errorCode === 0) {
-							if (res.data.data === true) {
-								setStatus(prev => ({
-									...prev,
-									email: {
-										tip: t("msg_MailExisted"),
-										checked: false
-									}
-								}));
-								return false;
-							} else if (res.data.data === false) {
-								setStatus(prev => ({
-									...prev,
-									email: {
-										tip: "",
-										checked: true
-									}
-								}));
-								return true;
-							}
+		try {
+			if (!userInfo.email && emailValue && emailValue.length > 0) {
+				const { data } = await api_site_ExistsEmail({
+					Email: emailValue
+				});
+
+				if (isMountedRef.current) {
+					if (data.errorCode === 0) {
+						if (data.data === true) {
+							setStatus(prev => ({
+								...prev,
+								email: {
+									tip: t("msg_MailExisted"),
+									checked: false
+								}
+							}));
+							return false;
+						} else if (data.data === false) {
+							setStatus(prev => ({
+								...prev,
+								email: {
+									tip: "",
+									checked: true
+								}
+							}));
+							return true;
 						}
 					}
-				},
-				err => {
-					if (isMountedRef.current) {
-						setPopBox({
-							isOpen: true,
-							popBoxType: defPopBoxType.ErrorMsg,
-							message: t("msg_ApiServerError"),
-							btnBar: (
-								<div className="btnGroup">
-									<button
-										className="btn-cancel"
-										onClick={ClickClose}>
-										{t("lbl_Close")}
-									</button>
-								</div>
-							)
-						});
-					}
 				}
-			);
-			return result;
+			}
+		} catch (e) {
+			if (isMountedRef.current) {
+				setPopBox({
+					isOpen: true,
+					popBoxType: defPopBoxType.ErrorMsg,
+					message: t("msg_ApiServerError"),
+					btnBar: (
+						<div className="btnGroup">
+							<button className="btn-cancel" onClick={ClickClose}>
+								{t("lbl_Close")}
+							</button>
+						</div>
+					)
+				});
+			}
 		}
-		return false;
 	};
 
 	const checkEmail = async () => {
-		// checkEmailIsUnique()?.then(res => console.log(res === true))
 		let checkResult = false;
+
 		let checkTip = "";
 		let emailRegex = /^\w+((-\w+)|(\.\w+))*@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
 
 		if (userInfo.email) {
 			checkResult = true;
 		}
-		
+
 		if (!userInfo.email && emailValue === "") {
 			checkResult = false;
 			checkTip = t("lbl_EmailRequired");
-		} else if (
-			!userInfo.email &&
-			emailValue.length > 0 &&
-			!emailRegex.test(emailValue)
-		) {
-			checkResult = false;
-			checkTip = t("lbl_EmailFormatError");
-		} else if (
-			!userInfo.email &&
-			emailValue.length > 0 &&
-			emailRegex.test(emailValue)
-		) {
-			await checkEmailIsUnique();
-		}
-
-		if (checkEmailIsUnique()?.then(res => console.log(res === true))) {
 			setStatus(prev => ({
 				...prev,
 				email: {
@@ -359,43 +316,72 @@ export default () => {
 					checked: checkResult
 				}
 			}));
-			checkResult = true;
+		} else if (
+			!userInfo.email &&
+			emailValue.length > 0 &&
+			!emailRegex.test(emailValue)
+		) {
+			checkResult = false;
+			checkTip = t("lbl_EmailFormatError");
+			setStatus(prev => ({
+				...prev,
+				email: {
+					tip: checkTip,
+					checked: checkResult
+				}
+			}));
+		} else if (
+			!userInfo.email &&
+			emailValue.length > 0 &&
+			emailRegex.test(emailValue)
+		) {
+			setStatus(prev => ({
+				...prev,
+				email: {
+					tip: "",
+					checked: "loading"
+				}
+			}));
+
+			checkResult = await checkEmailIsUnique();
 		}
 
 		return checkResult;
 	};
 
-	const submitCheck = () => {
-		console.log("check result", checkEmail());
-		if (
-			checkName() === true &&
-			checkBirth() === true &&
-			checkPhone() === true &&
-			checkEmail()?.then(res => console.log(res === true)) &&
-			status.email.checked === true
-		) {
-			if (!userInfo.accountName) {
-				setPopBox({
-					isOpen: true,
-					popBoxType: defPopBoxType.ProfileConfirmCheck,
-					accountName: nameValue,
-					btnBar: (
-						<div className="btnGroup">
-							<button className="btn-cancel" onClick={ClickClose}>
-								{t("lbl_ReModify")}
-							</button>
-							<button
-								className="btn-check"
-								onClick={submitProfile}>
-								{t("lbl_Confirm")}
-							</button>
-						</div>
-					)
-				});
-			} else {
-				submitProfile();
+	const submitCheck = async () => {
+		Promise.all([checkEmail(), checkPhone()]).then(res => {
+			if (
+				checkName() === true &&
+				checkBirth() === true &&
+				res[0] === true &&
+				res[1] === true
+			) {
+				if (!userInfo.accountName) {
+					setPopBox({
+						isOpen: true,
+						popBoxType: defPopBoxType.ProfileConfirmCheck,
+						accountName: nameValue,
+						btnBar: (
+							<div className="btnGroup">
+								<button
+									className="btn-cancel"
+									onClick={ClickClose}>
+									{t("lbl_ReModify")}
+								</button>
+								<button
+									className="btn-check"
+									onClick={submitProfile}>
+									{t("lbl_Confirm")}
+								</button>
+							</div>
+						)
+					});
+				} else {
+					submitProfile();
+				}
 			}
-		}
+		});
 	};
 
 	const clickInfo = col => {
