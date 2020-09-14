@@ -3,7 +3,12 @@ import { Redirect } from "@reach/router";
 import * as ct from "../common/context";
 import { defaultLang } from "../../i18n/config";
 import { useTranslation } from "react-i18next";
-import { getUrlParameter, setCookie, deleteCookie } from "../common/common";
+import {
+	getUrlParameter,
+	setCookie,
+	deleteCookie,
+	readCookie
+} from "../common/common";
 import { IS_LOGGED_IN } from "../../service/auth";
 import { api_accountStrict_GetCustProfile } from "../../service/api/accountStrict";
 import {
@@ -28,7 +33,7 @@ export default ({ children, afterLogin = false }) => {
 	const [userInfo, setUserInfo] = useState({
 		isLogin: null,
 		userName: null,
-		langId: "vn"
+		langId: readCookie("goalLangId") ?? "vn"
 	});
 
 	const [currentPath] = useState(
@@ -103,6 +108,7 @@ export default ({ children, afterLogin = false }) => {
 						isMountedRef.current
 					) {
 						let data = res_custInfo.data.data;
+						setCookie("goalLangId", data.langId);
 						setUserInfo(prevState => ({
 							...prevState,
 							...data
@@ -151,13 +157,13 @@ export default ({ children, afterLogin = false }) => {
 		if (userInfo.isLogin !== null) {
 			if (typeof window !== `undefined`) {
 				let pathLang = window.location.pathname.split("/")?.[1];
-				let currentLang = userInfo.langId;
+				let currentLang = readCookie("goalLangId") ?? userInfo.langId;
 				if (!pathLang && currentLang !== defaultLang) {
 					setRedirectPath(`/${currentLang}`);
-				} else if (pathLang !== "" && pathLang !== userInfo.langId) {
+				} else if (pathLang !== "" && pathLang !== currentLang) {
 					setUserInfo(prevState => ({
 						...prevState,
-						langId: pathLang
+						langId: currentLang
 					}));
 				} else {
 					setCorrectPath(true);

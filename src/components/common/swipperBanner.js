@@ -76,19 +76,25 @@ const Panel = ({
 
 	useEffect(() => {
 		let mounted = true;
-		api_site_GetBanner(
-			ImgFolder,
-			"",
-			userInfo.langId,
-			filterHideInHome
-		).then(res => {
-			if (res.data.errorCode === 0 && mounted) {
-				setBanner(res.data.data);
+		if (userInfo.isLogin === null) {
+			if (mounted) {
+				setBanner([]);
 			}
-		});
+		} else {
+			api_site_GetBanner(
+				ImgFolder,
+				"",
+				userInfo.langId,
+				filterHideInHome
+			).then(res => {
+				if (res.data.errorCode === 0 && mounted) {
+					setBanner(res.data.data);
+				}
+			});
+		}
 
 		return () => (mounted = false);
-	}, [userInfo, ImgFolder, filterHideInHome]);
+	}, [userInfo.langId, userInfo.isLogin, ImgFolder, filterHideInHome]);
 
 	let rows = banner?.map((b, idx) => {
 		let _imgFolder = b.imgFolder ?? ImgFolder;

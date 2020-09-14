@@ -1,11 +1,7 @@
 import React, { Component, createRef } from "react";
 import PropTypes from "prop-types";
-import { Link } from "@reach/router";
 import { api_account_SetLanguage } from "../../service/api/account";
-
-const SetReplaceChar = (str, idx, newChar) => {
-	return `${str.substr(0, idx)}${newChar}${str.substr(idx + newChar.length)}`;
-};
+import { getNewLanguagePath, setCookie, readCookie } from "../common/common";
 
 const defLangDisplayText = {
 	vn: "Tiếng Việt",
@@ -60,16 +56,13 @@ export class Dropdown extends Component {
 		}
 
 		window.location.href = newPath;
+		setCookie("goalLangId", value);
 	};
 
 	render() {
 		let arr = defLangList().map((item, idx) => {
 			let key = `${this.props.mainKey}_${idx}`;
-			let url =
-				window.location.pathname +
-				window.location.search +
-				window.location.hash;
-			let newPathArr = SetReplaceChar(url, 1, item.value);
+
 			return (
 				<button
 					key={key}
@@ -78,7 +71,7 @@ export class Dropdown extends Component {
 					onClick={this.selectItem.bind(
 						this,
 						item.value,
-						newPathArr
+						getNewLanguagePath(item.value)
 					)}>
 					{defLangDisplayText[item.value]}
 				</button>
