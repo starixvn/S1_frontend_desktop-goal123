@@ -62,6 +62,7 @@ export default () => {
 					btnBar={popBox.btnBar}
 					message={popBox.message}
 					errorCode={popBox.errorCode}
+					icon={popBox.icon}
 				/>
 			);
 			break;

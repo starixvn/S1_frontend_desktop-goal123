@@ -423,7 +423,7 @@ export default () => {
 
 	const sendVerifySMS = () => {
 		setMobileVerificationLoading(true);
-
+		
 		api_accountStrict_SendVerifySMS().then(
 			res => {
 				if (isMountedRef.current) {
@@ -442,6 +442,7 @@ export default () => {
 							isOpen: true,
 							popBoxType: defPopBoxType.ErrorMsg,
 							message: message || "error",
+							icon: "icon-bell",
 							errorCode,
 							btnBar: (
 								<div className="btnGroup">
@@ -463,6 +464,7 @@ export default () => {
 						isOpen: true,
 						popBoxType: defPopBoxType.ErrorMsg,
 						message: t("msg_ApiServerError"),
+						icon: "icon-bell",
 						btnBar: (
 							<div className="btnGroup">
 								<button
