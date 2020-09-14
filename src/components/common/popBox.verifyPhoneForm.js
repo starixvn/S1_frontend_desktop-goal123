@@ -78,6 +78,7 @@ export default ({ request_id }) => {
 							isOpen: true,
 							popBoxType: defPopBoxType.ErrorMsg,
 							message: message || "error",
+							icon: "icon-bell",
 							errorCode,
 							btnBar: (
 								<div className="btnGroup">
@@ -100,6 +101,7 @@ export default ({ request_id }) => {
 						isOpen: true,
 						popBoxType: defPopBoxType.ErrorMsg,
 						message: t("msg_ApiServerError"),
+						icon: "icon-bell",
 						btnBar: (
 							<div className="btnGroup">
 								<button
@@ -153,6 +155,7 @@ export default ({ request_id }) => {
 						isOpen: true,
 						popBoxType: defPopBoxType.ErrorMsg,
 						message: t("msg_ApiServerError"),
+						icon: "icon-bell",
 						btnBar: (
 							<div className="btnGroup">
 								<button
