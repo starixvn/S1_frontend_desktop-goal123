@@ -115,7 +115,7 @@ export default () => {
 	}, []);
 
 	const toProfile = () => {
-		setRedirectPath(`/${path.profile.root}`);
+		setRedirectPath(`/${userInfo.langId}/${path.profile.root}`);
 	};
 
 	const ClickClose = () => {

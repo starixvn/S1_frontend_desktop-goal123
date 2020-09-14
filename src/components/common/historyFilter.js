@@ -78,7 +78,6 @@ export default props => {
 	const selectDate = (col, val) => {
 		col === "start" ? setStartDate(val) : setEndtDate(val);
 	};
-	console.log(startDate, endDate);
 	return (
 		<div className="quickSelect">
 			<div>
