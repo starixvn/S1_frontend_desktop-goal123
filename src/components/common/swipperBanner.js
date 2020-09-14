@@ -96,6 +96,7 @@ const Panel = ({
 			b.fromDB || b.lang?.includes(userInfo.langId)
 				? userInfo.langId
 				: "en";
+
 		let actionLinkByLang = b.fromDB
 			? null
 			: b.actionLinkByLang?.find(a => a.lang === userInfo.langId);
@@ -108,31 +109,44 @@ const Panel = ({
 
 		let key = `${lang}-${b.img}-${idx}`;
 
-		return actionLink === defSpecialActionLink.SportsIndex ? (
-			<Link
-				key={key}
-				to={`${userInfo.langId}/${path.sports.root}?tpId=${b.tpId}&gameId=${b.gameId}&matchid=${b.matchid}`}>
-				<img src={imgSRC} className="banner" alt={b.img ?? ""} />
-			</Link>
-		) : (
-			<button
-				onClick={ClickLink.bind(
-					this,
-					b.tpId,
-					b.gameId,
-					lang,
-					actionLink,
-					b.outerLink === true,
-					b.urlWithLang,
-					userInfo.isLogin,
-					setNav,
-					b.matchid,
-					openInBlank
-				)}
-				key={key}>
-				<img src={imgSRC} className="banner" alt={b.img ?? ""} />
-			</button>
-		);
+		if (actionLink === defSpecialActionLink.SportsIndex) {
+			return (
+				<Link
+					key={key}
+					to={`${userInfo.langId}/${path.sports.root}?tpId=${b.tpId}&gameId=${b.gameId}&matchid=${b.matchid}`}>
+					<img src={imgSRC} className="banner" alt={b.img ?? ""} />
+				</Link>
+			);
+		} else if (
+			b.fromDB &&
+			b.actionLink.startsWith("promotion/promotionInfo?BonusCode=")
+		) {
+			return (
+				<Link key={key} to={`${userInfo.langId}/${b.actionLink}`}>
+					<img src={imgSRC} className="banner" alt={b.img ?? ""} />
+				</Link>
+			);
+		} else {
+			return (
+				<button
+					onClick={ClickLink.bind(
+						this,
+						b.tpId,
+						b.gameId,
+						lang,
+						actionLink,
+						b.outerLink === true,
+						b.urlWithLang,
+						userInfo.isLogin,
+						setNav,
+						b.matchid,
+						openInBlank
+					)}
+					key={key}>
+					<img src={imgSRC} className="banner" alt={b.img ?? ""} />
+				</button>
+			);
+		}
 	});
 
 	return withBtn ? <AutoPlayWithBtn Rows={rows} /> : <Autoplay Rows={rows} />;
