@@ -31,7 +31,7 @@ export default props => {
 	const [sysIdValue, setSysIdValue] = useState(0);
 	const [accountNoValue, setAccountNoValue] = useState("");
 	const [bankNameValue, setBankNameValue] = useState("");
-	const [amountValue, setAmountValue] = useState(0);
+	const [amountValue, setAmountValue] = useState("");
 	const [showConfirmPage, setShowConfirmPage] = useState(false);
 	const { userInfo } = useContext(userInfoContext);
 	const _isConvert = isConvert(userInfo.currencyId);
@@ -184,7 +184,6 @@ export default props => {
 	const onChangeAmount = e => {
 		let value = e.target.value;
 		value = value.replace(/^(0+)|[^\d]+/g, "");
-
 		ValidAmount(value);
 		setAmountValue(value);
 	};
@@ -251,7 +250,7 @@ export default props => {
 
 	const confirmSubmit = () => {
 		let ClickDone = () => {
-			setAmountValue(0);
+			setAmountValue("");
 			getApiBalance();
 			setPopBox({
 				isOpen: false
