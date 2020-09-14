@@ -30,6 +30,7 @@ export default props => {
 						title={props.i18n("lbl_Amount")}
 						value={props.amount}
 						onChange={props.onChange}
+						onFocus={props.onFocus}
 						onBlur={props.onBlur}
 						clickInfo={props.clickInfo}
 						checked={props.checked}

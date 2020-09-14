@@ -14,6 +14,7 @@ export default props => {
 					placeholder={props.placeholder}
 					onBlur={props.onBlur}
 					onChange={props.onChange}
+					onFocus={props.onFocus}
 					value={
 						props.value === null || props.value === undefined
 							? ""

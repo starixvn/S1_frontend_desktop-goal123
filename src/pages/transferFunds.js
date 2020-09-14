@@ -359,6 +359,10 @@ const Content = () => {
 		}
 	};
 
+	const focusInput = e => {
+		e.target.select();
+	};
+
 	return loading || getWalletInfo === [] ? (
 		<Loading />
 	) : (
@@ -378,6 +382,7 @@ const Content = () => {
 					i18n={t}
 					amount={amount}
 					onChange={EditAmount}
+					onFocus={focusInput.bind(this)}
 					transferFrom={direction.transferFrom}
 					transferTo={direction.transferTo}
 					clickSubmit={clickSubmit}
