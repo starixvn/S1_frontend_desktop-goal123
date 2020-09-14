@@ -2602,7 +2602,11 @@ main > .swiper-container .swiper-slide {
   background: rgba(15, 35, 70, 0.95);
   padding: 40px;
   border-radius: 15px;
+<<<<<<< HEAD
   max-height: 700px;
+=======
+  max-height: calc(100% - 160px);
+>>>>>>> 0b611cb5cd8c40fba66ebdbde38078237096a022
   overflow-y: auto;
 }
 
@@ -4206,7 +4210,7 @@ main > .swiper-container .swiper-slide {
 }
 
 .promotionsInfo .proData {
-  background: white;
+  background: #0f2346;
   border-radius: 15px;
   margin-top: 20px;
   padding: 40px;
@@ -4221,7 +4225,7 @@ main > .swiper-container .swiper-slide {
           align-items: center;
 }
 
-.promotionsInfo .proData .proDataTitle .txt-darkBlue {
+.promotionsInfo .proData .proDataTitle .txt-blue2 {
   font-weight: bold;
   -webkit-box-flex: 3;
       -ms-flex: 3;

@@ -191,9 +191,9 @@ export default () => {
 				<img src={promotionInfo.banner} alt="promotionInfo_banner" />
 				<div className="proData">
 					<div className="proDataTitle">
-						<div className="txt-darkBlue">
+						<div className="txt-blue2">
 							{promotionInfo.title}
-							<div className="txt-darkBlue">
+							<div className="txt-blue2">
 								{promotionInfo.description}
 							</div>
 						</div>
@@ -229,7 +229,7 @@ export default () => {
 					<div
 						className="proDataBody"
 						dangerouslySetInnerHTML={{
-							__html: `<pre>${promotionInfo.details}</pre>`
+							__html: `${promotionInfo.details}`
 						}}></div>
 				</div>
 			</div>
