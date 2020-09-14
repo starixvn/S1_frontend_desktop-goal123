@@ -58,8 +58,10 @@ export default () => {
 	});
 
 	useEffect(() => {
+		setLoading(true);
 		if (userInfo.isLogin && userInfo.currencyId) {
 			getAreaCode();
+			setLoading(false);
 		}
 	}, [userInfo.country]);
 
@@ -326,7 +328,6 @@ export default () => {
 
 	const submitProfile = () => {
 		setLoading(true);
-
 		const ClickClose = () => {
 			setPopBox({ isOpen: false });
 		};
@@ -500,6 +501,7 @@ export default () => {
 					sendVerifySMS={sendVerifySMS}
 					mobileVerificationLoading={mobileVerificationLoading}
 				/>
+
 				{!userInfo.accountName ||
 				!userInfo.birth_d ||
 				!userInfo.phoneNo ||

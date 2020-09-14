@@ -57,12 +57,14 @@ export default props => {
 		},
 		{
 			label: t("lbl_RegisterTime"),
-			value: moment(props.userInfo.regTime).format("lll"),
+			value: moment(props.userInfo.regTime).format("DD-MM-YYYY HH:mm:ss"),
 			show: true
 		},
 		{
 			label: t("lbl_LastLogin"),
-			value: moment(props.userInfo.lastLogin).format("lll"),
+			value: moment(props.userInfo.lastLogin).format(
+				"DD-MM-YYYY HH:mm:ss"
+			),
 			show: true
 		}
 	];
