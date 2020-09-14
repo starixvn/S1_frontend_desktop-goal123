@@ -185,6 +185,9 @@ const AutoPlayWithBtn = ({ Rows }) => {
 			nextEl: ".swiper-button-next",
 			prevEl: ".swiper-button-prev"
 		},
+		getSwiper: obj => {
+			ref.current = obj;
+		},
 		renderPrevButton: () => (
 			<div className="swiper-button-prev" onClick={goPrev}></div>
 		),
@@ -195,14 +198,14 @@ const AutoPlayWithBtn = ({ Rows }) => {
 	const ref = useRef(null);
 
 	const goNext = () => {
-		if (ref.current !== null && ref.current.swiper !== null) {
-			ref.current.swiper.slideNext();
+		if (ref.current !== null) {
+			ref.current.slideNext();
 		}
 	};
 
 	const goPrev = () => {
-		if (ref.current !== null && ref.current.swiper !== null) {
-			ref.current.swiper.slidePrev();
+		if (ref.current !== null) {
+			ref.current.slidePrev();
 		}
 	};
 
@@ -210,9 +213,7 @@ const AutoPlayWithBtn = ({ Rows }) => {
 		<>
 			<div className="swiper-container">
 				<div className="swiper-wrapper">
-					<Swiper {...params} ref={ref}>
-						{Rows}
-					</Swiper>
+					<Swiper {...params}>{Rows}</Swiper>
 				</div>
 			</div>
 		</>
