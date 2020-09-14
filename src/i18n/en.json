@@ -323,5 +323,7 @@
 	"lbl_Days": "days",
 	"lbl_Hours": "hours",
 	"lbl_TransactionHint": "Please transfer the amount to the account.",
-	"lbl_PromoJoinNow": "Join Now"
+	"lbl_PromoJoinNow": "Join Now",
+	"lbl_UpdatePersonalInfo":"Please update your personal information before making deposit.",
+	"lbl_UpdatePersonalDetail":"Update Personal Details"
 }

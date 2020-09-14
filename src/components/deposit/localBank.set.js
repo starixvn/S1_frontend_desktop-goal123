@@ -96,6 +96,28 @@ export default () => {
 		);
 	}, []);
 
+	useEffect(() => {
+		if (!userInfo.accountName || !userInfo.phoneNo || !userInfo.email) {
+			setPopBox({
+				isOpen: true,
+				popBoxType: defPopBoxType.UpdateProfile,
+				title: t("lbl_ImportantNote"),
+				content: t("lbl_UpdatePersonalInfo"),
+				btnBar: (
+					<div className="btnGroup">
+						<button className="btn-check" onClick={toProfile}>
+							{t("lbl_UpdatePersonalDetail")}
+						</button>
+					</div>
+				)
+			});
+		}
+	}, []);
+
+	const toProfile = () => {
+		setRedirectPath(`/${path.profile.root}`);
+	};
+
 	const ClickClose = () => {
 		setPopBox({ isOpen: false });
 	};

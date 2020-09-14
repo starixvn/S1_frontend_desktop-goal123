@@ -323,5 +323,7 @@
 	"lbl_Days": "ngày",
 	"lbl_Hours": "giờ",
 	"lbl_TransactionHint": "Chuyển tiền đến tài khoản.",
-	"lbl_PromoJoinNow": "Tham Gia Ngay"
+	"lbl_PromoJoinNow": "Tham Gia Ngay",
+	"lbl_UpdatePersonalInfo":"Vui lòng cập nhật thông tin cá nhân trước khi nạp tiền.",
+	"lbl_UpdatePersonalDetail":"Cập nhật thông tin cá nhân"
 }
