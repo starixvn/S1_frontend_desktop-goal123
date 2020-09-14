@@ -1,5 +1,8 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
-import { api_site_ExistsEmail } from "../../service/api/site";
+import {
+	api_site_ExistsEmail,
+	api_site_ExistsPhone
+} from "../../service/api/site";
 import {
 	api_accountStrict_SetProfile,
 	api_accountStrict_SendVerifySMS
@@ -162,47 +165,40 @@ export default () => {
 		return checkResult;
 	};
 
-	const checkPhone = () => {
-		let checkResult = false;
-		let checkTip = "";
-
-		if (userInfo.phoneNo) {
-			checkResult = true;
-		}
-		if (!userInfo.phoneNo && phoneValue.length < 5) {
-			checkResult = false;
-			checkTip = t("lbl_PhoneRequired");
-		} else if (!userInfo.phoneNo && phoneValue !== "") {
-			checkResult = true;
-			checkTip = "";
-		}
-
+	const checkPhoneIsUnique = async () => {
+		console.log("userInfo.AreaCode",userInfo.AreaCode)
 		setStatus(prev => ({
 			...prev,
-			phoneNo: {
-				tip: checkTip,
-				checked: checkResult
+			phone: {
+				tip: "",
+				checked: "loading"
 			}
 		}));
-		return checkResult;
-	};
-
-	const checkEmailIsUnique = async () => {
-		if (!userInfo.email && emailValue && emailValue.length > 0) {
-			let result = await api_site_ExistsEmail({ Email: emailValue }).then(
+		if (!userInfo.phoneNo && phoneValue && phoneValue.length > 0) {
+			let result = await api_site_ExistsPhone({
+				AreaCode:userInfo.AreaCode,
+				phone: phoneValue
+			}).then(
 				res => {
 					if (isMountedRef.current) {
 						if (res.data.errorCode === 0) {
-							if (res.data.data === true) {
+							if (res.data.data === 1) {
 								setStatus(prev => ({
 									...prev,
-									email: {
-										tip: t("msg_MailExisted"),
+									phone: {
+										tip: "phone existed",
 										checked: false
 									}
 								}));
 								return false;
-							} else if (res.data.data === false) {
+							} else if (res.data.data === 0) {
+								setStatus(prev => ({
+									...prev,
+									phone: {
+										tip: "",
+										checked: true
+									}
+								}));
 								return true;
 							}
 						}
@@ -232,15 +228,111 @@ export default () => {
 		return false;
 	};
 
-	const checkEmail = () => {
+	const checkPhone = async () => {
+		let checkResult = false;
+		let checkTip = "";
+
+		if (userInfo.phoneNo) {
+			checkResult = true;
+		}
+		if (!userInfo.phoneNo && phoneValue.length >0) {
+			setStatus(prev => ({
+				...prev,
+				phone: {
+					tip: t("lbl_PhoneRequired"),
+					checked: false
+				}
+			}));
+		} else if (!userInfo.phoneNo && phoneValue !== ""
+		&& phoneValue.length >0) {
+			await checkPhoneIsUnique();
+		}
+
+		if (checkPhoneIsUnique()?.then(res => console.log(res === true))) {
+			setStatus(prev => ({
+				...prev,
+				phone: {
+					tip: checkTip,
+					checked: checkResult
+				}
+			}));
+			checkResult = true;
+		}
+
+		return checkResult;
+	};
+
+	const checkEmailIsUnique = async () => {
+		setStatus(prev => ({
+			...prev,
+			email: {
+				tip: "",
+				checked: "loading"
+			}
+		}));
+		if (!userInfo.email && emailValue && emailValue.length > 0) {
+			let result = await api_site_ExistsEmail({
+				Email: emailValue
+			}).then(
+				res => {
+					if (isMountedRef.current) {
+						if (res.data.errorCode === 0) {
+							if (res.data.data === true) {
+								setStatus(prev => ({
+									...prev,
+									email: {
+										tip: t("msg_MailExisted"),
+										checked: false
+									}
+								}));
+								return false;
+							} else if (res.data.data === false) {
+								setStatus(prev => ({
+									...prev,
+									email: {
+										tip: "",
+										checked: true
+									}
+								}));
+								return true;
+							}
+						}
+					}
+				},
+				err => {
+					if (isMountedRef.current) {
+						setPopBox({
+							isOpen: true,
+							popBoxType: defPopBoxType.ErrorMsg,
+							message: t("msg_ApiServerError"),
+							btnBar: (
+								<div className="btnGroup">
+									<button
+										className="btn-cancel"
+										onClick={ClickClose}>
+										{t("lbl_Close")}
+									</button>
+								</div>
+							)
+						});
+					}
+				}
+			);
+			return result;
+		}
+		return false;
+	};
+
+	const checkEmail = async () => {
+		// checkEmailIsUnique()?.then(res => console.log(res === true))
 		let checkResult = false;
 		let checkTip = "";
 		let emailRegex = /^\w+((-\w+)|(\.\w+))*@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
-		checkEmailIsUnique();
 
 		if (userInfo.email) {
 			checkResult = true;
 		}
+		
 		if (!userInfo.email && emailValue === "") {
 			checkResult = false;
 			checkTip = t("lbl_EmailRequired");
@@ -251,28 +343,36 @@ export default () => {
 		) {
 			checkResult = false;
 			checkTip = t("lbl_EmailFormatError");
-		} else if (!userInfo.email && emailValue !== "") {
+		} else if (
+			!userInfo.email &&
+			emailValue.length > 0 &&
+			emailRegex.test(emailValue)
+		) {
+			await checkEmailIsUnique();
+		}
+
+		if (checkEmailIsUnique()?.then(res => console.log(res === true))) {
+			setStatus(prev => ({
+				...prev,
+				email: {
+					tip: checkTip,
+					checked: checkResult
+				}
+			}));
 			checkResult = true;
 		}
 
-		setStatus(prev => ({
-			...prev,
-			email: {
-				tip: checkTip,
-				checked: checkResult
-			}
-		}));
 		return checkResult;
 	};
 
 	const submitCheck = () => {
+		console.log("check result", checkEmail());
 		if (
 			checkName() === true &&
 			checkBirth() === true &&
 			checkPhone() === true &&
-			checkEmail() === true &&
-			checkEmailIsUnique()?.then(res => console.log(res === true))
-			// status.tip === ""
+			checkEmail()?.then(res => console.log(res === true)) &&
+			status.email.checked === true
 		) {
 			if (!userInfo.accountName) {
 				setPopBox({
@@ -335,6 +435,7 @@ export default () => {
 		let linkToDeposit = () => {
 			setRedirectPath(`/${userInfo.langId}/${path.deposit.root}`);
 		};
+
 		api_accountStrict_SetProfile({
 			AccountName: !userInfo.accountName
 				? nameValue
@@ -423,7 +524,7 @@ export default () => {
 
 	const sendVerifySMS = () => {
 		setMobileVerificationLoading(true);
-		
+
 		api_accountStrict_SendVerifySMS().then(
 			res => {
 				if (isMountedRef.current) {
@@ -510,7 +611,7 @@ export default () => {
 				!userInfo.email ? (
 					<ProfileEdit
 						userInfo={userInfo}
-						submitProfile={submitCheck}
+						submitCheck={submitCheck}
 						onChangeName={onChangeName}
 						onChangeBirth={onChangeBirth}
 						onChangePhone={onChangePhone}

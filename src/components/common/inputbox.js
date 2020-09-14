@@ -1,6 +1,24 @@
 import React from "react";
 
 export default props => {
+	const showCheckIcon = () => {
+		if (props.checked === null) {
+			return (
+				<i
+					className={`icon icon-information-solid`}
+					onClick={props.clickInfo}></i>
+			);
+		} else {
+			if (props.checked === true) {
+				return <i className={`icon icon-checkmark`}></i>;
+			} else if (props.checked === false) {
+				return <i className={`icon icon-cross`}></i>;
+			} else if (props.checked === "loading") {
+				return <i className={`icon icon-spinner11`}></i>;
+			}
+		}
+	};
+
 	return (
 		<>
 			<div className="inputBox">
@@ -25,7 +43,8 @@ export default props => {
 				{props.checked !== undefined ? (
 					<div className="iconModule">
 						{props._isConvert ? "('000)" : null}
-						{props.checked === null ? (
+						{showCheckIcon()}
+						{/* {props.checked === null ? (
 							<i
 								className={`icon icon-information-solid`}
 								onClick={props.clickInfo}></i>
@@ -33,7 +52,7 @@ export default props => {
 							<i className={`icon icon-checkmark`}></i>
 						) : !props.checked && props.checked !== null ? (
 							<i className={`icon icon-cross`}></i>
-						) : null}
+						) : null} */}
 					</div>
 				) : null}
 				{props.checkIcon ? (

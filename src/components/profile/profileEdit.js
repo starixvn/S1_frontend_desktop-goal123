@@ -73,7 +73,7 @@ export default props => {
 			) : null}
 
 			<div className="btnGroup">
-				<button className="btn-check" onClick={props.submitProfile}>
+				<button className="btn-check" onClick={props.submitCheck}>
 					{t("lbl_Submit")}
 				</button>
 			</div>
