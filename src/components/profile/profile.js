@@ -16,6 +16,7 @@ import { getCountryCode } from "../common/common";
 import path from "../../path";
 import { Redirect } from "@reach/router";
 import Loading from "../common/loading";
+import handleError from "../common/handleError";
 
 const initStatus = {
 	accountName: {
@@ -195,20 +196,16 @@ export default () => {
 					}
 				}
 			}
-		} catch (e) {
+		} catch (err) {
 			if (isMountedRef.current) {
-				setPopBox({
-					isOpen: true,
-					popBoxType: defPopBoxType.ErrorMsg,
-					message: t("msg_ApiServerError"),
-					btnBar: (
-						<div className="btnGroup">
-							<button className="btn-cancel" onClick={ClickClose}>
-								{t("lbl_Close")}
-							</button>
-						</div>
-					)
-				});
+				setStatus(prev => ({
+					...prev,
+					phoneNo: {
+						tip: "",
+						checked: false
+					}
+				}));
+				handleError({ setPopBox, t, err });
 			}
 		}
 	};
@@ -278,20 +275,16 @@ export default () => {
 					}
 				}
 			}
-		} catch (e) {
+		} catch (err) {
 			if (isMountedRef.current) {
-				setPopBox({
-					isOpen: true,
-					popBoxType: defPopBoxType.ErrorMsg,
-					message: t("msg_ApiServerError"),
-					btnBar: (
-						<div className="btnGroup">
-							<button className="btn-cancel" onClick={ClickClose}>
-								{t("lbl_Close")}
-							</button>
-						</div>
-					)
-				});
+				setStatus(prev => ({
+					...prev,
+					email: {
+						tip: "",
+						checked: false
+					}
+				}));
+				handleError({ setPopBox, t, err });
 			}
 		}
 	};
