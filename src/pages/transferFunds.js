@@ -92,8 +92,8 @@ const Content = () => {
 								balance: item.balance
 							};
 						});
-						setLoading(false);
 						setGetWalletInfo([mainWallet, ...tpWalletArr]);
+						setLoading(false);
 					} else {
 						setPopBox({
 							isOpen: true,
@@ -158,7 +158,6 @@ const Content = () => {
 						GetWalletInfo();
 						GetTransferRecent();
 						setAmount("1");
-						setLoading(false);
 					} else {
 						setPopBox({
 							isOpen: true,
@@ -174,7 +173,6 @@ const Content = () => {
 								</div>
 							)
 						});
-						setLoading(false);
 					}
 				}
 			},
@@ -206,7 +204,6 @@ const Content = () => {
 				if (isMountedRef.current) {
 					if (res.data.errorCode === 0) {
 						setGetHistory(res.data.data);
-						setLoading(false);
 					} else {
 						setPopBox({
 							isOpen: true,
