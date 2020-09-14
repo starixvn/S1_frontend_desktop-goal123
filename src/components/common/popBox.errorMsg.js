@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
-export default ({ btnBar, message, errorCode }) => {
+export default ({ btnBar, message, errorCode, icon = "icon-library" }) => {
 	const { t } = useTranslation();
 	const [seconds, setSeconds] = useState(300);
 
@@ -28,7 +28,7 @@ export default ({ btnBar, message, errorCode }) => {
 	const hasTooManyRequestError = errorCode === 1004;
 	return (
 		<div className="Success active">
-			<div className="icon icon-library"></div>
+			<div className={`icon ${icon}`}></div>
 			<div className="title">{t("lbl_Information")}</div>
 			<div>
 				{message}

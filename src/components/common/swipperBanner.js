@@ -76,19 +76,25 @@ const Panel = ({
 
 	useEffect(() => {
 		let mounted = true;
-		api_site_GetBanner(
-			ImgFolder,
-			"",
-			userInfo.langId,
-			filterHideInHome
-		).then(res => {
-			if (res.data.errorCode === 0 && mounted) {
-				setBanner(res.data.data);
+		if (userInfo.isLogin === null) {
+			if (mounted) {
+				setBanner([]);
 			}
-		});
+		} else {
+			api_site_GetBanner(
+				ImgFolder,
+				"",
+				userInfo.langId,
+				filterHideInHome
+			).then(res => {
+				if (res.data.errorCode === 0 && mounted) {
+					setBanner(res.data.data);
+				}
+			});
+		}
 
 		return () => (mounted = false);
-	}, [userInfo, ImgFolder, filterHideInHome]);
+	}, [userInfo.langId, userInfo.isLogin, ImgFolder, filterHideInHome]);
 
 	let rows = banner?.map((b, idx) => {
 		let _imgFolder = b.imgFolder ?? ImgFolder;
@@ -96,6 +102,7 @@ const Panel = ({
 			b.fromDB || b.lang?.includes(userInfo.langId)
 				? userInfo.langId
 				: "en";
+
 		let actionLinkByLang = b.fromDB
 			? null
 			: b.actionLinkByLang?.find(a => a.lang === userInfo.langId);
@@ -108,31 +115,44 @@ const Panel = ({
 
 		let key = `${lang}-${b.img}-${idx}`;
 
-		return actionLink === defSpecialActionLink.SportsIndex ? (
-			<Link
-				key={key}
-				to={`${userInfo.langId}/${path.sports.root}?tpId=${b.tpId}&gameId=${b.gameId}&matchid=${b.matchid}`}>
-				<img src={imgSRC} className="banner" alt={b.img ?? ""} />
-			</Link>
-		) : (
-			<button
-				onClick={ClickLink.bind(
-					this,
-					b.tpId,
-					b.gameId,
-					lang,
-					actionLink,
-					b.outerLink === true,
-					b.urlWithLang,
-					userInfo.isLogin,
-					setNav,
-					b.matchid,
-					openInBlank
-				)}
-				key={key}>
-				<img src={imgSRC} className="banner" alt={b.img ?? ""} />
-			</button>
-		);
+		if (actionLink === defSpecialActionLink.SportsIndex) {
+			return (
+				<Link
+					key={key}
+					to={`${userInfo.langId}/${path.sports.root}?tpId=${b.tpId}&gameId=${b.gameId}&matchid=${b.matchid}`}>
+					<img src={imgSRC} className="banner" alt={b.img ?? ""} />
+				</Link>
+			);
+		} else if (
+			b.fromDB &&
+			b.actionLink.startsWith("promotion/promotionInfo?BonusCode=")
+		) {
+			return (
+				<Link key={key} to={`${userInfo.langId}/${b.actionLink}`}>
+					<img src={imgSRC} className="banner" alt={b.img ?? ""} />
+				</Link>
+			);
+		} else {
+			return (
+				<button
+					onClick={ClickLink.bind(
+						this,
+						b.tpId,
+						b.gameId,
+						lang,
+						actionLink,
+						b.outerLink === true,
+						b.urlWithLang,
+						userInfo.isLogin,
+						setNav,
+						b.matchid,
+						openInBlank
+					)}
+					key={key}>
+					<img src={imgSRC} className="banner" alt={b.img ?? ""} />
+				</button>
+			);
+		}
 	});
 
 	return withBtn ? <AutoPlayWithBtn Rows={rows} /> : <Autoplay Rows={rows} />;
@@ -165,6 +185,9 @@ const AutoPlayWithBtn = ({ Rows }) => {
 			nextEl: ".swiper-button-next",
 			prevEl: ".swiper-button-prev"
 		},
+		getSwiper: obj => {
+			ref.current = obj;
+		},
 		renderPrevButton: () => (
 			<div className="swiper-button-prev" onClick={goPrev}></div>
 		),
@@ -175,14 +198,14 @@ const AutoPlayWithBtn = ({ Rows }) => {
 	const ref = useRef(null);
 
 	const goNext = () => {
-		if (ref.current !== null && ref.current.swiper !== null) {
-			ref.current.swiper.slideNext();
+		if (ref.current !== null) {
+			ref.current.slideNext();
 		}
 	};
 
 	const goPrev = () => {
-		if (ref.current !== null && ref.current.swiper !== null) {
-			ref.current.swiper.slidePrev();
+		if (ref.current !== null) {
+			ref.current.slidePrev();
 		}
 	};
 
@@ -190,9 +213,7 @@ const AutoPlayWithBtn = ({ Rows }) => {
 		<>
 			<div className="swiper-container">
 				<div className="swiper-wrapper">
-					<Swiper {...params} ref={ref}>
-						{Rows}
-					</Swiper>
+					<Swiper {...params}>{Rows}</Swiper>
 				</div>
 			</div>
 		</>

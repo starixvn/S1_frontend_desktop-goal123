@@ -4,6 +4,7 @@ import {
 } from "../service/api/account";
 import { api_accountStrict_GetCustProfile } from "../service/api/accountStrict";
 import { api_site_CheckSignIn } from "../service/api/site";
+import { setCookie } from "../components/common/common";
 
 const isBrowser = typeof window !== `undefined`;
 
@@ -37,6 +38,7 @@ export const LOGIN = async ({ userName, password, langId }) => {
 									..._loginUser,
 									...data
 								};
+								setCookie("goalLangId", data.langId);
 							}
 							return {
 								errorCode: 0,

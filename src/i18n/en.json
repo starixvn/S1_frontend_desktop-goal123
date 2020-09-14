@@ -125,7 +125,7 @@
 	"lbl_Instant": "Instant",
 	"lbl_AmountTooltip": "Amount can not be less than {0}.",
 	"lbl_NotinLimit": "Not in Limit.",
-	"lbl_MobileDeposit": "Mobile Deposit",
+	"lbl_MobileDeposit": "Mobile E-Wallet",
 	"lbl_Limit": "Limit",
 	"lbl_Unlimited": "Unlimited",
 	"BankSlipHint1": "Maximum file size 4 MB each",
@@ -323,5 +323,7 @@
 	"lbl_Days": "days",
 	"lbl_Hours": "hours",
 	"lbl_TransactionHint": "Please transfer the amount to the account.",
-	"lbl_PromoJoinNow": "Join Now"
+	"lbl_PromoJoinNow": "Join Now",
+	"lbl_UpdatePersonalInfo":"Please update your personal information before making deposit.",
+	"lbl_UpdatePersonalDetail":"Update Personal Details"
 }
