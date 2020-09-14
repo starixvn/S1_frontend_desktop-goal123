@@ -7,6 +7,7 @@ import {
 	getUrlParameter,
 	setCookie,
 	deleteCookie,
+	getNewLanguagePath,
 	readCookie
 } from "../common/common";
 import { IS_LOGGED_IN } from "../../service/auth";
@@ -165,6 +166,9 @@ export default ({ children, afterLogin = false }) => {
 						...prevState,
 						langId: currentLang
 					}));
+
+					let newPathArr = getNewLanguagePath(currentLang);
+					window.location.href = newPathArr;
 				} else {
 					setCorrectPath(true);
 				}
