@@ -10,7 +10,7 @@ const ShowWallet = props => {
 				<span className="icon icon-balance">
 					{props.i18n(item.displayKey)}
 				</span>
-				<span>{number_format(item.balance, props._isConvert)}</span>
+				<span>{number_format(item.balance, false)}</span>
 				<div className="btnGroup">
 					<button
 						className="blue"

@@ -24,10 +24,10 @@ export default ({
 				<div className="turnover">
 					<span>
 						{t(`Currency_${currency}`)}{" "}
-						{number_format(custTurnOver, _isConvert)}
+						{number_format(custTurnOver, false)}
 					</span>{" "}
 					/ ({t("lbl_Req")} {t(`Currency_${currency}`)}{" "}
-					{number_format(custRollOver, _isConvert)})
+					{number_format(custRollOver, false)})
 					{hideReloadBtn ? null : (
 						<ReloadSpin func={RefreshProcessBar} />
 					)}

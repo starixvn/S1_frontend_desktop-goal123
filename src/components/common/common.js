@@ -16,6 +16,11 @@ export const number_format = (n, IsConvertRequired = false) => {
 		n /= 1000;
 	}
 
+	if (!isNaN(n) && !IsConvertRequired) {
+		n /= 1000;
+		return n;
+	}
+
 	n += "";
 	var arr = n.split(".");
 	var re = /(\d{1,3})(?=(\d{3})+$)/g;

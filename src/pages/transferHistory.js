@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { api_tp_GetTransferHistory } from "../service/api/tp";
-import { isConvert } from "../components/common/common";
 import { userInfoContext, popBoxContext } from "../components/common/context";
 import { TransactionHistory } from "../components/transferFunds/historyResult";
 import { Pagination } from "../components/common/pagination";
@@ -60,7 +59,6 @@ const Content = () => {
 	const [processing, setProcessing] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const [pagination, setPagination] = useState(initPagination);
-	const _isConvert = isConvert(userInfo.currencyId);
 	const isMountedRef = useRef(null);
 
 	useEffect(() => {
@@ -172,7 +170,6 @@ const Content = () => {
 			<TransactionHistory
 				key={`transfer-${item.transId}`}
 				idx={i + 1}
-				_isConvert={_isConvert}
 				createTime={item.createTime}
 				transId={item.transId}
 				amount={item.amount}
@@ -195,6 +192,7 @@ const Content = () => {
 
 			{getHistory ? (
 				<div className="list history">
+					<div className="tip active">{t("msg_AmountFormatTip")}</div>
 					<div className="listHeader">
 						<div>{t("lbl_NO")}</div>
 						<div>

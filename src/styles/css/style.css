@@ -2568,7 +2568,7 @@ main > .swiper-container .swiper-slide {
   height: 100%;
 }
 
-.bankName i {
+.bankName i, .bankName a {
   position: absolute;
   right: -10px;
   -webkit-transform: translateX(100%);
@@ -4878,5 +4878,18 @@ input + .iconModule i.icon.icon-checkmark:before {
 .checkBankSlip.smallList ul li .icon {
   color: #1E85EC;
   margin-left: 10px;
+}
+
+.resend {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 /*# sourceMappingURL=style.css.map */

@@ -7,7 +7,6 @@ import {
 	api_payment_GetDepositInfoRecent,
 	api_payment_SetDepositCancel
 } from "../../service/api/payment";
-import { isConvert, number_format } from "../common/common";
 import { defPopBoxType } from "../common/popBox";
 import path from "../../path";
 import { Link } from "@reach/router";
@@ -18,7 +17,6 @@ export default () => {
 	const { t } = useTranslation();
 	const { userInfo } = useContext(userInfoContext);
 	const { setPopBox } = useContext(popBoxContext);
-	const _isConvert = isConvert(userInfo.currencyId);
 	const [getHistory, setGetHistory] = useState(null);
 	const [loading, setLoading] = useState(false);
 	const isMountedRef = useRef(null);
@@ -170,7 +168,6 @@ export default () => {
 			<TransactionHistory
 				key={`deposit-recent-${item.transId}`}
 				{...item}
-				_isConvert={_isConvert}
 				idx={i + 1}
 				ClickCancel={ClickCancel.bind(this, item.transId)}
 				SubmitProof={SubmitProof.bind(
@@ -191,6 +188,7 @@ export default () => {
 	) : getHistory ? (
 		<>
 			<div className="list">
+				<div className="tip active">{t("msg_AmountFormatTip")}</div>
 				<div className="listHeader">
 					<div>{t("lbl_NO")}</div>
 					<div>

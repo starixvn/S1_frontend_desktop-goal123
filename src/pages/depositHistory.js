@@ -3,7 +3,6 @@ import {
 	api_payment_GetDepositInfoHistory,
 	api_payment_SetDepositCancel
 } from "../service/api/payment";
-import { number_format, isConvert } from "../components/common/common";
 import { useTranslation } from "react-i18next";
 import { userInfoContext, popBoxContext } from "../components/common/context";
 import { TransactionHistory } from "../components/deposit/deposit.historyResult";
@@ -38,7 +37,6 @@ const Content = () => {
 	const { t } = useTranslation();
 	const { userInfo } = useContext(userInfoContext);
 	const { setPopBox } = useContext(popBoxContext);
-	const _isConvert = isConvert(userInfo.currencyId);
 	const [getHistory, setGetHistory] = useState(null);
 	const [processing, setProcessing] = useState(false);
 	const [filterData, setFilterData] = useState(null);
@@ -242,7 +240,6 @@ const Content = () => {
 				transId={item.transId}
 				depositType={item.depositType}
 				status={item.status}
-				_isConvert={_isConvert}
 				amount={item.amount}
 				ClickCancel={ClickCancel.bind(this, item.transId)}
 				SubmitProof={SubmitProof.bind(
@@ -269,6 +266,7 @@ const Content = () => {
 
 			{getHistory ? (
 				<div className="list history">
+					<div className="tip active">{t("msg_AmountFormatTip")}</div>
 					<div className="listHeader">
 						<div>{t("lbl_NO")}</div>
 						<div>

@@ -7,7 +7,6 @@ import {
 	api_payment_SetWithdrawalCancel
 } from "../../service/api/payment";
 import { TransactionHistory } from "./historyResult";
-import { isConvert } from "../common/common";
 import { defPopBoxType } from "../common/popBox";
 import path from "../../path";
 import { Link } from "@reach/router";
@@ -18,7 +17,6 @@ export default props => {
 	const { t } = useTranslation();
 	const { userInfo } = useContext(userInfoContext);
 	const { setPopBox } = useContext(popBoxContext);
-	const _isConvert = isConvert(userInfo.currencyId);
 	const [getHistory, setGetHistory] = useState(null);
 	const [loading, setLoading] = useState(false);
 	const isMountedRef = useRef(null);
@@ -170,7 +168,6 @@ export default props => {
 			<TransactionHistory
 				key={`withdrawal-recent-${item.transId}`}
 				idx={i + 1}
-				_isConvert={_isConvert}
 				i18n={t}
 				{...item}
 				ClickCancel={ClickCancel.bind(this, item.transId)}
@@ -183,6 +180,7 @@ export default props => {
 	) : getHistory ? (
 		<>
 			<div className="list">
+				<div className="tip active">{t("msg_AmountFormatTip")}</div>
 				<div className="listHeader">
 					<div>{t("lbl_NO")}</div>
 					<div>
