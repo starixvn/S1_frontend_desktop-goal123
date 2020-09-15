@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import moment from "moment";
 import { useTranslation } from "react-i18next";
 import { userInfoContext } from "../common/context";
-import { isConvert } from "../common/common";
 import { TransactionHistory } from "./historyResult";
 import { Link } from "@reach/router";
 import path from "../../path";
@@ -25,7 +24,6 @@ const transferDirection = (direction, displayMainWallet, displaySabaWallet) => {
 export default props => {
 	const { t } = useTranslation();
 	const { userInfo } = useContext(userInfoContext);
-	const _isConvert = isConvert(userInfo.currencyId);
 
 	let arr = props.getHistory?.map((item, i) => {
 		const _transferDirection = transferDirection(
@@ -39,7 +37,6 @@ export default props => {
 			<TransactionHistory
 				key={`transfer-recent-${item.transId}`}
 				idx={i + 1}
-				_isConvert={_isConvert}
 				createTime={item.createTime}
 				transId={item.transId}
 				amount={item.amount}
@@ -54,6 +51,7 @@ export default props => {
 	return (
 		<>
 			<div className="list">
+				<div className="tip active">{t("msg_AmountFormatTip")}</div>
 				<div className="listHeader">
 					<div>{t("lbl_NO")}</div>
 					<div>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef, useContext } from "react";
 import { api_payment_GetStatement } from "../service/api/payment";
-import { number_format, isConvert } from "../components/common/common";
+import { number_format } from "../components/common/common";
 import { useTranslation } from "react-i18next";
 import { userInfoContext, popBoxContext } from "../components/common/context";
 import { Pagination } from "../components/common/pagination";
@@ -39,7 +39,6 @@ const Content = () => {
 	const { t } = useTranslation();
 	const { userInfo } = useContext(userInfoContext);
 	const { setPopBox } = useContext(popBoxContext);
-	const _isConvert = isConvert(userInfo.currencyId);
 	const [getHistory, setGetHistory] = useState(null);
 	const [processing, setProcessing] = useState(false);
 	const [filterData, setFilterData] = useState(null);
@@ -156,7 +155,6 @@ const Content = () => {
 				changeAmount={item.changeAmount}
 				beforeAmount={item.beforeAmount}
 				afterAmount={item.afterAmount}
-				_isConvert={_isConvert}
 			/>
 		);
 	});
@@ -172,6 +170,7 @@ const Content = () => {
 
 			{getHistory ? (
 				<div className="list history">
+					<div className="tip active">{t("msg_AmountFormatTip")}</div>
 					<div className="listHeader">
 						<div>{t("lbl_NO")}</div>
 						<div>
@@ -223,9 +222,9 @@ const TansactionHistory = props => {
 			</div>
 			<div>{props.refTransId}</div>
 			<div>{props.typeName}</div>
-			<div>{number_format(props.changeAmount, props._isConvert)}</div>
-			<div>{number_format(props.beforeAmount, props._isConvert)}</div>
-			<div>{number_format(props.afterAmount, props._isConvert)}</div>
+			<div>{number_format(props.changeAmount, false)}</div>
+			<div>{number_format(props.beforeAmount, false)}</div>
+			<div>{number_format(props.afterAmount, false)}</div>
 		</div>
 	);
 };

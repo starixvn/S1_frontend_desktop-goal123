@@ -4,7 +4,6 @@ import {
 	api_payment_GetWithdrawalInfoHistory,
 	api_payment_SetWithdrawalCancel
 } from "../service/api/payment";
-import { isConvert } from "../components/common/common";
 import { userInfoContext, popBoxContext } from "../components/common/context";
 import { TransactionHistory } from "../components/withdrawal/historyResult";
 import { defPopBoxType } from "../components/common/popBox";
@@ -49,7 +48,6 @@ const Content = () => {
 	const [keepData, setKeepData] = useState(null);
 	const [pagination, setPagination] = useState(initPagination);
 	const [loading, setLoading] = useState(false);
-	const _isConvert = isConvert(userInfo.currencyId);
 	const isMountedRef = useRef(null);
 
 	useEffect(() => {
@@ -231,7 +229,6 @@ const Content = () => {
 				createTime={item.createTime}
 				amount={item.amount}
 				status={item.status}
-				_isConvert={_isConvert}
 				ClickCancel={ClickCancel}
 			/>
 		);
@@ -247,6 +244,7 @@ const Content = () => {
 			<Filter submitHandler={clickDateSubmit} keepData={keepData} />
 			{getHistory ? (
 				<div className="list history">
+					<div className="tip active">{t("msg_AmountFormatTip")}</div>
 					<div className="listHeader">
 						<div>{t("lbl_NO")}</div>
 						<div>

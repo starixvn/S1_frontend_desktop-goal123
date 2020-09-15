@@ -18,7 +18,7 @@ export const TransactionHistory = props => {
 				<i className="icon icon-keyboard_arrow_right"></i>
 				{props.endWallet}
 			</div>
-			<div>{number_format(props.amount, props._isConvert)}</div>
+			<div>{number_format(props.amount, false)}</div>
 			<div className={props.statusColor}>{props.status}</div>
 		</div>
 	);

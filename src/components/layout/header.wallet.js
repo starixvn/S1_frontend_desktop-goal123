@@ -93,7 +93,7 @@ class Dropdown extends Component {
 
 		let balance = isHideBalance
 			? "*****"
-			: number_format(this.props.walletInfo.main, this.props._isConvert);
+			: number_format(this.props.walletInfo.main, false);
 
 		const tpWallets =
 			this.props.walletInfo.tpWallets &&
@@ -106,10 +106,7 @@ class Dropdown extends Component {
 						<span>
 							{isHideBalance
 								? "*****"
-								: number_format(
-										t.balance,
-										this.props._isConvert
-								  )}
+								: number_format(t.balance, false)}
 						</span>
 					</div>
 				);
