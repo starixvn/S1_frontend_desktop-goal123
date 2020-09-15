@@ -21,6 +21,8 @@ import StepBar from "../common/stepBar";
 import defStep from "../withdrawal/defStep";
 import { checkWithdrawalAmount, getAmountTip } from "../common/common";
 import Loading from "../common/loading";
+import { Link } from "@reach/router";
+import path from "../../path";
 
 export default props => {
 	const { t } = useTranslation();
@@ -52,6 +54,32 @@ export default props => {
 		getKycStatus();
 		getApiBalance();
 	}, []);
+
+	useEffect(() => {
+		if (userInfo.isLogin === true) {
+			if (
+				(!userInfo.phoneNo && userInfo.phoneNo !== undefined) ||
+				(!userInfo.email && userInfo.email !== undefined)
+			) {
+				setPopBox({
+					isOpen: true,
+					popBoxType: defPopBoxType.UpdateProfile,
+					title: t("lbl_ImportantNote"),
+					content: t("lbl_UpdatePersonalInfo"),
+					btnBar: (
+						<div className="btnGroup">
+							<Link
+								className="btn-check"
+								to={`/${userInfo.langId}/${path.profile.root}`}
+								>
+								{t("lbl_UpdatePersonalDetail")}
+							</Link>
+						</div>
+					)
+				});
+			}
+		}
+	}, [userInfo]);
 
 	useEffect(() => {
 		updateStep();
