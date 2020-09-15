@@ -26,9 +26,9 @@ export const TransactionHistory = props => {
 		<div>
 			<div>{props.idx}</div>
 			<div>
-				{moment(props.createTime).format("MM/DD/YYYY")}
+				{moment(props.createTime).format("DD/MM/YYYY")}
 				<span className="txt-blue2">
-					{moment(props.createTime).format("hh:mm:ss A")}
+					{moment(props.createTime).format("HH:mm:ss")}
 				</span>
 			</div>
 			<div>{props.transId}</div>
