@@ -70,74 +70,71 @@ export default () => {
 				});
 			};
 
-			if (userInfo.phoneVerified) {
-				api_promotion_SetClaimPromotion({
-					langId: userInfo.langId,
-					BonusCode: _promo.bonusCode
-				}).then(
-					res => {
-						if (isMountedRef.current && res.data.errorCode === 0) {
-							GetPromotionDetail(
-								userInfo.langId,
-								_promo.bonusCode
-							);
+			// if (userInfo.phoneVerified) {
+			api_promotion_SetClaimPromotion({
+				langId: userInfo.langId,
+				BonusCode: _promo.bonusCode
+			}).then(
+				res => {
+					if (isMountedRef.current && res.data.errorCode === 0) {
+						GetPromotionDetail(userInfo.langId, _promo.bonusCode);
 
-							setPopBox({
-								isOpen: true,
-								popBoxType: defPopBoxType.Success,
-								btnBar: (
-									<div className="btnGroup">
-										<button
-											className="btn-check"
-											onClick={ClosePopBox}>
-											OK
-										</button>
-									</div>
-								)
-							});
-						} else {
-							setPopBox({
-								isOpen: true,
-								popBoxType: defPopBoxType.ErrorMsg,
-								message: res.data.message
-									? res.data.message
-									: `[${res.data.errorCode}] Something went wrong...`,
-								btnBar: (
-									<div className="btnGroup">
-										<button
-											className="btn-cancel"
-											onClick={ClosePopBox}>
-											{t("lbl_Close")}
-										</button>
-									</div>
-								)
-							});
-						}
-					},
-					err => {
-						alert(t("msg_ApiServerError"));
+						setPopBox({
+							isOpen: true,
+							popBoxType: defPopBoxType.Success,
+							btnBar: (
+								<div className="btnGroup">
+									<button
+										className="btn-check"
+										onClick={ClosePopBox}>
+										OK
+									</button>
+								</div>
+							)
+						});
+					} else {
+						setPopBox({
+							isOpen: true,
+							popBoxType: defPopBoxType.ErrorMsg,
+							message: res.data.message
+								? res.data.message
+								: `[${res.data.errorCode}] Something went wrong...`,
+							btnBar: (
+								<div className="btnGroup">
+									<button
+										className="btn-cancel"
+										onClick={ClosePopBox}>
+										{t("lbl_Close")}
+									</button>
+								</div>
+							)
+						});
 					}
-				);
-			} else {
-				setPopBox({
-					isOpen: true,
-					popBoxType: defPopBoxType.OTPHint,
-					btnBar: (
-						<div className="btnGroup">
-							<button
-								className="btn-cancel"
-								onClick={ClosePopBox}>
-								{t("lbl_Cancel")}
-							</button>
-							<Link
-								to={`/${userInfo.langId}/${path.profile.root}`}
-								className="btn-check">
-								{t("lbl_GoNow")}
-							</Link>
-						</div>
-					)
-				});
-			}
+				},
+				err => {
+					alert(t("msg_ApiServerError"));
+				}
+			);
+			// } else {
+			// 	setPopBox({
+			// 		isOpen: true,
+			// 		popBoxType: defPopBoxType.OTPHint,
+			// 		btnBar: (
+			// 			<div className="btnGroup">
+			// 				<button
+			// 					className="btn-cancel"
+			// 					onClick={ClosePopBox}>
+			// 					{t("lbl_Cancel")}
+			// 				</button>
+			// 				<Link
+			// 					to={`/${userInfo.langId}/${path.profile.root}`}
+			// 					className="btn-check">
+			// 					{t("lbl_GoNow")}
+			// 				</Link>
+			// 			</div>
+			// 		)
+			// 	});
+			// }
 		}
 	};
 
