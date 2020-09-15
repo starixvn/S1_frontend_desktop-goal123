@@ -4,27 +4,11 @@ import { useTranslation } from "react-i18next";
 
 export default props => {
 	const { t } = useTranslation();
-
-	let monthName = [
-		t("lbl_Month1"),
-		t("lbl_Month2"),
-		t("lbl_Month3"),
-		t("lbl_Month4"),
-		t("lbl_Month5"),
-		t("lbl_Month6"),
-		t("lbl_Month7"),
-		t("lbl_Month8"),
-		t("lbl_Month9"),
-		t("lbl_Month10"),
-		t("lbl_Month11"),
-		t("lbl_Month12")
-	];
-	const monthShortName = monthName[props.userInfo.birth_m - 1];
 	const birth =
-		monthShortName +
-		" / " +
 		props.userInfo.birth_d +
-		" / " +
+		"/" +
+		props.userInfo.birth_m +
+		"/" +
 		props.userInfo.birth_y;
 
 	const dataList = [
@@ -33,7 +17,12 @@ export default props => {
 			value: props.userInfo.accountName,
 			show: props.userInfo.accountName ? true : false
 		},
-		{ label: t("lbl_Birthday"), value: birth, format: "normal" },
+		{
+			label: t("lbl_Birthday"),
+			value: birth,
+			format: "normal",
+			show: props.userInfo.birth_d ? true : false
+		},
 		{
 			label: t("lbl_Phone"),
 			value: "(" + props.userInfo.AreaCode + ")" + props.userInfo.phoneNo,
