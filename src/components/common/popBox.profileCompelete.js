@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-export default ({ btnBar }) => {
+export default ({ btnBar, contentMsg }) => {
 	const { t } = useTranslation();
 
 	return (
@@ -11,7 +11,7 @@ export default ({ btnBar }) => {
 			<div>
 				{t("lbl_Awesome")}!
 				<br />
-				{t("lbl_GoDepositPage")}?
+				{contentMsg}
 			</div>
 			{btnBar}
 		</div>

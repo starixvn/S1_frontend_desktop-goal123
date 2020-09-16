@@ -7,7 +7,9 @@ export default ({ btnBar, accountName }) => {
 	return (
 		<div className="Cancel active">
 			<div className="icon icon-icon32px_notification"></div>
-			<div className="title">{accountName}</div>
+			<div className="title">
+				{t("lbl_Hi")} {accountName}
+			</div>
 			<div>
 				{t("lbl_EnsureTransactionsCorrect")}
 				<br />
