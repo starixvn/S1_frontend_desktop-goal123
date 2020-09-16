@@ -70,8 +70,7 @@ export default props => {
 						<div className="btnGroup">
 							<Link
 								className="btn-check"
-								to={`/${userInfo.langId}/${path.profile.root}`}
-								>
+								to={`/${userInfo.langId}/${path.profile.root}?prevPage=${path.withdrawal.root}`}>
 								{t("lbl_UpdatePersonalDetail")}
 							</Link>
 						</div>
