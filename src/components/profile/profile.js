@@ -511,7 +511,15 @@ export default () => {
 						data: { errorCode, message }
 					} = res;
 					const success = errorCode === 0;
-					if (success) {
+					const alreadyVerifiedPhone = errorCode === 5001;
+
+					if (alreadyVerifiedPhone) {
+						setUserInfo(prev => ({
+							...prev,
+							phoneVerified: true
+						}));
+						ClickClose();
+					} else if (success) {
 						setPopBox({
 							isOpen: true,
 							request_id: message,
