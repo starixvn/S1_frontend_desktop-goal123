@@ -16,7 +16,7 @@ export default ({ request_id }) => {
 	const [code, setCode] = useState("");
 	const [requestId, setRequestId] = useState(request_id);
 	const [retransmitCountDownSecond, setRetransmitCountDownSecond] = useState(
-		3
+		300
 	);
 	const [verifyPhoneError, setVerifyPhoneError] = useState("");
 	const [verifyPhoneloading, setVerifyPhoneloading] = useState(false);
