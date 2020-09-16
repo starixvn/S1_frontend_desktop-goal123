@@ -170,7 +170,7 @@
 	"lbl_Min": "Min",
 	"lbl_UpdateBankInfo": "Vui lòng cập nhật thông tin tài khoản ngân hàng của bạn trước khi rút tiền.",
 	"lbl_BankNumber": "Số tài khoản",
-	"lbl_BankAccountNameHint": "Please make sure your real name is same with your bank account name!",
+	"lbl_BankAccountNameHint": "Xin vui lòng kiểm tra và đảm bảo tên thật của bạn trùng với tài khoản ngân hàng!",
 	"msg_NeedAccountNo": "Cần nhập số tài khoản",
 	"msg_EnterRealName": "Vui lòng nhập tên thật của bạn.",
 	"lbl_ContactCSD": "Nếu bạn muốn thay đổi thông tin tài khoản, vui lòng liên hệ bộ phận chăm sóc khách hàng.",
@@ -318,7 +318,7 @@
 	"lbl_Hours": "giờ",
 	"lbl_TransactionHint": "Chuyển tiền đến tài khoản.",
 	"lbl_PromoJoinNow": "Tham Gia Ngay",
-	"lbl_UpdatePersonalInfo":"Please update your personal information before making withdrawal.",
+	"lbl_UpdatePersonalInfo":"Xin vui lòng cập nhật thông tin cá nhân đầy đủ trước khi thực hiện rút tiền.",
 	"lbl_UpdatePersonalDetail":"Cập nhật thông tin cá nhân",
 	"lbl_SelDepositAmount":"Xin lựa chọn số tiền cần nạp",
 	"lbl_PoweredBy":"Một sản phẩm của",
@@ -327,7 +327,7 @@
 	"lbl_EdgeOfGoal123":"Ưu điểm của sản phẩm",
 	"msg_PhoneExisted":"Phone number already exists.",
 	"msg_AmountFormatTip":"The amount is already formatted.",
-	"lbl_WithdrawalNow":"Withdrawal Now",
-	"lbl_GoWithdrawalPage":"Go to withdrawal page?",
+	"lbl_WithdrawalNow":"Rút tiền",
+	"lbl_GoWithdrawalPage":"Chuyển đến trang Rút tiền?",
 	"lbl_Hi":"Xin chào!"
 }
