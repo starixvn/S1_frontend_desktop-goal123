@@ -131,6 +131,11 @@ export default () => {
 					content: t("lbl_UpdatePersonalInfoPromotion"),
 					btnBar: (
 						<div className="btnGroup">
+							<button
+								className="btn-cancel"
+								onClick={ClosePopBox}>
+								{t("lbl_Cancel")}
+							</button>
 							<Link
 								className="btn-check"
 								to={`/${userInfo.langId}/${path.profile.root}?prevPage=${path.promotion.root}&BonusCode=${_promo.bonusCode}`}>
