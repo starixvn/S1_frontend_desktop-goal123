@@ -21,6 +21,7 @@ import EventSwipper from "./eventSwipper";
 import config from "../../config";
 import GameQuickLinks from "./gameQuickLinks";
 import SwipperBanner from "../common/swipperBanner";
+import CountDown from "./countDown";
 
 export default () => {
 	const { t } = useTranslation();
@@ -74,6 +75,7 @@ export default () => {
 		<main>
 			<SwipperBanner ImgFolder="Promotion" filterHideInHome={true} />
 			<Marquee />
+			<CountDown />
 			<GameQuickLinks t={t} />
 			<section>
 				<EventSwipper />

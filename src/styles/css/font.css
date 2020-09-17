@@ -57,6 +57,18 @@
   font-size: 24px !important;
 }
 
+.icon-EB:before {
+  content: "\e990";
+}
+
+.icon-VNPay:before {
+  content: "\e991";
+}
+
+.icon-saba:before {
+  content: "\e98c";
+}
+
 .icon-cock:before {
   content: "\e988";
 }
@@ -333,7 +345,7 @@
   content: "\e923";
 }
 
-.icon-VNPay:before {
+.icon-VN:before {
   content: "\e924";
 }
 
@@ -487,6 +499,14 @@
 
 .icon-message-typing:before {
   content: "\e933";
+}
+
+.icon-close:before {
+  content: "\e98a";
+}
+
+.icon-checkmark:before {
+  content: "\e98b";
 }
 
 .icon-information-solid:before {
@@ -661,7 +681,7 @@
   content: "\ea0f";
 }
 
-.icon-checkmark:before {
+.icon-checkmark1:before {
   content: "\ea10";
 }
 
