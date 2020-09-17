@@ -108,7 +108,7 @@ export default () => {
 			break;
 
 		case defPopBoxType.ProfileCompelete:
-			content = <ProfileCompelete btnBar={popBox.btnBar} />;
+			content = <ProfileCompelete {...popBox} />;
 			break;
 
 		case defPopBoxType.ChangePsw:

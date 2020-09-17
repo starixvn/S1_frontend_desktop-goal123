@@ -12,11 +12,12 @@ import ProfileEdit from "./profileEdit";
 import moment from "moment";
 import { defPopBoxType } from "../common/popBox";
 import { popBoxContext, userInfoContext } from "../common/context";
-import { getCountryCode } from "../common/common";
+import { getCountryCode, getUrlParameter } from "../common/common";
 import path from "../../path";
 import { Redirect } from "@reach/router";
 import Loading from "../common/loading";
 import handleError from "../common/handleError";
+import { Link } from "@reach/router";
 
 const initStatus = {
 	accountName: {
@@ -411,10 +412,6 @@ export default () => {
 			setPopBox({ isOpen: false });
 		};
 
-		let linkToDeposit = () => {
-			setRedirectPath(`/${userInfo.langId}/${path.deposit.root}`);
-		};
-
 		api_accountStrict_SetProfile({
 			AccountName: !userInfo.accountName
 				? nameValue
@@ -457,24 +454,49 @@ export default () => {
 						setBirthValue("");
 						setPhoneValue("");
 						setEmailValue("");
-						setPopBox({
-							isOpen: true,
-							popBoxType: defPopBoxType.ProfileCompelete,
-							btnBar: (
-								<div className="btnGroup">
-									<button
-										className="btn-cancel"
-										onClick={ClickClose}>
-										{t("lbl_Later")}
-									</button>
-									<button
-										className="btn-check"
-										onClick={linkToDeposit}>
-										{t("lbl_DepositNow")}
-									</button>
-								</div>
-							)
-						});
+
+						let _prevPage = getUrlParameter("prevPage");
+						if (_prevPage === path.withdrawal.root) {
+							setPopBox({
+								isOpen: true,
+								popBoxType: defPopBoxType.ProfileCompelete,
+								contentMsg: t("lbl_GoWithdrawalPage"),
+								btnBar: (
+									<div className="btnGroup">
+										<button
+											className="btn-cancel"
+											onClick={ClickClose}>
+											{t("lbl_Later")}
+										</button>
+										<Link
+											className="btn-check"
+											to={`/${userInfo.langId}/${path.withdrawal.root}`}>
+											{t("lbl_WithdrawalNow")}
+										</Link>
+									</div>
+								)
+							});
+						} else {
+							setPopBox({
+								isOpen: true,
+								popBoxType: defPopBoxType.ProfileCompelete,
+								contentMsg: t("lbl_GoDepositPage"),
+								btnBar: (
+									<div className="btnGroup">
+										<button
+											className="btn-cancel"
+											onClick={ClickClose}>
+											{t("lbl_Later")}
+										</button>
+										<Link
+											className="btn-check"
+											to={`/${userInfo.langId}/${path.deposit.root}`}>
+											{t("lbl_DepositNow")}
+										</Link>
+									</div>
+								)
+							});
+						}
 					}
 					setLoading(false);
 				}
@@ -511,7 +533,15 @@ export default () => {
 						data: { errorCode, message }
 					} = res;
 					const success = errorCode === 0;
-					if (success) {
+					const alreadyVerifiedPhone = errorCode === 5001;
+
+					if (alreadyVerifiedPhone) {
+						setUserInfo(prev => ({
+							...prev,
+							phoneVerified: true
+						}));
+						ClickClose();
+					} else if (success) {
 						setPopBox({
 							isOpen: true,
 							request_id: message,

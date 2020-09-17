@@ -15,7 +15,9 @@ export default ({ request_id }) => {
 
 	const [code, setCode] = useState("");
 	const [requestId, setRequestId] = useState(request_id);
-	const [retransmitSeconds, setRetransmitSeconds] = useState(0);
+	const [retransmitCountDownSecond, setRetransmitCountDownSecond] = useState(
+		300
+	);
 	const [verifyPhoneError, setVerifyPhoneError] = useState("");
 	const [verifyPhoneloading, setVerifyPhoneloading] = useState(false);
 	const [mobileVerificationLoading, setMobileVerificationLoading] = useState(
@@ -30,10 +32,20 @@ export default ({ request_id }) => {
 	});
 
 	useEffect(() => {
+		startTimer();
 		return () => {
 			clearInterval(timerRef.current);
 		};
 	}, []);
+
+	useEffect(() => {
+		const timeIsUp = retransmitCountDownSecond === 0 && timerRef.current;
+
+		if (timeIsUp) {
+			clearInterval(timerRef.current);
+			timerRef.current = null;
+		}
+	}, [retransmitCountDownSecond]);
 
 	const onChanheCode = e => {
 		setCode(e.target.value);
@@ -44,19 +56,21 @@ export default ({ request_id }) => {
 	};
 
 	const startTimer = () => {
-		const countDownSecond = 300;
-		const startTime = Date.now();
-		const countDownTimerID = setInterval(() => {
-			// 計算剩餘秒數
-			const pastSeconds = parseInt((Date.now() - startTime) / 1000);
-			const remain = countDownSecond - pastSeconds;
-			setRetransmitSeconds(remain < 0 ? 0 : remain);
-			// 檢查是否結束
-			if (remain <= 0) {
-				clearInterval(countDownTimerID);
-			}
+		timerRef.current = setInterval(() => {
+			setRetransmitCountDownSecond(prev => prev - 1);
 		}, 1000);
-		timerRef.current = countDownTimerID;
+	};
+
+	const secondsToTime = secondsInTime => {
+		const pad = (num, size) => {
+			return ("000" + num).slice(size * -1);
+		};
+		let time = parseFloat(secondsInTime).toFixed(3);
+		let hours = Math.floor(time / 60 / 60);
+		let minutes = Math.floor(time / 60) % 60;
+		let seconds = Math.floor(time - minutes * 60);
+		let milliseconds = time.slice(-3);
+		return `${pad(minutes, 2)}:${pad(seconds, 2)}`;
 	};
 
 	const sendVerifySMS = () => {
@@ -69,7 +83,15 @@ export default ({ request_id }) => {
 						data: { errorCode, message }
 					} = res;
 					const success = errorCode === 0;
-					if (success) {
+					const alreadyVerifiedPhone = errorCode === 5001;
+
+					if (alreadyVerifiedPhone) {
+						setUserInfo(prev => ({
+							...prev,
+							phoneVerified: true
+						}));
+						clickClose();
+					} else if (success) {
 						startTimer();
 						setRequestId(message);
 					} else {
@@ -173,7 +195,6 @@ export default ({ request_id }) => {
 
 	return (
 		<div className="editSuccess active" style={{ display: "flex" }}>
-			{/* <!--輸入OTP--> */}
 			<div className="icon icon-icon32px_notification"></div>
 			<div className="title">{t("lbl_ImportantNote")}</div>
 			<div>{t("msg_OTPSendCode")}</div>
@@ -181,37 +202,50 @@ export default ({ request_id }) => {
 				<div className="inputBox">
 					<input value={code} onChange={e => onChanheCode(e)} />
 				</div>
-				<div className="btnGroup otpBtn">
-					{verifyPhoneloading ? (
-						<MobileVerificationLoading />
-					) : (
-						<button onClick={verifyPone} className="btn-check">
-							{t("lbl_Submit")}
-						</button>
-					)}
-				</div>
 			</div>
-
 			<div className={`tip ${verifyPhoneError ? "active" : ""}`}>
 				{verifyPhoneError}
 			</div>
-
 			<div className="btnGroup">
 				<button className="btn-cancel" onClick={clickClose}>
 					{t("lbl_Close")}
 				</button>
-
-				{mobileVerificationLoading ? (
+				{verifyPhoneloading ? (
 					<MobileVerificationLoading />
 				) : (
-					<button
-						disabled={retransmitSeconds > 0}
-						className="btn-check"
-						onClick={sendVerifySMS}>
-						{retransmitSeconds <= 0
-							? t("lbl_Retransmit")
-							: retransmitSeconds}
+					<button onClick={verifyPone} className="btn-check">
+						{t("lbl_Submit")}
 					</button>
+				)}
+			</div>
+
+			<div className="resend">
+				{retransmitCountDownSecond > 0 ? (
+					<>
+						<div className="txt-blue2">
+							{secondsToTime(retransmitCountDownSecond)}
+						</div>
+						<div className="txt-blue2">
+							Re-send in five minutes.
+						</div>
+					</>
+				) : (
+					<>
+						{t("msg_OTP_NotReceiveVerificationCode")}
+
+						<div className="btnGroup">
+							{mobileVerificationLoading ? (
+								<MobileVerificationLoading />
+							) : (
+								<button
+									disabled={retransmitCountDownSecond > 0}
+									className="yellow"
+									onClick={sendVerifySMS}>
+									{t("lbl_Retransmit")}
+								</button>
+							)}
+						</div>
+					</>
 				)}
 			</div>
 		</div>

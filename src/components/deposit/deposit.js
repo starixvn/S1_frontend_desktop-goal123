@@ -51,9 +51,9 @@ export default () => {
 
 	return redirectPath === null ? (
 		<div className="subModuleList">
+			<MobilePayList />
 			<OnlineBankList />
 			<LocalBankList />
-			<MobilePayList />
 		</div>
 	) : (
 		<Redirect to={redirectPath} noThrow />
