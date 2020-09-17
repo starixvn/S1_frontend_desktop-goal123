@@ -329,7 +329,7 @@
 	"lbl_UpdatePersonalInfo":"Please update your personal information before making withdrawal.",
 	"lbl_UpdatePersonalDetail":"Update Personal Details",
 	"msg_PhoneExisted":"Phone number already exists.",
-	"msg_AmountFormatTip":"The amount is already formatted.",
+	"msg_AmountFormatTip":"Please note that the expression amount of the system are as follows: 15,000 = 15,000,000 VND, fifteen million.",
 	"lbl_WithdrawalNow":"Withdrawal Now",
 	"lbl_GoWithdrawalPage":"Go to withdrawal page?",
 	"lbl_Hi":"Hi!"

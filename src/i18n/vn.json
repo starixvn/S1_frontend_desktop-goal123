@@ -329,7 +329,7 @@
 	"lbl_Goal123News":"Điểm báo Goal123",
 	"lbl_EdgeOfGoal123":"Ưu điểm của sản phẩm",
 	"msg_PhoneExisted":"Phone number already exists.",
-	"msg_AmountFormatTip":"The amount is already formatted.",
+	"msg_AmountFormatTip":"Xin lưu ý cách thể hiện số tiền của hệ thống như sau : 15,000 = 15,000,000 VNĐ, mười lăm triệu đồng.",
 	"lbl_WithdrawalNow":"Rút tiền",
 	"lbl_GoWithdrawalPage":"Chuyển đến trang Rút tiền?",
 	"lbl_Hi":"Xin chào!"
