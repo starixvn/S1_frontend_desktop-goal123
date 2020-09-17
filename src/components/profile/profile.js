@@ -476,6 +476,33 @@ export default () => {
 									</div>
 								)
 							});
+						} else if (_prevPage === path.promotion.root) {
+							setPopBox({
+								isOpen: true,
+								popBoxType: defPopBoxType.ProfileCompelete,
+								contentMsg: t("lbl_GoPromotionPage"),
+								btnBar: (
+									<div className="btnGroup">
+										<button
+											className="btn-cancel"
+											onClick={ClickClose}>
+											{t("lbl_Later")}
+										</button>
+										<Link
+											className="btn-check"
+											to={`/${userInfo.langId}/${
+												path.promotion.root
+											}/${
+												path.promotion.sub.promotionInfo
+													.root
+											}?BonusCode=${getUrlParameter(
+												"BonusCode"
+											)}`}>
+											{t("lbl_GoNow")}
+										</Link>
+									</div>
+								)
+							});
 						} else {
 							setPopBox({
 								isOpen: true,

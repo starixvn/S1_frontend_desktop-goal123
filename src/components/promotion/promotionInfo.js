@@ -70,71 +70,96 @@ export default () => {
 				});
 			};
 
-			// if (userInfo.phoneVerified) {
-			api_promotion_SetClaimPromotion({
-				langId: userInfo.langId,
-				BonusCode: _promo.bonusCode
-			}).then(
-				res => {
-					if (isMountedRef.current && res.data.errorCode === 0) {
-						GetPromotionDetail(userInfo.langId, _promo.bonusCode);
+			if (
+				userInfo.currencyId &&
+				userInfo.accountName &&
+				userInfo.phoneNo &&
+				userInfo.email
+			) {
+				api_promotion_SetClaimPromotion({
+					langId: userInfo.langId,
+					BonusCode: _promo.bonusCode
+				}).then(
+					res => {
+						if (isMountedRef.current && res.data.errorCode === 0) {
+							GetPromotionDetail(
+								userInfo.langId,
+								_promo.bonusCode
+							);
 
-						setPopBox({
-							isOpen: true,
-							popBoxType: defPopBoxType.Success,
-							btnBar: (
-								<div className="btnGroup">
-									<button
-										className="btn-check"
-										onClick={ClosePopBox}>
-										OK
-									</button>
-								</div>
-							)
-						});
-					} else {
-						setPopBox({
-							isOpen: true,
-							popBoxType: defPopBoxType.ErrorMsg,
-							message: res.data.message
-								? res.data.message
-								: `[${res.data.errorCode}] Something went wrong...`,
-							btnBar: (
-								<div className="btnGroup">
-									<button
-										className="btn-cancel"
-										onClick={ClosePopBox}>
-										{t("lbl_Close")}
-									</button>
-								</div>
-							)
-						});
+							setPopBox({
+								isOpen: true,
+								popBoxType: defPopBoxType.Success,
+								btnBar: (
+									<div className="btnGroup">
+										<button
+											className="btn-check"
+											onClick={ClosePopBox}>
+											OK
+										</button>
+									</div>
+								)
+							});
+						} else {
+							setPopBox({
+								isOpen: true,
+								popBoxType: defPopBoxType.ErrorMsg,
+								message: res.data.message
+									? res.data.message
+									: `[${res.data.errorCode}] Something went wrong...`,
+								btnBar: (
+									<div className="btnGroup">
+										<button
+											className="btn-cancel"
+											onClick={ClosePopBox}>
+											{t("lbl_Close")}
+										</button>
+									</div>
+								)
+							});
+						}
+					},
+					err => {
+						alert(t("msg_ApiServerError"));
 					}
-				},
-				err => {
-					alert(t("msg_ApiServerError"));
-				}
-			);
-			// } else {
-			// 	setPopBox({
-			// 		isOpen: true,
-			// 		popBoxType: defPopBoxType.OTPHint,
-			// 		btnBar: (
-			// 			<div className="btnGroup">
-			// 				<button
-			// 					className="btn-cancel"
-			// 					onClick={ClosePopBox}>
-			// 					{t("lbl_Cancel")}
-			// 				</button>
-			// 				<Link
-			// 					to={`/${userInfo.langId}/${path.profile.root}`}
-			// 					className="btn-check">
-			// 					{t("lbl_GoNow")}
-			// 				</Link>
-			// 			</div>
-			// 		)
-			// 	});
-			// }
+				);
+			} else {
+				setPopBox({
+					isOpen: true,
+					popBoxType: defPopBoxType.UpdateProfile,
+					title: t("lbl_ImportantNote"),
+					content: t("lbl_UpdatePersonalInfoPromotion"),
+					btnBar: (
+						<div className="btnGroup">
+							<Link
+								className="btn-check"
+								to={`/${userInfo.langId}/${path.profile.root}?prevPage=${path.promotion.root}&BonusCode=${_promo.bonusCode}`}>
+								{t("lbl_UpdatePersonalDetail")}
+							</Link>
+						</div>
+					)
+				});
+				// if (!userInfo.phoneVerified) {
+				// 	setPopBox({
+				// 		isOpen: true,
+				// 		popBoxType: defPopBoxType.OTPHint,
+				// 		btnBar: (
+				// 			<div className="btnGroup">
+				// 				<button
+				// 					className="btn-cancel"
+				// 					onClick={ClosePopBox}>
+				// 					{t("lbl_Cancel")}
+				// 				</button>
+				// 				<Link
+				// 					to={`/${userInfo.langId}/${path.profile.root}`}
+				// 					className="btn-check">
+				// 					{t("lbl_GoNow")}
+				// 				</Link>
+				// 			</div>
+				// 		)
+				// 	});
+				// }
+			}
 		}
 	};
 

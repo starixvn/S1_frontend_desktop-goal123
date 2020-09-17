@@ -110,12 +110,12 @@ export default () => {
 					isOpen: true,
 					popBoxType: defPopBoxType.UpdateProfile,
 					title: t("lbl_ImportantNote"),
-					content: t("lbl_UpdatePersonalInfo"),
+					content: t("lbl_UpdatePersonalInfoDeposit"),
 					btnBar: (
 						<div className="btnGroup">
-							<button className="btn-cancel" onClick={clickClose}>
+							{/* <button className="btn-cancel" onClick={clickClose}>
 								{t("lbl_Cancel")}
-							</button>
+							</button> */}
 							<button className="btn-check" onClick={toProfile}>
 								{t("lbl_UpdatePersonalDetail")}
 							</button>

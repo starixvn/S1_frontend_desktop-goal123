@@ -65,7 +65,7 @@ export default props => {
 					isOpen: true,
 					popBoxType: defPopBoxType.UpdateProfile,
 					title: t("lbl_ImportantNote"),
-					content: t("lbl_UpdatePersonalInfo"),
+					content: t("lbl_UpdatePersonalInfoWithdrawal"),
 					btnBar: (
 						<div className="btnGroup">
 							<Link
