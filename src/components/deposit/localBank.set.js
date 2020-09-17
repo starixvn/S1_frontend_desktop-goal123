@@ -103,6 +103,9 @@ export default () => {
 				(!userInfo.phoneNo && userInfo.phoneNo !== undefined) ||
 				(!userInfo.email && userInfo.email !== undefined)
 			) {
+				const clickClose = () => {
+					setPopBox({ isOpen: false });
+				};
 				setPopBox({
 					isOpen: true,
 					popBoxType: defPopBoxType.UpdateProfile,
@@ -110,6 +113,9 @@ export default () => {
 					content: t("lbl_UpdatePersonalInfo"),
 					btnBar: (
 						<div className="btnGroup">
+							<button className="btn-cancel" onClick={clickClose}>
+								{t("lbl_Cancel")}
+							</button>
 							<button className="btn-check" onClick={toProfile}>
 								{t("lbl_UpdatePersonalDetail")}
 							</button>
