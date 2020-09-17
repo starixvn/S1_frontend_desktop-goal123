@@ -96,6 +96,40 @@ export default () => {
 		);
 	}, []);
 
+	useEffect(() => {
+		if (userInfo.isLogin === true) {
+			if (
+				(!userInfo.accountName && userInfo.accountName !== undefined) ||
+				(!userInfo.phoneNo && userInfo.phoneNo !== undefined) ||
+				(!userInfo.email && userInfo.email !== undefined)
+			) {
+				const clickClose = () => {
+					setPopBox({ isOpen: false });
+				};
+				setPopBox({
+					isOpen: true,
+					popBoxType: defPopBoxType.UpdateProfile,
+					title: t("lbl_ImportantNote"),
+					content: t("lbl_UpdatePersonalInfo"),
+					btnBar: (
+						<div className="btnGroup">
+							<button className="btn-cancel" onClick={clickClose}>
+								{t("lbl_Cancel")}
+							</button>
+							<button className="btn-check" onClick={toProfile}>
+								{t("lbl_UpdatePersonalDetail")}
+							</button>
+						</div>
+					)
+				});
+			}
+		}
+	}, [userInfo]);
+
+	const toProfile = () => {
+		setRedirectPath(`/${userInfo.langId}/${path.profile.root}`);
+	};
+
 	const ClickClose = () => {
 		setPopBox({ isOpen: false });
 	};
