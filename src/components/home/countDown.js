@@ -2,7 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 //new Date(2020,8,20,8).toUTCString();
-const endDate = new Date("Sun, 20 Sep 2020 01:00:00 GMT");
+//const endDate = new Date("Sun, 20 Sep 2020 01:00:00 GMT");
+const endDate = new Date("Sun, 20 Sep 2019 01:00:00 GMT");
 
 export default () => {
 	const { t } = useTranslation();
