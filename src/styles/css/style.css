@@ -4937,4 +4937,21 @@ input + .iconModule i.icon.icon-checkmark:before {
   font-size: 12px;
   font-weight: normal;
 }
+
+.deposit-btn {
+  color: #f77900;
+  margin-right: 3%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.deposit-btn:before {
+  font-size: 32px;
+  margin-top: -8px;
+  margin-right: 5px;
+}
 /*# sourceMappingURL=style.css.map */
