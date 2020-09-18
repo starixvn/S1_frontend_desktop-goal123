@@ -27,35 +27,35 @@ const defGameList = [
 		img: Saba1Club1,
 		displayKey: "lbl_Saba1Club1",
 		tpId: 1,
-		gmaeId: 200,
+		gameId: 200,
 		betType: 1613
 	},
 	{
 		img: Saba1Club2,
 		displayKey: "lbl_Saba1Club2",
 		tpId: 1,
-		gmaeId: 200,
+		gameId: 200,
 		betType: 1620
 	},
 	{
 		img: Saba1Club3,
 		displayKey: "lbl_Saba1Club3",
 		tpId: 1,
-		gmaeId: 200,
+		gameId: 200,
 		betType: 1612
 	},
 	{
 		img: Saba1Club4,
 		displayKey: "lbl_Saba1Club4",
 		tpId: 1,
-		gmaeId: 200,
+		gameId: 200,
 		betType: 1615
 	},
 	{
 		img: Saba1Club5,
 		displayKey: "lbl_Saba1Club5",
 		tpId: 1,
-		gmaeId: 200,
+		gameId: 200,
 		betType: 1614
 	},
 	{

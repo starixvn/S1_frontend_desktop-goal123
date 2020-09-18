@@ -65,7 +65,7 @@ export default () => {
 				}
 			}
 		);
-	}, []);
+	}, [userInfo.langId]);
 
 	const ClickClose = () => {
 		setPopBox({ isOpen: false });
@@ -74,9 +74,9 @@ export default () => {
 	const newsRows = getNews.map((item, i) => {
 		return (
 			<Link
-				key={`index-news-${i}`}
+				key={`index-news-${i}-${userInfo.langId}`}
 				to={`/${userInfo.langId}/${path.news.root}/${path.news.sub.newsInfo.root}?newsId=${item.newsId}`}>
-				<img src={item.imageURL} alt="news"/>
+				<img src={item.imageURL} alt="news" />
 				<div className="title">{item.title}</div>
 			</Link>
 		);

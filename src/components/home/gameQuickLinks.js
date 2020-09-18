@@ -53,7 +53,7 @@ export const defSportsQuickLinks = {
 	virtualSports: {
 		productInfo: productList.virtualSports,
 		className: "icon icon-virtual-sports",
-		displayKey: "lbl_VirtualGames"
+		displayKey: "lbl_VirtualSports"
 	},
 	fishing: {
 		productInfo: productList.fishing,
