@@ -22,6 +22,7 @@ import config from "../../config";
 import GameQuickLinks from "./gameQuickLinks";
 import SwipperBanner from "../common/swipperBanner";
 import CountDown from "./countDown";
+import PromoGameList from "./promoGameList";
 
 export default () => {
 	const { t } = useTranslation();
@@ -77,6 +78,7 @@ export default () => {
 			<Marquee />
 			<CountDown />
 			<GameQuickLinks t={t} />
+			<PromoGameList t={t} userInfo={userInfo} />
 			<section>
 				<EventSwipper />
 				<News />

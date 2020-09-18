@@ -51,9 +51,15 @@ export default ({
 			) : null;
 
 		let _className = m.className ? m.className : "";
+
+		if (m.isHot) {
+			_className = `${_className} hot`;
+		}
+
 		let displayText = toUpperCase
 			? t(m.displayKey)?.toUpperCase()
 			: t(m.displayKey);
+
 		if (m.productInfo) {
 			let rule = GET_OPEN_RULE(
 				langId,

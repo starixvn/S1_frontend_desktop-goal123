@@ -32,9 +32,10 @@ export const SET_ENTER_PAGE = ({
 	matchid,
 	isLogin,
 	loginCallback,
+	betType,
 	openInBlank = false
 }) => {
-	let result = GET_OPEN_RULE(langId, tpId, gameId, matchid);
+	let result = GET_OPEN_RULE(langId, tpId, gameId, matchid, betType);
 	if (!isLogin && result.needLogin) {
 		loginCallback();
 	} else if (result.actionType === _ACTION_TYPE.blank || openInBlank) {
@@ -56,15 +57,17 @@ export const OPEN_IN_BLANK = (url, windowKey) => {
 	}
 };
 
-export const GET_OPEN_RULE = (langId, tpId, gameId, matchid) => {
+export const GET_OPEN_RULE = (langId, tpId, gameId, matchid, betType) => {
 	let result = setResult("", true, _ACTION_TYPE.blank);
 	if (tpId === 1) {
 		if (gameId === 43 || gameId === 220 || gameId === 202) {
 			result = setResult("", true, _ACTION_TYPE.blank, tpId, gameId);
 		} else if (gameId < 100) {
-			result = setResult("", false, _ACTION_TYPE.redirect, tpId, gameId);
+			// result = setResult("", false, _ACTION_TYPE.redirect, tpId, gameId);
+			result = setResult("", false, _ACTION_TYPE.blank, tpId, gameId);
 		} else if (gameId === 161 || gameId === 180) {
-			result = setResult("", false, _ACTION_TYPE.redirect, tpId, gameId);
+			// result = setResult("", false, _ACTION_TYPE.redirect, tpId, gameId);
+			result = setResult("", false, _ACTION_TYPE.blank, tpId, gameId);
 		} else if (gameId >= 200) {
 			result = setResult("", true, _ACTION_TYPE.blank, tpId, gameId);
 		}
@@ -74,11 +77,11 @@ export const GET_OPEN_RULE = (langId, tpId, gameId, matchid) => {
 
 	return {
 		...result,
-		entPageUrl: GET_ENTER_PAGE_URL(langId, tpId, gameId, matchid)
+		entPageUrl: GET_ENTER_PAGE_URL(langId, tpId, gameId, matchid, betType)
 	};
 };
 
-export const GET_ENTER_PAGE_URL = (langId, tpId, gameId, matchid) => {
+export const GET_ENTER_PAGE_URL = (langId, tpId, gameId, matchid, betType) => {
 	const appUrl =
 		typeof window !== `undefined`
 			? `${window.location.origin}${window.location.pathname}`
@@ -89,7 +92,8 @@ export const GET_ENTER_PAGE_URL = (langId, tpId, gameId, matchid) => {
 	let lobbyUrl = ``;
 	let cashierUrl = `${appUrl}${path.deposit.root}`;
 	let _matchid = matchid ? matchid : "";
-	return `${config.openURL}/${langId}/entPage?homeUrl=${homeUrl}&signupUrl=${signupUrl}&LoginUrl=${LoginUrl}&tpId=${tpId}&gameId=${gameId}&CashierUrl=${cashierUrl}&LobbyUrl=${lobbyUrl}&matchid=${_matchid}`;
+	let _betType = betType ? `&betType=${betType}` : "";
+	return `${config.openURL}/${langId}/entPage?homeUrl=${homeUrl}&signupUrl=${signupUrl}&LoginUrl=${LoginUrl}&tpId=${tpId}&gameId=${gameId}&CashierUrl=${cashierUrl}&LobbyUrl=${lobbyUrl}&matchid=${_matchid}${_betType}`;
 };
 
 const setResult = (url, needLogin, actionType, tpId, gameId, matchid) => {
