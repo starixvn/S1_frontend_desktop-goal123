@@ -93,14 +93,14 @@ export const defMenuLinks = {
 				tpId: 8,
 				parameter: { tpId: 8 }
 			},
-			{
-				className: "JOKER",
-				icon: "icon icon-JOKER",
-				displayText: "JOKER",
-				menuType: defMenuType.Link,
-				tpId: 9,
-				parameter: { tpId: 9 }
-			},
+			// {
+			// 	className: "JOKER",
+			// 	icon: "icon icon-JOKER",
+			// 	displayText: "JOKER",
+			// 	menuType: defMenuType.Link,
+			// 	tpId: 9,
+			// 	parameter: { tpId: 9 }
+			// },
 			{
 				className: "SG",
 				icon: "icon icon-SG",
