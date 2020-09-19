@@ -7,6 +7,7 @@ import {
 import { Link } from "@reach/router";
 import { defPopBoxType } from "./popBox";
 import { popBoxContext } from "./context";
+import path from "../../path";
 
 const getUrl = (preUrl, info) => {
 	return `/${preUrl}?tpId=${info.tpId}&gameId=${info.gameId}`;
@@ -60,6 +61,8 @@ export default ({
 			? t(m.displayKey)?.toUpperCase()
 			: t(m.displayKey);
 
+		let _path = m.path;
+
 		if (m.productInfo) {
 			let rule = GET_OPEN_RULE(
 				langId,
@@ -67,8 +70,11 @@ export default ({
 				m.productInfo.gameId
 			);
 
-			let isBlank = rule.actionType === _ACTION_TYPE.blank;
+			if (m.tpId === 1 && rule.actionType === _ACTION_TYPE.redirect) {
+				_path = path.sports.root;
+			}
 
+			let isBlank = rule.actionType === _ACTION_TYPE.blank;
 			if (rule.needLogin && isLogin === false) {
 				return (
 					<button
@@ -95,7 +101,7 @@ export default ({
 						{arrowIcon}
 					</a>
 				);
-			} else if (!m.path) {
+			} else if (!_path) {
 				return (
 					<button
 						key={key}
@@ -106,7 +112,7 @@ export default ({
 					</button>
 				);
 			} else {
-				let _url = getUrl(`${langId}/${m.path}`, m.productInfo);
+				let _url = getUrl(`${langId}/${_path}`, m.productInfo);
 
 				_className =
 					checkMatchPage && _url === currentPage
@@ -126,9 +132,9 @@ export default ({
 				);
 			}
 		} else {
-			if (m.path) {
+			if (_path) {
 				_className =
-					checkMatchPage && `${langId}/${m.path}` === currentPage
+					checkMatchPage && `${langId}/${_path}` === currentPage
 						? _className
 							? `${_className} active`
 							: "active"
@@ -136,7 +142,7 @@ export default ({
 				return (
 					<Link
 						key={key}
-						to={`${langId}/${m.path}`}
+						to={`${langId}/${_path}`}
 						onMouseOver={_showSubMenu.bind(this, key)}
 						className={_className}>
 						{displayText}

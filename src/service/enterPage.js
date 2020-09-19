@@ -63,11 +63,11 @@ export const GET_OPEN_RULE = (langId, tpId, gameId, matchid, betType) => {
 		if (gameId === 43 || gameId === 220 || gameId === 202) {
 			result = setResult("", true, _ACTION_TYPE.blank, tpId, gameId);
 		} else if (gameId < 100) {
-			// result = setResult("", false, _ACTION_TYPE.redirect, tpId, gameId);
-			result = setResult("", false, _ACTION_TYPE.blank, tpId, gameId);
+			result = setResult("", false, _ACTION_TYPE.redirect, tpId, gameId);
+			// result = setResult("", false, _ACTION_TYPE.blank, tpId, gameId);
 		} else if (gameId === 161 || gameId === 180) {
-			// result = setResult("", false, _ACTION_TYPE.redirect, tpId, gameId);
-			result = setResult("", false, _ACTION_TYPE.blank, tpId, gameId);
+			result = setResult("", false, _ACTION_TYPE.redirect, tpId, gameId);
+			// result = setResult("", false, _ACTION_TYPE.blank, tpId, gameId);
 		} else if (gameId >= 200) {
 			result = setResult("", true, _ACTION_TYPE.blank, tpId, gameId);
 		}

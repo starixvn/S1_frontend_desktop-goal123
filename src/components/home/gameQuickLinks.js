@@ -47,11 +47,13 @@ export const defSportsQuickLinks = {
 	},
 	numberGame: {
 		productInfo: productList.numberGame,
+		path: path.sports.root,
 		className: "icon icon-icon32px_keno-14",
 		displayKey: "lbl_NumberGame"
 	},
 	virtualSports: {
 		productInfo: productList.virtualSports,
+		path: path.sports.root,
 		className: "icon icon-virtual-sports",
 		displayKey: "lbl_VirtualSports"
 	},
@@ -66,7 +68,7 @@ export default ({ t }) => {
 	const { userInfo } = useContext(userInfoContext);
 
 	return (
-		<div class="gameMenu">
+		<div className="gameMenu">
 			<div>
 				<LinkItems
 					defMenuLinks={defSportsQuickLinks}
