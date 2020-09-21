@@ -198,7 +198,7 @@ const Content = () => {
 		setPopBox({
 			isOpen: true,
 			defPopBoxType: defPopBoxType.Cancel,
-			btn: (
+			btnBar: (
 				<div className="btnGroup">
 					<button className="btn-cancel" onClick={ClickConfirm}>
 						{t("lbl_Yes")}
