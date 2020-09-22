@@ -52,6 +52,12 @@ export default () => {
 			afterFilterList = _promoList.filter(p =>
 				isExpiry({ ...p, isLogin: userInfo.isLogin })
 			);
+		} else if (type === defFilterType.firstDeposit) {
+			afterFilterList = _promoList.filter(
+				p =>
+					(p.promotionType === type || p.promotionType === 5) &&
+					!isExpiry({ ...p, isLogin: userInfo.isLogin })
+			);
 		} else {
 			afterFilterList = _promoList.filter(
 				p =>

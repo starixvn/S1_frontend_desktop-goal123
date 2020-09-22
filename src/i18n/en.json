@@ -348,5 +348,6 @@
 	"lbl_Casino_PP_AztecGems":"Aztec Gems",
 	"lbl_Casino_PP_SweetBonanza":"Sweet Bonanza",
 	"lbl_VirtualGames":"Virtual Games",
-	"lbl_VirtualSports":"Virtual Sports"
+	"lbl_VirtualSports":"Virtual Sports",
+	"lbl_TurnoverAccmulateHint":"Your Fund are locked to transfer out due to Rollover requirement is not fulfils."
 }

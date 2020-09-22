@@ -2727,6 +2727,24 @@ main > .swiper-container .swiper-slide {
   font-weight: bold;
 }
 
+.Success .progressBarModule {
+  margin-top: 20px;
+  text-align: center;
+  line-height: 24px;
+}
+
+.Success .progressBarModule .bounsName {
+  color: white;
+}
+
+.Success .progressBarModule .turnover {
+  color: white;
+}
+
+.Success .progressBarModule .turnover span {
+  color: #1E85EC;
+}
+
 .title {
   font-weight: bold;
 }

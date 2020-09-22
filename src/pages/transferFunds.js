@@ -146,14 +146,23 @@ const Content = () => {
 			res => {
 				if (isMountedRef.current) {
 					if (res.data.errorCode === 9) {
-						// setPopBox({
-						// 	isOpen: true,
-						// 	popBoxType: defPopBoxType.TurnoverAccumulated,
-						// 	currencyId: userInfo.currencyId,
-						// 	turnover: res.data.data.turnover,
-						// 	rollover: res.data.data.rollover
-						// });
-						// setLoading(false);
+						setPopBox({
+							isOpen: true,
+							popBoxType: defPopBoxType.TurnoverAccumulated,
+							currencyId: userInfo.currencyId,
+							turnover: res.data.data.turnover,
+							rollover: res.data.data.rollover,
+							btnBar: (
+								<div className="btnGroup">
+									<button
+										className="btn-cancel"
+										onClick={ClickClose}>
+										OK
+									</button>
+								</div>
+							)
+						});
+						setLoading(false);
 					} else if (res.data.errorCode === 0) {
 						GetWalletInfo();
 						GetTransferRecent();
@@ -173,6 +182,7 @@ const Content = () => {
 								</div>
 							)
 						});
+						setLoading(false);
 					}
 				}
 			},
