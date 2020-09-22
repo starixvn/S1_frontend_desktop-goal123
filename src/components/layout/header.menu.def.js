@@ -185,15 +185,15 @@ export const defMenuLinks = {
 				icon: "icon icon-AE",
 				displayText: "AE",
 				menuType: defMenuType.entPage
+			},
+			{
+				gameId: 18,
+				tpId: 18,
+				className: "liveEB",
+				icon: "icon icon-EB",
+				displayText: "eBET",
+				menuType: defMenuType.entPage
 			}
-			// {
-			// 	gameId: 18,
-			// 	tpId: 18,
-			// 	className: "liveEB",
-			// 	icon: "icon icon-EB",
-			// 	displayText: "eBET",
-			// 	menuType: defMenuType.entPage
-			// }
 		]
 	},
 	promotion: {
