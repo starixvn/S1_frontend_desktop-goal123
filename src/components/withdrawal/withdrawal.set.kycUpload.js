@@ -131,14 +131,7 @@ export default props => {
 							onChange={onChangeFile.bind(this, "onChange")}
 						/>
 						{picFileName ? (
-							<img
-								alt="DepositReceipt"
-								src={
-									fileImg === null
-										? `${config.apiURL}/${userInfo.langId}/Cashier/DepositReceip.jpg?transId=${props.transId}&FileName=${picFileName}`
-										: `${fileImg}`
-								}
-							/>
+							<img alt="DepositReceipt" src={fileImg} />
 						) : (
 							<i className="icon icon-plus"></i>
 						)}
