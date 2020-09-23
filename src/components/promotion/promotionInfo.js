@@ -81,42 +81,44 @@ export default () => {
 					BonusCode: _promo.bonusCode
 				}).then(
 					res => {
-						if (isMountedRef.current && res.data.errorCode === 0) {
-							GetPromotionDetail(
-								userInfo.langId,
-								_promo.bonusCode
-							);
+						if (isMountedRef.current) {
+							if (res.data.errorCode === 0) {
+								GetPromotionDetail(
+									userInfo.langId,
+									_promo.bonusCode
+								);
 
-							setPopBox({
-								isOpen: true,
-								popBoxType: defPopBoxType.Success,
-								btnBar: (
-									<div className="btnGroup">
-										<button
-											className="btn-check"
-											onClick={ClosePopBox}>
-											OK
-										</button>
-									</div>
-								)
-							});
-						} else {
-							setPopBox({
-								isOpen: true,
-								popBoxType: defPopBoxType.ErrorMsg,
-								message: res.data.message
-									? res.data.message
-									: `[${res.data.errorCode}] Something went wrong...`,
-								btnBar: (
-									<div className="btnGroup">
-										<button
-											className="btn-cancel"
-											onClick={ClosePopBox}>
-											{t("lbl_Close")}
-										</button>
-									</div>
-								)
-							});
+								setPopBox({
+									isOpen: true,
+									popBoxType: defPopBoxType.Success,
+									btnBar: (
+										<div className="btnGroup">
+											<button
+												className="btn-check"
+												onClick={ClosePopBox}>
+												OK
+											</button>
+										</div>
+									)
+								});
+							} else {
+								setPopBox({
+									isOpen: true,
+									popBoxType: defPopBoxType.ErrorMsg,
+									message: res.data.message
+										? res.data.message
+										: `[${res.data.errorCode}] Something went wrong...`,
+									btnBar: (
+										<div className="btnGroup">
+											<button
+												className="btn-cancel"
+												onClick={ClosePopBox}>
+												{t("lbl_Close")}
+											</button>
+										</div>
+									)
+								});
+							}
 						}
 					},
 					err => {
