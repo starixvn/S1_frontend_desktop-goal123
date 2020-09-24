@@ -4,7 +4,7 @@ import { number_format } from "../common/common";
 import { userInfoContext, popBoxContext } from "../common/context";
 import { api_payment_DepositReqWireTransfer } from "../../service/api/payment";
 import { useTranslation } from "react-i18next";
-import { Redirect } from "@reach/router";
+import { Redirect, Link } from "@reach/router";
 import { defPopBoxType } from "../common/popBox";
 import config from "../../config";
 import path from "../../path";
@@ -28,7 +28,6 @@ export default ({ bankInfo, amount, _isConvert, dispatch }) => {
 			setPopBox({
 				isOpen: false
 			});
-			setRedirectPath(`/${userInfo.langId}/${path.deposit.root}`);
 		};
 
 		const ClickNo = () => {
@@ -40,9 +39,12 @@ export default ({ bankInfo, amount, _isConvert, dispatch }) => {
 			popBoxType: defPopBoxType.Cancel,
 			btnBar: (
 				<div className="btnGroup">
-					<button className="btn-cancel" onClick={ClickYes}>
+					<Link
+						to={`/${userInfo.langId}/${path.deposit.root}`}
+						className="btn-cancel"
+						onClick={ClickYes}>
 						{t("lbl_Yes")}
-					</button>
+					</Link>
 					<button className="btn-check" onClick={ClickNo}>
 						{t("lbl_No")}
 					</button>

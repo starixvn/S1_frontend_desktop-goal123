@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { number_format } from "../common/common";
 import { userInfoContext, popBoxContext } from "../common/context";
 import { useTranslation } from "react-i18next";
-import { Redirect } from "@reach/router";
+import { Link } from "@reach/router";
 import config from "../../config";
 import path from "../../path";
 import { defPopBoxType } from "../common/popBox";
@@ -10,14 +10,12 @@ import { defPopBoxType } from "../common/popBox";
 export default ({ channelInfo, amount, _isConvert }) => {
 	const { userInfo } = useContext(userInfoContext);
 	const { setPopBox } = useContext(popBoxContext);
-	const [redirectPath, setRedirectPath] = useState(null);
 	const { t } = useTranslation();
 	const ClickCancel = () => {
 		const ClickYes = () => {
 			setPopBox({
 				isOpen: false
 			});
-			setRedirectPath(`/${userInfo.langId}/${path.deposit.root}`);
 		};
 
 		const ClickNo = () => {
@@ -31,9 +29,12 @@ export default ({ channelInfo, amount, _isConvert }) => {
 			popBoxType: defPopBoxType.Cancel,
 			btnBar: (
 				<div className="btnGroup">
-					<button className="btn-cancel" onClick={ClickYes}>
+					<Link
+						to={`/${userInfo.langId}/${path.deposit.root}`}
+						className="btn-cancel"
+						onClick={ClickYes}>
 						{t("lbl_Yes")}
-					</button>
+					</Link>
 					<button className="btn-check" onClick={ClickNo}>
 						{t("lbl_No")}
 					</button>
@@ -48,11 +49,10 @@ export default ({ channelInfo, amount, _isConvert }) => {
 			window.open(
 				`${config.openURL}/${userInfo.langId}/Cashier/DepositReqMobilePay?ChannelId=${channelInfo.channelId}&Amount=${real_amount}`
 			);
-			setRedirectPath(`/${path.deposit.root}`);
 		}
 	};
 
-	return redirectPath === null ? (
+	return (
 		<div className="subModuleList">
 			<div className="subModule">
 				<div className="subModuleBody column align-items-center">
@@ -85,14 +85,15 @@ export default ({ channelInfo, amount, _isConvert }) => {
 						<button onClick={ClickCancel} className="btn-cancel">
 							{t("lbl_Cancel")}
 						</button>
-						<button onClick={ClickSubmit} className="btn-check">
+						<Link
+							to={`/${userInfo.langId}/${path.deposit.root}`}
+							onClick={ClickSubmit}
+							className="btn-check">
 							{t("lbl_Confirm")}
-						</button>
+						</Link>
 					</div>
 				</div>
 			</div>
 		</div>
-	) : (
-		<Redirect to={redirectPath} noThrow />
 	);
 };
