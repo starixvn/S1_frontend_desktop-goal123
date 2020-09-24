@@ -50,7 +50,7 @@ export default ({ bankInfoSysList = [] }) => {
 		val =
 			col === "realName"
 				? val.replace(/[\W]/g, "")
-				: val.replace(/^(0+)|[^\d]+/g, "");
+				: val.replace(/[^0-9,.]+/g, "");
 		setUserValue(prev => ({ ...prev, [col]: val }));
 	};
 

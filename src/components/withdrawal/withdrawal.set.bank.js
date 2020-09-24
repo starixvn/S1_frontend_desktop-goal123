@@ -84,9 +84,14 @@ export default props => {
 		updateStep();
 	}, [sysIdValue, amountValue, showConfirmPage]);
 
+	useEffect(() => {
+		setStep(1);
+		// setAmountValue("");
+	}, [allBankCardData.length]);
+
 	const updateStep = () => {
 		if (sysIdValue === 0 || !sysIdValue) {
-			setStep(0);
+			setStep(1);
 		} else if (
 			sysIdValue > 0 &&
 			(amountValue === 0 ||
