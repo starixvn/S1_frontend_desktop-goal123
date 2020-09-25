@@ -66,7 +66,7 @@ export default props => {
 				<div>{item.label}</div>
 				<div>
 					{item.value}
-					{item.format === "phone" ? (
+					{/* {item.format === "phone" ? (
 						props.mobileVerificationLoading ? (
 							<div className="otpLoading">
 								<i className="icon icon-spinner11"></i>
@@ -79,7 +79,7 @@ export default props => {
 								<span>{t("lbl_MobileVerifiy")}</span>
 							</button>
 						)
-					) : null}
+					) : null} */}
 				</div>
 			</div>
 		);
