@@ -82,12 +82,6 @@ a, button {
   transition: 0.7s;
 }
 
-.linetitle {
-  font-size: 18px;
-  font-weight: bold;
-  margin: 20px 0;
-}
-
 body, html {
   width: 100%;
   background: #152849;
@@ -1646,6 +1640,25 @@ main > .swiper-container .swiper-slide {
   background: #fab617;
 }
 
+.swiper-button-next, .swiper-button-prev {
+  width: calc(var(--swiper-navigation-size)/ 44 * 44);
+  border-radius: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  outline: none;
+  z-index: 1;
+}
+
+.swiper-button-next:after, .swiper-button-prev:after {
+  content: "\e954";
+  font-family: 'icomoon';
+  color: white;
+}
+
+.swiper-button-prev {
+  -webkit-transform: rotate(-180deg);
+          transform: rotate(-180deg);
+}
+
 #Marquee {
   background: #212121;
   position: relative;
@@ -2239,6 +2252,7 @@ main > .swiper-container .swiper-slide {
   background: rgba(29, 54, 98, 0.7);
   margin-bottom: 10px;
   padding-bottom: 10px;
+  position: relative;
 }
 
 .infoModule > button.icon-arrow-left2 {
@@ -3015,32 +3029,6 @@ main > .swiper-container .swiper-slide {
 .offers .swiper-slide .odds div:nth-child(2) {
   background: #fab617;
   color: black;
-}
-
-.offers .swiper-button-next, .offers .swiper-button-prev {
-  width: 50px;
-  height: 50px;
-  border-radius: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  outline: none;
-  z-index: 1;
-}
-
-.offers .swiper-button-next:after, .offers .swiper-button-prev:after {
-  content: "\e954";
-  font-size: 48px;
-  font-family: 'icomoon';
-  color: white;
-}
-
-.offers .swiper-button-next {
-  right: 0;
-}
-
-.offers .swiper-button-prev {
-  left: 0;
-  -webkit-transform: rotate(-180deg);
-          transform: rotate(-180deg);
 }
 
 .walletModule {
@@ -4306,6 +4294,7 @@ form {
   display: flex;
   padding: 0 34px;
   height: 49px;
+  margin-top: 40px;
 }
 
 .casinoSelect > div {
@@ -5018,5 +5007,38 @@ input + .iconModule i.icon.icon-checkmark:before {
 
 .indexGameList a img {
   width: auto;
+}
+
+html:not(.index) .swiper-container {
+  width: calc(100% - 80px);
+  top: 40px;
+}
+
+html:not(.index) .swiper-container + .inside-title {
+  overflow: hidden;
+  width: -webkit-min-content;
+  width: -moz-min-content;
+  width: min-content;
+  position: absolute;
+  top: 40px;
+  z-index: 1;
+  padding: 20px 80px;
+  border: 0;
+}
+
+html:not(.index) .swiper-container + .inside-title.icon-ow-casino {
+  margin-top: 0;
+}
+
+html:not(.index) .swiper-container + .inside-title.icon-ow-casino:after {
+  content: "";
+  border-color: rgba(30, 133, 236, 0.6) transparent transparent rgba(30, 133, 236, 0.6);
+  border-style: solid solid solid solid;
+  border-width: 80px;
+  width: 150px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
 }
 /*# sourceMappingURL=style.css.map */
