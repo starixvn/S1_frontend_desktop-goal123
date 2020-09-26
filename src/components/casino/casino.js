@@ -9,6 +9,7 @@ import { api_site_GetGamelist } from "../../service/api/site";
 import { userInfoContext } from "../common/context";
 import { defNav, defRowsPerPage, defSearchColumn } from "./casino.def";
 import GameList from "./casino.gamelist";
+import SwipperBanner from "../common/swipperBanner";
 import { Pagination } from "../common/pagination";
 import { getUrlParameter } from "../common/common";
 import SearchBox from "./casino.searchBox";
@@ -286,6 +287,11 @@ export default () => {
 
 	return (
 		<div className="infoModule">
+			<SwipperBanner
+				ImgFolder="Casino"
+				withBtn={false}
+				openInBlank={true}
+			/>
 			<div className="inside-title icon icon-ow-casino">
 				<span>{t("lbl_Slots")}</span>
 			</div>
