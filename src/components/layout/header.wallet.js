@@ -101,7 +101,7 @@ class Dropdown extends Component {
 			? "*****"
 			: number_format(
 					this.props.walletInfo.main + tpWalletsBonusSum,
-					false
+					this.props._isConvert
 			  );
 
 		const tpWallets =
