@@ -58,15 +58,14 @@ export default props => {
 		}
 	];
 
-	const showColumn = dataList?.filter(item => item.show === true);
+	const showColumn = dataList?.filter(item => item.show);
 
 	const layout = showColumn?.map(item => {
 		return (
 			<div key={`profileRead-${item.label}`}>
 				<div>{item.label}</div>
 				<div>
-					{item.value}
-					{/* {item.format === "phone" ? (
+					{item.format === "phone" ? (
 						props.mobileVerificationLoading ? (
 							<div className="otpLoading">
 								<i className="icon icon-spinner11"></i>
@@ -74,12 +73,14 @@ export default props => {
 						) : props.userInfo.phoneVerified ? (
 							<span className="icon icon-checkmark"></span>
 						) : (
-							<button onClick={props.sendVerifySMS}>
+							<button onClick={props.sendOTPSMS}>
 								<span className="icon icon-error otp"></span>
 								<span>{t("lbl_MobileVerifiy")}</span>
 							</button>
 						)
-					) : null} */}
+					) : (
+						item.value
+					)}
 				</div>
 			</div>
 		);
