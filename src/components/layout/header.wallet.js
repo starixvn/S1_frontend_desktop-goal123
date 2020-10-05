@@ -99,6 +99,8 @@ class Dropdown extends Component {
 
 		let balance = isHideBalance
 			? "*****"
+			: this.props.walletInfo.main === null
+			? 0
 			: number_format(
 					this.props.walletInfo.main + tpWalletsBonusSum,
 					this.props._isConvert
