@@ -600,7 +600,7 @@ export default () => {
 						});
 					} else {
 						openErrorMessagePopBox(
-							errorCode === 5002 || errorCode === 1004
+							errorCode === 5002
 								? t(`msg_API_SendOTPSMS_${errorCode}`)
 								: message || "error",
 							errorCode

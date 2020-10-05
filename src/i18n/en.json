@@ -47,7 +47,6 @@
 	"lbl_PreferredCurrencyToolTip": "Preferred currency can not be changed after registration.",
 	"lbl_Check18TCTooltip": "Please click the above checkbox to confirm the account registration requirements",
 	"msg_ApiServerError": "API Server Error.",
-	"msg_API_SendOTPSMS_1004": "You had try to request too many verification code at a period of time. Please try again later {{time}}",
 	"msg_API_SendOTPSMS_5002": "Entered the wrong phone number.",
 	"lbl_Guest": "Guest",
 	"lbl_SelectAll": "Select All",
