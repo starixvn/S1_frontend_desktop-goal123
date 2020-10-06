@@ -22,7 +22,7 @@ import {
 	defActionType
 } from "./mobilePay.reducer";
 import Loading from "../common/loading";
-mport { defPopBoxType } from "../common/popBox";
+import { defPopBoxType } from "../common/popBox";
 import { popBoxContext } from "../common/context";
 
 export default () => {
