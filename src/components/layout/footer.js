@@ -116,6 +116,7 @@ export default () => {
 					<span className="title">{t("lbl_AboutGoal123")}</span>
 					<div>
 						<a
+							style={{ fontWeight: "bold" }}
 							href={siteInfo.affiliateLink}
 							target="_blank"
 							rel="noreferrer">
