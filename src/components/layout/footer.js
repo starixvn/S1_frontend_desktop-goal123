@@ -117,7 +117,10 @@ export default () => {
 					<div>
 						<a
 							style={{ fontWeight: "bold" }}
-							href={siteInfo.affiliateLink}
+							href={
+								siteInfo({ langId: userInfo.langId })
+									.affiliateLink
+							}
 							target="_blank"
 							rel="noreferrer">
 							{t("lbl_Affiliates")?.toUpperCase()}
