@@ -156,7 +156,11 @@ export default ({ startUnixTime }) => {
 						}));
 						clickClose();
 					} else {
-						setVerifyPhoneError(message);
+						setVerifyPhoneError(
+							errorCode === 1000
+								? t("msg_OTP_Invalid")
+								: message | "error"
+						);
 					}
 					setVerifyPhoneloading(false);
 				}

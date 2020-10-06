@@ -302,6 +302,7 @@
 	"lbl_Lottery": "Xổ số",
 	"lbl_WithdrawalSuccess": "Yêu cầu rút tiền của bạn đã được tiếp nhận.",
 	"lbl_WithdrawalSuccessNotify": "Chúng tôi sẽ thông báo khi giao dịch được xử lý xong.",
+	"msg_OTP_Invalid": "Invalid OTP Code",
 	"msg_OTPHint": "Vui lòng xác nhận hồ sơ và số điện thoại của bạn để tận hưởng các khuyến mãi hấp dẫn.",
 	"lbl_GoNow": "Tham gia ngay",
 	"lbl_Freebet": "Cược miễn phí",

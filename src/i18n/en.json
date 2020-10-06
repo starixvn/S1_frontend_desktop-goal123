@@ -302,6 +302,7 @@
 	"lbl_Lottery": "Lottery",
 	"lbl_WithdrawalSuccess": "Your withdrawal request was successful.",
 	"lbl_WithdrawalSuccessNotify": "We will notify you once it is done.",
+	"msg_OTP_Invalid": "Invalid OTP Code",
 	"msg_OTPHint": "Please complete your profile and verify your phone to enjoy our promotions.",
 	"lbl_GoNow": "Go Now!",
 	"lbl_Freebet": "Free Bet",
