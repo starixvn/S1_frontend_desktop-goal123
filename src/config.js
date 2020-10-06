@@ -1,5 +1,9 @@
 const siteName = "Goal123";
 
+export const siteInfo = {
+	affiliateLink: `https://aff.${window.location.hostname}`
+};
+
 export default process.env.NODE_ENV === "production"
 	? {
 			siteName,
