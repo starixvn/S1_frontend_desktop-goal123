@@ -29,7 +29,9 @@ export default ({ showSubMenu }) => {
 				checkMatchPage={true}
 				toUpperCase={true}
 			/>
-			<a href={siteInfo({ langId: userInfo.langId })} target="_blank">
+			<a
+				href={siteInfo({ langId: userInfo.langId }).affiliateLink}
+				target="_blank">
 				{t("lbl_Affiliates")?.toUpperCase()}
 			</a>
 		</>
