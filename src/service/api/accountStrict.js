@@ -24,6 +24,11 @@ export const api_accountStrict_SetProfile = ({
 		Email
 	});
 
+export const api_accountStrict_SetAccountName = ({ name }) =>
+	accountStrictRequest.post("/SetAccountName", {
+		name
+	});
+
 export const api_accountStrict_SetCustBankInfo = ({
 	AccountName,
 	AccountNo,

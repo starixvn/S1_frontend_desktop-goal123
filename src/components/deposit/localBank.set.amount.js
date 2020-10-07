@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { defActionType } from "./onlineBank.reducer";
 import { checkAmount, getAmountTip } from "../common/common";
 import LimitTip from "./limitTip";
 import config from "../../config";
 import Inputbox from "../common/inputbox";
+import { api_accountStrict_SetAccountName } from "../../service/api/accountStrict";
+import { defPopBoxType } from "../common/popBox";
+import { popBoxContext } from "../common/context";
 
 export default ({ bankInfo, _isConvert, amount, dispatch, userInfo }) => {
 	const { t } = useTranslation();
 	const [nameValue, setNameValue] = useState("");
+	const isMountedRef = useRef(null);
 	const initStatus = {
 		accountName: {
 			checked: null,
@@ -20,6 +24,12 @@ export default ({ bankInfo, _isConvert, amount, dispatch, userInfo }) => {
 		}
 	};
 	const [status, setStatus] = useState(initStatus);
+	const { setPopBox } = useContext(popBoxContext);
+
+	useEffect(() => {
+		isMountedRef.current = true;
+		return () => (isMountedRef.current = false);
+	});
 
 	const clickInfo = col => {
 		console.log("col", col);
@@ -43,9 +53,20 @@ export default ({ bankInfo, _isConvert, amount, dispatch, userInfo }) => {
 		}));
 	};
 
+	const clickClose = () => {
+		setPopBox({ isOpen: false });
+	};
+
 	const onChangeName = e => {
 		let value = e.target.value;
 		setNameValue(value);
+	};
+
+	const onChangeAmount = e => {
+		let value = e.target.value;
+		value = value.replace(/^(0+)|[^\d]+/g, "");
+		ValidAmount(value);
+		dispatch({ type: defActionType.EDIT_AMOUNT, amount: value });
 	};
 
 	const checkName = () => {
@@ -71,21 +92,6 @@ export default ({ bankInfo, _isConvert, amount, dispatch, userInfo }) => {
 		}));
 
 		return checkResult;
-	};
-
-	const SubmitAccountName = () => {
-		let result = checkName();
-		if (result) {
-			// console.log("do submit name ! ! !");
-			// post account name api here
-		}
-	};
-
-	const EditAmount = e => {
-		let value = e.target.value;
-		value = value.replace(/^(0+)|[^\d]+/g, "");
-		ValidAmount(value);
-		dispatch({ type: defActionType.EDIT_AMOUNT, amount: value });
 	};
 
 	const ValidAmount = _amount => {
@@ -116,11 +122,79 @@ export default ({ bankInfo, _isConvert, amount, dispatch, userInfo }) => {
 		return result.status === 0;
 	};
 
-	const SubmitAmount = () => {
+	const berforeSubmitCheck = () => {
 		let result = ValidAmount(amount) && checkName();
 		if (result) {
-			dispatch({ type: defActionType.SUBMIT_AMOUNT });
+			if (!userInfo.accountName) {
+				setPopBox({
+					isOpen: true,
+					popBoxType: defPopBoxType.ProfileConfirmCheck,
+					accountName: nameValue,
+					btnBar: (
+						<div className="btnGroup">
+							<button className="btn-cancel" onClick={clickClose}>
+								{t("lbl_ReModify")}
+							</button>
+							<button
+								className="btn-check"
+								onClick={toConfirmAmountPage}>
+								{t("lbl_Confirm")}
+							</button>
+						</div>
+					)
+				});
+			} else {
+				toConfirmAmountPage();
+			}
 		}
+	};
+
+	const toConfirmAmountPage = () => {
+		api_accountStrict_SetAccountName({
+			name: nameValue
+		}).then(
+			res => {
+				if (isMountedRef.current) {
+					if (res.data.errorCode === 0) {
+						dispatch({ type: defActionType.SUBMIT_AMOUNT });
+						setPopBox({ isOpen: false });
+					} else {
+						setPopBox({
+							isOpen: true,
+							popBoxType: defPopBoxType.ErrorMsg,
+							message: res.data.message,
+							btnBar: (
+								<div className="btnGroup">
+									<button
+										className="btn-cancel"
+										onClick={clickClose}>
+										{t("lbl_Close")}
+									</button>
+								</div>
+							)
+						});
+					}
+				}
+			},
+			err => {
+				if (isMountedRef.current) {
+					setPopBox({
+						isOpen: true,
+						popBoxType: defPopBoxType.ErrorMsg,
+						message: t("msg_ApiServerError"),
+						btnBar: (
+							<div className="btnGroup">
+								<button
+									className="btn-cancel"
+									onClick={clickClose}>
+									{t("lbl_Close")}
+								</button>
+							</div>
+						)
+					});
+				}
+			}
+		);
 	};
 
 	return (
@@ -160,17 +234,17 @@ export default ({ bankInfo, _isConvert, amount, dispatch, userInfo }) => {
 									checked={status.accountName.checked}
 									tip={status.accountName.tip}
 								/>
-								<div className="btnGroup">
+								{/* <div className="btnGroup">
 									<button
 										className={`${
 											status.accountName.checked === true
 												? "btn-check"
 												: "btn-cancel"
 										}`}
-										onClick={SubmitAccountName}>
+										onClick={berforeSubmitCheck}>
 										{t("lbl_Submit")}
 									</button>
-								</div>
+								</div> */}
 							</div>
 							<br />
 						</>
@@ -180,7 +254,7 @@ export default ({ bankInfo, _isConvert, amount, dispatch, userInfo }) => {
 						<Inputbox
 							title={t("lbl_Amount")}
 							value={amount}
-							onChange={EditAmount}
+							onChange={onChangeAmount}
 							onBlur={ValidAmount.bind(this, amount)}
 							clickInfo={clickInfo.bind(this, "amount")}
 							checked={status.amount.checked}
@@ -190,11 +264,17 @@ export default ({ bankInfo, _isConvert, amount, dispatch, userInfo }) => {
 						<div className="btnGroup">
 							<button
 								className={`${
-									status.amount.checked === true
+									status.amount.checked &&
+									status.accountName.checked
 										? "btn-check"
 										: "btn-cancel"
 								}`}
-								onClick={SubmitAmount}>
+								onClick={
+									status.amount.checked &&
+									status.accountName.checked
+										? berforeSubmitCheck
+										: null
+								}>
 								{t("lbl_Submit")}
 							</button>
 						</div>
