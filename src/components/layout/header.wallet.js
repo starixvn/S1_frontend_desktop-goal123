@@ -32,13 +32,15 @@ export default props => {
 				let tpWallets = res.data.data.tpWallets?.map(t => {
 					return {
 						tpId: t.tpId,
-						balance: t.balance
+						balance: t.balance,
+						tpName: t.tpName,
+						bonus: t.bonus
 					};
 				});
 				setWalletInfo(prevState => ({
 					...prevState,
 					main: res.data.data.balance,
-					tpWallets: tpWallets,
+					tpWallets,
 					lastTransaction: res.data.data.lastTransaction
 				}));
 			}
@@ -90,10 +92,19 @@ class Dropdown extends Component {
 
 	render() {
 		let isHideBalance = this.props.walletInfo?.isHideBalance;
+		let tpWalletsBonusSum = this.props.walletInfo?.tpWallets?.reduce(
+			(prev, curr) => prev + curr.balance,
+			0
+		);
 
 		let balance = isHideBalance
 			? "*****"
-			: number_format(this.props.walletInfo.main, false);
+			: this.props.walletInfo.main === null
+			? 0
+			: number_format(
+					this.props.walletInfo.main + tpWalletsBonusSum,
+					this.props._isConvert
+			  );
 
 		const tpWallets =
 			this.props.walletInfo.tpWallets &&
@@ -102,12 +113,27 @@ class Dropdown extends Component {
 					<div
 						className="walletBalance"
 						key={`header-tpwallet-${t.tpId}`}>
-						<span>{this.props.i18n(`lbl_TpWallet_${t.tpId}`)}</span>
-						<span>
-							{isHideBalance
-								? "*****"
-								: number_format(t.balance, false)}
-						</span>
+						<div>
+							<span>
+								{this.props.i18n(`lbl_TpWallet_${t.tpId}`)}
+							</span>
+							<span>
+								{number_format(
+									t.balance,
+									this.props._isConvert
+								)}
+							</span>
+						</div>
+						<div className="txt-orange">
+							<span>Bonus</span>
+							<span>
+								{number_format(t.bonus, this.props._isConvert)}
+							</span>
+						</div>
+						<ReloadSpin
+							btnActive={false}
+							func={this.props.RefreshBalance}
+						/>
 					</div>
 				);
 			});
@@ -138,7 +164,10 @@ class Dropdown extends Component {
 							`Currency_${this.props.currencyId}`
 						)}`}</span>
 						<span>
-							{balance}
+							{number_format(
+								this.props.walletInfo.main,
+								this.props._isConvert
+							)}
 							<ReloadSpin func={this.props.RefreshBalance} />
 						</span>
 					</div>

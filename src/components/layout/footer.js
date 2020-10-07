@@ -11,6 +11,7 @@ import path from "../../path";
 // import SocialMedia4 from "../../styles/img/yb.png";
 // import SocialMedia5 from "../../styles/img/ig.png";
 import TandC from "../../service/t_and_c";
+import { siteInfo } from "../../config";
 
 const Bettings = ({ t, langId, isLogin }) => {
 	return (
@@ -114,6 +115,16 @@ export default () => {
 				<div>
 					<span className="title">{t("lbl_AboutGoal123")}</span>
 					<div>
+						<a
+							style={{ fontWeight: "bold" }}
+							href={
+								siteInfo({ langId: userInfo.langId })
+									.affiliateLink
+							}
+							target="_blank"
+							rel="noreferrer">
+							{t("lbl_Affiliates")?.toUpperCase()}
+						</a>
 						<a
 							href={TandC(userInfo.langId).AboutUs}
 							target="_blank"
