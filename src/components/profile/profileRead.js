@@ -65,26 +65,33 @@ export default props => {
 			<div key={`profileRead-${item.label}`}>
 				<div>{item.label}</div>
 				<div>
-					{item.format === "phone" ? (
-						props.mobileVerificationLoading ? (
-							<div className="otpLoading">
-								<i className="icon icon-spinner11"></i>
-							</div>
-						) : props.userInfo.phoneVerified ? (
-							<span className="icon icon-checkmark"></span>
-						) : (
-							<button onClick={props.sendOTPSMS}>
-								<span className="icon icon-error otp"></span>
-								<span>{t("lbl_MobileVerifiy")}</span>
-							</button>
-						)
-					) : (
-						item.value
-					)}
+					{item.value}
+					<MobileVerifiy item={item} props={props} t={t} />
 				</div>
 			</div>
 		);
 	});
 
 	return <div className="profile">{layout}</div>;
+};
+
+const MobileVerifiy = ({ item, props, t }) => {
+	if (item.format !== "phone") return null;
+
+	if (props.mobileVerificationLoading)
+		return (
+			<div className="otpLoading">
+				<i className="icon icon-spinner11"></i>
+			</div>
+		);
+
+	if (props.userInfo.phoneVerified)
+		return <span className="icon icon-checkmark"></span>;
+
+	return (
+		<button onClick={props.sendOTPSMS}>
+			<span className="icon icon-error otp"></span>
+			<span>{t("lbl_MobileVerifiy")}</span>
+		</button>
+	);
 };
