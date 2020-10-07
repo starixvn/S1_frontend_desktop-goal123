@@ -4,6 +4,7 @@ import { Link } from "@reach/router";
 import { userInfoContext } from "../common/context";
 import { defMenuLinks } from "./header.menu.def";
 import LinkItems, { getCurrentPage } from "../common/linkItems";
+import { siteInfo } from "../../config";
 
 export default ({ showSubMenu }) => {
 	const { t } = useTranslation();
@@ -28,6 +29,11 @@ export default ({ showSubMenu }) => {
 				checkMatchPage={true}
 				toUpperCase={true}
 			/>
+			<a
+				href={siteInfo({ langId: userInfo.langId }).affiliateLink}
+				target="_blank">
+				{t("lbl_Affiliates")?.toUpperCase()}
+			</a>
 		</>
 	);
 };
