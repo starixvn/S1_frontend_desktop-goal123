@@ -8,7 +8,7 @@ import {
 } from "../../service/api/accountStrict";
 import moment from "moment";
 
-export default ({ startUnixTime }) => {
+export default ({ startUnixTime = 0 }) => {
 	const { setUserInfo } = useContext(userInfoContext);
 	const { setPopBox } = useContext(popBoxContext);
 	const isMountedRef = useRef(null);

@@ -577,11 +577,7 @@ export default () => {
 			res => {
 				if (isMountedRef.current) {
 					const {
-						data: {
-							data: { startUnixTime },
-							errorCode,
-							message
-						}
+						data: { data, errorCode, message }
 					} = res;
 					const success = errorCode === 0;
 					const alreadyVerifiedPhone = errorCode === 5001;
@@ -595,7 +591,7 @@ export default () => {
 					} else if (success) {
 						setPopBox({
 							isOpen: true,
-							startUnixTime,
+							startUnixTime: data?.startUnixTime,
 							popBoxType: defPopBoxType.VerifyPhoneForm
 						});
 					} else {
