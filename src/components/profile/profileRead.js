@@ -91,7 +91,7 @@ const MobileVerifiy = ({ item, props, t }) => {
 	return (
 		<button onClick={props.sendOTPSMS}>
 			<span className="icon icon-error otp"></span>
-			<span>{t("lbl_MobileVerifiy")}</span>
+			<span>{t("lbl_MobileVerify")}</span>
 		</button>
 	);
 };
