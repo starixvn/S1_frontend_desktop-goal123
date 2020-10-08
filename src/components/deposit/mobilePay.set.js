@@ -32,16 +32,11 @@ export default () => {
 	const [loading, setLoading] = useState(true);
 	const isMountedRef = useRef(null);
 	const [state, dispatch] = useReducer(reducer, initState);
-	const { setPopBox } = useContext(popBoxContext);
 
 	useEffect(() => {
 		isMountedRef.current = true;
 		return () => (isMountedRef.current = false);
 	});
-
-	const toProfile = () => {
-		setRedirectPath(`/${userInfo.langId}/${path.profile.root}`);
-	};
 
 	useEffect(() => {
 		let gId = getUrlParameter("gId");
