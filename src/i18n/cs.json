@@ -46,7 +46,7 @@
   "Currency_51":"VND",
   "lbl_PreferredCurrencyToolTip":"一旦完成註冊，即無法修改选定幣別。",
   "lbl_Check18TCTooltip":"请点选上方格子以确认符合账号注册条件",
-  "msg_ApiServerError":"API 数据库错误",
+  "msg_ApiServerError":"糟糕！出现错误，请再尝试。",
   "lbl_Guest":"访客",
   "lbl_SelectAll":"全选",
   "lbl_AreYouSureDelete":"确定要删除么？删除后将无法还原！",
