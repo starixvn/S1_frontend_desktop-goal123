@@ -1,5 +1,24 @@
 const siteName = "Goal123";
 
+const getAffiliate = ({ langId }) => {
+	if (typeof window === `undefined`) return "";
+
+	let fullPath = window.location.hostname;
+	let arr = fullPath.split(".");
+
+	return arr.length === 3
+		? `https://aff.${arr
+				.filter((p, idx) => idx !== 0)
+				.join(".")}/?lang=${langId}`
+		: `https://aff.${arr.join(".")}/?lang=${langId}`;
+};
+
+export const siteInfo = ({ langId }) => {
+	return {
+		affiliateLink: getAffiliate({ langId })
+	};
+};
+
 export default process.env.NODE_ENV === "production"
 	? {
 			siteName,
@@ -14,11 +33,6 @@ export default process.env.NODE_ENV === "production"
 			// apiURL: "http://localhost:60930",
 			// imgUrl: "http://localhost:60930",
 			// t_and_cURL: "http://localhost:60930",
-
-			// apiURL: "http://52.77.157.115:5068",
-			// imgUrl: "http://52.77.157.115:5068",
-			// t_and_cURL: "http://52.77.157.115:5068",
-			// openURL: "http://52.77.157.115:5068"
 
 			apiURL: "http://www.n88dev.com",
 			imgUrl: "http://www.n88dev.com",

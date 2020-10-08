@@ -3,7 +3,7 @@ import { api_site_ExistsEmail } from "../../service/api/site";
 import { api_account_ExistsPhone } from "../../service/api/account";
 import {
 	api_accountStrict_SetProfile,
-	api_accountStrict_SendVerifySMS
+	api_accountStrict_SendOTPSMS
 } from "../../service/api/accountStrict";
 import { useTranslation } from "react-i18next";
 import areaCode from "../../datas/areaCode";
@@ -67,6 +67,26 @@ export default () => {
 			setLoading(false);
 		}
 	}, [userInfo.country]);
+
+	const openErrorMessagePopBox = (
+		message = t("msg_ApiServerError"),
+		errorCode = null
+	) => {
+		setPopBox({
+			message,
+			errorCode,
+			isOpen: true,
+			popBoxType: defPopBoxType.ErrorMsg,
+			icon: "icon-bell",
+			btnBar: (
+				<div className="btnGroup">
+					<button className="btn-cancel" onClick={ClickClose}>
+						{t("lbl_Close")}
+					</button>
+				</div>
+			)
+		});
+	};
 
 	const getAreaCode = () => {
 		if (!userInfo.country) {
@@ -550,14 +570,14 @@ export default () => {
 		);
 	};
 
-	const sendVerifySMS = () => {
+	const sendOTPSMS = () => {
 		setMobileVerificationLoading(true);
 
-		api_accountStrict_SendVerifySMS().then(
+		api_accountStrict_SendOTPSMS().then(
 			res => {
 				if (isMountedRef.current) {
 					const {
-						data: { errorCode, message }
+						data: { data, errorCode, message }
 					} = res;
 					const success = errorCode === 0;
 					const alreadyVerifiedPhone = errorCode === 5001;
@@ -571,47 +591,26 @@ export default () => {
 					} else if (success) {
 						setPopBox({
 							isOpen: true,
-							request_id: message,
+							startUnixTime: data?.startUnixTime,
 							popBoxType: defPopBoxType.VerifyPhoneForm
 						});
 					} else {
-						setPopBox({
-							isOpen: true,
-							popBoxType: defPopBoxType.ErrorMsg,
-							message: message || "error",
-							icon: "icon-bell",
-							errorCode,
-							btnBar: (
-								<div className="btnGroup">
-									<button
-										className="btn-cancel"
-										onClick={ClickClose}>
-										{t("lbl_Close")}
-									</button>
-								</div>
-							)
-						});
+						openErrorMessagePopBox(
+							errorCode === 5002
+								? t(`msg_API_SendOTPSMS_${errorCode}`)
+								: errorCode === 1000
+								? t("msg_OTP_Invalid")
+								: message ||
+								  `[${errorCode}] ${t("msg_ApiServerError")}`,
+							errorCode
+						);
 					}
 					setMobileVerificationLoading(false);
 				}
 			},
 			err => {
 				if (isMountedRef.current) {
-					setPopBox({
-						isOpen: true,
-						popBoxType: defPopBoxType.ErrorMsg,
-						message: t("msg_ApiServerError"),
-						icon: "icon-bell",
-						btnBar: (
-							<div className="btnGroup">
-								<button
-									className="btn-cancel"
-									onClick={ClickClose}>
-									{t("lbl_Close")}
-								</button>
-							</div>
-						)
-					});
+					openErrorMessagePopBox();
 					setMobileVerificationLoading(false);
 				}
 			}
@@ -637,7 +636,7 @@ export default () => {
 				}>
 				<ProfileRead
 					userInfo={userInfo}
-					sendVerifySMS={sendVerifySMS}
+					sendOTPSMS={sendOTPSMS}
 					mobileVerificationLoading={mobileVerificationLoading}
 				/>
 
