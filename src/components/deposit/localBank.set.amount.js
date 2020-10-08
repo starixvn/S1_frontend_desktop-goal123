@@ -162,7 +162,7 @@ export default ({ bankInfo, _isConvert, amount, dispatch, userInfo }) => {
 						setPopBox({
 							isOpen: true,
 							popBoxType: defPopBoxType.ErrorMsg,
-							message: res.data.message,
+							message: res.data.message ? res.data.message: `[${res.data.errorCode}] ${t("msg_ApiServerError")}` ,
 							btnBar: (
 								<div className="btnGroup">
 									<button
@@ -269,12 +269,7 @@ export default ({ bankInfo, _isConvert, amount, dispatch, userInfo }) => {
 										? "btn-check"
 										: "btn-cancel"
 								}`}
-								onClick={
-									status.amount.checked &&
-									status.accountName.checked
-										? berforeSubmitCheck
-										: null
-								}>
+								onClick={berforeSubmitCheck}>
 								{t("lbl_Submit")}
 							</button>
 						</div>
