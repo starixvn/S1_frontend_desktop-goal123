@@ -598,7 +598,10 @@ export default () => {
 						openErrorMessagePopBox(
 							errorCode === 5002
 								? t(`msg_API_SendOTPSMS_${errorCode}`)
-								: message || "error",
+								: message ||
+										`[${errorCode}] ${t(
+											"msg_ApiServerError"
+										)}`,
 							errorCode
 						);
 					}
