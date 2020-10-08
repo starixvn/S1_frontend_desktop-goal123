@@ -27,7 +27,7 @@ import { defPopBoxType } from "../common/popBox";
 export default () => {
 	const { t } = useTranslation();
 	const [redirectPath, setRedirectPath] = useState(null);
-	const { userInfo } = useContext(userInfoContext);
+	const { userInfo, setUserInfo } = useContext(userInfoContext);
 	const { setPopBox } = useContext(popBoxContext);
 	const [state, dispatch] = useReducer(reducer, initState);
 	const [loading, setLoading] = useState(true);
@@ -116,6 +116,7 @@ export default () => {
 					amount={state.amount}
 					dispatch={dispatch}
 					userInfo={userInfo}
+					setUserInfo={setUserInfo}
 				/>
 			);
 			break;

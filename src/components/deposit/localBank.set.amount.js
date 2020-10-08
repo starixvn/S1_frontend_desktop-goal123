@@ -9,7 +9,14 @@ import { api_accountStrict_SetAccountName } from "../../service/api/accountStric
 import { defPopBoxType } from "../common/popBox";
 import { popBoxContext } from "../common/context";
 
-export default ({ bankInfo, _isConvert, amount, dispatch, userInfo }) => {
+export default ({
+	bankInfo,
+	_isConvert,
+	amount,
+	dispatch,
+	userInfo,
+	setUserInfo
+}) => {
 	const { t } = useTranslation();
 	const [nameValue, setNameValue] = useState("");
 	const isMountedRef = useRef(null);
@@ -151,18 +158,29 @@ export default ({ bankInfo, _isConvert, amount, dispatch, userInfo }) => {
 
 	const toConfirmAmountPage = () => {
 		api_accountStrict_SetAccountName({
-			name: nameValue
+			name: nameValue ? nameValue : userInfo.accountName
 		}).then(
 			res => {
 				if (isMountedRef.current) {
-					if (res.data.errorCode === 0) {
+					if (res.data.errorCode === 0 || res.data.errorCode === -5) {
+						if (res.data.errorCode === 0) {
+							setUserInfo(prev => ({
+								...prev,
+								accountName: nameValue
+							}));
+							setPopBox({ isOpen: false });
+						}
+
 						dispatch({ type: defActionType.SUBMIT_AMOUNT });
-						setPopBox({ isOpen: false });
 					} else {
 						setPopBox({
 							isOpen: true,
 							popBoxType: defPopBoxType.ErrorMsg,
-							message: res.data.message ? res.data.message: `[${res.data.errorCode}] ${t("msg_ApiServerError")}` ,
+							message: res.data.message
+								? res.data.message
+								: `[${res.data.errorCode}] ${t(
+										"msg_ApiServerError"
+								  )}`,
 							btnBar: (
 								<div className="btnGroup">
 									<button
