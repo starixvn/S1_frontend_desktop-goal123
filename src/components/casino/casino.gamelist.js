@@ -66,7 +66,7 @@ export default ({
 								g.gameId,
 								false
 							)}>
-							Play Now
+							{t("lbl_PlayNow")}
 						</button>
 						{tpInfo.playFree ? (
 							<button
@@ -77,7 +77,7 @@ export default ({
 									g.gameId,
 									true
 								)}>
-								Free Play
+								{t("lbl_Free")}
 							</button>
 						) : null}
 					</div>
