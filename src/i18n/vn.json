@@ -286,6 +286,7 @@
 	"lbl_Feature": "Đặc điểm",
 	"msg_InsufficientFund": "Không đủ tiền!",
 	"lbl_RemindForName": "*Tên đầy đủ của bạn phải đúng với tên trên tài khoản Ngân hàng để thực hiện việc nạp/ rút tiền nhanh",
+	"lbl_RemindForDepositName": "Xin vui lòng điền Họ tên thật của bạn để giao dịch được diễn ra thuận tiện, tránh phát sinh sai sót hoặc khiếu nại!",
 	"lbl_PhoneTooltip": "Vui lòng nhập số điện thoại của bạn. Lưu ý: số điện thoại này sẽ không thể thay đổi!",
 	"msg_changePswSuccess": "Cập nhật thành công mật khẩu! Bạn có thể sử dụng mật khẩu mới ở lần đăng nhập tiếp theo.",
 	"msg_changePswUpdateSuccess": "Mật khẩu đã đổi thành công!",
