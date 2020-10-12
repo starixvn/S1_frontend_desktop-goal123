@@ -39,12 +39,9 @@ export default ({
 	});
 
 	const clickInfo = col => {
-		console.log("col", col);
 		let _tip = "";
 
-		if (col === "accountName") {
-			_tip = status.accountName.tip === "" ? t("lbl_RemindForName") : "";
-		} else if (col === "amount") {
+		if (col === "amount") {
 			_tip =
 				status.amount.tip === ""
 					? getAmountTip(bankInfo.minAmount, _isConvert, t)
@@ -245,28 +242,20 @@ export default ({
 									onChange={onChangeName}
 									value={nameValue}
 									onBlur={checkName}
-									clickInfo={clickInfo.bind(
-										this,
-										"accountName"
-									)}
 									checked={status.accountName.checked}
 									tip={status.accountName.tip}
 								/>
-								{/* <div className="btnGroup">
-									<button
-										className={`${
-											status.accountName.checked === true
-												? "btn-check"
-												: "btn-cancel"
-										}`}
-										onClick={berforeSubmitCheck}>
-										{t("lbl_Submit")}
-									</button>
-								</div> */}
 							</div>
+							{status.accountName.tip === "" ? (
+								<div>{t("lbl_RemindForName")}</div>
+							) : null}
 							<br />
 						</>
 					) : null}
+
+					{status.accountName.tip === "" ? null : (
+						<div>{t("lbl_RemindForName")}</div>
+					)}
 
 					<div className="inputModuleRow">
 						<Inputbox
