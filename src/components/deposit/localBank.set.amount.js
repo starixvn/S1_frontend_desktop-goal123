@@ -247,14 +247,18 @@ export default ({
 								/>
 							</div>
 							{status.accountName.tip === "" ? (
-								<div>{t("lbl_RemindForName")}</div>
+								<div className="tip active">
+									{t("lbl_RemindForDepositName")}
+								</div>
 							) : null}
 							<br />
 						</>
 					) : null}
 
 					{status.accountName.tip === "" ? null : (
-						<div>{t("lbl_RemindForName")}</div>
+						<div className="tip active">
+							{t("lbl_RemindForDepositName")}
+						</div>
 					)}
 
 					<div className="inputModuleRow">
