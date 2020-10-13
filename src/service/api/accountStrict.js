@@ -24,6 +24,11 @@ export const api_accountStrict_SetProfile = ({
 		Email
 	});
 
+export const api_accountStrict_SetAccountName = ({ name }) =>
+	accountStrictRequest.post("/SetAccountName", {
+		name
+	});
+
 export const api_accountStrict_SetCustBankInfo = ({
 	AccountName,
 	AccountNo,
@@ -58,13 +63,13 @@ export const api_accountStrict_UploadCustPhotoId = formData =>
 		}
 	});
 
-export const api_accountStrict_SendVerifySMS = () =>
-	accountStrictRequest.post("/SendVerifySMS");
+export const api_accountStrict_SendOTPSMS = () =>
+	accountStrictRequest.post("/SendOTPSMS");
 
-export const api_accountStrict_VerifyPhone = ({ request_id, code }) =>
+export const api_accountStrict_VerifyOTP = ({ inputOTPcode }) =>
 	accountStrictRequest.post(
-		"/VerifyPhone",
-		{ request_id, code },
+		"/VerifyOTP",
+		{ inputOTPcode },
 		{
 			headers: {
 				"Content-Type": "application/json"

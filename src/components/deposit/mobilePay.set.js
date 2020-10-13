@@ -22,6 +22,8 @@ import {
 	defActionType
 } from "./mobilePay.reducer";
 import Loading from "../common/loading";
+import { defPopBoxType } from "../common/popBox";
+import { popBoxContext } from "../common/context";
 
 export default () => {
 	const { t } = useTranslation();
