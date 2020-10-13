@@ -56,6 +56,7 @@ export default props => {
 					clickInfo={props.clickInfo.bind(this, "phoneNo")}
 					checked={props.status.phoneNo.checked}
 					tip={props.status.phoneNo.tip}
+					areaCode={props.userInfo.AreaCode}
 				/>
 			) : null}
 
