@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import { api_payment_GetOnlineBankInfoSysList } from "../../service/api/payment";
 import { getUrlParameter, isConvert } from "../common/common";
-import { Redirect, Link } from "@reach/router";
+import { Redirect, Link, useLocation } from "@reach/router";
 import { useTranslation } from "react-i18next";
 import path from "../../path";
 import { userInfoContext } from "../common/context";
@@ -30,11 +30,22 @@ export default () => {
 	const [loading, setLoading] = useState(true);
 	const isMountedRef = useRef(null);
 	const [state, dispatch] = useReducer(reducer, initState);
+	const location = useLocation();
 
 	useEffect(() => {
 		isMountedRef.current = true;
 		return () => (isMountedRef.current = false);
 	});
+
+	useEffect(() => {
+		console.log(location.state.selBank);
+		if (!location.state.selBank) {
+			dispatch({
+				type: defActionType.SELECT_BANK,
+				bankList: null
+			});
+		}
+	}, []);
 
 	useEffect(() => {
 		let pId = getUrlParameter("pId");
@@ -68,11 +79,12 @@ export default () => {
 								type: defActionType.SET_BANKLIST,
 								bankList: datas
 							});
-						} else {
-							setRedirectPath(
-								`${userInfo.langId}/${path.deposit.root}`
-							);
 						}
+						// else {
+						// 	setRedirectPath(
+						// 		`${userInfo.langId}/${path.deposit.root}`
+						// 	);
+						// }
 						setLoading(false);
 					}
 				}
@@ -121,6 +133,9 @@ export default () => {
 
 	const ClickBack = () => {
 		dispatch({ type: defActionType.CLICK_BACK });
+		if (!location.state.selBank) {
+			setRedirectPath(`${userInfo.langId}/${path.deposit.root}`);
+		}
 	};
 
 	return loading ? (

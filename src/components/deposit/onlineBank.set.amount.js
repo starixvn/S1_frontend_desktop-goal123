@@ -64,12 +64,14 @@ export default ({
 			<div className="subModule">
 				<div className="subModuleBody column">
 					<div>
-						<div className="bankName">
-							<img
-								src={`${config.imgUrl}/common/images/BankLogo/${bankInfo.bankLogo}`}
-								alt={bankInfo.bankName}
-							/>
-						</div>
+						{bankInfo ? (
+							<div className="bankName">
+								<img
+									src={`${config.imgUrl}/common/images/BankLogo/${bankInfo?.bankLogo}`}
+									alt={bankInfo?.bankName}
+								/>
+							</div>
+						) : null}
 						<LimitTip
 							minAmount={minAmount}
 							maxAmount={maxAmount}
