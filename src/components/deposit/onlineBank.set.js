@@ -56,13 +56,7 @@ export default () => {
 		}).then(res => {
 			if (res.data.errorCode === 0) {
 				let datas = res.data.data.map(b => {
-					let { bankLogo, sysId, bankName, ...rest } = b;
-					return {
-						...rest,
-						bankLogo,
-						sysId,
-						bankName
-					};
+					return b;
 				});
 
 				if (isMountedRef.current) {
@@ -73,7 +67,7 @@ export default () => {
 						});
 					} else {
 						setRedirectPath(
-							`${userInfo.langId}/${path.deposit.root}`
+							`/${userInfo.langId}/${path.deposit.root}`
 						);
 					}
 					setLoading(false);
@@ -94,7 +88,7 @@ export default () => {
 				});
 			}
 			setLoading(false);
-		} else if (!location.state) {
+		} else {
 			async function getOnlinePaymentList() {
 				await api_payment_GetOnlinePaymentList().then(res => {
 					if (res.data.errorCode === 0 && isMountedRef.current) {
