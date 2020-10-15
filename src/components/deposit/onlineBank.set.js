@@ -38,16 +38,6 @@ export default () => {
 	});
 
 	useEffect(() => {
-		console.log(location.state.selBank);
-		if (!location.state.selBank) {
-			dispatch({
-				type: defActionType.SELECT_BANK,
-				bankList: null
-			});
-		}
-	}, []);
-
-	useEffect(() => {
 		let pId = getUrlParameter("pId");
 		let cId = getUrlParameter("cId");
 		let name = getUrlParameter("name");
@@ -58,37 +48,46 @@ export default () => {
 
 	useEffect(() => {
 		let pId = getUrlParameter("pId");
-		if (pId) {
-			api_payment_GetOnlineBankInfoSysList({
-				payId: Number(pId)
-			}).then(res => {
-				if (res.data.errorCode === 0) {
-					let datas = res.data.data.map(b => {
-						let { bankLogo, sysId, bankName, ...rest } = b;
-						return {
-							...rest,
-							bankLogo,
-							sysId,
-							bankName
-						};
-					});
+		if (location.state) {
+			if (pId && location.state.selBank) {
+				api_payment_GetOnlineBankInfoSysList({
+					payId: Number(pId)
+				}).then(res => {
+					if (res.data.errorCode === 0) {
+						let datas = res.data.data.map(b => {
+							let { bankLogo, sysId, bankName, ...rest } = b;
+							return {
+								...rest,
+								bankLogo,
+								sysId,
+								bankName
+							};
+						});
 
-					if (isMountedRef.current) {
-						if (datas.length > 0) {
-							dispatch({
-								type: defActionType.SET_BANKLIST,
-								bankList: datas
-							});
+						if (isMountedRef.current) {
+							if (datas.length > 0) {
+								dispatch({
+									type: defActionType.SET_BANKLIST,
+									bankList: datas
+								});
+							} else {
+								setRedirectPath(
+									`${userInfo.langId}/${path.deposit.root}`
+								);
+							}
+							setLoading(false);
 						}
-						// else {
-						// 	setRedirectPath(
-						// 		`${userInfo.langId}/${path.deposit.root}`
-						// 	);
-						// }
-						setLoading(false);
 					}
-				}
-			});
+				});
+			} else if (!location.state.selBank) {
+				dispatch({
+					type: defActionType.SELECT_BANK,
+				});
+				setLoading(false);
+			}
+		} else {
+			setRedirectPath(`${userInfo.langId}/${path.deposit.root}`);
+			setLoading(false);
 		}
 	}, [userInfo.langId]);
 
