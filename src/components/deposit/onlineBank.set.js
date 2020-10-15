@@ -34,9 +34,9 @@ export default () => {
 	const isMountedRef = useRef(null);
 	const [state, dispatch] = useReducer(reducer, initState);
 	const location = useLocation();
-	const [requireSelectBank, setRequireSelectBank] = useState(false);
 
 	useEffect(() => {
+		console.log();
 		isMountedRef.current = true;
 		return () => (isMountedRef.current = false);
 	});
@@ -88,12 +88,10 @@ export default () => {
 		if (location.state) {
 			if (location.state.selBank) {
 				getInfoSysList(pId);
-				setRequireSelectBank(true);
 			} else {
 				dispatch({
 					type: defActionType.SELECT_BANK
 				});
-				setRequireSelectBank(false);
 			}
 			setLoading(false);
 		} else if (!location.state) {
@@ -105,12 +103,10 @@ export default () => {
 								.selBank
 						) {
 							getInfoSysList(pId);
-							setRequireSelectBank(true);
 						} else {
 							dispatch({
 								type: defActionType.SELECT_BANK
 							});
-							setRequireSelectBank(false);
 						}
 						setLoading(false);
 					}
@@ -121,27 +117,7 @@ export default () => {
 	}, [userInfo.langId]);
 
 	const ClickBack = () => {
-		if (requireSelectBank) {
-			dispatch({ type: defActionType.CLICK_BACK });
-		} else {
-			let url = new URL(window.location.href);
-			url.searchParams.delete("name");
-			url.searchParams.delete("pId");
-			url.searchParams.delete("cId");
-			url.searchParams.delete("max");
-			url.searchParams.delete("min");
-
-			let urlString = window.location.href;
-			let indexOf_deletePart = urlString.indexOf(
-				`${path.deposit.sub.onlineBank.root}`
-			);
-			let delete_part_string = urlString.slice(
-				indexOf_deletePart - 1,
-				urlString.length
-			);
-			let newUrl = urlString.replace(delete_part_string, "");
-			window.location.replace(newUrl);
-		}
+		dispatch({ type: defActionType.CLICK_BACK });
 	};
 
 	let pName = getUrlParameter("name");
@@ -195,7 +171,8 @@ export default () => {
 						{t("lbl_CreditTime")}:{t("lbl_Instant")}
 					</div>
 				</div>
-				{state.step === 2 ? (
+				{state.step === 2 ||
+				(state.bankList.length < 1 && state.step === 3) ? (
 					<Link
 						to={`/${userInfo.langId}/${path.deposit.root}`}
 						className="icon icon-arrow-left2"></Link>
