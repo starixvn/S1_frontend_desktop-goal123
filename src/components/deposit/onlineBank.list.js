@@ -37,6 +37,7 @@ export default () => {
 		return (
 			<li key={`deposit-onlineBank-${p.payId}-${p.channelId}`}>
 				<Link
+					state={{ selBank: p.selBank }}
 					to={`${_path}?name=${p.payName}&pId=${p.payId}&cId=${p.channelId}&max=${p.maxAmount}&min=${p.minAmount}`}>
 					<img
 						src={`${config.imgUrl}/common/images/Payment/${p.payName}.png`}></img>

@@ -5,9 +5,12 @@ import React, {
 	useRef,
 	useReducer
 } from "react";
-import { api_payment_GetOnlineBankInfoSysList } from "../../service/api/payment";
+import {
+	api_payment_GetOnlinePaymentList,
+	api_payment_GetOnlineBankInfoSysList
+} from "../../service/api/payment";
 import { getUrlParameter, isConvert } from "../common/common";
-import { Redirect, Link } from "@reach/router";
+import { Redirect, Link, useLocation } from "@reach/router";
 import { useTranslation } from "react-i18next";
 import path from "../../path";
 import { userInfoContext } from "../common/context";
@@ -30,8 +33,10 @@ export default () => {
 	const [loading, setLoading] = useState(true);
 	const isMountedRef = useRef(null);
 	const [state, dispatch] = useReducer(reducer, initState);
+	const location = useLocation();
 
 	useEffect(() => {
+		console.log();
 		isMountedRef.current = true;
 		return () => (isMountedRef.current = false);
 	});
@@ -45,40 +50,75 @@ export default () => {
 		}
 	}, [setRedirectPath]);
 
+	const getInfoSysList = async pId => {
+		await api_payment_GetOnlineBankInfoSysList({
+			payId: Number(pId)
+		}).then(res => {
+			if (res.data.errorCode === 0) {
+				let datas = res.data.data.map(b => {
+					let { bankLogo, sysId, bankName, ...rest } = b;
+					return {
+						...rest,
+						bankLogo,
+						sysId,
+						bankName
+					};
+				});
+
+				if (isMountedRef.current) {
+					if (datas.length > 0) {
+						dispatch({
+							type: defActionType.SET_BANKLIST,
+							bankList: datas
+						});
+					} else {
+						setRedirectPath(
+							`${userInfo.langId}/${path.deposit.root}`
+						);
+					}
+					setLoading(false);
+				}
+			}
+		});
+	};
+
 	useEffect(() => {
 		let pId = getUrlParameter("pId");
-		if (pId) {
-			api_payment_GetOnlineBankInfoSysList({
-				payId: Number(pId)
-			}).then(res => {
-				if (res.data.errorCode === 0) {
-					let datas = res.data.data.map(b => {
-						let { bankLogo, sysId, bankName, ...rest } = b;
-						return {
-							...rest,
-							bankLogo,
-							sysId,
-							bankName
-						};
-					});
-
-					if (isMountedRef.current) {
-						if (datas.length > 0) {
-							dispatch({
-								type: defActionType.SET_BANKLIST,
-								bankList: datas
-							});
+		let pIdNumber = parseInt(getUrlParameter("pId"));
+		if (location.state) {
+			if (location.state.selBank) {
+				getInfoSysList(pId);
+			} else {
+				dispatch({
+					type: defActionType.SELECT_BANK
+				});
+			}
+			setLoading(false);
+		} else if (!location.state) {
+			async function getOnlinePaymentList() {
+				await api_payment_GetOnlinePaymentList().then(res => {
+					if (res.data.errorCode === 0 && isMountedRef.current) {
+						if (
+							res.data.data.filter(i => i.payId === pIdNumber)[0]
+								.selBank
+						) {
+							getInfoSysList(pId);
 						} else {
-							setRedirectPath(
-								`${userInfo.langId}/${path.deposit.root}`
-							);
+							dispatch({
+								type: defActionType.SELECT_BANK
+							});
 						}
 						setLoading(false);
 					}
-				}
-			});
+				});
+			}
+			getOnlinePaymentList();
 		}
 	}, [userInfo.langId]);
+
+	const ClickBack = () => {
+		dispatch({ type: defActionType.CLICK_BACK });
+	};
 
 	let pName = getUrlParameter("name");
 	let displayMoudle = null;
@@ -119,10 +159,6 @@ export default () => {
 			break;
 	}
 
-	const ClickBack = () => {
-		dispatch({ type: defActionType.CLICK_BACK });
-	};
-
 	return loading ? (
 		<Loading />
 	) : redirectPath === null ? (
@@ -135,7 +171,8 @@ export default () => {
 						{t("lbl_CreditTime")}:{t("lbl_Instant")}
 					</div>
 				</div>
-				{state.step === 2 ? (
+				{state.step === 2 ||
+				(state.bankList.length < 1 && state.step === 3) ? (
 					<Link
 						to={`/${userInfo.langId}/${path.deposit.root}`}
 						className="icon icon-arrow-left2"></Link>

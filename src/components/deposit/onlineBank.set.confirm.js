@@ -46,10 +46,11 @@ export default ({ bankInfo, amount, _isConvert }) => {
 	const ClickSubmit = () => {
 		if (typeof window !== undefined) {
 			let real_amount = _isConvert ? amount * 1000 : amount;
+			let bankInfoValue = bankInfo ? bankInfo.sysId : "0";
 			window.open(
 				`${config.openURL}/${userInfo.langId}/Cashier/DepositReqOnlineBanking` +
 					"?sysId=" +
-					bankInfo.sysId +
+					bankInfoValue +
 					"&payId=" +
 					getUrlParameter("pId") +
 					"&ChannelId=" +
@@ -68,17 +69,22 @@ export default ({ bankInfo, amount, _isConvert }) => {
 					<div className="txt-lightgray">
 						{t("lbl_ConfirmDeposit")}
 					</div>
-					<div className="bankName">
-						<img
-							src={`${config.imgUrl}/common/images/BankLogo/${bankInfo.bankLogo}`}
-							alt={bankInfo.bankName}
-						/>
-					</div>
+					{bankInfo ? (
+						<div className="bankName">
+							<img
+								src={`${config.imgUrl}/common/images/BankLogo/${bankInfo?.bankLogo}`}
+								alt={bankInfo?.bankName}
+							/>
+						</div>
+					) : null}
+
 					<div className="smallList">
-						<ul>
-							<li>{t("lbl_SelectedBank")}</li>
-							<li>{bankInfo.bankName}</li>
-						</ul>
+						{bankInfo ? (
+							<ul>
+								<li>{t("lbl_SelectedBank")}</li>
+								<li>{bankInfo.bankName}</li>
+							</ul>
+						) : null}
 						<ul>
 							<li>{t("lbl_Amount")}</li>
 							<li>
