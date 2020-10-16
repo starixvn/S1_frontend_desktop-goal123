@@ -101,10 +101,7 @@ class Dropdown extends Component {
 			? "*****"
 			: this.props.walletInfo.main === null
 			? 0
-			: number_format(
-					this.props.walletInfo.main + tpWalletsBonusSum,
-					this.props._isConvert
-			  );
+			: number_format(this.props.walletInfo.main + tpWalletsBonusSum);
 
 		const tpWallets =
 			this.props.walletInfo.tpWallets &&
@@ -117,18 +114,11 @@ class Dropdown extends Component {
 							<span>
 								{this.props.i18n(`lbl_TpWallet_${t.tpId}`)}
 							</span>
-							<span>
-								{number_format(
-									t.balance,
-									this.props._isConvert
-								)}
-							</span>
+							<span>{number_format(t.balance)}</span>
 						</div>
 						<div className="txt-orange">
 							<span>Bonus</span>
-							<span>
-								{number_format(t.bonus, this.props._isConvert)}
-							</span>
+							<span>{number_format(t.bonus)}</span>
 						</div>
 						<ReloadSpin
 							btnActive={false}
@@ -164,10 +154,7 @@ class Dropdown extends Component {
 							`Currency_${this.props.currencyId}`
 						)}`}</span>
 						<span>
-							{number_format(
-								this.props.walletInfo.main,
-								this.props._isConvert
-							)}
+							{number_format(this.props.walletInfo.main)}
 							<ReloadSpin func={this.props.RefreshBalance} />
 						</span>
 					</div>
