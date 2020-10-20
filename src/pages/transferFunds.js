@@ -2,7 +2,11 @@ import React, { useContext, useState, useEffect, useRef } from "react";
 import Wrapper from "../components/common/wrapper";
 import Layout from "../components/common/layout";
 import { useTranslation } from "react-i18next";
-import { userInfoContext, popBoxContext } from "../components/common/context";
+import {
+	userInfoContext,
+	popBoxContext,
+	walletInfoContext
+} from "../components/common/context";
 import { api_account_GetWalletInfo } from "../service/api/account";
 import { isConvert, checkAmount } from "../components/common/common.js";
 import { api_tp_Transfer, api_tp_GetTransferRecent } from "../service/api/tp";
@@ -49,6 +53,7 @@ const Content = () => {
 	const { t } = useTranslation();
 	const { userInfo } = useContext(userInfoContext);
 	const { setPopBox } = useContext(popBoxContext);
+	const { getContentWalletInfo } = useContext(walletInfoContext);
 	const _isConvert = isConvert(userInfo.currencyId);
 	const [getWalletInfo, setGetWalletInfo] = useState([]);
 	const [amount, setAmount] = useState("1");
@@ -165,6 +170,7 @@ const Content = () => {
 						setLoading(false);
 					} else if (res.data.errorCode === 0) {
 						GetWalletInfo();
+						getContentWalletInfo();
 						GetTransferRecent();
 						setAmount("1");
 					} else {
