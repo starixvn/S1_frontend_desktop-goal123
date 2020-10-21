@@ -108,7 +108,7 @@ const PromoRule = ({
 			<div className="txt-orange">
 				<div>{displayExpiryTime}</div>
 				<div>{rollOver}X</div>
-				<div>{requiredAmount}$</div>
+				<div>{requiredAmount}</div>
 			</div>
 		</div>
 	);
