@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, lazy, Suspense } from "react";
 import { Link, navigate } from "@reach/router";
 import {
 	userInfoContext,
@@ -8,7 +8,6 @@ import {
 import { useTranslation } from "react-i18next";
 import path from "../../path";
 import DropdownHeader, { defElemType } from "../common/dropdown.headerLink";
-import Wallet from "./header.wallet";
 import { LOGOUT } from "../../service/auth";
 import { defPopBoxType } from "../common/popBox";
 
@@ -94,6 +93,7 @@ const defSettingLinks = ({ logoutFunc }) => {
 	];
 };
 
+const Wallet = lazy(() => import("./header.wallet"));
 const AfterLogin = () => {
 	const { msgCount } = useContext(msgCountContext);
 	const { userInfo, setUserInfo } = useContext(userInfoContext);
@@ -151,7 +151,10 @@ const AfterLogin = () => {
 				options={defCashierLinks}
 				placeholder={t("lbl_Cashier")}
 			/>
-			<Wallet langId={userInfo.langId} i18n={t} />
+			{/* <Wallet langId={userInfo.langId} i18n={t} /> */}
+			<Suspense fallback={<></>}>
+				<Wallet langId={userInfo.langId} i18n={t} />
+			</Suspense>
 			<DropdownHeader
 				mainKey={`header-settingLink`}
 				langId={userInfo.langId}

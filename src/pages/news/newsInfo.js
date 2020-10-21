@@ -108,7 +108,7 @@ const Content = () => {
 	return (
 		<div className="infoModule">
 			<article>
-				<img src={newsInfo.imageURL} alt="newsInfo" />
+				<img src={newsInfo.imageURL} alt={newsInfo.title} />
 				<h1>{newsInfo.title}</h1>
 				<pre>{newsInfo.content}</pre>
 			</article>

@@ -40,7 +40,8 @@ export default () => {
 					state={{ selBank: p.selBank }}
 					to={`${_path}?name=${p.payName}&pId=${p.payId}&cId=${p.channelId}&max=${p.maxAmount}&min=${p.minAmount}`}>
 					<img
-						src={`${config.imgUrl}/common/images/Payment/${p.payName}.png`}></img>
+						src={`${config.imgUrl}/common/images/Payment/${p.payName}.png`}
+						alt={p.payName}></img>
 				</Link>
 				<LimitTip
 					minAmount={p.minAmount}

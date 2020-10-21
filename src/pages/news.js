@@ -118,7 +118,7 @@ const Content = () => {
 	let arr = getNews?.map(item => {
 		return (
 			<div key={`News-${item.newsId}`}>
-				<img src={item.imageURL} alt="news" />
+				<img src={item.imageURL} alt={item.title} />
 				<div className="txt-darkBlue">{item.title}</div>
 				<div className="txt-gray">{item.content}</div>
 				<div className="btnGroup">

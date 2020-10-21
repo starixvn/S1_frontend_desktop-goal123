@@ -7,10 +7,10 @@ import loading_img3 from "../../styles/img/loading-img3.png";
 export default () => {
 	return (
 		<div className="loading">
-			<img src={loading_img} />
-			<img src={loading_img1} />
-			<img src={loading_img2} />
-			<img src={loading_img3} />
+			<img src={loading_img} alt="loading1" />
+			<img src={loading_img1} alt="loading2" />
+			<img src={loading_img2} alt="loading3" />
+			<img src={loading_img3} alt="loading4" />
 		</div>
 	);
 };

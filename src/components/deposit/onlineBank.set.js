@@ -36,7 +36,6 @@ export default () => {
 	const location = useLocation();
 
 	useEffect(() => {
-		console.log();
 		isMountedRef.current = true;
 		return () => (isMountedRef.current = false);
 	});

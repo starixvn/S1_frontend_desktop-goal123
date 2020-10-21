@@ -271,7 +271,7 @@ header .header > div.menu .gameList a:hover, header .header > div.menu .gameList
 }
 
 header .header > div.menu .gameList .sabaclub {
-  background: url(../img/sabaclub.png) no-repeat center 10px/auto 100%;
+  background: url(../img/sabaclub.png) no-repeat center 8px/auto 100%;
 }
 
 header .header > div.menu .gameList .sabaclub:hover {
@@ -599,6 +599,7 @@ header .header > div.function .cashier .submenu, header .header > div.function .
   text-align: right;
   line-height: 30px;
   white-space: nowrap;
+  z-index: 1;
 }
 
 header .header > div.function .cashier .submenu a:hover, header .header > div.function .wallet .submenu a:hover, header .header > div.function .memberfile .submenu a:hover {
@@ -724,10 +725,6 @@ header .header > div.function .wallet .submenu div.walletBalance {
   position: relative;
 }
 
-header .header > div.function .wallet .submenu div.walletBalance > div {
-  max-width: 88%;
-}
-
 header .header > div.function .wallet .submenu div.walletBalance button {
   position: absolute;
   right: 10px;
@@ -736,7 +733,7 @@ header .header > div.function .wallet .submenu div.walletBalance button {
 }
 
 header .header > div.function .wallet .submenu div.btnGroup {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   margin-top: 20px;
 }
 
@@ -752,10 +749,11 @@ header .header > div.function .wallet .submenu div.btnGroup a:hover {
 
 header .header > div.function .wallet .submenu div.loginLog, header .header > div.function .wallet .submenu div.transactionLog {
   font-size: 12px;
+  height: 20px;
 }
 
-header .header > div.function .wallet .submenu div.loginLog span, header .header > div.function .wallet .submenu div.transactionLog span {
-  height: 20px;
+header .header > div.function .wallet .submenu div.loginLog {
+  margin-top: 10px;
 }
 
 .gameMenu {
@@ -821,9 +819,9 @@ header .header > div.function .wallet .submenu div.loginLog span, header .header
 }
 
 main {
-  padding-top: 65px;
+  padding-top: 115px;
   min-width: 1010px;
-  height: calc(100% - 65px);
+  height: calc(100% - 115px);
 }
 
 main section {
@@ -2461,6 +2459,10 @@ main > .swiper-container .swiper-slide {
 .subModuleList .subModule .subModuleBody ul li a.icon-library {
   color: #1E85EC;
   font-size: 44px;
+}
+
+.subModuleList .subModule .subModuleBody ul li a img[src="img/VOB.png"] {
+  background: black;
 }
 
 .subModuleList .subModule .subModuleBody ul li span {
@@ -4273,6 +4275,29 @@ main > .swiper-container .swiper-slide {
   padding: 40px;
 }
 
+.promotionsInfo .proData .rollover {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 12px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.promotionsInfo .proData .rollover > div {
+  margin-right: 20px;
+  color: #1E85EC;
+}
+
+.promotionsInfo .proData .rollover > div:last-child {
+  color: #f77900;
+}
+
+.promotionsInfo .proData .rollover > div .icon:before {
+  font-weight: normal;
+  margin-right: 5px;
+}
+
 .promotionsInfo .proData .proDataTitle {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -4300,6 +4325,14 @@ main > .swiper-container .swiper-slide {
 
 .promotionsInfo .proData .proDataTitle .btnGroup button {
   max-width: 130px;
+}
+
+.promotionsInfo .proData .turnover {
+  color: white;
+}
+
+.promotionsInfo .proData .bounsName {
+  color: #1E85EC;
 }
 
 .icon-icon32px_deposit + .stepBar + .subModuleList .subModule {
@@ -4621,7 +4654,7 @@ iframe {
   font-size: 12px;
 }
 
-.progressBarModule .progressBar {
+.progressBar {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -4630,8 +4663,8 @@ iframe {
           align-items: center;
 }
 
-.progressBarModule .progressBar .bar {
-  height: 10px;
+.progressBar .bar {
+  height: 5px;
   border: 1px solid #1E85EC;
   border-radius: 10px;
   margin-right: 10px;
@@ -4640,12 +4673,12 @@ iframe {
           flex: auto;
 }
 
-.progressBarModule .progressBar .bar .progress {
+.progressBar .bar .progress {
   background: #1E85EC;
   height: 100%;
 }
 
-.progressBarModule .progressBar .percentage {
+.progressBar .percentage {
   color: #1E85EC;
   -webkit-box-flex: 0;
       -ms-flex: 0 0 auto;
@@ -5064,5 +5097,73 @@ html:not(.index) .swiper-container + .inside-title.icon-ow-casino:after {
   top: 0;
   left: 0;
   z-index: -1;
+}
+
+.minAmount {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  min-width: 300px;
+  font-size: 12px;
+  border-radius: 3px;
+  overflow: hidden;
+  font-weight: bold;
+}
+
+.minAmount > div {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.minAmount > div > div {
+  border: 1px solid #134DAE;
+  padding: 5px 10px;
+  background: #134DAE;
+}
+
+.minAmount > div > div:last-child {
+  color: #1E85EC;
+  background: white;
+}
+
+.Sitemap {
+  padding: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.Sitemap > div {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.Sitemap > div .title {
+  color: #fab617;
+  line-height: 30px;
+}
+
+.Sitemap > div > div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+.Sitemap > div > div a, .Sitemap > div > div button {
+  font-family: "Microsoft YaHei", sans-serif;
+  font-size: 14px;
+  line-height: 30px;
 }
 /*# sourceMappingURL=style.css.map */

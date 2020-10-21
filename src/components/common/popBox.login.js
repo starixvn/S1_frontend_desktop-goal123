@@ -172,7 +172,7 @@ const LoginPanel = () => {
 	return (
 		<div className="loginpop active">
 			<div className="joinloginModule">
-				<img src={loginBanner} alt="" />
+				<img src={loginBanner} alt="loginBanner" />
 				<form className="joinloginFunction" onSubmit={handleLogin}>
 					<span className="title txt-yellow">{t("lbl_Login")}</span>
 					<div className="noAccount">

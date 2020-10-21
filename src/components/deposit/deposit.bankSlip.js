@@ -204,7 +204,7 @@ export class Module extends Component {
 					/>
 					{this.state.picFileName ? (
 						<img
-							alt="picFileName"
+							alt="bank slip"
 							src={
 								this.state.fileImg === null
 									? `${config.apiURL}/${this.props.langId}/Cashier/DepositReceip.jpg?transId=${this.props.transId}&FileName=${this.state.picFileName}`

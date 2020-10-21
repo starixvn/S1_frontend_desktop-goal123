@@ -57,6 +57,30 @@
   font-size: 24px !important;
 }
 
+.icon-MangoPay:before {
+  content: "\e99c";
+}
+
+.icon-icon32px_Double-arrow:before {
+  content: "\e99a";
+}
+
+.icon-affiliate:before {
+  content: "\e99b";
+}
+
+.icon-icon_1_affiliate:before {
+  content: "\e997";
+}
+
+.icon-icon_1_cop:before {
+  content: "\e996";
+}
+
+.icon-line:before {
+  content: "\e993";
+}
+
 .icon-EB:before {
   content: "\e990";
 }
@@ -461,6 +485,10 @@
   content: "\e910";
 }
 
+.icon-broken_image:before {
+  content: "\e998";
+}
+
 .icon-keyboard_arrow_up:before {
   content: "\e95b";
 }
@@ -585,6 +613,10 @@
   content: "\e942";
 }
 
+.icon-map2:before {
+  content: "\e99d";
+}
+
 .icon-history:before {
   content: "\e94d";
 }
@@ -689,6 +721,10 @@
   content: "\ea14";
 }
 
+.icon-loop:before {
+  content: "\ea2d";
+}
+
 .icon-arrow-up-left2:before {
   content: "\ea39";
 }
@@ -753,6 +789,10 @@
   content: "\ea92";
 }
 
+.icon-whatsapp:before {
+  content: "\ea93";
+}
+
 .icon-telegram:before {
   content: "\ea95";
 }
@@ -807,6 +847,10 @@
 
 .icon-conversation:before {
   content: "\e935";
+}
+
+.icon-mail-envelope-open:before {
+  content: "\e999";
 }
 
 .icon-moon:before {
