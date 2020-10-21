@@ -3,8 +3,15 @@ import PropTypes from "prop-types";
 import { Helmet } from "react-helmet";
 import { useStaticQuery, graphql } from "gatsby";
 import Favicon from "../styles/img/favicon-n8g.ico";
+import { useLocation } from "@reach/router";
+
+const defHrefLang = {
+	en: "en-us",
+	vn: "vi-vn"
+};
 
 function SEO({ description, lang, meta, title }) {
+	const { href } = useLocation();
 	const { site } = useStaticQuery(
 		graphql`
 			query {
@@ -42,6 +49,11 @@ function SEO({ description, lang, meta, title }) {
 				}}
 				title={site.siteMetadata.title}
 				link={[
+					{
+						rel: "alternate",
+						href,
+						hrefLang: defHrefLang[lang]
+					},
 					{
 						rel: "icon",
 						type: "image/png",
@@ -93,7 +105,7 @@ const LiveChat = () => {
 	return (
 		<>
 			<Helmet>
-				<script>
+				<script async>
 					{`window.__lc = window.__lc || {};
 				window.__lc.license = 12171870;
 				window.__lc.chat_between_groups = false;
@@ -128,7 +140,7 @@ const GATag = ({ gaCode }) => {
 				src={
 					"https://www.googletagmanager.com/gtag/js?id=" + gaCode
 				}></script>
-			<script>
+			<script async>
 				{`window.dataLayer = window.dataLayer || [];
 					function gtag(){dataLayer.push(arguments);}
 					gtag('js', new Date());

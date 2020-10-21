@@ -96,7 +96,7 @@ const Item = props => {
 			{props.imgUrl ? (
 				<>
 					<div className={props.className}>
-						<img src={props.imgUrl} alt="" />
+						<img src={props.imgUrl} alt={props.displayText} />
 					</div>
 					<div>{props.displayText}</div>
 				</>

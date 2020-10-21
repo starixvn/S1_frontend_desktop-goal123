@@ -56,7 +56,8 @@ export default () => {
 			<li key={`deposit-mobilePay-${p.groupName}}`}>
 				<Link to={`${_path}?name=${p.groupName}&gId=${p.groupId}`}>
 					<img
-						src={`${config.imgUrl}/common/images/MobilePay/${p.groupName}.png`}></img>
+						src={`${config.imgUrl}/common/images/MobilePay/${p.groupName}.png`}
+						alt={p.groupName}></img>
 				</Link>
 			</li>
 		);

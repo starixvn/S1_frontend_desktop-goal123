@@ -131,7 +131,7 @@ export default props => {
 							onChange={onChangeFile.bind(this, "onChange")}
 						/>
 						{picFileName ? (
-							<img alt="DepositReceipt" src={fileImg} />
+							<img alt="for kyc" src={fileImg} />
 						) : (
 							<i className="icon icon-plus"></i>
 						)}

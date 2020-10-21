@@ -98,10 +98,6 @@ class Dropdown extends Component {
 							<span>Bonus</span>
 							<span>{number_format(t.bonus)}</span>
 						</div>
-						<ReloadSpin
-							btnActive={false}
-							func={this.props.getContentWalletInfo}
-						/>
 					</div>
 				);
 			});
