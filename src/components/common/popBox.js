@@ -21,7 +21,8 @@ export const defPopBoxType = {
 	VerifyPhoneForm: "verifyPhoneForm",
 	WithdrawalSuccess: "WithdrawalSuccess",
 	UpdateProfile: "UpdateProfile",
-	TurnoverAccumulated: "TurnoverAccumulated"
+	TurnoverAccumulated: "TurnoverAccumulated",
+	PromotionDepositConfirm: "PromotionDepositConfirm"
 };
 
 export default () => {
@@ -174,6 +175,18 @@ export default () => {
 				import("./popBox.turnoverAccumulated")
 			);
 			content = <TurnoverAccumulated {...popBox} />;
+			break;
+
+		case defPopBoxType.PromotionDepositConfirm:
+			const PromotionDepositConfirm = lazy(() =>
+				import("./popBox.promotionDepositConfirm")
+			);
+			content = (
+				<PromotionDepositConfirm
+					hint={popBox.hint}
+					btnBar={popBox.btnBar}
+				/>
+			);
 			break;
 
 		case defPopBoxType.default:

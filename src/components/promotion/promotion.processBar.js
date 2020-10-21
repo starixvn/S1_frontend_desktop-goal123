@@ -7,7 +7,7 @@ export default ({
 	custTurnOver,
 	isJoin,
 	t,
-	currency,
+	currencyId,
 	RefreshProcessBar,
 	_isConvert,
 	hideReloadBtn
@@ -23,10 +23,10 @@ export default ({
 				<div className="bounsName">{t("lbl_TurnoverAccumulated")}</div>
 				<div className="turnover">
 					<span>
-						{t(`Currency_${currency}`)}{" "}
+						{t(`Currency_${currencyId}`)}{" "}
 						{number_format(custTurnOver, false)}
 					</span>{" "}
-					/ ({t("lbl_Req")} {t(`Currency_${currency}`)}{" "}
+					/ ({t("lbl_Req")} {t(`Currency_${currencyId}`)}{" "}
 					{number_format(custRollOver, false)})
 					{hideReloadBtn ? null : (
 						<ReloadSpin func={RefreshProcessBar} />
