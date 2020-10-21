@@ -4,7 +4,11 @@ import {
 	userInfoContext,
 	popBoxContext
 } from "../../components/common/context";
-import { getUrlParameter, isConvert } from "../../components/common/common";
+import {
+	getUrlParameter,
+	isConvert,
+	number_format
+} from "../../components/common/common";
 import {
 	api_promotion_GetPromotionDetail,
 	api_promotion_SetClaimPromotion
@@ -14,7 +18,9 @@ import { defPopBoxType } from "../common/popBox";
 import ProcessBar from "./promotion.processBar";
 import { isExpiry, isClaimed } from "./promotion.common";
 import { Link } from "@reach/router";
+import moment from "moment";
 import path from "../../path";
+import { promoStatus } from "./promotion.def";
 
 export default () => {
 	const { t } = useTranslation();
@@ -22,6 +28,8 @@ export default () => {
 	const { setPopBox } = useContext(popBoxContext);
 	const [promotionInfo, setPromotionInfo] = useState(null);
 	const isMountedRef = useRef(null);
+
+	let _currency = t(`Currency_${userInfo.currencyId}`);
 
 	useEffect(() => {
 		isMountedRef.current = true;
@@ -35,139 +43,152 @@ export default () => {
 		}
 	}, [userInfo.isLogin, userInfo.langId]);
 
+	const clickClose = () => {
+		setPopBox({ isOpen: false });
+	};
+
+	const openErrorMessagePopBox = (
+		message = t("msg_ApiServerError"),
+		errorCode = null
+	) => {
+		setPopBox({
+			message,
+			errorCode,
+			isOpen: true,
+			popBoxType: defPopBoxType.ErrorMsg,
+			icon: "icon-bell",
+			btnBar: (
+				<div className="btnGroup">
+					<button className="btn-cancel" onClick={clickClose}>
+						{t("lbl_Close")}
+					</button>
+				</div>
+			)
+		});
+	};
+
 	const GetPromotionDetail = (langId, _bonusCode) => {
 		api_promotion_GetPromotionDetail({
-			langId: langId,
+			langId,
 			BonusCode: _bonusCode
 		}).then(
-			res => {
-				if (isMountedRef.current) {
-					if (res.data.errorCode === 0) {
-						setPromotionInfo(res.data.data);
-					} else {
-						alert(res.data.message);
-					}
-				}
+			({ data: { data, message, errorCode } }) => {
+				if (!isMountedRef.current) return;
+
+				const success = errorCode === 0;
+
+				if (success) return setPromotionInfo(data);
+				openErrorMessagePopBox(message || "error", errorCode);
 			},
 			err => {
 				if (isMountedRef.current) {
-					alert(t("msg_ApiServerError"));
+					openErrorMessagePopBox();
 				}
 			}
 		);
 	};
 
-	const onJoinPromotion = _promo => {
-		if (userInfo.isLogin === false) {
-			setPopBox({
+	const onJoinPromotion = () => {
+		const {
+			canJoin,
+			isJoin,
+			result,
+			requiredAmount,
+			depositAmount,
+			bonusCode
+		} = promotionInfo;
+
+		const {
+			isLogin,
+			currencyId,
+			accountName,
+			phoneNo,
+			email,
+			langId
+		} = userInfo;
+
+		if (isLogin === false)
+			return setPopBox({
 				isOpen: true,
 				popBoxType: defPopBoxType.Login
 			});
-		} else {
-			const ClosePopBox = () => {
-				setPopBox({
-					isOpen: false
-				});
-			};
 
-			if (
-				userInfo.currencyId &&
-				userInfo.accountName &&
-				userInfo.phoneNo &&
-				userInfo.email
-			) {
-				api_promotion_SetClaimPromotion({
-					langId: userInfo.langId,
-					BonusCode: _promo.bonusCode
-				}).then(
-					res => {
-						if (isMountedRef.current) {
-							if (res.data.errorCode === 0) {
-								GetPromotionDetail(
-									userInfo.langId,
-									_promo.bonusCode
-								);
+		if (currencyId && (!accountName || !phoneNo || !email))
+			return setPopBox({
+				isOpen: true,
+				popBoxType: defPopBoxType.UpdateProfile,
+				title: t("lbl_ImportantNote"),
+				content: t("lbl_UpdatePersonalInfoPromotion"),
+				btnBar: (
+					<div className="btnGroup">
+						<Link
+							className="btn-check"
+							to={`/${langId}/${path.profile.root}?from=${
+								path.promotion.root
+							}?BonusCode=${getUrlParameter("BonusCode")}`}>
+							{t("lbl_UpdatePersonalDetail")}
+						</Link>
+					</div>
+				)
+			});
 
-								setPopBox({
-									isOpen: true,
-									popBoxType: defPopBoxType.Success,
-									btnBar: (
-										<div className="btnGroup">
-											<button
-												className="btn-check"
-												onClick={ClosePopBox}>
-												OK
-											</button>
-										</div>
-									)
-								});
-							} else {
-								setPopBox({
-									isOpen: true,
-									popBoxType: defPopBoxType.ErrorMsg,
-									message: res.data.message
-										? res.data.message
-										: `[${res.data.errorCode}] Something went wrong...`,
-									btnBar: (
-										<div className="btnGroup">
-											<button
-												className="btn-cancel"
-												onClick={ClosePopBox}>
-												{t("lbl_Close")}
-											</button>
-										</div>
-									)
-								});
-							}
-						}
-					},
-					err => {
-						alert(t("msg_ApiServerError"));
-					}
-				);
-			} else {
-				setPopBox({
-					isOpen: true,
-					popBoxType: defPopBoxType.UpdateProfile,
-					title: t("lbl_ImportantNote"),
-					content: t("lbl_UpdatePersonalInfoPromotion"),
-					btnBar: (
-						<div className="btnGroup">
-							<button
-								className="btn-cancel"
-								onClick={ClosePopBox}>
-								{t("lbl_Cancel")}
-							</button>
-							<Link
-								className="btn-check"
-								to={`/${userInfo.langId}/${path.profile.root}?prevPage=${path.promotion.root}&BonusCode=${_promo.bonusCode}`}>
-								{t("lbl_UpdatePersonalDetail")}
-							</Link>
-						</div>
-					)
-				});
-				// if (!userInfo.phoneVerified) {
-				// 	setPopBox({
-				// 		isOpen: true,
-				// 		popBoxType: defPopBoxType.OTPHint,
-				// 		btnBar: (
-				// 			<div className="btnGroup">
-				// 				<button
-				// 					className="btn-cancel"
-				// 					onClick={ClosePopBox}>
-				// 					{t("lbl_Cancel")}
-				// 				</button>
-				// 				<Link
-				// 					to={`/${userInfo.langId}/${path.profile.root}`}
-				// 					className="btn-check">
-				// 					{t("lbl_GoNow")}
-				// 				</Link>
-				// 			</div>
-				// 		)
-				// 	});
-				// }
-			}
+		if (canJoin && !isJoin && result === 1 && requiredAmount > 0) {
+			let lessAmount = number_format(
+				requiredAmount - depositAmount,
+				isConvert(currencyId)
+			);
+
+			let hint = `${_currency} ${lessAmount}$`;
+			return setPopBox({
+				isOpen: true,
+				popBoxType: defPopBoxType.PromotionDepositConfirm,
+				hint,
+				btnBar: (
+					<div className="btnGroup">
+						<button className="btn-cancel" onClick={clickClose}>
+							{t("lbl_Later")}
+						</button>
+						<Link
+							to={`/${langId}/${path.deposit.root}`}
+							type="button"
+							className="btn-check">
+							{t("lbl_DepositNow")}
+						</Link>
+					</div>
+				)
+			});
 		}
+		return api_promotion_SetClaimPromotion({
+			langId,
+			BonusCode: bonusCode
+		}).then(
+			({ data: { message, errorCode } }) => {
+				if (isMountedRef.current) return;
+
+				const success = errorCode === 0;
+				if (success) {
+					GetPromotionDetail(langId, bonusCode);
+					setPopBox({
+						isOpen: true,
+						popBoxType: defPopBoxType.Success,
+						btnBar: (
+							<div className="btnGroup">
+								<button
+									className="btn-cancel"
+									onClick={clickClose}>
+									OK
+								</button>
+							</div>
+						)
+					});
+				} else openErrorMessagePopBox(message || "error", errorCode);
+			},
+			err => {
+				if (isMountedRef.current) {
+					openErrorMessagePopBox();
+				}
+			}
+		);
 	};
 
 	const RefreshProcessBar = ({ bonusCode, tpId, categoryId }) => {
@@ -235,19 +256,27 @@ export default () => {
 							<div className="btnGroup">
 								<button
 									className="btn-check"
-									onClick={onJoinPromotion.bind(
-										this,
-										promotionInfo
-									)}>
+									onClick={onJoinPromotion}>
 									{t("lbl_PromoJoinNow")}
 								</button>
 							</div>
 						) : null}
 					</div>
+
+					<DepositMenu
+						cash={number_format(
+							promotionInfo.depositAmount,
+							isConvert(userInfo.currencyId)
+						)}
+						_currency={_currency}
+						promotionInfo={promotionInfo}
+						t={t}
+					/>
+
 					<ProcessBar
 						t={t}
 						_isConvert={_isConvert}
-						currency={userInfo.currencyId}
+						currencyId={userInfo.currencyId}
 						{...promotionInfo}
 						RefreshProcessBar={RefreshProcessBar.bind(
 							this,
@@ -258,6 +287,7 @@ export default () => {
 							isLogin: userInfo.isLogin
 						})}
 					/>
+					<Rollover promotionInfo={promotionInfo} t={t} />
 					<div
 						className="proDataBody"
 						dangerouslySetInnerHTML={{
@@ -267,4 +297,85 @@ export default () => {
 			</div>
 		</div>
 	);
+};
+
+const Rollover = ({ promotionInfo, t }) => {
+	const {
+		isJoin,
+		status,
+		custExpiryTime,
+		periodTo,
+		requiredAmount,
+		rollOver
+	} = promotionInfo;
+
+	let expiryTime = moment.duration(
+		moment
+			.unix(
+				isJoin && status === promoStatus.running && custExpiryTime
+					? moment(custExpiryTime).unix()
+					: periodTo
+			)
+			.diff(new Date())
+	);
+
+	let displayExpiryTime =
+		expiryTime.days() +
+		" " +
+		t("lbl_Days") +
+		" " +
+		expiryTime.hours() +
+		" " +
+		t("lbl_Hours");
+	return (
+		<div className="rollover">
+			<div>
+				{requiredAmount > 0 ? (
+					<div className="icon icon-icon32px_money">
+						{t("lbl_MinAmount")}
+					</div>
+				) : null}
+				<div className="icon icon-icon32px_time">
+					{t("lbl_RemainingTime")}
+				</div>
+				<div className="icon icon-icon32px_">{t("lbl_RollOver")}</div>
+			</div>
+
+			<div className="txt-orange">
+				{requiredAmount > 0 ? (
+					<div>{number_format(requiredAmount, true)}</div>
+				) : null}
+				<div>{displayExpiryTime}</div>
+				<div>{rollOver}X</div>
+			</div>
+		</div>
+	);
+};
+
+const DepositMenu = ({
+	cash,
+	_currency,
+	promotionInfo: { promotionType, canJoin, isJoin, depositId },
+	t
+}) => {
+	if (
+		depositId &&
+		canJoin &&
+		!isJoin &&
+		(promotionType === 1 || promotionType === 2)
+	)
+		return (
+			<div className="minAmount">
+				<div>
+					<div>{t("lbl_ID")}</div>
+					<div>{depositId}</div>
+				</div>
+				<div>
+					<div>{t("lbl_DepositAmount")}</div>
+					<div>{`${_currency} ${cash}`}</div>
+				</div>
+			</div>
+		);
+
+	return null;
 };

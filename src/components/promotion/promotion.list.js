@@ -12,12 +12,12 @@ export default ({
 	promoList,
 	t,
 	langId,
-	currency,
+	currencyId,
 	filter,
 	RefreshProcessBar,
 	isLogin
 }) => {
-	let _isConvert = isConvert(currency);
+	let _isConvert = isConvert(currencyId);
 	let rows = promoList?.map(p => {
 		let _isClaimed = isClaimed(p);
 		let _isNew = _isClaimed ? false : isNew(p);
@@ -41,7 +41,7 @@ export default ({
 					{...p}
 					t={t}
 					_isConvert={_isConvert}
-					currency={currency}
+					currencyId={currencyId}
 					RefreshProcessBar={RefreshProcessBar.bind(this, p)}
 					hideReloadBtn={isExpiry({ ...p, isLogin: isLogin })}
 				/>
@@ -102,7 +102,7 @@ const PromoRule = ({
 				</div>
 				<div className="icon icon-icon32px_">{t("lbl_RollOver")}</div>
 				<div className="icon icon-coin-dollar">
-					{t("lbl_RequiredAmount")}
+					{t("lbl_MinAmount")}
 				</div>
 			</div>
 			<div className="txt-orange">

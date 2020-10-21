@@ -126,7 +126,7 @@ export default () => {
 					t={t}
 					langId={userInfo.langId}
 					isLogin={userInfo.isLogin}
-					currency={userInfo.currencyId}
+					currencyId={userInfo.currencyId}
 					filter={filter}
 					RefreshProcessBar={RefreshProcessBar}
 				/>
