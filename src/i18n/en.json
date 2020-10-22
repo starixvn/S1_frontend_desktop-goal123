@@ -358,5 +358,6 @@
 	"lbl_VirtualSports": "Virtual Sports",
 	"lbl_TurnoverAccmulateHint": "Your Fund are locked to transfer out due to Rollover requirement is not fulfils.",
 	"lbl_PlayNow": "Play Now",
-	"lbl_Free": "Free Play"
+	"lbl_Free": "Free Play",
+	"lbl_SiteMap":"Site Map"
 }
