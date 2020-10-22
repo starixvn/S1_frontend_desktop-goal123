@@ -13,6 +13,7 @@ import SwipperBanner from "../common/swipperBanner";
 import { Pagination } from "../common/pagination";
 import { getUrlParameter } from "../common/common";
 import SearchBox from "./casino.searchBox";
+import Loading from "../common/loading";
 
 const matchKeyword = (name, _keyword) => {
 	let keyword = _keyword.toLowerCase();
@@ -37,9 +38,9 @@ export default () => {
 		[defSearchColumn.searchText]: "",
 		[defSearchColumn.provider]: { idx: 0, value: null }
 	});
-
 	const isMountedRef = useRef(null);
 	const urlTpId = getUrlParameter("tpId");
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
 		isMountedRef.current = true;
@@ -127,6 +128,7 @@ export default () => {
 					});
 				}
 			}
+			setLoading(false);
 		});
 
 		if (userInfo.isLogin) {
@@ -285,7 +287,9 @@ export default () => {
 		});
 	};
 
-	return (
+	return loading ? (
+		<Loading />
+	) : (
 		<div className="infoModule">
 			<SwipperBanner
 				ImgFolder="Casino"
