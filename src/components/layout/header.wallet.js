@@ -150,9 +150,7 @@ class Dropdown extends Component {
 					}`}></button>
 				<div className="submenu">
 					<div className="balance">
-						<span>{`${this.props.i18n(
-							`Currency_${this.props.currencyId}`
-						)}`}</span>
+						<span>{`${this.props.i18n("lbl_MainWallet")}`}</span>
 						<span>
 							{number_format(this.props.walletInfo.main)}
 							<ReloadSpin
