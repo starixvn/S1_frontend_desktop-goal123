@@ -7,6 +7,9 @@ import {
 	api_accountStrict_SendOTPSMS
 } from "../../service/api/accountStrict";
 import moment from "moment";
+import { Link } from "@reach/router";
+import { defPrevPage } from "../profile/profile.dev";
+import { getUrlParameter } from "../common/common";
 
 export default ({ startUnixTime = 0 }) => {
 	const { setUserInfo } = useContext(userInfoContext);
@@ -150,11 +153,37 @@ export default ({ startUnixTime = 0 }) => {
 					} = res;
 					const success = errorCode === 0;
 					if (success) {
+						let _prevPage = getUrlParameter("prevPage");
+
 						setUserInfo(prev => ({
 							...prev,
 							phoneVerified: true
 						}));
+
 						clickClose();
+
+						if (defPrevPage[_prevPage])
+							return setPopBox({
+								isOpen: true,
+								popBoxType: defPopBoxType.ProfileCompelete,
+								contentMsg: t(
+									defPrevPage[_prevPage].contentMsg
+								),
+								btnBar: (
+									<div className="btnGroup">
+										<button
+											className="btn-cancel"
+											onClick={clickClose}>
+											{t("lbl_Later")}
+										</button>
+										<Link
+											className="btn-check"
+											to={defPrevPage[_prevPage].path}>
+											{t(defPrevPage[_prevPage].label)}
+										</Link>
+									</div>
+								)
+							});
 					} else {
 						setVerifyPhoneError(
 							errorCode === 1000
