@@ -21,6 +21,7 @@ import { Link } from "@reach/router";
 import moment from "moment";
 import path from "../../path";
 import { promoStatus } from "./promotion.def";
+import Loading from "../common/loading";
 
 export default () => {
 	const { t } = useTranslation();
@@ -28,6 +29,7 @@ export default () => {
 	const { setPopBox } = useContext(popBoxContext);
 	const [promotionInfo, setPromotionInfo] = useState(null);
 	const isMountedRef = useRef(null);
+	const [loading, setLoading] = useState(true);
 
 	let _currency = t(`Currency_${userInfo.currencyId}`);
 
@@ -74,15 +76,18 @@ export default () => {
 		}).then(
 			({ data: { data, message, errorCode } }) => {
 				if (!isMountedRef.current) return;
-
 				const success = errorCode === 0;
-
-				if (success) return setPromotionInfo(data);
-				openErrorMessagePopBox(message || "error", errorCode);
+				setLoading(false);
+				if (success) {
+					return setPromotionInfo(data);
+				} else {
+					openErrorMessagePopBox(message || "error", errorCode);
+				}
 			},
 			err => {
 				if (isMountedRef.current) {
 					openErrorMessagePopBox();
+					setLoading(false);
 				}
 			}
 		);
@@ -256,69 +261,75 @@ export default () => {
 
 	let _isConvert = isConvert(userInfo.currencyId);
 
-	return promotionInfo === null ? (
-		<></>
+	return loading ? (
+		<Loading />
 	) : (
-		<div className="infoModule">
-			<div className={`promotionsInfo${wrapperClass}`}>
-				{_isClaimed ? <div className="claimed"></div> : null}
-				<img
-					src={promotionInfo.banner}
-					alt={promotionInfo.description}
-				/>
-				<div className="proData">
-					<div className="proDataTitle">
-						<div className="txt-blue2">
-							{promotionInfo.title}
-							<div className="txt-blue2">
-								{promotionInfo.description}
+		<>
+			{promotionInfo === null ? (
+				<></>
+			) : (
+				<div className="infoModule">
+					<div className={`promotionsInfo${wrapperClass}`}>
+						{_isClaimed ? <div className="claimed"></div> : null}
+						<img
+							src={promotionInfo.banner}
+							alt={promotionInfo.description}
+						/>
+						<div className="proData">
+							<div className="proDataTitle">
+								<div className="txt-blue2">
+									{promotionInfo.title}
+									<div className="txt-blue2">
+										{promotionInfo.description}
+									</div>
+								</div>
+								{(promotionInfo.isJoin && userInfo.isLogin) ||
+								_isExpiry ? null : (
+									<div className="btnGroup">
+										<button
+											className="btn-check"
+											onClick={onJoinPromotion}>
+											{t("lbl_PromoJoinNow")}
+										</button>
+									</div>
+								)}
 							</div>
+
+							<DepositMenu
+								cash={number_format(
+									promotionInfo.depositAmount,
+									isConvert(userInfo.currencyId)
+								)}
+								_currency={_currency}
+								promotionInfo={promotionInfo}
+								t={t}
+							/>
+
+							<ProcessBar
+								t={t}
+								_isConvert={_isConvert}
+								currencyId={userInfo.currencyId}
+								{...promotionInfo}
+								RefreshProcessBar={RefreshProcessBar.bind(
+									this,
+									promotionInfo
+								)}
+								hideReloadBtn={isExpiry({
+									...promotionInfo,
+									isLogin: userInfo.isLogin
+								})}
+							/>
+							<Rollover promotionInfo={promotionInfo} t={t} />
+							<div
+								className="proDataBody"
+								dangerouslySetInnerHTML={{
+									__html: `${promotionInfo.details}`
+								}}></div>
 						</div>
-						{(promotionInfo.isJoin && userInfo.isLogin) ||
-						_isExpiry ? null : (
-							<div className="btnGroup">
-								<button
-									className="btn-check"
-									onClick={onJoinPromotion}>
-									{t("lbl_PromoJoinNow")}
-								</button>
-							</div>
-						)}
 					</div>
-
-					<DepositMenu
-						cash={number_format(
-							promotionInfo.depositAmount,
-							isConvert(userInfo.currencyId)
-						)}
-						_currency={_currency}
-						promotionInfo={promotionInfo}
-						t={t}
-					/>
-
-					<ProcessBar
-						t={t}
-						_isConvert={_isConvert}
-						currencyId={userInfo.currencyId}
-						{...promotionInfo}
-						RefreshProcessBar={RefreshProcessBar.bind(
-							this,
-							promotionInfo
-						)}
-						hideReloadBtn={isExpiry({
-							...promotionInfo,
-							isLogin: userInfo.isLogin
-						})}
-					/>
-					<Rollover promotionInfo={promotionInfo} t={t} />
-					<div
-						className="proDataBody"
-						dangerouslySetInnerHTML={{
-							__html: `${promotionInfo.details}`
-						}}></div>
 				</div>
-			</div>
-		</div>
+			)}
+		</>
 	);
 };
 

@@ -110,9 +110,9 @@
 	"lbl_LastTransaction": "Giao dịch gần đây",
 	"lbl_LastLogin": "Truy cập gần nhất",
 	"lbl_TpWallet_1": "Ví Thể thao",
-	"lbl_BonusWallet_1": "Casino",
-	"lbl_BonusWallet_2": "Live Casino",
-	"lbl_BonusWallet_3": "Fishing",
+	"lbl_BonusWallet_1": "Ví Slots",
+	"lbl_BonusWallet_2": "Ví Sòng bài",
+	"lbl_BonusWallet_3": "Ví Bắn cá",
 	"lbl_DepositOptionHint": "Bạn có thể chọn mục nạp tiền phù hợp nhất từ những lựa chọn bên dưới:",
 	"lbl_RealName": "Tên thật",
 	"lbl_DepositAmount": "Tiền nạp",
@@ -361,5 +361,6 @@
 	"lbl_VirtualSports": "Thể thao ảo",
 	"lbl_TurnoverAccmulateHint": "Bạn cần hoành thành doanh thu cược yêu cầu của khuyến mãi để thực hiện chuyển quỹ",
 	"lbl_PlayNow": "Tham gia",
-	"lbl_Free": "Chơi Thử"
+	"lbl_Free": "Chơi Thử",
+	"lbl_SiteMap":"Sơ đồ trang web"
 }
