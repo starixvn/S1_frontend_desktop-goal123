@@ -6,6 +6,7 @@ import { api_account_GetCustSpecificBonus } from "../../service/api/account";
 import PromotionList from "./promotion.list";
 import PromotionNavBar, { defFilterType } from "./promotion.nav";
 import { isExpiry } from "./promotion.common";
+import Loading from "../common/loading";
 
 export default () => {
 	const { t } = useTranslation();
@@ -14,6 +15,7 @@ export default () => {
 	const [filter, setFilter] = useState(defFilterType.all);
 	const [initPromoList, setInitPromoList] = useState(null);
 	const [promoList, setPromoList] = useState([]);
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
 		isMountedRef.current = true;
@@ -31,12 +33,14 @@ export default () => {
 
 						setInitPromoList(result);
 						SetPromotionDatas(result, filter);
+						setLoading(false);
 					}
 				},
 				err => {
 					if (isMountedRef.current) {
 						alert(t("msg_ApiServerError"));
 					}
+					setLoading(false);
 				}
 			);
 		}
@@ -110,7 +114,9 @@ export default () => {
 		);
 	};
 
-	return (
+	return loading ? (
+		<Loading />
+	) : (
 		<div className="infoModule">
 			<div className="inside-title icon icon-gift">
 				<span>{t("lbl_Promotions")}</span>
