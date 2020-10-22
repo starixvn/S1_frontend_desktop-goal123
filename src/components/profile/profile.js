@@ -13,11 +13,11 @@ import moment from "moment";
 import { defPopBoxType } from "../common/popBox";
 import { popBoxContext, userInfoContext } from "../common/context";
 import { getCountryCode, getUrlParameter } from "../common/common";
-import path from "../../path";
 import { Redirect } from "@reach/router";
 import Loading from "../common/loading";
 import handleError from "../common/handleError";
 import { Link } from "@reach/router";
+import { defPrevPage } from "./profile.dev";
 
 const initStatus = {
 	accountName: {
@@ -427,10 +427,10 @@ export default () => {
 	};
 
 	const submitProfile = () => {
+		ClickClose();
 		setLoading(true);
-		const ClickClose = () => {
-			setPopBox({ isOpen: false });
-		};
+
+		let _prevPage = getUrlParameter("prevPage");
 
 		api_accountStrict_SetProfile({
 			AccountName: !userInfo.accountName
@@ -453,6 +453,7 @@ export default () => {
 			res => {
 				if (isMountedRef.current) {
 					if (res.data.errorCode === 0) {
+						setLoading(false);
 						setUserInfo(prev => ({
 							...prev,
 							accountName: !userInfo.accountName
@@ -475,12 +476,34 @@ export default () => {
 						setPhoneValue("");
 						setEmailValue("");
 
-						let _prevPage = getUrlParameter("prevPage");
-						if (_prevPage === path.withdrawal.root) {
-							setPopBox({
+						if (!userInfo.phoneVerified)
+							return setPopBox({
 								isOpen: true,
 								popBoxType: defPopBoxType.ProfileCompelete,
-								contentMsg: t("lbl_GoWithdrawalPage"),
+								contentMsg: t("lbl_VertifyContactConfirm"),
+								btnBar: (
+									<div className="btnGroup">
+										<button
+											className="btn-cancel"
+											onClick={ClickClose}>
+											{t("lbl_Later")}
+										</button>
+										<button
+											className="yellow"
+											onClick={sendOTPSMS}>
+											{t("lbl_VertifyNow")}
+										</button>
+									</div>
+								)
+							});
+
+						if (defPrevPage[_prevPage])
+							return setPopBox({
+								isOpen: true,
+								popBoxType: defPopBoxType.ProfileCompelete,
+								contentMsg: t(
+									defPrevPage[_prevPage].contentMsg
+								),
 								btnBar: (
 									<div className="btnGroup">
 										<button
@@ -490,87 +513,26 @@ export default () => {
 										</button>
 										<Link
 											className="btn-check"
-											to={`/${userInfo.langId}/${path.withdrawal.root}`}>
-											{t("lbl_WithdrawalNow")}
+											to={defPrevPage[_prevPage].path}>
+											{t(defPrevPage[_prevPage].label)}
 										</Link>
 									</div>
 								)
 							});
-						} else if (_prevPage === path.promotion.root) {
-							setPopBox({
-								isOpen: true,
-								popBoxType: defPopBoxType.ProfileCompelete,
-								contentMsg: t("lbl_GoPromotionPage"),
-								btnBar: (
-									<div className="btnGroup">
-										<button
-											className="btn-cancel"
-											onClick={ClickClose}>
-											{t("lbl_Later")}
-										</button>
-										<Link
-											className="btn-check"
-											to={`/${userInfo.langId}/${
-												path.promotion.root
-											}/${
-												path.promotion.sub.promotionInfo
-													.root
-											}?BonusCode=${getUrlParameter(
-												"BonusCode"
-											)}`}>
-											{t("lbl_GoNow")}
-										</Link>
-									</div>
-								)
-							});
-						} else {
-							setPopBox({
-								isOpen: true,
-								popBoxType: defPopBoxType.ProfileCompelete,
-								contentMsg: t("lbl_GoDepositPage"),
-								btnBar: (
-									<div className="btnGroup">
-										<button
-											className="btn-cancel"
-											onClick={ClickClose}>
-											{t("lbl_Later")}
-										</button>
-										<Link
-											className="btn-check"
-											to={`/${userInfo.langId}/${path.deposit.root}`}>
-											{t("lbl_DepositNow")}
-										</Link>
-									</div>
-								)
-							});
-						}
 					}
-					setLoading(false);
 				}
 			},
 			err => {
 				if (isMountedRef.current) {
-					setPopBox({
-						isOpen: true,
-						popBoxType: defPopBoxType.ErrorMsg,
-						message: t("msg_ApiServerError"),
-						btnBar: (
-							<div className="btnGroup">
-								<button
-									className="btn-cancel"
-									onClick={ClickClose}>
-									{t("lbl_Close")}
-								</button>
-							</div>
-						)
-					});
 					setLoading(false);
+					openErrorMessagePopBox();
 				}
 			}
 		);
 	};
 
 	const sendOTPSMS = () => {
+		ClickClose();
 		setMobileVerificationLoading(true);
 
 		api_accountStrict_SendOTPSMS().then(

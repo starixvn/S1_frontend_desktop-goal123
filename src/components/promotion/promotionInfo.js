@@ -123,9 +123,9 @@ export default () => {
 					<div className="btnGroup">
 						<Link
 							className="btn-check"
-							to={`/${langId}/${path.profile.root}?from=${
+							to={`/${langId}/${path.profile.root}?prevPage=${
 								path.promotion.root
-							}?BonusCode=${getUrlParameter("BonusCode")}`}>
+							}&BonusCode=${getUrlParameter("BonusCode")}`}>
 							{t("lbl_UpdatePersonalDetail")}
 						</Link>
 					</div>
@@ -158,14 +158,38 @@ export default () => {
 				)
 			});
 		}
+
 		return api_promotion_SetClaimPromotion({
 			langId,
 			BonusCode: bonusCode
 		}).then(
 			({ data: { message, errorCode } }) => {
-				if (isMountedRef.current) return;
+				if (!isMountedRef.current) return;
 
 				const success = errorCode === 0;
+				const OTPNotVerify = errorCode === -5;
+
+				if (OTPNotVerify)
+					return setPopBox({
+						isOpen: true,
+						popBoxType: defPopBoxType.OTPHint,
+						btnBar: (
+							<div className="btnGroup">
+								<Link
+									className="btn-check"
+									to={`/${langId}/${
+										path.profile.root
+									}?prevPage=${
+										path.promotion.root
+									}&BonusCode=${getUrlParameter(
+										"BonusCode"
+									)}`}>
+									{t("lbl_UpdatePersonalDetail")}
+								</Link>
+							</div>
+						)
+					});
+
 				if (success) {
 					GetPromotionDetail(langId, bonusCode);
 					setPopBox({
@@ -250,9 +274,8 @@ export default () => {
 								{promotionInfo.description}
 							</div>
 						</div>
-						{(promotionInfo.canJoin &&
-							promotionInfo.status === 0) ||
-						(userInfo.isLogin === false && !_isExpiry) ? (
+						{(promotionInfo.isJoin && userInfo.isLogin) ||
+						_isExpiry ? null : (
 							<div className="btnGroup">
 								<button
 									className="btn-check"
@@ -260,7 +283,7 @@ export default () => {
 									{t("lbl_PromoJoinNow")}
 								</button>
 							</div>
-						) : null}
+						)}
 					</div>
 
 					<DepositMenu
