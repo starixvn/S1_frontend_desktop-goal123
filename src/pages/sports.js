@@ -4,6 +4,7 @@ import Wrapper from "../components/common/wrapper";
 import Layout from "../components/common/layout";
 import { getUrlParameter } from "../components/common/common";
 import { GET_ENTER_PAGE_URL } from "../service/enterPage";
+import productList from "../datas/productList";
 
 export default () => {
 	return (
@@ -17,8 +18,9 @@ export default () => {
 
 const Content = () => {
 	const { userInfo } = useContext(userInfoContext);
-	let tpId = getUrlParameter("tpId");
-	let gameId = getUrlParameter("gameId");
+	const game = getUrlParameter("game");
+	let tpId = productList[game]?.tpId;
+	let gameId = productList[game]?.gameId;
 	let matchid = getUrlParameter("matchid");
 	return (
 		<main>

@@ -14,6 +14,7 @@ import { Pagination } from "../common/pagination";
 import { getUrlParameter } from "../common/common";
 import SearchBox from "./casino.searchBox";
 import Loading from "../common/loading";
+import { defCasinoProviders } from "../../datas/productList";
 
 const matchKeyword = (name, _keyword) => {
 	let keyword = _keyword.toLowerCase();
@@ -39,7 +40,8 @@ export default () => {
 		[defSearchColumn.provider]: { idx: 0, value: null }
 	});
 	const isMountedRef = useRef(null);
-	const urlTpId = getUrlParameter("tpId");
+	const provider = getUrlParameter("provider");
+	const tpId = defCasinoProviders[provider]?.tpId;
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
@@ -101,9 +103,9 @@ export default () => {
 
 					let _searchInfo = searchInfo;
 
-					if (urlTpId) {
+					if (tpId) {
 						let idx = _tpOptions.findIndex(
-							x => x.id === Number(urlTpId)
+							x => x.id === Number(tpId)
 						);
 
 						if (idx !== -1) {
@@ -143,7 +145,7 @@ export default () => {
 				}
 			});
 		}
-	}, [userInfo.isLogin, urlTpId]);
+	}, [userInfo.isLogin, tpId]);
 
 	const FilterGames = (
 		_searchInfo,

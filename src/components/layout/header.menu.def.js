@@ -1,4 +1,4 @@
-import productList from "../../datas/productList";
+import productList, { defCasinoProviders } from "../../datas/productList";
 import path from "../../path";
 
 export const defMenuType = {
@@ -9,7 +9,7 @@ export const defMenuType = {
 
 export const defMenuLinks = {
 	sports: {
-		productInfo: productList.sports,
+		productInfo: productList.soccer,
 		path: path.sports.root,
 		displayKey: "lbl_Sports"
 	},
@@ -78,20 +78,20 @@ export const defMenuLinks = {
 		displayKey: "lbl_Slots",
 		subMenu: [
 			{
+				...defCasinoProviders.GPI,
 				className: "GPI",
 				icon: "icon icon-GPI",
 				displayText: "GPI",
 				menuType: defMenuType.Link,
-				tpId: 6,
-				parameter: { tpId: 6 }
+				parameter: { provider: defCasinoProviders.GPI.name }
 			},
 			{
+				...defCasinoProviders.YGG,
 				className: "YGG",
 				icon: "icon icon-YGG",
 				displayText: "YGG",
 				menuType: defMenuType.Link,
-				tpId: 8,
-				parameter: { tpId: 8 }
+				parameter: { provider: defCasinoProviders.YGG.name }
 			},
 			// {
 			// 	className: "JOKER",
@@ -102,36 +102,35 @@ export const defMenuLinks = {
 			// 	parameter: { tpId: 9 }
 			// },
 			{
+				...defCasinoProviders.SG,
 				className: "SG",
 				icon: "icon icon-SG",
 				displayText: "SG",
 				menuType: defMenuType.Link,
-				tpId: 10,
-				parameter: { tpId: 10 }
+				parameter: { provider: defCasinoProviders.SG.name }
 			},
 			{
+				...defCasinoProviders.PP,
 				className: "PP",
 				icon: "icon icon-PP",
 				displayText: "PP",
 				menuType: defMenuType.Link,
-				tpId: 5,
-				parameter: { tpId: 5 }
+				parameter: { provider: defCasinoProviders.PP.name }
 			},
 			{
+				...defCasinoProviders.PG,
 				className: "PG",
 				icon: "icon icon-PG",
 				displayText: "PG",
 				menuType: defMenuType.Link,
-				tpId: 14,
-				parameter: { tpId: 14 }
+				parameter: { provider: defCasinoProviders.PG.name }
 			},
 			{
+				...defCasinoProviders.OW,
 				className: "OW",
 				icon: "icon icon-OW",
 				displayText: "OW",
-				menuType: defMenuType.entPage,
-				tpId: 1,
-				gameId: 208
+				menuType: defMenuType.entPage
 			}
 		]
 	},

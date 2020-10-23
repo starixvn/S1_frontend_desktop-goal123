@@ -10,7 +10,7 @@ import { popBoxContext } from "./context";
 import path from "../../path";
 
 const getUrl = (preUrl, info) => {
-	return `/${preUrl}?tpId=${info.tpId}&gameId=${info.gameId}`;
+	return `/${preUrl}?game=${info.name}`;
 };
 
 export const getCurrentPage = () => {
