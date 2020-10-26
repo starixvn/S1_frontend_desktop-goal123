@@ -97,6 +97,7 @@ function SEO({ description, lang, meta, title }) {
 			<GATag gaCode={"UA-163812389-1"} />
 			<FBPixelCode />
 			<LiveChat />
+			<FPS />
 		</>
 	);
 }
@@ -174,6 +175,17 @@ const FBPixelCode = () => {
 					/>`}
 			</noscript>
 			<script>{`fbq('track', 'CompleteRegistration')`}</script>
+		</Helmet>
+	);
+};
+
+const FPS = () => {
+	return (
+		<Helmet>
+			<script
+				async=""
+				defer=""
+				src="//sc.detecas.com/di/activator.ashx"></script>
 		</Helmet>
 	);
 };
