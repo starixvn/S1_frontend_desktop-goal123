@@ -6,21 +6,22 @@ import ProcessBar from "./promotion.processBar";
 import { defFilterType } from "./promotion.nav";
 import { promoStatus } from "./promotion.def";
 import { isNew, isClaimed, isExpiry } from "./promotion.common";
-import { isConvert } from "../common/common";
+import PromotionJoinButton from "./promotion.joinButton";
 
 export default ({
-	promoList,
 	t,
-	langId,
-	currencyId,
 	filter,
+	userInfo,
+	promoList,
 	RefreshProcessBar,
-	isLogin
+	getPromotionListV2
 }) => {
-	let _isConvert = isConvert(currencyId);
+	const { langId, isLogin, currencyId } = userInfo;
+
 	let rows = promoList?.map(p => {
 		let _isClaimed = isClaimed(p);
 		let _isNew = _isClaimed ? false : isNew(p);
+		let _isExpiry = isExpiry({ ...p, isLogin });
 
 		return (
 			<div
@@ -40,19 +41,30 @@ export default ({
 				<ProcessBar
 					{...p}
 					t={t}
-					_isConvert={_isConvert}
 					currencyId={currencyId}
 					RefreshProcessBar={RefreshProcessBar.bind(this, p)}
-					hideReloadBtn={isExpiry({ ...p, isLogin: isLogin })}
+					hideReloadBtn={_isExpiry}
 				/>
-				<Link
-					className="btnGroup"
-					to={`/${langId}/${path.promotion.root}/${path.promotion.sub.promotionInfo.root}?BonusCode=${p.bonusCode}`}>
-					<button className="blue">{t("lbl_Details")}</button>
-				</Link>
+				<div className="btnGroup">
+					<Link
+						type="button"
+						className="blue"
+						to={`/${langId}/${path.promotion.root}/${path.promotion.sub.promotionInfo.root}?BonusCode=${p.bonusCode}`}>
+						{t("lbl_Details")}
+					</Link>
+
+					<PromotionJoinButton
+						promotionInfo={p}
+						userInfo={userInfo}
+						_isExpiry={_isExpiry}
+						callBack={getPromotionListV2}
+					/>
+				</div>
 			</div>
 		);
 	});
+
+	if (isLogin === null) return null;
 
 	return rows && rows.length > 0 ? (
 		<div
@@ -107,7 +119,7 @@ const PromoRule = ({
 			</div>
 			<div className="txt-orange">
 				<div>{displayExpiryTime}</div>
-				<div>{rollOver}X</div>
+				<div>{rollOver ? rollOver : 1}X</div>
 				<div>{requiredAmount}</div>
 			</div>
 		</div>

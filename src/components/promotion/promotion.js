@@ -11,7 +11,9 @@ import Loading from "../common/loading";
 export default () => {
 	const { t } = useTranslation();
 	const isMountedRef = useRef(null);
+
 	const { userInfo } = useContext(userInfoContext);
+
 	const [filter, setFilter] = useState(defFilterType.all);
 	const [initPromoList, setInitPromoList] = useState(null);
 	const [promoList, setPromoList] = useState([]);
@@ -23,28 +25,32 @@ export default () => {
 	});
 
 	useEffect(() => {
-		if (userInfo.isLogin !== null) {
-			api_promotion_GetPromotionListV2({ langId: userInfo.langId }).then(
-				res => {
-					if (res.data.errorCode === 0 && isMountedRef.current) {
-						let result = res.data.data.sort((a, b) => {
-							return a.periodFrom > b.periodFrom ? -1 : 1;
-						});
+		if (userInfo.isLogin === null) return;
 
-						setInitPromoList(result);
-						SetPromotionDatas(result, filter);
-						setLoading(false);
-					}
-				},
-				err => {
-					if (isMountedRef.current) {
-						alert(t("msg_ApiServerError"));
-					}
+		getPromotionListV2();
+	}, [userInfo.isLogin, userInfo.langId]);
+
+	const getPromotionListV2 = () => {
+		api_promotion_GetPromotionListV2({ langId: userInfo.langId }).then(
+			res => {
+				if (res.data.errorCode === 0 && isMountedRef.current) {
+					let result = res.data.data.sort((a, b) => {
+						return a.periodFrom > b.periodFrom ? -1 : 1;
+					});
+
+					setInitPromoList(result);
+					SetPromotionDatas(result, filter);
 					setLoading(false);
 				}
-			);
-		}
-	}, [userInfo.isLogin, userInfo.langId]);
+			},
+			err => {
+				if (isMountedRef.current) {
+					alert(t("msg_ApiServerError"));
+				}
+				setLoading(false);
+			}
+		);
+	};
 
 	const SetPromotionDatas = (_promoList, type) => {
 		let afterFilterList = [];
@@ -126,17 +132,15 @@ export default () => {
 				onClick={SelectPromotionType}
 				selected={filter}
 			/>
-			{userInfo.isLogin !== null ? (
-				<PromotionList
-					promoList={promoList}
-					t={t}
-					langId={userInfo.langId}
-					isLogin={userInfo.isLogin}
-					currencyId={userInfo.currencyId}
-					filter={filter}
-					RefreshProcessBar={RefreshProcessBar}
-				/>
-			) : null}
+
+			<PromotionList
+				t={t}
+				filter={filter}
+				userInfo={userInfo}
+				promoList={promoList}
+				RefreshProcessBar={RefreshProcessBar}
+				getPromotionListV2={getPromotionListV2}
+			/>
 		</div>
 	);
 };
