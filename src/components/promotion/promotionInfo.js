@@ -14,10 +14,9 @@ import { api_account_GetCustSpecificBonus } from "../../service/api/account";
 import { defPopBoxType } from "../common/popBox";
 import ProcessBar from "./promotion.processBar";
 import { isExpiry, isClaimed } from "./promotion.common";
-import moment from "moment";
-import { promoStatus } from "./promotion.def";
 import Loading from "../common/loading";
 import PromotionJoinButton from "./promotion.joinButton";
+import PromoRule from "./promotion.promoRule";
 
 export default () => {
 	const { t } = useTranslation();
@@ -170,8 +169,7 @@ export default () => {
 
 							<DepositMenu
 								cash={number_format(
-									promotionInfo.depositAmount,
-									isConvert(userInfo.currencyId)
+									promotionInfo.depositAmount
 								)}
 								_currency={_currency}
 								promotionInfo={promotionInfo}
@@ -192,7 +190,7 @@ export default () => {
 									isLogin: userInfo.isLogin
 								})}
 							/>
-							<Rollover promotionInfo={promotionInfo} t={t} />
+							<PromoRule promotionInfo={promotionInfo} t={t} />
 							<div
 								className="proDataBody"
 								dangerouslySetInnerHTML={{
@@ -203,59 +201,6 @@ export default () => {
 				</div>
 			)}
 		</>
-	);
-};
-
-const Rollover = ({ promotionInfo, t }) => {
-	const {
-		isJoin,
-		status,
-		custExpiryTime,
-		periodTo,
-		requiredAmount,
-		rollOver
-	} = promotionInfo;
-
-	let expiryTime = moment.duration(
-		moment
-			.unix(
-				isJoin && status === promoStatus.running && custExpiryTime
-					? moment(custExpiryTime).unix()
-					: periodTo
-			)
-			.diff(new Date())
-	);
-
-	let displayExpiryTime =
-		expiryTime.days() +
-		" " +
-		t("lbl_Days") +
-		" " +
-		expiryTime.hours() +
-		" " +
-		t("lbl_Hours");
-	return (
-		<div className="rollover">
-			<div>
-				{requiredAmount > 0 ? (
-					<div className="icon icon-icon32px_money">
-						{t("lbl_MinAmount")}
-					</div>
-				) : null}
-				<div className="icon icon-icon32px_time">
-					{t("lbl_RemainingTime")}
-				</div>
-				<div className="icon icon-icon32px_">{t("lbl_RollOver")}</div>
-			</div>
-
-			<div className="txt-orange">
-				{requiredAmount > 0 ? (
-					<div>{number_format(requiredAmount, true)}</div>
-				) : null}
-				<div>{displayExpiryTime}</div>
-				<div>{rollOver ? rollOver : 1}X</div>
-			</div>
-		</div>
 	);
 };
 
