@@ -10,6 +10,7 @@ import {
 import { SET_ENTER_PAGE } from "../../service/enterPage";
 import path from "../../path";
 import { Link } from "@reach/router";
+import productList from "../../datas/productList";
 
 export const defBannerFolder = {
 	Sports: "Sports"
@@ -116,10 +117,24 @@ const Panel = ({
 		let key = `${lang}-${b.img}-${idx}`;
 
 		if (actionLink === defSpecialActionLink.SportsIndex) {
+			let gameList = Object.keys(productList);
+			let tmpGameId = b.tpId === 1 && b.gameId === null ? 1 : b.gameId;
+			let gameKey = "";
+			for (let idx in gameList) {
+				let k = gameList[idx];
+				if (
+					productList[k]?.tpId === b.tpId &&
+					productList[k]?.gameId === tmpGameId
+				) {
+					gameKey = productList[k].name;
+					break;
+				}
+			}
+
 			return (
 				<Link
 					key={key}
-					to={`${userInfo.langId}/${path.sports.root}?tpId=${b.tpId}&gameId=${b.gameId}&matchid=${b.matchid}`}>
+					to={`${userInfo.langId}/${path.sports.root}?game=${gameKey}&tpId=${b.tpId}&gameId=${tmpGameId}&matchid=${b.matchid}`}>
 					<img src={imgSRC} className="banner" alt={b.img ?? ""} />
 				</Link>
 			);
