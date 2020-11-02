@@ -1,10 +1,12 @@
 import React from "react";
+import { defPromotionType } from "./promotion.def";
 
 export const defFilterType = {
 	all: 0,
 	expiry: 999,
-	firstDeposit: 1,
-	freeBet: 3
+	firstDeposit: defPromotionType.firstDeposit,
+	freeBet: defPromotionType.freeBet,
+	Rebate_and_cashback: [defPromotionType.rebate, defPromotionType.cashback]
 };
 
 const defPromoNavs = [
@@ -21,6 +23,11 @@ const defPromoNavs = [
 	{
 		displayKey: "lbl_FreeBet",
 		value: defFilterType.freeBet,
+		className: "blueBorder"
+	},
+	{
+		displayKey: "lbl_PromotionRebateAndCashback",
+		value: defFilterType.Rebate_and_cashback,
 		className: "blueBorder"
 	},
 	{

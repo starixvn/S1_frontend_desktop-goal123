@@ -7,6 +7,7 @@ import PromotionList from "./promotion.list";
 import PromotionNavBar, { defFilterType } from "./promotion.nav";
 import { isExpiry } from "./promotion.common";
 import Loading from "../common/loading";
+import { defPromotionType } from "./promotion.def";
 
 export default () => {
 	const { t } = useTranslation();
@@ -66,6 +67,13 @@ export default () => {
 			afterFilterList = _promoList.filter(
 				p =>
 					(p.promotionType === type || p.promotionType === 5) &&
+					!isExpiry({ ...p, isLogin: userInfo.isLogin })
+			);
+		} else if (type === defFilterType.Rebate_and_cashback) {
+			afterFilterList = _promoList.filter(
+				p =>
+					(p.promotionType === defPromotionType.rebate ||
+						p.promotionType === defPromotionType.cashback) &&
 					!isExpiry({ ...p, isLogin: userInfo.isLogin })
 			);
 		} else {
