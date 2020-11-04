@@ -12,7 +12,7 @@ import { defPrevPage } from "../profile/profile.dev";
 import { getUrlParameter } from "../common/common";
 
 export default ({ startUnixTime = 0 }) => {
-	const { setUserInfo } = useContext(userInfoContext);
+	const { userInfo, setUserInfo } = useContext(userInfoContext);
 	const { setPopBox } = useContext(popBoxContext);
 	const isMountedRef = useRef(null);
 	const { t } = useTranslation();
@@ -178,7 +178,7 @@ export default ({ startUnixTime = 0 }) => {
 										</button>
 										<Link
 											className="btn-check"
-											to={defPrevPage[_prevPage].path}>
+											to={`/${userInfo.langId}/${defPrevPage[_prevPage].path}`}>
 											{t(defPrevPage[_prevPage].label)}
 										</Link>
 									</div>

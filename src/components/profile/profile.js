@@ -513,7 +513,7 @@ export default () => {
 										</button>
 										<Link
 											className="btn-check"
-											to={defPrevPage[_prevPage].path}>
+											to={`/${userInfo.langId}/${defPrevPage[_prevPage].path}`}>
 											{t(defPrevPage[_prevPage].label)}
 										</Link>
 									</div>
