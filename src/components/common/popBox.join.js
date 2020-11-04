@@ -21,7 +21,7 @@ import joinBanner from "../../styles/img/joinBanner.jpg";
 const initValue = {
 	username: "",
 	password: "",
-	// email: "",
+	affiliateId: null,
 	currency: 0,
 	termsCheck: false,
 	ageCheck: false
@@ -30,8 +30,8 @@ const initValue = {
 const initTip = {
 	username: { checked: null, msg: "" },
 	password: { checked: null, msg: "" },
-	// email: { checked: null, msg: "" },
 	currency: { checked: null, msg: "" },
+	affiliateId: { checked: null, msg: "" },
 	checkbox: { checked: null, msg: "" }
 };
 
@@ -137,11 +137,9 @@ const JoinPanel = () => {
 			msg = t("lbl_UsernameTooltip");
 		} else if (col === "password") {
 			msg = t("lbl_PasswordTooltip");
+		} else if (col === "affiliateId") {
+			msg = t("lbl_Please_enter_Affiliate_ID");
 		}
-		// else if (col === "email") {
-		// 	msg = t("lbl_EmailToolTip");
-		// }
-
 		if (tip[col].msg === msg) {
 			msg = "";
 		}
@@ -170,6 +168,9 @@ const JoinPanel = () => {
 		}));
 	};
 
+	const isUrlAffiliateId =
+		getUrlParameter("affiliateid") || readCookie("affiliateid");
+
 	const checkValue = (col, e) => {
 		let val = e.target.value;
 		let checked = true;
@@ -184,11 +185,6 @@ const JoinPanel = () => {
 			checked = result.checked;
 			msg = result.msg;
 		}
-		// else if (col === "email") {
-		// 	let result = emailCheck(val);
-		// 	checked = result.checked;
-		// 	msg = result.msg;
-		// }
 
 		setTip(prev => {
 			return {
@@ -270,76 +266,6 @@ const JoinPanel = () => {
 		return { checked, msg };
 	};
 
-	// const emailCheck = val => {
-	// 	let checked = false;
-	// 	let msg = "";
-	// 	const regx = /^\w+((-\w+)|(\.\w+))*@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
-
-	// 	if (val === "") {
-	// 		checked = false;
-	// 		msg = "msg_MailWrongFormat";
-	// 	} else if (val !== "") {
-	// 		if (!regx.test(val)) {
-	// 			checked = false;
-	// 			msg = "msg_MailWrongFormat";
-	// 		} else {
-	// 			checked = true;
-	// 		}
-	// 	}
-
-	// 	if (checked === true) {
-	// 		api_site_ExistsEmail({ Email: val }).then(
-	// 			res => {
-	// 				if (isMountedRef.current) {
-	// 					if (res.data.errorCode === 0) {
-	// 						if (res.data.data === true) {
-	// 							setTip(prev => {
-	// 								return {
-	// 									...prev,
-	// 									email: {
-	// 										checked: false,
-	// 										msg: t("msg_MailExisted")
-	// 									}
-	// 								};
-	// 							});
-	// 						} else {
-	// 							setTip(prev => {
-	// 								return {
-	// 									...prev,
-	// 									email: {
-	// 										checked: true,
-	// 										msg: ""
-	// 									}
-	// 								};
-	// 							});
-	// 						}
-	// 					}
-	// 				}
-	// 			},
-	// 			err => {
-	// 				if (isMountedRef.current) {
-	// 					setPopBox({
-	// 						isOpen: true,
-	// 						popBoxType: defPopBoxType.ErrorMsg,
-	// 						message: t("msg_ApiServerError"),
-	// 						btnBar: (
-	// 							<div className="btnGroup">
-	// 								<button
-	// 									className="btn-cancel"
-	// 									onClick={ClickClose}>
-	// 									{t("lbl_Close")}
-	// 								</button>
-	// 							</div>
-	// 						)
-	// 					});
-	// 				}
-	// 			}
-	// 		);
-	// 	}
-
-	// 	return { checked, msg };
-	// };
-
 	const clickDropdown = () => {
 		setTip(prev => {
 			return {
@@ -371,14 +297,12 @@ const JoinPanel = () => {
 	const checkAll = () => {
 		let _usernameCheck = usernameCheck(userValue.username);
 		let _passwordCheck = passwordCheck(userValue.password);
-		// let _emailCheck = emailCheck(userValue.email);
 		let _termsCheck = userValue.termsCheck;
 		let _ageCheck = userValue.ageCheck;
 
 		let checked =
 			_usernameCheck.checked &&
 			_passwordCheck.checked &&
-			// _emailCheck.checked &&
 			_termsCheck &&
 			_ageCheck;
 
@@ -398,10 +322,6 @@ const JoinPanel = () => {
 						checked: _passwordCheck.checked,
 						msg: t(_passwordCheck.msg)
 					},
-					// email: {
-					// 	checked: _emailCheck.checked,
-					// 	msg: t(_emailCheck.msg)
-					// },
 					checkbox: {
 						checked: true,
 						msg: t(checkboxMsg)
@@ -420,7 +340,6 @@ const JoinPanel = () => {
 			let regData = {
 				UserName: userValue.username,
 				Userpwd: userValue.password,
-				// Email: userValue.email,
 				CurrencyId: siteCurrency[userValue.currency].id,
 				UserLang: defaultLangId
 			};
@@ -428,6 +347,7 @@ const JoinPanel = () => {
 			regData["RefId"] = getUrlParameter("RefId") || readCookie("RefId");
 			regData["AffId"] = getUrlParameter("AffId") || readCookie("AffId");
 			regData["Aff"] = getUrlParameter("Aff") || readCookie("Aff");
+			regData["AffiliateId"] = isUrlAffiliateId ?? userValue.affiliateId;
 			api_site_Register(regData).then(
 				res => {
 					if (isMountedRef.current) {
@@ -625,6 +545,18 @@ const JoinPanel = () => {
 								clickDropdown={clickDropdown}
 							/>
 						</div>
+
+						<Inputbox
+							icon="icon-affiliate txt-blue12"
+							placeholder={t("lbl_Affiliate_ID")}
+							value={isUrlAffiliateId ?? userValue.affiliateId}
+							onChange={EditField.bind(null, "affiliateId")}
+							readOnly={isUrlAffiliateId}
+							checked={tip.affiliateId.checked}
+							tip={tip.affiliateId.msg}
+							clickInfo={clickInfo.bind(this, "affiliateId")}
+							// onBlur={checkValue.bind(null, "affiliateId")}
+						/>
 
 						{tip.currency.msg !== "" ? (
 							<div className="tip active">{tip.currency.msg}</div>
