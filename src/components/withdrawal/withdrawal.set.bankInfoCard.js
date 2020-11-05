@@ -61,9 +61,8 @@ export default props => {
 	};
 
 	const checkInput = (sysId, accountNo, bankName) => {
-		let value = hasCheckedKey === accountNo ? "" : accountNo;
-		setHasCheckedKey(value);
-		if (value) {
+		setHasCheckedKey(accountNo);
+		if (accountNo) {
 			props.bankCardValue(sysId, accountNo, bankName);
 		} else {
 			props.bankCardValue(0, 0, "");
@@ -190,13 +189,15 @@ export default props => {
 						<span>{item.accountNo?.slice(8, 12)}</span>
 						<span>{item.accountNo?.slice(12, 16)}</span>
 					</div>
-					<div
-						className="icon icon-bin"
-						onClick={popDelete.bind(
-							this,
-							item.sysId,
-							item.accountNo
-						)}></div>
+					{!props.confirmPanel ? (
+						<div
+							className="icon icon-bin"
+							onClick={popDelete.bind(
+								this,
+								item.sysId,
+								item.accountNo
+							)}></div>
+					) : null}
 				</div>
 			</div>
 		);

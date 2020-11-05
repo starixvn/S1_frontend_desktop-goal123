@@ -446,6 +446,7 @@ export default props => {
 								bankCardValue={getBankCardValue}
 								allBankCardData={getAllBankCardData}
 								_isConvert={_isConvert}
+								confirmPanel={showConfirmPage}
 							/>
 							<AddBankAccount allBankCardData={allBankCardData} />
 						</div>
