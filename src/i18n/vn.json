@@ -163,6 +163,7 @@
 	"lbl_RemainingTime": "Thời gian còn lại",
 	"lbl_RequireMinAmountHint_Front": "Tiền gửi tối thiểu là",
 	"lbl_RequireMinAmountHint_Back": "Nạp tiền ngay?",
+	"lbl_PromotionRebateAndCashback":"Hoàn trả / Hoàn lại tiền",
 
 	"general ■■■■■■■■■■■■■■■■■■■■": "",
 	"msg_ApiServerError": "Rất tiếc! Đã xảy ra lỗi, vui lòng thử lại.",
