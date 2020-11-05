@@ -189,7 +189,7 @@ export default props => {
 						<span>{item.accountNo?.slice(8, 12)}</span>
 						<span>{item.accountNo?.slice(12, 16)}</span>
 					</div>
-					{props.step !== 3 ? (
+					{!props.confirmPanel ? (
 						<div
 							className="icon icon-bin"
 							onClick={popDelete.bind(
