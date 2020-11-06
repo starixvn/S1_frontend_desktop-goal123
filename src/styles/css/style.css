@@ -213,25 +213,25 @@ header .header > div.menu .subMenu-Wrapper .icon:before {
   font-size: 30px;
 }
 
-header .header > div.menu .gameList, header .header > div.menu .casinoList, header .header > div.menu .livecasinoList {
+header .header > div.menu .gameList, header .header > div.menu .casinoList, header .header > div.menu .livecasinoList, header .header > div.menu .fishList {
   max-width: 1600px;
   margin: auto;
   display: none;
 }
 
-header .header > div.menu .gameList.active, header .header > div.menu .casinoList.active, header .header > div.menu .livecasinoList.active {
+header .header > div.menu .gameList.active, header .header > div.menu .casinoList.active, header .header > div.menu .livecasinoList.active, header .header > div.menu .fishList.active {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
 
-header .header > div.menu .gameList.active div, header .header > div.menu .casinoList.active div, header .header > div.menu .livecasinoList.active div {
+header .header > div.menu .gameList.active div, header .header > div.menu .casinoList.active div, header .header > div.menu .livecasinoList.active div, header .header > div.menu .fishList.active div {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
 
-header .header > div.menu .gameList a, header .header > div.menu .gameList button, header .header > div.menu .casinoList a, header .header > div.menu .casinoList button, header .header > div.menu .livecasinoList a, header .header > div.menu .livecasinoList button {
+header .header > div.menu .gameList a, header .header > div.menu .gameList button, header .header > div.menu .casinoList a, header .header > div.menu .casinoList button, header .header > div.menu .livecasinoList a, header .header > div.menu .livecasinoList button, header .header > div.menu .fishList a, header .header > div.menu .fishList button {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
@@ -253,19 +253,19 @@ header .header > div.menu .gameList a, header .header > div.menu .gameList butto
   transition: 0.7s;
 }
 
-header .header > div.menu .gameList a img, header .header > div.menu .gameList button img, header .header > div.menu .casinoList a img, header .header > div.menu .casinoList button img, header .header > div.menu .livecasinoList a img, header .header > div.menu .livecasinoList button img {
+header .header > div.menu .gameList a img, header .header > div.menu .gameList button img, header .header > div.menu .casinoList a img, header .header > div.menu .casinoList button img, header .header > div.menu .livecasinoList a img, header .header > div.menu .livecasinoList button img, header .header > div.menu .fishList a img, header .header > div.menu .fishList button img {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
 }
 
-header .header > div.menu .gameList a span, header .header > div.menu .gameList button span, header .header > div.menu .casinoList a span, header .header > div.menu .casinoList button span, header .header > div.menu .livecasinoList a span, header .header > div.menu .livecasinoList button span {
+header .header > div.menu .gameList a span, header .header > div.menu .gameList button span, header .header > div.menu .casinoList a span, header .header > div.menu .casinoList button span, header .header > div.menu .livecasinoList a span, header .header > div.menu .livecasinoList button span, header .header > div.menu .fishList a span, header .header > div.menu .fishList button span {
   top: 35px;
   position: relative;
   color: white;
 }
 
-header .header > div.menu .gameList a:hover, header .header > div.menu .gameList button:hover, header .header > div.menu .casinoList a:hover, header .header > div.menu .casinoList button:hover, header .header > div.menu .livecasinoList a:hover, header .header > div.menu .livecasinoList button:hover {
+header .header > div.menu .gameList a:hover, header .header > div.menu .gameList button:hover, header .header > div.menu .casinoList a:hover, header .header > div.menu .casinoList button:hover, header .header > div.menu .livecasinoList a:hover, header .header > div.menu .livecasinoList button:hover, header .header > div.menu .fishList a:hover, header .header > div.menu .fishList button:hover {
   -webkit-transition: 0.7s;
   transition: 0.7s;
 }
@@ -416,6 +416,30 @@ header .header > div.menu .livecasinoList .liveEB:hover {
 
 header .header > div.menu .livecasinoList .liveEB .icon-EB:before {
   font-size: 16px;
+}
+
+header .header > div.menu .fishList .fgg {
+  background: url(../img/fishingGG.png) no-repeat center 10px/auto 100%;
+}
+
+header .header > div.menu .fishList .fgg:hover {
+  background: url(../img/fishingGGa.png) no-repeat center 0px/auto 100%;
+}
+
+header .header > div.menu .fishList .fsg {
+  background: url(../img/fishingSG.png) no-repeat center 10px/auto 100%;
+}
+
+header .header > div.menu .fishList .fsg:hover {
+  background: url(../img/fishingSGa.png) no-repeat center 0px/auto 100%;
+}
+
+header .header > div.menu .fishList .fsgw {
+  background: url(../img/fishingSGwar.png) no-repeat center 10px/auto 100%;
+}
+
+header .header > div.menu .fishList .fsgw:hover {
+  background: url(../img/fishingSGwara.png) no-repeat center 0px/auto 100%;
 }
 
 header .header > div.function {

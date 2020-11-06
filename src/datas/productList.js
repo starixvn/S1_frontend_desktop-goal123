@@ -77,6 +77,16 @@ export default {
 		gameId: 8,
 		tpId: 1,
 		name: "baseball"
+	},
+	fishing_SG: {
+		gameId: "F-SF01",
+		tpId: 10,
+		name: "fishing_SG"
+	},
+	fishing_SGW: {
+		gameId: "F-SF02",
+		tpId: 10,
+		name: "fishing_SGW"
 	}
 };
 
