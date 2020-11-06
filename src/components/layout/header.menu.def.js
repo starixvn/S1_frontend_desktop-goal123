@@ -195,10 +195,6 @@ export const defMenuLinks = {
 			}
 		]
 	},
-	promotion: {
-		path: path.promotion.root,
-		displayKey: "lbl_Promotions"
-	},
 	fishing: {
 		productInfo: productList.fishing,
 		displayKey: "lbl_Fishing",
@@ -225,6 +221,10 @@ export const defMenuLinks = {
 				parameter: { ...productList.fishing_SGW }
 			}
 		]
+	},
+	promotion: {
+		path: path.promotion.root,
+		displayKey: "lbl_Promotions"
 	}
 	// lottery: {
 	// 	productInfo: productList.lottery,
