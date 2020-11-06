@@ -175,7 +175,7 @@ header .header > div.menu > a, header .header > div.menu > button {
       -ms-flex-align: center;
           align-items: center;
   border-bottom: 3px solid transparent;
-  padding: 0 15px;
+  padding: 0 10px;
   font-size: 14px;
   font-family: "Microsoft YaHei", sans-serif;
 }
