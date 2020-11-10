@@ -19,7 +19,12 @@ export const api_promotion_GetCustSpecificBonus = ({
 		PromoCategoryId
 	});
 
-export const api_promotion_SetClaimPromotion = ({ langId, BonusCode }) =>
+export const api_promotion_SetClaimPromotion = ({
+	langId,
+	BonusCode,
+	LockedAmount
+}) =>
 	promotionRequest.post(`/SetClaimPromotion/${langId}`, {
-		BonusCode
+		BonusCode,
+		LockedAmount
 	});
