@@ -19,7 +19,7 @@ export default ({
 		promotionType !== defPromotionType.rebate
 	) {
 		let percentage =
-			custTurnOver > custRollOver
+			custTurnOver >= custRollOver
 				? 100
 				: ((custTurnOver / custRollOver) * 100).toFixed(2);
 
