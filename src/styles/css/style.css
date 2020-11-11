@@ -358,6 +358,14 @@ header .header > div.menu .casinoList .OW:hover {
   background: url(../img/casinoOW_a.png) no-repeat center 0px/auto 100%;
 }
 
+header .header > div.menu .livecasinoList .liveMW {
+  background: url(../img/liveMW.png) no-repeat center 10px/auto 100%;
+}
+
+header .header > div.menu .livecasinoList .liveMW:hover {
+  background: url(../img/liveMW_a.png) no-repeat center 0px/auto 100%;
+}
+
 header .header > div.menu .livecasinoList .liveDG {
   background: url(../img/liveDG.png) no-repeat center 10px/auto 100%;
 }
@@ -2740,42 +2748,42 @@ main > .swiper-container .swiper-slide {
   text-align: center;
 }
 
-.Submit.active, .Cancel.active, .uploadSuccess.active, .updateSuccess.active, .Success.active, .tokyc.active, .addBankpop.active, .changePassWordpop.active, .editSuccess.active {
+.Submit.active, .Cancel.active, .uploadSuccess.active, .updateSuccess.active, .Success.active, .tokyc.active, .addBankpop.active, .changePassWordpop.active, .editSuccess.active, .loackAmount.active {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
 
-.Submit .icon, .Cancel .icon, .uploadSuccess .icon, .updateSuccess .icon, .Success .icon, .tokyc .icon, .addBankpop .icon, .changePassWordpop .icon, .editSuccess .icon {
+.Submit .icon, .Cancel .icon, .uploadSuccess .icon, .updateSuccess .icon, .Success .icon, .tokyc .icon, .addBankpop .icon, .changePassWordpop .icon, .editSuccess .icon, .loackAmount .icon {
   font-size: 36px;
   color: #fab617;
 }
 
-.Submit .icon.icon-icon32px_notification, .Cancel .icon.icon-icon32px_notification, .uploadSuccess .icon.icon-icon32px_notification, .updateSuccess .icon.icon-icon32px_notification, .Success .icon.icon-icon32px_notification, .tokyc .icon.icon-icon32px_notification, .addBankpop .icon.icon-icon32px_notification, .changePassWordpop .icon.icon-icon32px_notification, .editSuccess .icon.icon-icon32px_notification {
+.Submit .icon.icon-icon32px_notification, .Cancel .icon.icon-icon32px_notification, .uploadSuccess .icon.icon-icon32px_notification, .updateSuccess .icon.icon-icon32px_notification, .Success .icon.icon-icon32px_notification, .tokyc .icon.icon-icon32px_notification, .addBankpop .icon.icon-icon32px_notification, .changePassWordpop .icon.icon-icon32px_notification, .editSuccess .icon.icon-icon32px_notification, .loackAmount .icon.icon-icon32px_notification {
   -webkit-transform-origin: bottom;
           transform-origin: bottom;
   -webkit-transform: rotate(20deg);
           transform: rotate(20deg);
 }
 
-.Submit .icon.icon-information-solid, .Cancel .icon.icon-information-solid, .uploadSuccess .icon.icon-information-solid, .updateSuccess .icon.icon-information-solid, .Success .icon.icon-information-solid, .tokyc .icon.icon-information-solid, .addBankpop .icon.icon-information-solid, .changePassWordpop .icon.icon-information-solid, .editSuccess .icon.icon-information-solid {
+.Submit .icon.icon-information-solid, .Cancel .icon.icon-information-solid, .uploadSuccess .icon.icon-information-solid, .updateSuccess .icon.icon-information-solid, .Success .icon.icon-information-solid, .tokyc .icon.icon-information-solid, .addBankpop .icon.icon-information-solid, .changePassWordpop .icon.icon-information-solid, .editSuccess .icon.icon-information-solid, .loackAmount .icon.icon-information-solid {
   color: #1E85EC;
 }
 
-.Submit .title, .Cancel .title, .uploadSuccess .title, .updateSuccess .title, .Success .title, .tokyc .title, .addBankpop .title, .changePassWordpop .title, .editSuccess .title {
+.Submit .title, .Cancel .title, .uploadSuccess .title, .updateSuccess .title, .Success .title, .tokyc .title, .addBankpop .title, .changePassWordpop .title, .editSuccess .title, .loackAmount .title {
   margin: 10px 0 20px;
 }
 
-.Submit .txt-lightgray, .Cancel .txt-lightgray, .uploadSuccess .txt-lightgray, .updateSuccess .txt-lightgray, .Success .txt-lightgray, .tokyc .txt-lightgray, .addBankpop .txt-lightgray, .changePassWordpop .txt-lightgray, .editSuccess .txt-lightgray {
+.Submit .txt-lightgray, .Cancel .txt-lightgray, .uploadSuccess .txt-lightgray, .updateSuccess .txt-lightgray, .Success .txt-lightgray, .tokyc .txt-lightgray, .addBankpop .txt-lightgray, .changePassWordpop .txt-lightgray, .editSuccess .txt-lightgray, .loackAmount .txt-lightgray {
   text-align: center;
 }
 
-.Submit .popList, .Cancel .popList, .uploadSuccess .popList, .updateSuccess .popList, .Success .popList, .tokyc .popList, .addBankpop .popList, .changePassWordpop .popList, .editSuccess .popList {
+.Submit .popList, .Cancel .popList, .uploadSuccess .popList, .updateSuccess .popList, .Success .popList, .tokyc .popList, .addBankpop .popList, .changePassWordpop .popList, .editSuccess .popList, .loackAmount .popList {
   width: 100%;
   margin-top: 30px;
 }
 
-.Submit .popList ul, .Cancel .popList ul, .uploadSuccess .popList ul, .updateSuccess .popList ul, .Success .popList ul, .tokyc .popList ul, .addBankpop .popList ul, .changePassWordpop .popList ul, .editSuccess .popList ul {
+.Submit .popList ul, .Cancel .popList ul, .uploadSuccess .popList ul, .updateSuccess .popList ul, .Success .popList ul, .tokyc .popList ul, .addBankpop .popList ul, .changePassWordpop .popList ul, .editSuccess .popList ul, .loackAmount .popList ul {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -2788,13 +2796,13 @@ main > .swiper-container .swiper-slide {
           justify-content: space-between;
 }
 
-.Submit .popList ul li, .Cancel .popList ul li, .uploadSuccess .popList ul li, .updateSuccess .popList ul li, .Success .popList ul li, .tokyc .popList ul li, .addBankpop .popList ul li, .changePassWordpop .popList ul li, .editSuccess .popList ul li {
+.Submit .popList ul li, .Cancel .popList ul li, .uploadSuccess .popList ul li, .updateSuccess .popList ul li, .Success .popList ul li, .tokyc .popList ul li, .addBankpop .popList ul li, .changePassWordpop .popList ul li, .editSuccess .popList ul li, .loackAmount .popList ul li {
   line-height: 30px;
   letter-spacing: 1px;
   font-size: 12px;
 }
 
-.Submit .popList ul li:first-child, .Cancel .popList ul li:first-child, .uploadSuccess .popList ul li:first-child, .updateSuccess .popList ul li:first-child, .Success .popList ul li:first-child, .tokyc .popList ul li:first-child, .addBankpop .popList ul li:first-child, .changePassWordpop .popList ul li:first-child, .editSuccess .popList ul li:first-child {
+.Submit .popList ul li:first-child, .Cancel .popList ul li:first-child, .uploadSuccess .popList ul li:first-child, .updateSuccess .popList ul li:first-child, .Success .popList ul li:first-child, .tokyc .popList ul li:first-child, .addBankpop .popList ul li:first-child, .changePassWordpop .popList ul li:first-child, .editSuccess .popList ul li:first-child, .loackAmount .popList ul li:first-child {
   color: #1E85EC;
   font-weight: bold;
 }
@@ -3718,7 +3726,6 @@ main > .swiper-container .swiper-slide {
   text-align: center;
   padding: 50px 0;
   border-radius: 15px;
-  border: 1px solid #435068;
   margin: auto;
   color: #1E85EC;
 }
@@ -5217,5 +5224,90 @@ html:not(.index) .swiper-container + .inside-title.icon-ow-casino:after {
   font-family: "Microsoft YaHei", sans-serif;
   font-size: 14px;
   line-height: 30px;
+}
+
+.loackAmount .inputBox-white {
+  width: 250px;
+}
+
+.colorInfo {
+  margin-bottom: 5px;
+}
+
+.colorInfo > div {
+  font-weight: bold;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.colorInfo > div:first-child {
+  color: #1E85EC;
+}
+
+.colorInfo > div:first-child span {
+  background: #1E85EC;
+}
+
+.colorInfo > div:last-child {
+  color: #fab617;
+}
+
+.colorInfo > div:last-child span {
+  background: #fab617;
+}
+
+.colorInfo > div span {
+  display: block;
+  width: 50px;
+  height: 8px;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.depositSlip {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.depositSlip .depositSlipList {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.depositSlip .depositSlipList > div {
+  min-width: 100px;
+  margin: 2px 0;
+}
+
+.depositSlip .depositSlipList > div > div {
+  border: 1px solid #1E85EC;
+  padding: 5px;
+  color: #1E85EC;
+  text-align: right;
+  border-bottom: 0;
+}
+
+.depositSlip .depositSlipList > div > div:nth-child(2) {
+  color: #fab617;
+  border-color: #fab617;
+  border-bottom: 1px solid #fab617;
+}
+
+.depositSlip .txt-yellow {
+  margin: 5px 0 15px;
+  font-size: 16px;
+  border: 1px solid #fab617;
+  padding: 5px 10px;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  border-radius: 10px;
 }
 /*# sourceMappingURL=style.css.map */
