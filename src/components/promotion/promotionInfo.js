@@ -12,6 +12,7 @@ import {
 import { api_promotion_GetPromotionDetail } from "../../service/api/promotion";
 import { api_account_GetCustSpecificBonus } from "../../service/api/account";
 import { defPopBoxType } from "../common/popBox";
+import { defPromotionType } from "./promotion.def";
 import ProcessBar from "./promotion.processBar";
 import { isExpiry, isClaimed } from "./promotion.common";
 import Loading from "../common/loading";
@@ -167,6 +168,8 @@ export default () => {
 								</div>
 							</div>
 
+							<DepositSlip promotionInfo={promotionInfo} />
+
 							<DepositMenu
 								cash={number_format(
 									promotionInfo.depositAmount
@@ -200,6 +203,38 @@ export default () => {
 					</div>
 				</div>
 			)}
+		</>
+	);
+};
+
+const DepositSlip = ({ promotionInfo }) => {
+	const { promotionType, refList, depositAmount } = promotionInfo;
+
+	if (!refList || promotionType !== defPromotionType.redeposit) return null;
+
+	return (
+		<>
+			<div className="colorInfo">
+				<div>
+					<span></span>Deposit ID
+				</div>
+				<div>
+					<span></span>Amount
+				</div>
+			</div>
+			<div className="depositSlip">
+				<div className="depositSlipList">
+					{refList?.map(item => (
+						<div key={item.DepositId}>
+							<div>{item.DepositId}</div>
+							<div>{number_format(item.Amount)}</div>
+						</div>
+					))}
+				</div>
+				<div className="txt-yellow">
+					TOTAL: {number_format(depositAmount)}
+				</div>
+			</div>
 		</>
 	);
 };
