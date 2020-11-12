@@ -12,6 +12,7 @@ import {
 import { api_promotion_GetPromotionDetail } from "../../service/api/promotion";
 import { api_account_GetCustSpecificBonus } from "../../service/api/account";
 import { defPopBoxType } from "../common/popBox";
+import { defPromotionType } from "./promotion.def";
 import ProcessBar from "./promotion.processBar";
 import { isExpiry, isClaimed } from "./promotion.common";
 import Loading from "../common/loading";
@@ -167,6 +168,8 @@ export default () => {
 								</div>
 							</div>
 
+							<DepositSlip promotionInfo={promotionInfo} t={t} />
+
 							<DepositMenu
 								cash={number_format(
 									promotionInfo.depositAmount
@@ -200,6 +203,41 @@ export default () => {
 					</div>
 				</div>
 			)}
+		</>
+	);
+};
+
+const DepositSlip = ({ promotionInfo, t }) => {
+	const { promotionType, refList, depositAmount, bonusCode } = promotionInfo;
+
+	if (!refList || promotionType !== defPromotionType.redeposit) return null;
+
+	return (
+		<>
+			<div className="colorInfo">
+				<div>
+					<span></span>
+					{t("lbl_ID")}
+				</div>
+				<div>
+					<span></span>
+					{"lbl_Amount"}
+				</div>
+			</div>
+			<div className="depositSlip">
+				<div className="depositSlipList">
+					{refList?.map(item => (
+						<div
+							key={`promo-deposit-record-${bonusCode}-${item.depositId}`}>
+							<div>{item.depositId}</div>
+							<div>{number_format(item.amount)}</div>
+						</div>
+					))}
+				</div>
+				<div className="txt-yellow">
+					{t("lbl_total")}: {number_format(depositAmount)}
+				</div>
+			</div>
 		</>
 	);
 };
