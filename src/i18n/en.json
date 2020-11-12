@@ -363,16 +363,16 @@
 	"Currency_51": "VND",
 
 	"time ■■■■■■■■■■■■■■■■■■■■": "",
-	"lbl_Today": "今日",
-	"lbl_YesterDay": "昨日",
-	"lbl_ThisWeek": "本周",
-	"lbl_LastWeek": "上周",
-	"lbl_ThisMonth": "本月",
-	"lbl_LastMonth": "上月",
-	"lbl_Date": "日期",
-	"lbl_Days": "天",
-	"lbl_Hours": "小时",
+	"lbl_Today": "Today",
+	"lbl_YesterDay": "Yesterday",
+	"lbl_ThisWeek": "This Week",
+	"lbl_LastWeek": "Last Week",
+	"lbl_ThisMonth": "This Month",
+	"lbl_LastMonth": "Last Month",
+	"lbl_Date": "Date",
+	"lbl_Days": "Days",
+	"lbl_Hours": "Hours",
+	"lbl_5mins": "5 mins",
 	"lbl_Minutes": "Minutes",
-	"lbl_Seconds": "Seconds",
-	"lbl_5mins": "5分鐘"
+	"lbl_Seconds": "Seconds"
 }
