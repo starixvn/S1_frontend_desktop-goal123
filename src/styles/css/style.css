@@ -358,6 +358,14 @@ header .header > div.menu .casinoList .OW:hover {
   background: url(../img/casinoOW_a.png) no-repeat center 0px/auto 100%;
 }
 
+header .header > div.menu .livecasinoList .liveWM {
+  background: url(../img/liveWM.png) no-repeat center 10px/auto 100%;
+}
+
+header .header > div.menu .livecasinoList .liveWM:hover {
+  background: url(../img/liveWM_a.png) no-repeat center 0px/auto 100%;
+}
+
 header .header > div.menu .livecasinoList .liveMW {
   background: url(../img/liveMW.png) no-repeat center 10px/auto 100%;
 }
