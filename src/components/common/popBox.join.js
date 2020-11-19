@@ -21,7 +21,7 @@ import joinBanner from "../../styles/img/joinBanner.jpg";
 const initValue = {
 	username: "",
 	password: "",
-	aff: null,
+	affCode: null,
 	currency: 0,
 	termsCheck: false,
 	ageCheck: false
@@ -31,7 +31,7 @@ const initTip = {
 	username: { checked: null, msg: "" },
 	password: { checked: null, msg: "" },
 	currency: { checked: null, msg: "" },
-	aff: { checked: null, msg: "" },
+	affCode: { checked: null, msg: "" },
 	checkbox: { checked: null, msg: "" }
 };
 
@@ -137,7 +137,7 @@ const JoinPanel = () => {
 			msg = t("lbl_UsernameTooltip");
 		} else if (col === "password") {
 			msg = t("lbl_PasswordTooltip");
-		} else if (col === "aff") {
+		} else if (col === "affCode") {
 			msg = t("lbl_Please_enter_Affiliate_ID");
 		}
 		if (tip[col].msg === msg) {
@@ -329,7 +329,7 @@ const JoinPanel = () => {
 		return checked;
 	};
 
-	const isUrlAff = getUrlParameter("aff") || readCookie("aff");
+	const isUrlAffCode = getUrlParameter("affCode") || readCookie("affCode");
 
 	const clickSubmit = e => {
 		e.preventDefault();
@@ -344,8 +344,8 @@ const JoinPanel = () => {
 			};
 
 			regData["RefId"] = getUrlParameter("RefId") || readCookie("RefId");
-			regData["AffId"] = getUrlParameter("AffId") || readCookie("AffId");
-			regData["Aff"] = isUrlAff ?? userValue.aff;
+			regData["Aff"] = getUrlParameter("Aff") || readCookie("Aff");
+			regData["AffCode"] = isUrlAffCode ?? userValue.affCode;
 			api_site_Register(regData).then(
 				res => {
 					if (isMountedRef.current) {
@@ -547,13 +547,12 @@ const JoinPanel = () => {
 						<Inputbox
 							icon="icon-affiliate txt-blue12"
 							placeholder={t("lbl_Affiliate_ID")}
-							value={isUrlAff ?? userValue.aff}
-							onChange={EditField.bind(null, "aff")}
-							readOnly={isUrlAff}
-							checked={tip.aff.checked}
-							tip={tip.aff.msg}
-							clickInfo={clickInfo.bind(this, "aff")}
-							// onBlur={checkValue.bind(null, "aff")}
+							value={isUrlAffCode ?? userValue.affCode}
+							onChange={EditField.bind(null, "affCode")}
+							readOnly={isUrlAffCode}
+							checked={tip.affCode.checked}
+							tip={tip.affCode.msg}
+							clickInfo={clickInfo.bind(this, "affCode")}
 						/>
 
 						{tip.currency.msg !== "" ? (
