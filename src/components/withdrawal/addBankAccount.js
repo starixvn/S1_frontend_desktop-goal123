@@ -91,23 +91,17 @@ export default props => {
 		);
 	};
 
-	const showAddButton = props.allBankCardData.length < 3 ? true : false;
+	if (props.bankInfoList.length >= 3) return null;
 
 	return (
-		<>
-			{showAddButton ? (
-				<div
-					className="addBankName noBank"
-					onClick={openPopBox}
-					role="button"
-					onKeyDown={openPopBox}
-					tabIndex="0">
-					<div className="icon icon-plus"></div>
-					<div className="txt-yellow">{t("lbl_AddNewAccount")}</div>
-				</div>
-			) : (
-				<></>
-			)}
-		</>
+		<div
+			className="addBankName noBank"
+			onClick={openPopBox}
+			role="button"
+			onKeyDown={openPopBox}
+			tabIndex="0">
+			<div className="icon icon-plus"></div>
+			<div className="txt-yellow">{t("lbl_AddNewAccount")}</div>
+		</div>
 	);
 };

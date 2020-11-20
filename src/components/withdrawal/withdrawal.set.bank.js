@@ -9,51 +9,44 @@ import BankInfoCard from "./withdrawal.set.bankInfoCard";
 import KycUpload from "./withdrawal.set.kycUpload";
 import KycPending from "./withdrawal.set.kycPending";
 import WithdrawalConfirm from "./withdrawal.set.confirm";
-import {
-	api_payment_WithdrawalReq,
-	api_payment_KycCheck
-} from "../../service/api/payment";
-import { api_account_GetWithdrawalAvailableBalance } from "../../service/api/account";
+import { api_payment_WithdrawalReq } from "../../service/api/payment";
 import { popBoxContext, userInfoContext } from "../common/context";
 import { defPopBoxType } from "../common/popBox";
 import { isConvert } from "../common/common";
 import StepBar from "../common/stepBar";
 import defStep from "../withdrawal/defStep";
 import { checkWithdrawalAmount, getAmountTip } from "../common/common";
-import Loading from "../common/loading";
 import { Link } from "@reach/router";
 import path from "../../path";
 
-export default props => {
+export default ({
+	balanceData,
+	kycStatus,
+	getWithdrawalInfoRecent,
+	getWithdrawalAvailableBalance,
+	getKycStatus
+}) => {
 	const { t } = useTranslation();
 	const { setPopBox } = useContext(popBoxContext);
 	const isMountedRef = useRef(null);
-	const [allBankCardData, setAllBankCardData] = useState([]);
-	const [balanceData, setBalanceData] = useState({});
 	const [sysIdValue, setSysIdValue] = useState(0);
 	const [accountNoValue, setAccountNoValue] = useState("");
 	const [bankNameValue, setBankNameValue] = useState("");
 	const [amountValue, setAmountValue] = useState("");
 	const [showConfirmPage, setShowConfirmPage] = useState(false);
 	const { userInfo } = useContext(userInfoContext);
+	const [bankInfoList, setBankInfoList] = useState([]);
 	const _isConvert = isConvert(userInfo.currencyId);
-	const [kycStatus, setKycStatus] = useState("");
 	const [status, setStatus] = useState({
 		checked: null,
 		tip: ""
 	});
-	const [loading, setLoading] = useState(true);
 	const [step, setStep] = useState(1);
 
 	useEffect(() => {
 		isMountedRef.current = true;
 		return () => (isMountedRef.current = false);
 	});
-
-	useEffect(() => {
-		getKycStatus();
-		getApiBalance();
-	}, []);
 
 	useEffect(() => {
 		if (userInfo.isLogin === true) {
@@ -87,7 +80,7 @@ export default props => {
 	useEffect(() => {
 		setStep(1);
 		// setAmountValue("");
-	}, [allBankCardData.length]);
+	}, [bankInfoList.length]);
 
 	const updateStep = () => {
 		if (sysIdValue === 0 || !sysIdValue) {
@@ -114,103 +107,14 @@ export default props => {
 		}
 	};
 
-	const getKycStatus = () => {
-		setLoading(true);
-
-		api_payment_KycCheck().then(
-			res => {
-				if (isMountedRef.current) {
-					if (res.data.errorCode === 0) {
-						setKycStatus("normal");
-					} else if (res.data.errorCode === 1) {
-						setKycStatus("kycUpload");
-					} else if (res.data.errorCode === 2) {
-						setKycStatus("kycPending");
-					}
-					setLoading(false);
-				}
-			},
-			err => {
-				if (isMountedRef.current) {
-					setPopBox({
-						isOpen: true,
-						popBoxType: defPopBoxType.ErrorMsg,
-						message: t("msg_ApiServerError"),
-						btnBar: (
-							<div className="btnGroup">
-								<button
-									className="btn-cancel"
-									onClick={ClickClose}>
-									{t("lbl_Close")}
-								</button>
-							</div>
-						)
-					});
-					setLoading(false);
-				}
-			}
-		);
-	};
-
-	const getApiBalance = () => {
-		api_account_GetWithdrawalAvailableBalance().then(
-			res => {
-				if (isMountedRef.current) {
-					if (res.data.errorCode === 0) {
-						setBalanceData(res.data.data);
-					} else {
-						setPopBox({
-							isOpen: true,
-							popBoxType: defPopBoxType.ErrorMsg,
-							message: res.data.message,
-							btnBar: (
-								<div className="btnGroup">
-									<button
-										className="btn-cancel"
-										onClick={ClickClose}>
-										{t("lbl_Close")}
-									</button>
-								</div>
-							)
-						});
-					}
-					setLoading(false);
-				}
-			},
-			err => {
-				if (isMountedRef.current) {
-					setPopBox({
-						isOpen: true,
-						popBoxType: defPopBoxType.ErrorMsg,
-						message: t("msg_ApiServerError"),
-						btnBar: (
-							<div className="btnGroup">
-								<button
-									className="btn-cancel"
-									onClick={ClickClose}>
-									{t("lbl_Close")}
-								</button>
-							</div>
-						)
-					});
-					setLoading(false);
-				}
-			}
-		);
-	};
-
 	const refreshAvailableBalance = () => {
-		getApiBalance();
+		getWithdrawalAvailableBalance();
 	};
 
-	const getBankCardValue = (childSysId, childAccountNo, bankName) => {
+	const setCurrentlyBankInfo = (childSysId, childAccountNo, bankName) => {
 		setSysIdValue(childSysId);
 		setAccountNoValue(childAccountNo);
 		setBankNameValue(bankName);
-	};
-
-	const getAllBankCardData = childValue => {
-		setAllBankCardData(childValue);
 	};
 
 	const onChangeAmount = e => {
@@ -283,7 +187,8 @@ export default props => {
 	const confirmSubmit = () => {
 		let ClickDone = () => {
 			setAmountValue("");
-			getApiBalance();
+			setCurrentlyBankInfo(0, 0, "");
+			refreshAvailableBalance();
 			setPopBox({
 				isOpen: false
 			});
@@ -293,7 +198,6 @@ export default props => {
 			});
 			setShowConfirmPage(false);
 			getKycStatus();
-			setSysIdValue(0);
 		};
 
 		let AccountNo = accountNoValue;
@@ -318,7 +222,7 @@ export default props => {
 								</div>
 							)
 						});
-						props.refreshHitory("refresh");
+						getWithdrawalInfoRecent();
 						getKycStatus();
 					} else if (res.data.errorCode === -1) {
 						setPopBox({
@@ -409,61 +313,62 @@ export default props => {
 		);
 	};
 
-	return loading ? (
-		<Loading />
-	) : (
-		<>
-			{kycStatus !== "normal" ? (
-				<>
-					<div className="inside-title icon icon-transfer">
-						<span>{t("lbl_Withdrawal")}</span>
-						<div>{t("lbl_SubmitPhotoIdHint")}</div>
-					</div>
-					{kycStatus === "kycUpload" ? (
-						<KycUpload getKycStatus={getKycStatus} />
-					) : (
-						<KycPending />
-					)}
-				</>
-			) : (
-				<>
-					<div className="inside-title icon icon-transfer">
-						<span>{t("lbl_Withdrawal")}</span>
-						<div>{t("lbl_UpdateBankInfo")}</div>
-					</div>
-					<StepBar step={step} t={t} defStep={defStep} />
-					<div className="walletModule">
-						<Available
-							availableBalance={balanceData.availableBalance}
-							refreshAvailableBalance={refreshAvailableBalance}
-							_isConvert={_isConvert}
-							accountName={userInfo.accountName}
-						/>
-					</div>
-					<div className="walletModule">
-						<div className="addBank">
-							<BankInfoCard
-								bankCardValue={getBankCardValue}
-								allBankCardData={getAllBankCardData}
-								_isConvert={_isConvert}
-								confirmPanel={showConfirmPage}
-							/>
-							<AddBankAccount allBankCardData={allBankCardData} />
-						</div>
+	if (kycStatus !== "normal")
+		return (
+			<>
+				<div className="inside-title icon icon-transfer">
+					<span>{t("lbl_Withdrawal")}</span>
+					<div>{t("lbl_SubmitPhotoIdHint")}</div>
+				</div>
+				{kycStatus === "kycUpload" ? (
+					<KycUpload getKycStatus={getKycStatus} />
+				) : (
+					<KycPending />
+				)}
+			</>
+		);
 
-						<div className="subModuleList">
-							<div className="subModule">
-								{!showConfirmPage ? (
-									<div className="subModuleBody">
-										<Calculation
-											balance={balanceData.balance}
-											deduction={balanceData.deduction}
-											availableBalance={
-												balanceData.availableBalance
-											}
-											_isConvert={_isConvert}
-										/>
-										{/* <CashBar
+	return (
+		<>
+			<div className="inside-title icon icon-transfer">
+				<span>{t("lbl_Withdrawal")}</span>
+				<div>{t("lbl_UpdateBankInfo")}</div>
+			</div>
+			<StepBar step={step} t={t} defStep={defStep} />
+			<div className="walletModule">
+				<Available
+					availableBalance={balanceData.availableBalance}
+					refreshAvailableBalance={refreshAvailableBalance}
+					_isConvert={_isConvert}
+					accountName={userInfo.accountName}
+				/>
+			</div>
+			<div className="walletModule">
+				<div className="addBank">
+					<BankInfoCard
+						setCurrentlyBankInfo={setCurrentlyBankInfo}
+						currentBankInfo={{
+							sysIdValue,
+							accountNoValue,
+							bankNameValue
+						}}
+						bankInfoList={bankInfoList}
+						setBankInfoList={setBankInfoList}
+						_isConvert={_isConvert}
+						confirmPanel={showConfirmPage}
+					/>
+					<AddBankAccount bankInfoList={bankInfoList} />
+				</div>
+
+				<div className="subModuleList">
+					<div className="subModule">
+						{!showConfirmPage ? (
+							<div className="subModuleBody">
+								<Calculation
+									balanceData={balanceData}
+									_isConvert={_isConvert}
+								/>
+								{/* <CashBar
 											onChangeAmount={onChangeAmount}
 											amountValue={amountValue}
 											availableBalance={
@@ -471,43 +376,38 @@ export default props => {
 											}
 											_isConvert={_isConvert}
 										/> */}
-										<InputModuleRow
-											onChangeAmount={onChangeAmount}
-											amountValue={amountValue}
-											sysIdValue={sysIdValue}
-											accountNoValue={accountNoValue}
-											toConfirmPage={toConfirmPage}
-											_isConvert={_isConvert}
-											status={status}
-											onBlur={ValidAmount.bind(
-												this,
-												amountValue
-											)}
-											clickInfo={clickInfo}
-											checked={status.checked}
-											tip={status.tip}
-										/>
-									</div>
-								) : (
-									<WithdrawalConfirm
-										bankNameValue={bankNameValue}
-										amountValue={
-											_isConvert
-												? amountValue * 1000
-												: amountValue
-										}
-										sysIdValue={sysIdValue}
-										accountNoValue={accountNoValue}
-										cancelSubmit={cancelSubmit}
-										confirmSubmit={confirmSubmit}
-										_isConvert={_isConvert}
-									/>
-								)}
+								<InputModuleRow
+									onChangeAmount={onChangeAmount}
+									amountValue={amountValue}
+									sysIdValue={sysIdValue}
+									accountNoValue={accountNoValue}
+									toConfirmPage={toConfirmPage}
+									_isConvert={_isConvert}
+									status={status}
+									onBlur={ValidAmount.bind(this, amountValue)}
+									clickInfo={clickInfo}
+									checked={status.checked}
+									tip={status.tip}
+								/>
 							</div>
-						</div>
+						) : (
+							<WithdrawalConfirm
+								bankNameValue={bankNameValue}
+								amountValue={
+									_isConvert
+										? amountValue * 1000
+										: amountValue
+								}
+								sysIdValue={sysIdValue}
+								accountNoValue={accountNoValue}
+								cancelSubmit={cancelSubmit}
+								confirmSubmit={confirmSubmit}
+								_isConvert={_isConvert}
+							/>
+						)}
 					</div>
-				</>
-			)}
+				</div>
+			</div>
 		</>
 	);
 };
