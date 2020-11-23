@@ -141,7 +141,6 @@ export default props => {
 							<li>{t("lbl_NationalIdentityCard")}</li>
 							<li>{t("lbl_Passport")}</li>
 							<li>{t("lbl_DrivingLicense")}</li>
-							<li>{t("lbl_BirthCertificate")}</li>
 						</ul>
 					</div>
 					<div className="btnGroup">
