@@ -120,7 +120,7 @@ export default () => {
 	const onChangePhone = e => {
 		let value = e.target.value;
 		let regex = /^(\(?\+?[0-9]*\?)?[0-9_]*$/;
-		if (!(regex.test(value) || value === "")) {
+		if (!(regex.test(value) || value === "")||value.length>10) {
 			return false;
 		} else {
 			setPhoneValue(value);
