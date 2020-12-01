@@ -4601,6 +4601,16 @@ article pre {
   color: #c6c6c6;
 }
 
+.rdt + .icon-checkmark {
+  margin-right: 0;
+  color: #259076;
+}
+
+.rdt + .icon-cross {
+  margin-right: 0;
+  color: #f73201;
+}
+
 .rdt .inputBox, .rdt .inputBox-org, .rdt .inputBox-white, .rdt .inputBox-blue, .rdt .inputBox-gray, .rdt .inputBox-yellow {
   width: 100%;
 }
