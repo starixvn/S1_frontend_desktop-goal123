@@ -155,7 +155,10 @@ const defPlatform = [
 	"pp",
 	"sg",
 	"pg",
-	"wm"
+	"ae",
+	"eb",
+	"wm",
+	"s123"
 ];
 
 const Platforms = () => {
